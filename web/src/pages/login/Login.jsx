@@ -1,88 +1,123 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../AuthProvider";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, provider } from "../../firebase";
-import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
+import {
+  Alert,
+  AlertTitle,
+  Container,
+  Stack,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const Login = () => {
-  const { setUser, setUserid } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // UNSURE ABOUT GOOGLE LOGIN?
-  const googleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
+  // const googleLogin = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       // ...
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+  // };
 
   const signin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setUser(email);
-        // REACT NATIVE: This line was for when I had email and password login
-        // navigation.navigate("Home");
+        // SET USER - REDUX
+        // setUser(email);
+        // NAVIGATE - REACT ROUTER
+        dispatch(authenticated.actions.login());
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
+        setError(error.message);
       });
+  };
+
+  const typeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const typePassword = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
     <Container maxWidth="xs">
-      Sign in
-      <FormGroup>
+      <Stack spacing={2} mt={12}>
+        <Typography
+          variant="h1"
+          fontSize={24}
+          fontWeight={400}
+          textAlign="center"
+        >
+          Sign in
+        </Typography>
         <TextField
-          id="outlined-basic"
           label="Email Address"
           variant="outlined"
-          margin="normal"
+          fullWidth
           required={true}
-          // value={email}
-          onChange={setEmail}
+          onChange={typeEmail}
+          autoComplete="true"
         />
         <TextField
-          id="outlined-basic"
           label="Password"
           variant="outlined"
-          margin="normal"
+          fullWidth
           type="password"
-          autoComplete="current-password"
           required={true}
-          // value={password}
-          onChange={setPassword}
+          onChange={typePassword}
         />
-        <FormControlLabel control={<Checkbox />} label="Remember me" />
-        <Button variant="contained">SIGN IN</Button>
-        <Button>Forgot password?</Button>
-        <Button href="/signup">Don't have an account? Sign up</Button>
-      </FormGroup>
+        {/* SOME ACTION FOR "REMEMBER ME - REDUX" */}
+        {/* <FormControlLabel
+          control={<Checkbox defaultChecked />}
+          label="Remember me"
+        /> */}
+        {error.length > 0 && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
+        <Button variant="contained" fullWidth size="large" onClick={signin}>
+          SIGN IN
+        </Button>
+        <Stack direction="row" justifyContent="space-between">
+          {/* FORGOT PASSWORD - HOW TO RESEND GOOGLE */}
+          <Button width={6}>Forgot password?</Button>
+          <Button href="/signup" width={6}>
+            New to the site? Sign up
+          </Button>
+        </Stack>
+      </Stack>
     </Container>
   );
 };

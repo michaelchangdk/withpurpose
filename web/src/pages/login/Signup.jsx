@@ -1,27 +1,29 @@
-import React, { useState, useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { AuthContext } from "../AuthProvider";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
 import { auth, provider } from "../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  updateProfile,
-} from "firebase/auth";
-import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
+  Alert,
+  AlertTitle,
+  Container,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 const Signup = () => {
-  const { setUser, setUserid } = useContext(AuthContext);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // UNSURE ABOUT GOOGLE LOGIN?
   // const googleLogin = () => {
@@ -47,20 +49,28 @@ const Signup = () => {
   // };
 
   const register = () => {
+    // ADD AUTHENTICATION FOR FIRST AND LAST NAME! Disable / don't allow
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        console.log(userCredential.user);
         const user = userCredential.user;
         updateProfile(user, {
           displayName: `${firstname} ${lastname}`,
         });
         // Also create user in Sanity Studio here
-        setUser(userCredential.user.email);
-        setUserid(userCredential.user.uid);
+
+        // PULL IN LIST OF LESSONS FROM SANITY - SEND IT AS AN OBJECT W USER CREATION
+        // GET ID OF TASK + BOOLEAN
+        // AND ADD BOOLEAN FOR COMPLETION
+        // setUser(userCredential.user.email);
+        // setUserid(userCredential.user.uid);
+        dispatch(authenticated.actions.login());
         // userCredential.user.displayName = firstname + lastname
-        navigate("/startup-school-elearning");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
+        setError(error.message);
         // Firebase: Error (auth/invalid-email).
         // Use above msg to provide error msg to user
       });
@@ -84,52 +94,66 @@ const Signup = () => {
 
   return (
     <Container maxWidth="xs">
-      Sign up
-      <FormGroup autoComplete="on">
+      <Stack spacing={2} mt={12}>
+        <Typography
+          variant="h1"
+          fontSize={24}
+          fontWeight={400}
+          textAlign="center"
+        >
+          Sign up
+        </Typography>
+
+        <Stack spacing={2} direction="row">
+          <TextField
+            label="First Name"
+            variant="outlined"
+            required={true}
+            autoComplete="true"
+            fullWidth
+            onChange={typeFirstname}
+          />
+          <TextField
+            label="Last Name"
+            variant="outlined"
+            required={true}
+            autoComplete="true"
+            fullWidth
+            onChange={typeLastname}
+          />
+        </Stack>
         <TextField
-          id="outlined-basic"
-          label="First Name"
-          variant="outlined"
-          margin="normal"
-          required={true}
-          onChange={typeFirstname}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Last Name"
-          variant="outlined"
-          margin="normal"
-          required={true}
-          onChange={typeLastname}
-        />
-        <TextField
-          id="outlined-basic"
           label="Email Address"
           variant="outlined"
-          margin="normal"
           required={true}
+          autoComplete="true"
+          fullWidth
           onChange={typeEmail}
         />
         <TextField
-          id="outlined-basic"
           label="Password"
           variant="outlined"
-          margin="normal"
           type="password"
-          autoComplete="current-password"
           required={true}
+          fullWidth
           onChange={typePassword}
         />
-        <FormControlLabel
-          control={<Checkbox />}
+        {/* Add text next to checkbox? */}
+        {/* <FormControlLabel
+          control={<Checkbox defaultChecked />}
           label="Join this site's community. Read more"
-          checked
-        />
-        <Button variant="contained" onClick={register}>
+        /> */}
+        {error.length > 0 && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
+        <Button variant="contained" fullWidth size="large" onClick={register}>
           SIGN UP
         </Button>
         <Button href="/login">Already have an account? Sign in</Button>
-      </FormGroup>
+      </Stack>
     </Container>
   );
 };

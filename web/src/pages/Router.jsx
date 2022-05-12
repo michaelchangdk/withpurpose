@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthContext } from "./AuthProvider";
 import Homepage from "./public/Homepage";
 import OpenLetter from "./public/OpenLetter";
 import StartupSchool from "./public/StartupSchool";
@@ -15,19 +15,20 @@ import Signup from "./login/Signup";
 import LandingPage from "./authenticated/LandingPage";
 import WeekOverview from "./authenticated/WeekOverview";
 import WeekPage from "./authenticated/WeekPage";
+import ModulePage from "./authenticated/ModulePage";
 import MasterClass from "./authenticated/MasterclassPage";
 import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
 
-const PublicRoutes = () => {
-  // Use Redux for user instead of usecontext, usecontext disappears on reload
-  const { user } = useContext(AuthContext);
+const Router = () => {
+  const loggedin = useSelector((store) => store.authenticated.loggedin);
+  console.log(useSelector((store) => store.authenticated));
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={user ? <LandingPage /> : <Homepage />} />
+        <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />
         <Route path="/openletter" element={<OpenLetter />} />
         <Route path="/startup-school" element={<StartupSchool />} />
         <Route path="/blog" element={<BlogList />} />
@@ -39,8 +40,11 @@ const PublicRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         {/* NEED USER below */}
+        <Route path="/startup-school-elearning" element={<LandingPage />} />
         <Route path="/startup-school-2-0" element={<WeekOverview />} />
+        {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
         <Route path="/week/:week" element={<WeekPage />} />
+        <Route path="/module/:module" element={<ModulePage />} />
         <Route path="/masterclass" element={<MasterClass />} />
         <Route path="/book-a-mentor" element={<MentorsPrivate />} />
         <Route path="/community" element={<AlumniPrivate />} />
@@ -50,4 +54,4 @@ const PublicRoutes = () => {
   );
 };
 
-export default PublicRoutes;
+export default Router;

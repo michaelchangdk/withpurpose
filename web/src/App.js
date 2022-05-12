@@ -1,16 +1,25 @@
 // INSTEAD OF USECONTEXT, LET'S USE REDUX + REACT ROUTER
 // LOCAL STORAGE FOR SAVING LOGGED IN?
-
 import React from "react";
-import { AuthProvider } from "./pages/AuthProvider";
-import Routes from "./pages/Routes";
-// import Router from "./pages/Router";
+import { Provider } from "react-redux";
+import { compose, createStore, combineReducers } from "@reduxjs/toolkit";
+import persistState from "redux-localstorage";
+import Router from "./pages/Router";
+import { authenticated } from "./reducers/authenticated";
+
+const enhancer = compose(persistState());
+
+const reducer = combineReducers({
+  authenticated: authenticated.reducer,
+});
+
+const store = createStore(reducer, enhancer);
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   );
 };
 
