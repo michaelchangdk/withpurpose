@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import {
   signInWithEmailAndPassword,
@@ -7,12 +6,20 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, provider } from "../../firebase";
+import styled from "styled-components";
+import TextField from "@mui/material/TextField";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const Login = () => {
   const { setUser, setUserid } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // UNSURE ABOUT GOOGLE LOGIN?
   const googleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -48,10 +55,47 @@ const Login = () => {
   };
 
   return (
-    <>
-      Login Page. Don't have a user? Sign up <Link to="/signup">here!</Link>
-    </>
+    <Container>
+      Sign in
+      <FormGroup>
+        <TextField
+          id="outlined-basic"
+          label="Email Address"
+          variant="outlined"
+          margin="normal"
+          required={true}
+          // value={email}
+          onChange={setEmail}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Password"
+          variant="outlined"
+          margin="normal"
+          type="password"
+          autoComplete="current-password"
+          required={true}
+          // value={password}
+          onChange={setPassword}
+        />
+        <FormControlLabel control={<Checkbox />} label="Remember me" />
+        <Button variant="contained">SIGN IN</Button>
+      </FormGroup>
+      <Stack direction="row" spacing={2} alignItems="center">
+        <Button>Forgot password?</Button>
+        <Button href="/signup">Don't have an account? Sign up</Button>
+      </Stack>
+    </Container>
   );
 };
 
 export default Login;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  margin: 0 auto;
+`;
