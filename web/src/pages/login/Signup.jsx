@@ -5,19 +5,20 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
 } from "firebase/auth";
-import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
 
 const Signup = () => {
   const { setUser, setUserid } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
 
@@ -46,8 +47,13 @@ const Signup = () => {
 
   const register = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: `${firstname} ${lastname}`,
+        });
         // Also create user in Sanity Studio here
+        console.log(userCredential);
         console.log("Registered, please login.");
         setUser(email);
       })
@@ -56,36 +62,49 @@ const Signup = () => {
       });
   };
 
+  const typeFirstname = (e) => {
+    setFirstname(e.target.value);
+  };
+
+  const typeLastname = (e) => {
+    setLastname(e.target.value);
+  };
+
+  const typeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const typePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
-    <Container>
+    <Container maxWidth="xs">
       Sign up
-      <FormGroup>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <TextField
-            id="outlined-basic"
-            label="First Name"
-            variant="outlined"
-            margin="normal"
-            required={true}
-            onChange={setFirstname}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Last Name"
-            variant="outlined"
-            margin="normal"
-            required={true}
-            onChange={setLastname}
-          />
-        </Stack>
+      <FormGroup autoComplete="on">
+        <TextField
+          id="outlined-basic"
+          label="First Name"
+          variant="outlined"
+          margin="normal"
+          required={true}
+          onChange={typeFirstname}
+        />
+        <TextField
+          id="outlined-basic"
+          label="Last Name"
+          variant="outlined"
+          margin="normal"
+          required={true}
+          onChange={typeLastname}
+        />
         <TextField
           id="outlined-basic"
           label="Email Address"
           variant="outlined"
           margin="normal"
           required={true}
-          // value={email}
-          onChange={setEmail}
+          onChange={typeEmail}
         />
         <TextField
           id="outlined-basic"
@@ -95,30 +114,20 @@ const Signup = () => {
           type="password"
           autoComplete="current-password"
           required={true}
-          // value={password}
-          onChange={setPassword}
+          onChange={typePassword}
         />
         <FormControlLabel
           control={<Checkbox />}
           label="Join this site's community. Read more"
           checked
         />
-        <Button variant="contained">SIGN UP</Button>
-      </FormGroup>
-      <Stack direction="row" spacing={2}>
+        <Button variant="contained" onClick={register}>
+          SIGN UP
+        </Button>
         <Button href="/login">Already have an account? Sign in</Button>
-      </Stack>
+      </FormGroup>
     </Container>
   );
 };
 
 export default Signup;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  margin: 0 auto;
-`;

@@ -6,13 +6,13 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth, provider } from "../../firebase";
-import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
 
 const Login = () => {
   const { setUser, setUserid } = useContext(AuthContext);
@@ -55,7 +55,7 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="xs">
       Sign in
       <FormGroup>
         <TextField
@@ -80,22 +80,11 @@ const Login = () => {
         />
         <FormControlLabel control={<Checkbox />} label="Remember me" />
         <Button variant="contained">SIGN IN</Button>
-      </FormGroup>
-      <Stack direction="row" spacing={2} alignItems="center">
         <Button>Forgot password?</Button>
         <Button href="/signup">Don't have an account? Sign up</Button>
-      </Stack>
+      </FormGroup>
     </Container>
   );
 };
 
 export default Login;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  margin: 0 auto;
-`;
