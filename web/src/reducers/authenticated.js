@@ -4,6 +4,7 @@ export const authenticated = createSlice({
   name: "authenticated",
   initialState: {
     loggedin: false,
+    uid: "",
   },
 
   reducers: {
@@ -14,6 +15,7 @@ export const authenticated = createSlice({
     logout: (state, action) => {
       console.log(action.payload);
       state.loggedin = false;
+      state.uid = "";
     },
   },
 });

@@ -3,15 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, provider } from "../../firebase";
+import { auth } from "../../firebase";
 import {
   Alert,
   AlertTitle,
   Container,
   Stack,
   Button,
-  Checkbox,
-  FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
@@ -23,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // UNSURE ABOUT GOOGLE LOGIN?
+  // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
   // const googleLogin = () => {
   //   signInWithPopup(auth, provider)
   //     .then((result) => {
@@ -49,10 +47,8 @@ const Login = () => {
   const signin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // SET USER - REDUX
-        // setUser(email);
-        // NAVIGATE - REACT ROUTER
         dispatch(authenticated.actions.login());
+        // dispatch UID for tracking progress
         navigate("/");
       })
       .catch((error) => {
@@ -96,11 +92,6 @@ const Login = () => {
           required={true}
           onChange={typePassword}
         />
-        {/* SOME ACTION FOR "REMEMBER ME - REDUX" */}
-        {/* <FormControlLabel
-          control={<Checkbox defaultChecked />}
-          label="Remember me"
-        /> */}
         {error.length > 0 && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>

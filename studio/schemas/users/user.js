@@ -4,14 +4,22 @@ export default {
   type: "document",
   fields: [
     {
-      name: "name",
-      title: "First name",
+      name: "displayName",
+      title: "Display name",
       type: "string",
+      description: "Do not edit!",
     },
     {
       name: "uniqueid",
       title: "Unique ID",
       type: "string",
+      description: "Do not edit!",
+    },
+    {
+      name: "email",
+      title: "Email",
+      type: "string",
+      description: "Do not edit!",
     },
     {
       name: "approvedSchool",
@@ -58,5 +66,7 @@ export default {
       title: "Approved Master Class?",
       type: "boolean",
     },
+    // OBJECT: pass along ID of week + module + lesson together with a boolean for each
+    // REFERENCE TO LESSON
   ],
 };

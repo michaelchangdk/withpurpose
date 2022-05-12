@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
-import { auth, provider } from "../../firebase";
+import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {
   Alert,
   AlertTitle,
   Container,
   Button,
-  Checkbox,
-  FormControlLabel,
+  // Checkbox,
+  // FormControlLabel,
   TextField,
   Stack,
   Typography,
 } from "@mui/material";
+import { client } from "../../client";
 
 const Signup = () => {
   const [email, setEmail] = useState();
@@ -25,7 +26,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // UNSURE ABOUT GOOGLE LOGIN?
+  // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
   // const googleLogin = () => {
   //   signInWithPopup(auth, provider)
   //     .then((result) => {
@@ -62,17 +63,27 @@ const Signup = () => {
         // PULL IN LIST OF LESSONS FROM SANITY - SEND IT AS AN OBJECT W USER CREATION
         // GET ID OF TASK + BOOLEAN
         // AND ADD BOOLEAN FOR COMPLETION
-        // setUser(userCredential.user.email);
-        // setUserid(userCredential.user.uid);
-        dispatch(authenticated.actions.login());
+        const doc = {
+          _id: userCredential.user.uid,
+          _type: "user",
+          displayName: `${firstname} ${lastname}`,
+          uniqueid: userCredential.user.uid,
+          email: userCredential.user.email,
+        };
+
+        // userCredential.user.email;
+        // userCredential.user.uid
         // userCredential.user.displayName = firstname + lastname
-        navigate("/");
+
+        client.createIfNotExists(doc).then(() => {
+          // dispatch UID for tracking progress
+          dispatch(authenticated.actions.login());
+          navigate("/");
+        });
       })
       .catch((error) => {
         console.log(error.message);
         setError(error.message);
-        // Firebase: Error (auth/invalid-email).
-        // Use above msg to provide error msg to user
       });
   };
 
