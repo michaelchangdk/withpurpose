@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider";
 import { auth, provider } from "../../firebase";
 import {
@@ -12,7 +13,6 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 
 const Signup = () => {
@@ -21,29 +21,30 @@ const Signup = () => {
   const [password, setPassword] = useState();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const navigate = useNavigate();
 
   // UNSURE ABOUT GOOGLE LOGIN?
-  const googleLogin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  };
+  // const googleLogin = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result);
+  //       const token = credential.accessToken;
+  //       // The signed-in user info.
+  //       const user = result.user;
+  //       // ...
+  //     })
+  //     .catch((error) => {
+  //       // Handle Errors here.
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // The email of the user's account used.
+  //       const email = error.email;
+  //       // The AuthCredential type that was used.
+  //       const credential = GoogleAuthProvider.credentialFromError(error);
+  //       // ...
+  //     });
+  // };
 
   const register = () => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -53,12 +54,15 @@ const Signup = () => {
           displayName: `${firstname} ${lastname}`,
         });
         // Also create user in Sanity Studio here
-        console.log(userCredential);
-        console.log("Registered, please login.");
-        setUser(email);
+        setUser(userCredential.user.email);
+        setUserid(userCredential.user.uid);
+        // userCredential.user.displayName = firstname + lastname
+        navigate("/startup-school-elearning");
       })
       .catch((error) => {
         console.log(error.message);
+        // Firebase: Error (auth/invalid-email).
+        // Use above msg to provide error msg to user
       });
   };
 
