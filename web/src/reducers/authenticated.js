@@ -5,17 +5,19 @@ export const authenticated = createSlice({
   initialState: {
     loggedin: false,
     uid: "",
+    displayName: "",
   },
 
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
       state.loggedin = true;
+      state.uid = action.payload.uid;
+      state.displayName = action.payload.displayName;
     },
     logout: (state, action) => {
-      console.log(action.payload);
       state.loggedin = false;
       state.uid = "";
+      state.displayName = "";
     },
   },
 });

@@ -1,7 +1,13 @@
 import React from "react";
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
 
 const MentorsPrivate = () => {
-  return <>Mentors Private Page</>;
+  return (
+    <>
+      <HeaderAuth />
+      Mentors Private Page
+    </>
+  );
 };
 
 export default MentorsPrivate;

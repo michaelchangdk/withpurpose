@@ -1,7 +1,13 @@
 import React from "react";
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
 
 const AlumniPrivate = () => {
-  return <>Alumni Private</>;
+  return (
+    <>
+      <HeaderAuth />
+      Alumni Private
+    </>
+  );
 };
 
 export default AlumniPrivate;

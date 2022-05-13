@@ -1,7 +1,12 @@
 import React from "react";
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
 
 const WeekPage = () => {
-  return <></>;
+  return (
+    <>
+      <HeaderAuth />
+    </>
+  );
 };
 
 export default WeekPage;

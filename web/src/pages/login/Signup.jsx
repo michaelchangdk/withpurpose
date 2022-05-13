@@ -77,7 +77,12 @@ const Signup = () => {
 
         client.createIfNotExists(doc).then(() => {
           // dispatch UID for tracking progress
-          dispatch(authenticated.actions.login());
+          dispatch(
+            authenticated.actions.login({
+              uid: userCredential.user.uid,
+              displayName: `${firstname} ${lastname}`,
+            })
+          );
           navigate("/");
         });
       })

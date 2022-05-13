@@ -20,6 +20,7 @@ import MasterClass from "./authenticated/MasterclassPage";
 import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
+import PleaseLogin from "./login/PleaseLogin";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -40,15 +41,39 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         {/* NEED USER below */}
-        <Route path="/startup-school-elearning" element={<LandingPage />} />
-        <Route path="/startup-school-2-0" element={<WeekOverview />} />
+        <Route
+          path="/startup-school-elearning"
+          element={loggedin ? <LandingPage /> : <PleaseLogin />}
+        />
+        <Route
+          path="/startup-school-weeks"
+          element={loggedin ? <WeekOverview /> : <PleaseLogin />}
+        />
         {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
-        <Route path="/week/:week" element={<WeekPage />} />
-        <Route path="/module/:module" element={<ModulePage />} />
-        <Route path="/masterclass" element={<MasterClass />} />
-        <Route path="/book-a-mentor" element={<MentorsPrivate />} />
-        <Route path="/community" element={<AlumniPrivate />} />
-        <Route path="/profile/:user" element={<ProfilePage />} />
+        <Route
+          path="/week/:week"
+          element={loggedin ? <WeekPage /> : <PleaseLogin />}
+        />
+        <Route
+          path="/module/:module"
+          element={loggedin ? <ModulePage /> : <PleaseLogin />}
+        />
+        <Route
+          path="/masterclass"
+          element={loggedin ? <MasterClass /> : <PleaseLogin />}
+        />
+        <Route
+          path="/book-a-mentor"
+          element={loggedin ? <MentorsPrivate /> : <PleaseLogin />}
+        />
+        <Route
+          path="/community"
+          element={loggedin ? <AlumniPrivate /> : <PleaseLogin />}
+        />
+        <Route
+          path="/profile/:user"
+          element={loggedin ? <ProfilePage /> : <PleaseLogin />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -47,7 +47,12 @@ const Login = () => {
   const signin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        dispatch(authenticated.actions.login());
+        dispatch(
+          authenticated.actions.login({
+            uid: userCredential.user.uid,
+            displayName: userCredential.user.displayName,
+          })
+        );
         // dispatch UID for tracking progress
         navigate("/");
       })
