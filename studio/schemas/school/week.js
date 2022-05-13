@@ -48,6 +48,12 @@ export default {
         "Turn on if you want to display session time, leave off if time is not yet determined. Please remember to check the time is correct in the timepicker before switching on.",
     },
     {
+      name: "order",
+      title: "Order of weeks",
+      type: "number",
+      description: "Do not edit!",
+    },
+    {
       name: "module",
       title: "Modules",
       type: "array",
