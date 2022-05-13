@@ -12,6 +12,9 @@ import alumni from "./people/alumni";
 import studentMentors from "./people/studentmentors";
 import companyMentors from "./people/companymentors";
 
+// Import Pages
+import landingpage from "./pages/members/landingpage";
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -27,6 +30,7 @@ export default createSchema({
     alumni,
     studentMentors,
     companyMentors,
+    landingpage,
     /* Your types here! */
   ]),
 });
