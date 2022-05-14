@@ -17,6 +17,18 @@ export default {
       description: "E.g. Week 0",
     },
     {
+      name: "keyword",
+      title: "Week Keyword",
+      type: "string",
+      description: "E.g. Translation",
+    },
+    {
+      name: "shortDescription",
+      title: "Week Short Description",
+      type: "string",
+      description: "E.g. Translate your Startup Vision Into a Business Model",
+    },
+    {
       name: "subtitle",
       title: "Week Subtitle",
       type: "string",
@@ -38,14 +50,7 @@ export default {
     {
       name: "liveSessionDate",
       title: "Live Session Date",
-      type: "datetime",
-    },
-    {
-      name: "liveSessionTimeDisplay",
-      title: "Display live session time?",
-      type: "boolean",
-      description:
-        "Turn on if you want to display session time, leave off if time is not yet determined. Please remember to check the time is correct in the timepicker before switching on.",
+      type: "string",
     },
     {
       name: "order",
