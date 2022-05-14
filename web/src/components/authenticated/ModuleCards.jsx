@@ -33,27 +33,27 @@ const CircularProgressWithLabel = (props) => {
   );
 };
 
-const ModuleCards = () => {
+const ModuleCards = ({ duration, name, title, type }) => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
   return (
     <Card sx={{ maxWidth: 345, minHeight: 150, padding: 1 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="caption">Title</Typography>
+        <Typography variant="caption">{type}</Typography>
         <CircularProgressWithLabel value={progress} />
       </Stack>
       <Typography variant="body1" fontWeight={500}>
-        Short Description
+        {title}
       </Typography>
       <Typography variant="body2" fontWeight={300} fontSize={14}>
-        Icon
+        Icon - {type}
       </Typography>
       <Typography variant="body2" fontWeight={300} fontSize={12}>
-        Duration
+        {duration}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={() => navigate(`/module/:module`)}>Start</Button>
+      <Button onClick={() => navigate(`/module/${name}`)}>Start</Button>
     </Card>
   );
 };

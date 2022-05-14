@@ -11,6 +11,12 @@ export default {
         "Name the week after these conventions: W#M#, e.g. W0M1 for Week 0 Module 1. This is to keep the modules in the correct order.",
     },
     {
+      name: "order",
+      title: "Module Order",
+      type: "number",
+      description: "E.g. 1, 2, 3, 4...",
+    },
+    {
       name: "title",
       title: "Module Title",
       type: "string",

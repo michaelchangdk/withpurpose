@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import ModuleCards from "../../components/authenticated/ModuleCards";
 
 const WeekPage = () => {
   const [title, setTitle] = useState("");
@@ -24,7 +25,7 @@ const WeekPage = () => {
     setModuleQueries(
       response[0].module.map(
         (module) =>
-          `*[_type == "module" && _id == "${module._ref}"] {duration, name, title, type, _id}`
+          `*[_type == "module" && _id == "${module._ref}"] {duration, order, name, title, type, _id}`
       )
     );
   };
@@ -37,7 +38,7 @@ const WeekPage = () => {
         })
       )
     ).then(() => {
-      modulesArray.sort((a, b) => a.name - b.name);
+      modulesArray.sort((a, b) => a.order - b.order);
       setModules(modulesArray);
       setLoading(false);
     });
@@ -60,7 +61,15 @@ const WeekPage = () => {
       <p>{description}</p>
       {loading && <p>Loading...</p>}
       {!loading &&
-        modules.map((module) => <div key={module.title}>{module.title}</div>)}
+        modules.map((module) => (
+          <ModuleCards
+            key={module.title}
+            duration={module.duration}
+            name={module.name}
+            title={module.title}
+            type={module.type}
+          />
+        ))}
     </>
   );
 };

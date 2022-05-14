@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 
 import { client } from "../../client";
-import { Button } from "@mui/material";
 import WeekCards from "../../components/authenticated/WeekCards";
 
 const WeekOverview = () => {

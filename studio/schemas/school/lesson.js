@@ -11,6 +11,12 @@ export default {
         "Please use the following convention: W0M1L01 (Week 0, Module 1, Lesson 01) for ordering the lessons in the correct order.",
     },
     {
+      name: "order",
+      title: "Lesson Order",
+      type: "number",
+      description: "E.g. 1, 2, 3, 4...",
+    },
+    {
       name: "name",
       title: "Title",
       type: "string",
