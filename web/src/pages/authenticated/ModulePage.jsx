@@ -6,12 +6,10 @@ import LessonList from "../../components/authenticated/LessonList";
 
 const ModulePage = () => {
   const { module } = useParams();
-  const [moduleType, setModuleType] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
   const [lessonQueries, setLessonQueries] = useState([]);
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [videoUrl, selectVideoUrl] = useState("");
   let lessonsArray = [];
 
   const moduleQuery = `*[_type == "module" && name == "${module}"]`;
@@ -22,7 +20,6 @@ const ModulePage = () => {
     if (response[0].description) {
       setModuleDescription(response[0].description);
     }
-    setModuleType(response[0].type);
     setLessonQueries(
       response[0].lesson.map(
         (lesson) => `*[_type == "lesson" && _id == "${lesson._ref}"]`
@@ -59,7 +56,7 @@ const ModulePage = () => {
       <HeaderAuth />
       {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION! */}
       {moduleDescription.length > 0 && <div>{moduleDescription}</div>}
-      <LessonList lessons={lessons} selectVideoUrl={selectVideoUrl} />
+      <LessonList lessons={lessons} />
     </>
   );
 };
