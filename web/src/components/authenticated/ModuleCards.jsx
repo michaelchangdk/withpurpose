@@ -33,37 +33,29 @@ const CircularProgressWithLabel = (props) => {
   );
 };
 
-const WeekCards = ({
-  title,
-  keyword,
-  shortDescription,
-  liveSessionTitle,
-  liveSessionDate,
-  name,
-}) => {
+const ModuleCards = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
+
   return (
     <Card sx={{ maxWidth: 345, minHeight: 150, padding: 1 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="caption">
-          {title} | {keyword}
-        </Typography>
+        <Typography variant="caption">Title</Typography>
         <CircularProgressWithLabel value={progress} />
       </Stack>
       <Typography variant="body1" fontWeight={500}>
-        {shortDescription}
+        Short Description
       </Typography>
       <Typography variant="body2" fontWeight={300} fontSize={14}>
-        {liveSessionTitle}
+        Icon
       </Typography>
       <Typography variant="body2" fontWeight={300} fontSize={12}>
-        {liveSessionDate}
+        Duration
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={() => navigate(`/week/${name}`)}>Start</Button>
+      <Button onClick={() => navigate(`/module/:module`)}>Start</Button>
     </Card>
   );
 };
 
-export default WeekCards;
+export default ModuleCards;
