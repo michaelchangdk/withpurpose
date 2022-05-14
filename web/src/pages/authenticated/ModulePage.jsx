@@ -47,6 +47,7 @@ const ModulePage = () => {
 
   useEffect(() => {
     fetchAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   console.log(moduleType, lessons, videoUrl);
