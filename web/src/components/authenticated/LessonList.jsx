@@ -7,8 +7,12 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 
-const LessonList = ({ lessons, selectVideoUrl }) => {
+const LessonList = ({ lessons }) => {
+  const [videoUrl, selectVideoUrl] = useState("");
   const [checked, setChecked] = useState([1]);
+  const [taskDescription, setTaskDescription] = useState("");
+  const [taskLink, setTaskLink] = useState("");
+  const [taskLinkText, setTaskLinkText] = useState("");
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -23,8 +27,37 @@ const LessonList = ({ lessons, selectVideoUrl }) => {
     setChecked(newChecked);
   };
 
+  const clickTask = (lesson) => {
+    if (lesson.isVideo === true) {
+      selectVideoUrl(lesson.videoUrl);
+    } else {
+      setTaskDescription(lesson.taskDescription);
+      setTaskLink(lesson.otherUrl);
+      setTaskLinkText(lesson.otherUrlText);
+    }
+    console.log(lesson);
+  };
+
   return (
     <>
+      {videoUrl.length > 0 && (
+        <div>
+          <iframe
+            title="video"
+            src={videoUrl}
+            allowFullScreen
+            frameBorder="0"
+          />
+        </div>
+      )}
+      {taskDescription.length > 0 && (
+        <div>
+          <p>{taskDescription}</p>
+          <a href={taskLink} target="_blank" rel="noreferrer">
+            {taskLinkText}
+          </a>
+        </div>
+      )}
       <List
         dense
         sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -44,7 +77,7 @@ const LessonList = ({ lessons, selectVideoUrl }) => {
               }
               disablePadding
             >
-              <ListItemButton onClick={() => selectVideoUrl(lesson.videoUrl)}>
+              <ListItemButton onClick={() => clickTask(lesson)}>
                 <ListItemAvatar>
                   <Avatar
                     alt={`Avatar n°${lesson.title + 1}`}
