@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import ModuleCards from "../../components/authenticated/ModuleCards";
+import { PageContainer } from "../../styledcomponents/globalstyles";
 
 const WeekPage = () => {
   const [title, setTitle] = useState("");
@@ -57,20 +58,22 @@ const WeekPage = () => {
   return (
     <>
       <HeaderAuth />
-      <p>{title}</p>
-      <p>{subtitle}</p>
-      <p>{description}</p>
-      {loading && <p>Loading...</p>}
-      {!loading &&
-        modules.map((module) => (
-          <ModuleCards
-            key={module.title}
-            duration={module.duration}
-            name={module.name}
-            title={module.title}
-            type={module.type}
-          />
-        ))}
+      <PageContainer>
+        <p>{title}</p>
+        <p>{subtitle}</p>
+        <p>{description}</p>
+        {loading && <p>Loading...</p>}
+        {!loading &&
+          modules.map((module) => (
+            <ModuleCards
+              key={module.title}
+              duration={module.duration}
+              name={module.name}
+              title={module.title}
+              type={module.type}
+            />
+          ))}
+      </PageContainer>
     </>
   );
 };

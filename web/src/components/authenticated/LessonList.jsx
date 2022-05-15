@@ -6,6 +6,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
+import { PageContainer } from "../../styledcomponents/globalstyles";
+import styled from "styled-components";
 
 const LessonList = ({ lessons }) => {
   const [videoUrl, selectVideoUrl] = useState("");
@@ -39,15 +41,17 @@ const LessonList = ({ lessons }) => {
   };
 
   return (
-    <>
+    <PageContainer>
       {videoUrl.length > 0 && (
         <div>
-          <iframe
-            title="video"
-            src={videoUrl}
-            allowFullScreen
-            frameBorder="0"
-          />
+          <FrameDiv>
+            <IFrame
+              title="video"
+              src={videoUrl}
+              allowFullScreen
+              frameBorder="0"
+            />
+          </FrameDiv>
         </div>
       )}
       {taskDescription.length > 0 && (
@@ -60,7 +64,12 @@ const LessonList = ({ lessons }) => {
       )}
       <List
         dense
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        sx={{
+          width: "100%",
+          // maxWidth: 360,
+          bgcolor: "background.paper",
+          mx: "auto",
+        }}
       >
         {lessons.map((lesson) => {
           const labelId = `checkbox-list-secondary-label-${lesson.title}`;
@@ -94,8 +103,21 @@ const LessonList = ({ lessons }) => {
           );
         })}
       </List>
-    </>
+    </PageContainer>
   );
 };
 
 export default LessonList;
+
+const FrameDiv = styled.div`
+  position: relative;
+  padding-top: 56.25%;
+`;
+
+const IFrame = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;

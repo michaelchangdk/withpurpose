@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import { PageContainer } from "../../styledcomponents/globalstyles";
 
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
@@ -21,20 +22,22 @@ const WeekOverview = () => {
   return (
     <>
       <HeaderAuth />
-      {/* use "name" for useNavigate */}
-      Week Overview
-      {!loading &&
-        cards.map((week) => (
-          <WeekCards
-            key={week.title}
-            name={week.name}
-            title={week.title}
-            keyword={week.keyword}
-            shortDescription={week.shortDescription}
-            liveSessionTitle={week.liveSessionTitle}
-            liveSessionDate={week.liveSessionDate}
-          />
-        ))}
+      <PageContainer>
+        {/* use "name" for useNavigate */}
+        Week Overview
+        {!loading &&
+          cards.map((week) => (
+            <WeekCards
+              key={week.title}
+              name={week.name}
+              title={week.title}
+              keyword={week.keyword}
+              shortDescription={week.shortDescription}
+              liveSessionTitle={week.liveSessionTitle}
+              liveSessionDate={week.liveSessionDate}
+            />
+          ))}
+      </PageContainer>
     </>
   );
 };

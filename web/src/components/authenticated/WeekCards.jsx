@@ -44,7 +44,14 @@ const WeekCards = ({
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 345, minHeight: 150, padding: 1 }}>
+    <Card
+      sx={{
+        // maxWidth: 345,
+        minHeight: 150,
+        padding: 1,
+        mx: "auto",
+      }}
+    >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="caption">
           {title} | {keyword}

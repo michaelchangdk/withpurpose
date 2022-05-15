@@ -110,7 +110,7 @@ const Login = () => {
           {/* FORGOT PASSWORD - HOW TO RESEND GOOGLE */}
           <Button width={6}>Forgot password?</Button>
           <Button href="/signup" width={6}>
-            New to the site? Sign up
+            New here? Sign up
           </Button>
         </Stack>
       </Stack>

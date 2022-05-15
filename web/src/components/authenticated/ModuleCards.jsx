@@ -38,7 +38,14 @@ const ModuleCards = ({ duration, name, title, type }) => {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345, minHeight: 150, padding: 1 }}>
+    <Card
+      sx={{
+        // maxWidth: 345,
+        minHeight: 150,
+        padding: 1,
+        mx: "auto",
+      }}
+    >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="caption">{type}</Typography>
         <CircularProgressWithLabel value={progress} />

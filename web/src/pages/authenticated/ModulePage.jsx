@@ -17,6 +17,7 @@ const ModulePage = () => {
   const fetchLessonRefs = async () => {
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
+    console.log(response);
     if (response[0].description) {
       setModuleDescription(response[0].description);
     }
@@ -54,7 +55,7 @@ const ModulePage = () => {
   return (
     <>
       <HeaderAuth />
-      {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION! */}
+      {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
       {moduleDescription.length > 0 && <div>{moduleDescription}</div>}
       <LessonList lessons={lessons} />
     </>
