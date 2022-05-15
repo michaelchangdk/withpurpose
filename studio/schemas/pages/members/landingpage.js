@@ -30,6 +30,11 @@ export default {
       type: "image",
     },
     {
+      name: "coverImage",
+      title: "Card Cover image",
+      type: "image",
+    },
+    {
       name: "linkTo",
       title: "Link to",
       type: "string",
