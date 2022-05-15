@@ -71,7 +71,8 @@ const HeaderNav = styled.div`
   align-items: center;
   justify-content: space-between;
   /* margin: 5px 20px; */
-  width: 92vw;
+  /* width: 92vw; */
+  width: calc(100vw - 32px);
   margin: 0 auto;
 `;
 

@@ -104,8 +104,8 @@ const ModulePage = () => {
         <Typography variant="body2">{moduleTitle}</Typography>
         {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
         {moduleDescription.length > 0 && <div>{moduleDescription}</div>}
-        <LessonList lessons={lessons} />
       </PageContainer>
+      <LessonList lessons={lessons} />
     </>
   );
 };
