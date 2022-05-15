@@ -41,6 +41,18 @@ export default {
       description: "Toggle on if the task is a video.",
     },
     {
+      name: "isLink",
+      title: "Is this task a link?",
+      type: "boolean",
+      description: "Toggle on if the task is a link.",
+    },
+    {
+      name: "isPDF",
+      title: "Is this task a PDF?",
+      type: "boolean",
+      description: "Toggle on if the task is a PDF.",
+    },
+    {
       name: "videoUrl",
       title: "Video URL",
       type: "url",

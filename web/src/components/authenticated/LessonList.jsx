@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Checkbox from "@mui/material/Checkbox";
-import Avatar from "@mui/material/Avatar";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  Checkbox,
+  Typography,
+  ListSubheader,
+  ListItemIcon,
+} from "@mui/material";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import RadioButtonUncheckedRoundedIcon from "@mui/icons-material/RadioButtonUncheckedRounded";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
+import CloudCircleIcon from "@mui/icons-material/CloudCircle";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 const LessonList = ({ lessons }) => {
   const [videoUrl, selectVideoUrl] = useState("");
@@ -15,6 +25,8 @@ const LessonList = ({ lessons }) => {
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");
   const [taskLinkText, setTaskLinkText] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDuration, setTaskDuration] = useState("");
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -32,6 +44,8 @@ const LessonList = ({ lessons }) => {
   const clickTask = (lesson) => {
     if (lesson.isVideo === true) {
       selectVideoUrl(lesson.videoUrl);
+      setTaskTitle(lesson.name);
+      setTaskDuration(lesson.duration);
     } else {
       setTaskDescription(lesson.taskDescription);
       setTaskLink(lesson.otherUrl);
@@ -41,7 +55,7 @@ const LessonList = ({ lessons }) => {
   };
 
   return (
-    <PageContainer>
+    <>
       {videoUrl.length > 0 && (
         <div>
           <FrameDiv>
@@ -52,6 +66,9 @@ const LessonList = ({ lessons }) => {
               frameBorder="0"
             />
           </FrameDiv>
+          <Typography>Now playing:</Typography>
+          <Typography>{taskTitle}</Typography>
+          <Typography>{taskDuration}</Typography>
         </div>
       )}
       {taskDescription.length > 0 && (
@@ -66,10 +83,15 @@ const LessonList = ({ lessons }) => {
         dense
         sx={{
           width: "100%",
-          // maxWidth: 360,
+          // maxWidth: 600,
           bgcolor: "background.paper",
           mx: "auto",
         }}
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            Content
+          </ListSubheader>
+        }
       >
         {lessons.map((lesson) => {
           const labelId = `checkbox-list-secondary-label-${lesson.title}`;
@@ -82,17 +104,31 @@ const LessonList = ({ lessons }) => {
                   onChange={handleToggle(lesson.title)}
                   checked={checked.indexOf(lesson.title) !== -1}
                   inputProps={{ "aria-labelledby": labelId }}
+                  sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+                  checkedIcon={
+                    lesson.isVideo ? (
+                      <CheckCircleRoundedIcon />
+                    ) : (
+                      <CheckBoxIcon />
+                    )
+                  }
+                  icon={
+                    lesson.isVideo ? (
+                      <RadioButtonUncheckedRoundedIcon />
+                    ) : (
+                      <CheckBoxOutlineBlankIcon />
+                    )
+                  }
                 />
               }
               disablePadding
             >
               <ListItemButton onClick={() => clickTask(lesson)}>
-                <ListItemAvatar>
-                  <Avatar
-                    alt={`Avatar n°${lesson.title + 1}`}
-                    src={`/static/images/avatar/${lesson.title + 1}.jpg`}
-                  />
-                </ListItemAvatar>
+                <ListItemIcon sx={{ "& .MuiSvgIcon-root": { fontSize: 40 } }}>
+                  {lesson.isVideo && <PlayCircleIcon />}
+                  {lesson.isLink && <CloudCircleIcon />}
+                  {lesson.isPDF && <DownloadForOfflineRoundedIcon />}
+                </ListItemIcon>
                 <ListItemText
                   id={labelId}
                   primary={`${lesson.name}`}
@@ -103,7 +139,7 @@ const LessonList = ({ lessons }) => {
           );
         })}
       </List>
-    </PageContainer>
+    </>
   );
 };
 
