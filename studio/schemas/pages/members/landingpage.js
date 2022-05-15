@@ -1,6 +1,6 @@
 export default {
   name: "landingpage",
-  title: "Landing Page",
+  title: "Startup School Landing Page Elements",
   type: "document",
   fields: [
     {
@@ -23,6 +23,11 @@ export default {
       title: "Order",
       type: "number",
       description: "Order - 1, 2, 3, 4 from left to right",
+    },
+    {
+      name: "heroImage",
+      title: "Hero image",
+      type: "image",
     },
     {
       name: "linkTo",

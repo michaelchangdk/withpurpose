@@ -56,29 +56,31 @@ const LessonList = ({ lessons }) => {
 
   return (
     <>
-      {videoUrl.length > 0 && (
-        <div>
-          <FrameDiv>
-            <IFrame
-              title="video"
-              src={videoUrl}
-              allowFullScreen
-              frameBorder="0"
-            />
-          </FrameDiv>
-          <Typography>Now playing:</Typography>
-          <Typography>{taskTitle}</Typography>
-          <Typography>{taskDuration}</Typography>
-        </div>
-      )}
-      {taskDescription.length > 0 && (
-        <div>
-          <p>{taskDescription}</p>
-          <a href={taskLink} target="_blank" rel="noreferrer">
-            {taskLinkText}
-          </a>
-        </div>
-      )}
+      <PageContainer>
+        {videoUrl.length > 0 && (
+          <div>
+            <FrameDiv>
+              <IFrame
+                title="video"
+                src={videoUrl}
+                allowFullScreen
+                frameBorder="0"
+              />
+            </FrameDiv>
+            <Typography>Now playing:</Typography>
+            <Typography>{taskTitle}</Typography>
+            <Typography>{taskDuration}</Typography>
+          </div>
+        )}
+        {taskDescription.length > 0 && (
+          <div>
+            <p>{taskDescription}</p>
+            <a href={taskLink} target="_blank" rel="noreferrer">
+              {taskLinkText}
+            </a>
+          </div>
+        )}
+      </PageContainer>
       <List
         dense
         sx={{

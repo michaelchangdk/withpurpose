@@ -4,14 +4,7 @@ import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
 import { PageContainer } from "../../styledcomponents/globalstyles";
-import {
-  Card,
-  Stack,
-  Typography,
-  Button,
-  CircularProgress,
-  Box,
-} from "@mui/material";
+import { Stack, Typography, CircularProgress, Box } from "@mui/material";
 
 const CircularProgressWithLabel = (props) => {
   return (

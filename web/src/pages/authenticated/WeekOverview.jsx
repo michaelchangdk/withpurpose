@@ -10,14 +10,17 @@ const WeekOverview = () => {
   const [cards, setCards] = useState(null);
 
   const query =
-    '*[_type == "week"] { order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate}';
+    '*[_type == "week"] { order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id}';
 
   useEffect(() => {
     client.fetch(query).then((response) => {
+      console.log(response);
       setCards(response.sort((a, b) => a.order - b.order));
       setLoading(false);
     });
   }, []);
+
+  console.log(cards);
 
   return (
     <>

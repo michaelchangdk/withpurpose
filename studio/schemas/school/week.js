@@ -59,6 +59,12 @@ export default {
       description: "Do not edit!",
     },
     {
+      name: "heroImage",
+      title: "Hero image",
+      type: "image",
+      hotspot: "true",
+    },
+    {
       name: "module",
       title: "Modules",
       type: "array",
