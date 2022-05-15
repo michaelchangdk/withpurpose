@@ -15,7 +15,10 @@ const WeekOverview = () => {
   useEffect(() => {
     client.fetch(query).then((response) => {
       console.log(response);
-      setCards(response.sort((a, b) => a.order - b.order));
+      // WE NEED TO MAKE SURE DRAFTS DON'T GET ADDED TO THE ARRAY! USE THE BELOW CODE IN IDS!
+      let published = response.filter((a) => !a._id.includes("draft"));
+      console.log(published);
+      setCards(published.sort((a, b) => a.order - b.order));
       setLoading(false);
     });
   }, []);
