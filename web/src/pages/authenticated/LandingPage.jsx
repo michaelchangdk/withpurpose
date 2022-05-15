@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
+import { PageContainer } from "../../styledcomponents/globalstyles";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -21,17 +22,19 @@ const LandingPage = () => {
   return (
     <>
       <HeaderAuth />
-      Startup School Landing Page
-      {!loading &&
-        cards.map((card) => (
-          <LandingCards
-            key={card.order}
-            title={card.title}
-            headline={card.headline}
-            description={card.description}
-            linkTo={card.linkTo}
-          />
-        ))}
+      <PageContainer>
+        Startup School Landing Page
+        {!loading &&
+          cards.map((card) => (
+            <LandingCards
+              key={card.order}
+              title={card.title}
+              headline={card.headline}
+              description={card.description}
+              linkTo={card.linkTo}
+            />
+          ))}
+      </PageContainer>
     </>
   );
 };

@@ -75,6 +75,12 @@ const HeaderNav = styled.div`
   width: calc(100vw - 32px);
   margin: 0 auto;
   padding-top: 3vh;
+  /* z-index: 2; */
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  right: 0; */
+  /* bottom: 0; */
 `;
 
 const Logo = styled.img`

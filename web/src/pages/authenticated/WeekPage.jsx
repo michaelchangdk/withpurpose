@@ -126,7 +126,7 @@ const HeaderSubtitle = styled.h2`
 const HeaderTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20vh;
+  padding-top: 20vh;
 `;
 
 const HeaderInstruction = styled.div`

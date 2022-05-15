@@ -13,7 +13,13 @@ const LandingCards = ({ title, headline, description, linkTo }) => {
     navigate(linkTo);
   };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={
+        {
+          // maxWidth: 345
+        }
+      }
+    >
       <CardActionArea onClick={clickCard}>
         {/* <CardMedia
           component="img"
