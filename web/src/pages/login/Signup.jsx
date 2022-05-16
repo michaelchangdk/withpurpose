@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import { client } from "../../client";
 
+// IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
+
 const Signup = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();

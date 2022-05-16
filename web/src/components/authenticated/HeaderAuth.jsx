@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
@@ -10,18 +11,27 @@ import styled from "styled-components";
 
 const HeaderAuth = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElNav, setAnchorELNav] = React.useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const open = Boolean(anchorEl);
+  const openProfile = Boolean(anchorEl);
+  const openNav = Boolean(anchorElNav);
   const user = useSelector((store) => store.authenticated.uid);
   const displayName = useSelector((store) => store.authenticated.displayName);
 
-  const handleClick = (event) => {
+  const openProfileNav = (event) => {
+    console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
+  };
+
+  const openSiteNav = (event) => {
+    console.log("does this trigger?");
+    setAnchorELNav(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorELNav(null);
   };
 
   const navigateProfile = () => {
@@ -37,23 +47,62 @@ const HeaderAuth = () => {
 
   return (
     <HeaderNav>
-      <Logo src={logo} alt="logo navigation." />
+      <IconButton
+        id="nav-button"
+        aria-controls={openNav ? "nav-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={openNav ? "true" : undefined}
+        onClick={openSiteNav}
+      >
+        <Logo src={logo} alt="logo navigation." />
+      </IconButton>
+      <Menu
+        id="nav-menu"
+        anchorEl={anchorElNav}
+        open={openNav}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "nav-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <MenuItem>Home</MenuItem>
+        <MenuItem>Startup School</MenuItem>
+        <MenuItem>Masterclasses</MenuItem>
+        <MenuItem>Mentors</MenuItem>
+        <MenuItem>Community</MenuItem>
+      </Menu>
       <Button
         id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
+        aria-controls={openProfile ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
+        aria-expanded={openProfile ? "true" : undefined}
+        onClick={openProfileNav}
       >
         {displayName}
       </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
-        open={open}
+        open={openProfile}
         onClose={handleClose}
         MenuListProps={{
           "aria-labelledby": "basic-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         <MenuItem onClick={navigateProfile}>Profile</MenuItem>

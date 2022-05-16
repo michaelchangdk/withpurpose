@@ -26,6 +26,11 @@ const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   console.log(useSelector((store) => store.authenticated));
 
+  // INSTEAD OF LOGGED IN FROM LINE 45 DOWN - CHECK IF USER IS ALLOWED ACCESS
+  // ACCESS FIELD TO SITE IN TOTAL - ACCESS TO STARTUP SCHOOL - ACCESS TO MASTERCLASS - BOOK A MEETING
+  // PULL FROM SANITY & SAVE IN REDUX STORE
+  // ADD COHORT FIELD TO USER & LESSONS
+
   return (
     <BrowserRouter>
       <Routes>

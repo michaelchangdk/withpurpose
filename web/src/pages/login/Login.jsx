@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 
+// IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
