@@ -28,23 +28,18 @@ const LandingPageHero = ({ order }) => {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {!loading && (
-        <>
-          <Header backgroundimage={urlFor(heroRef).url()}>
-            <HeaderAuth />
-            <PageContainer>
-              <HeaderTitleWrapper>
-                <HeaderTitle>{title}</HeaderTitle>
-              </HeaderTitleWrapper>
-              <HeaderInstruction>
-                <HeaderSubtitle>Scroll for more</HeaderSubtitle>
-                <HeaderIcon src={down} alt="down arrow." />
-              </HeaderInstruction>
-            </PageContainer>
-          </Header>
-        </>
-      )}
+      <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
+        <HeaderAuth />
+        <PageContainer>
+          <HeaderTitleWrapper>
+            <HeaderTitle>{title}</HeaderTitle>
+          </HeaderTitleWrapper>
+          <HeaderInstruction>
+            <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+            <HeaderIcon src={down} alt="down arrow." />
+          </HeaderInstruction>
+        </PageContainer>
+      </Header>
     </>
   );
 };
