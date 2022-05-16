@@ -37,6 +37,12 @@ const ModuleCards = ({ duration, name, title, type }) => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
+  const progressTracker = () => {
+    setProgress(0);
+  };
+
+  progressTracker();
+
   return (
     <Card
       sx={{

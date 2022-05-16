@@ -43,6 +43,13 @@ const WeekCards = ({
 }) => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
+
+  const progressTracker = () => {
+    setProgress(0);
+  };
+
+  progressTracker();
+
   return (
     <Card
       sx={{

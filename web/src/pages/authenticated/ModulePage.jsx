@@ -82,6 +82,12 @@ const ModulePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
+  const progressTracker = () => {
+    setProgress(0);
+  };
+
+  progressTracker();
+
   return (
     <>
       <HeaderAuth />
