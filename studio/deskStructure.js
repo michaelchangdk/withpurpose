@@ -91,10 +91,10 @@ export default () =>
                 .title("Public Home Page")
                 .schemaType("homepage")
                 .child(S.documentTypeList("homepage").title("Home")),
-              // S.listItem()
-              //   .title("Team")
-              //   .schemaType("teamMembers")
-              //   .child(S.documentTypeList("teamMembers").title("Team")),
+              S.listItem()
+                .title("Blog posts")
+                .schemaType("blogpost")
+                .child(S.documentTypeList("blogpost").title("Blog Post")),
               // S.listItem()
               //   .title("Company Mentors")
               //   .schemaType("companyMentors")
@@ -153,6 +153,7 @@ export default () =>
             "studentMentors",
             "landingpage",
             "homepage",
+            "blogpost",
           ].includes(listItem.getId())
       ),
     ]);
