@@ -79,6 +79,68 @@ export default () =>
             ])
         ),
 
+      S.listItem()
+        // Give it a title
+        .title("Public Pages")
+        .child(
+          S.list()
+            .title("Public Pages")
+            .items([
+              // Add the first list item
+              S.listItem()
+                .title("Public Home Page")
+                .schemaType("homepage")
+                .child(S.documentTypeList("homepage").title("Home")),
+              // S.listItem()
+              //   .title("Team")
+              //   .schemaType("teamMembers")
+              //   .child(S.documentTypeList("teamMembers").title("Team")),
+              // S.listItem()
+              //   .title("Company Mentors")
+              //   .schemaType("companyMentors")
+              //   .child(
+              //     S.documentTypeList("companyMentors").title("Company Mentors")
+              //   ),
+              // S.listItem()
+              //   .title("Student Mentors")
+              //   .schemaType("studentMentors")
+              //   .child(
+              //     S.documentTypeList("studentMentors").title("Student Mentors")
+              //   ),
+            ])
+        ),
+
+      S.listItem()
+        // Give it a title
+        .title("Private Pages")
+        .child(
+          S.list()
+            .title("Private Pages")
+            .items([
+              // Add the first list item
+              S.listItem()
+                .title("Landing page elements")
+                .schemaType("landingpage")
+                .child(S.documentTypeList("landingpage").title("landingpage")),
+              // S.listItem()
+              //   .title("Team")
+              //   .schemaType("teamMembers")
+              //   .child(S.documentTypeList("teamMembers").title("Team")),
+              // S.listItem()
+              //   .title("Company Mentors")
+              //   .schemaType("companyMentors")
+              //   .child(
+              //     S.documentTypeList("companyMentors").title("Company Mentors")
+              //   ),
+              // S.listItem()
+              //   .title("Student Mentors")
+              //   .schemaType("studentMentors")
+              //   .child(
+              //     S.documentTypeList("studentMentors").title("Student Mentors")
+              //   ),
+            ])
+        ),
+
       ...S.documentTypeListItems().filter(
         (listItem) =>
           ![
@@ -89,6 +151,8 @@ export default () =>
             "teamMembers",
             "companyMentors",
             "studentMentors",
+            "landingpage",
+            "homepage",
           ].includes(listItem.getId())
       ),
     ]);
