@@ -86,7 +86,9 @@ const ModulePage = () => {
     setProgress(0);
   };
 
-  progressTracker();
+  useEffect(() => {
+    progressTracker();
+  }, []);
 
   return (
     <>
