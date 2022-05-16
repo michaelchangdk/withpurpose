@@ -20,23 +20,16 @@ const HeaderAuth = () => {
   const displayName = useSelector((store) => store.authenticated.displayName);
 
   const openProfileNav = (event) => {
-    console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 
   const openSiteNav = (event) => {
-    console.log("does this trigger?");
     setAnchorELNav(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorELNav(null);
-  };
-
-  const navigateProfile = () => {
-    setAnchorEl(null);
-    navigate(`/profile/${user}`);
   };
 
   const logout = () => {
@@ -73,11 +66,17 @@ const HeaderAuth = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem>Home</MenuItem>
-        <MenuItem>Startup School</MenuItem>
-        <MenuItem>Masterclasses</MenuItem>
-        <MenuItem>Mentors</MenuItem>
-        <MenuItem>Community</MenuItem>
+        <MenuItem onClick={() => navigate(`/startup-school-elearning`)}>
+          Home
+        </MenuItem>
+        <MenuItem onClick={() => navigate(`/startup-school-weeks`)}>
+          Startup School
+        </MenuItem>
+        <MenuItem onClick={() => navigate(`/masterclass`)}>
+          Masterclasses
+        </MenuItem>
+        <MenuItem onClick={() => navigate(`/book-a-mentor`)}>Mentors</MenuItem>
+        <MenuItem onClick={() => navigate(`/community`)}>Community</MenuItem>
       </Menu>
       <Button
         id="basic-button"
@@ -105,7 +104,9 @@ const HeaderAuth = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={navigateProfile}>Profile</MenuItem>
+        <MenuItem onClick={() => navigate(`/profile/${user}`)}>
+          Profile
+        </MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </HeaderNav>
