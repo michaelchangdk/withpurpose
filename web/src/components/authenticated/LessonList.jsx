@@ -15,55 +15,6 @@ const LessonList = ({ lessons }) => {
   const [taskLinkText, setTaskLinkText] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
-  const userid = useSelector((store) => store.authenticated.uid);
-
-  // NOT QUITE RIGHT - ALMOST THERE
-  const checkItem = (id) => {
-    client
-      .patch(id)
-      .setIfMissing({ completed: [] })
-      .insert("after", "completed[-1]", [
-        {
-          key: uuidv4(),
-          userId: userid,
-          completed: true,
-        },
-      ])
-      .commit()
-      .then(() => {});
-  };
-
-  // const unCheckItem = (id) => {
-  //   client
-  //     .patch(id)
-  //     .setIfMissing({ completed: [] })
-  //     .insert("after", "completed[-1]", [
-  //       {
-  //         userId: userid,
-  //         completed: false,
-  //       },
-  //     ])
-  //     .commit()
-  //     .then(() => {});
-  // };
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    console.log("value", value);
-
-    if (currentIndex === -1) {
-      // THIS IS WHERE YOU SAVE TO SANITY
-      newChecked.push(value);
-      checkItem(value._id);
-    } else {
-      newChecked.splice(currentIndex, 1);
-      // THIS IS WHERE YOU "UNSAVE" FROM SANITY
-      // unCheckItem(value._id);
-    }
-
-    setChecked(newChecked);
-  };
 
   const clickTask = (lesson) => {
     if (lesson.isVideo === true) {
@@ -123,7 +74,6 @@ const LessonList = ({ lessons }) => {
           return (
             <LessonItem
               key={lesson._id}
-              handleToggle={handleToggle}
               checked={checked}
               lesson={lesson}
               clickTask={clickTask}
