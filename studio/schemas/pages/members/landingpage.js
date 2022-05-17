@@ -28,11 +28,17 @@ export default {
       name: "heroImage",
       title: "Hero image",
       type: "image",
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: "coverImage",
       title: "Card Cover image",
       type: "image",
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: "linkTo",

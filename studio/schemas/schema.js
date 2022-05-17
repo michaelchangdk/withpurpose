@@ -13,6 +13,7 @@ import studentMentors from "./people/studentmentors";
 import companyMentors from "./people/companymentors";
 import homepage from "./pages/public/homepage";
 import blogpost from "./pages/public/blogpost";
+import completed from "./school/completed";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -35,6 +36,7 @@ export default createSchema({
     landingpage,
     homepage,
     blogpost,
+    completed,
     /* Your types here! */
   ]),
 });

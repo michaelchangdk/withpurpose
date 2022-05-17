@@ -18,6 +18,9 @@ export default {
       name: "image",
       title: "Blog image",
       type: "image",
+      options: {
+        hotspot: true,
+      },
     },
   ],
 };

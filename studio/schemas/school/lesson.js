@@ -90,6 +90,29 @@ export default {
       title: "PDF or File Upload",
       type: "file",
     },
+    // {
+    //   name: "completedBy",
+    //   title: "CompletedBy",
+    //   type: "completedBy",
+    // },
+    {
+      name: "completed",
+      title: "Completed",
+      type: "array",
+      of: [{ type: "completed" }],
+    },
+
     // REFERENCE TO USER
+    // {
+    //   name: "completed",
+    //   title: "users who completed this task",
+    //   type: "object",
+    //   fields: [
+    //     {
+    //       name: "userid",
+    //       type: "user",
+    //     },
+    //   ],
+    // },
   ],
 };

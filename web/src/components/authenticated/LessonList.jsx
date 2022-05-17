@@ -1,23 +1,11 @@
 import React, { useState } from "react";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  Checkbox,
-  Typography,
-  ListSubheader,
-  ListItemIcon,
-} from "@mui/material";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import RadioButtonUncheckedRoundedIcon from "@mui/icons-material/RadioButtonUncheckedRounded";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflineRounded";
-import CloudCircleIcon from "@mui/icons-material/CloudCircle";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { List, Typography, ListSubheader } from "@mui/material";
+import LessonItem from "./LessonItem";
+import { client } from "../../client";
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 const LessonList = ({ lessons }) => {
   const [videoUrl, selectVideoUrl] = useState("");
@@ -27,15 +15,51 @@ const LessonList = ({ lessons }) => {
   const [taskLinkText, setTaskLinkText] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
+  const userid = useSelector((store) => store.authenticated.uid);
+
+  // NOT QUITE RIGHT - ALMOST THERE
+  const checkItem = (id) => {
+    client
+      .patch(id)
+      .setIfMissing({ completed: [] })
+      .insert("after", "completed[-1]", [
+        {
+          key: uuidv4(),
+          userId: userid,
+          completed: true,
+        },
+      ])
+      .commit()
+      .then(() => {});
+  };
+
+  // const unCheckItem = (id) => {
+  //   client
+  //     .patch(id)
+  //     .setIfMissing({ completed: [] })
+  //     .insert("after", "completed[-1]", [
+  //       {
+  //         userId: userid,
+  //         completed: false,
+  //       },
+  //     ])
+  //     .commit()
+  //     .then(() => {});
+  // };
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
+    console.log("value", value);
 
     if (currentIndex === -1) {
+      // THIS IS WHERE YOU SAVE TO SANITY
       newChecked.push(value);
+      checkItem(value._id);
     } else {
       newChecked.splice(currentIndex, 1);
+      // THIS IS WHERE YOU "UNSAVE" FROM SANITY
+      // unCheckItem(value._id);
     }
 
     setChecked(newChecked);
@@ -96,48 +120,14 @@ const LessonList = ({ lessons }) => {
         }
       >
         {lessons.map((lesson) => {
-          const labelId = `checkbox-list-secondary-label-${lesson.title}`;
           return (
-            <ListItem
-              key={lesson.title}
-              secondaryAction={
-                <Checkbox
-                  edge="end"
-                  onChange={handleToggle(lesson.title)}
-                  checked={checked.indexOf(lesson.title) !== -1}
-                  inputProps={{ "aria-labelledby": labelId }}
-                  sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-                  checkedIcon={
-                    lesson.isVideo ? (
-                      <CheckCircleRoundedIcon />
-                    ) : (
-                      <CheckBoxIcon />
-                    )
-                  }
-                  icon={
-                    lesson.isVideo ? (
-                      <RadioButtonUncheckedRoundedIcon />
-                    ) : (
-                      <CheckBoxOutlineBlankIcon />
-                    )
-                  }
-                />
-              }
-              disablePadding
-            >
-              <ListItemButton onClick={() => clickTask(lesson)}>
-                <ListItemIcon sx={{ "& .MuiSvgIcon-root": { fontSize: 40 } }}>
-                  {lesson.isVideo && <PlayCircleIcon />}
-                  {lesson.isLink && <CloudCircleIcon />}
-                  {lesson.isPDF && <DownloadForOfflineRoundedIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  id={labelId}
-                  primary={`${lesson.name}`}
-                  secondary={`${lesson.duration}`}
-                />
-              </ListItemButton>
-            </ListItem>
+            <LessonItem
+              key={lesson._id}
+              handleToggle={handleToggle}
+              checked={checked}
+              lesson={lesson}
+              clickTask={clickTask}
+            />
           );
         })}
       </List>

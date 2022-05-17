@@ -141,6 +141,37 @@ export default () =>
             ])
         ),
 
+      S.listItem()
+        // Give it a title
+        .title("User Info & Progress")
+        .child(
+          S.list()
+            .title("Users")
+            .items([
+              // Add the first list item
+              S.listItem()
+                .title("Users")
+                .schemaType("user")
+                .child(S.documentTypeList("user").title("User")),
+              S.listItem()
+                .title("Completed")
+                .schemaType("completed")
+                .child(S.documentTypeList("completed").title("completed")),
+              // S.listItem()
+              //   .title("Company Mentors")
+              //   .schemaType("companyMentors")
+              //   .child(
+              //     S.documentTypeList("companyMentors").title("Company Mentors")
+              //   ),
+              // S.listItem()
+              //   .title("Student Mentors")
+              //   .schemaType("studentMentors")
+              //   .child(
+              //     S.documentTypeList("studentMentors").title("Student Mentors")
+              //   ),
+            ])
+        ),
+
       ...S.documentTypeListItems().filter(
         (listItem) =>
           ![
@@ -154,6 +185,8 @@ export default () =>
             "landingpage",
             "homepage",
             "blogpost",
+            "user",
+            "completed",
           ].includes(listItem.getId())
       ),
     ]);
