@@ -59,7 +59,7 @@ const ModuleCards = ({ duration, name, title, type }) => {
         <CircularProgressWithLabel value={progress} />
       </Stack>
       <Typography variant="body1" fontWeight={500}>
-        {title}
+        {name}
       </Typography>
       <Typography variant="body2" fontWeight={300} fontSize={14}>
         Icon - {type}
@@ -68,7 +68,7 @@ const ModuleCards = ({ duration, name, title, type }) => {
         {duration}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={() => navigate(`/module/${name}`)}>Start</Button>
+      <Button onClick={() => navigate(`/module/${title}`)}>Start</Button>
     </Card>
   );
 };

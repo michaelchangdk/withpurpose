@@ -11,7 +11,7 @@ export default {
     },
     {
       name: "uniqueid",
-      title: "Unique ID",
+      title: "Unique ID - Google",
       type: "string",
       description: "Do not edit!",
     },
@@ -66,7 +66,11 @@ export default {
       title: "Approved Master Class?",
       type: "boolean",
     },
-    // OBJECT: pass along ID of week + module + lesson together with a boolean for each
-    // REFERENCE TO LESSON
+    {
+      name: "completed",
+      title: "Completed",
+      type: "array",
+      of: [{ type: "completed" }],
+    },
   ],
 };

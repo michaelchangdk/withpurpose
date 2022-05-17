@@ -4,8 +4,8 @@ export default {
   type: "document",
   fields: [
     {
-      name: "name",
-      title: "Module Name",
+      name: "title",
+      title: "Module Title",
       type: "string",
       description:
         "Name the week after these conventions: W#M#, e.g. W0M1 for Week 0 Module 1. This is to keep the modules in the correct order.",
@@ -17,8 +17,8 @@ export default {
       description: "E.g. 1, 2, 3, 4...",
     },
     {
-      name: "title",
-      title: "Module Title",
+      name: "name",
+      title: "Module Name",
       type: "string",
       description: "E.g. Week 0 - Finding and selecting a startup idea",
     },

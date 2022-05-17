@@ -77,7 +77,8 @@ const Signup = () => {
         // userCredential.user.uid
         // userCredential.user.displayName = firstname + lastname
 
-        client.createIfNotExists(doc).then(() => {
+        client.createIfNotExists(doc).then((response) => {
+          console.log(response);
           // dispatch UID for tracking progress
           dispatch(
             authenticated.actions.login({
@@ -85,6 +86,7 @@ const Signup = () => {
               displayName: `${firstname} ${lastname}`,
             })
           );
+
           navigate("/");
         });
       })

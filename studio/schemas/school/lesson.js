@@ -5,7 +5,7 @@ export default {
   fields: [
     {
       name: "title",
-      title: "Lesson Name",
+      title: "Lesson Title",
       type: "string",
       description:
         "Please use the following convention: W0M1L01 (Week 0, Module 1, Lesson 01) for ordering the lessons in the correct order.",
@@ -18,7 +18,7 @@ export default {
     },
     {
       name: "name",
-      title: "Title",
+      title: "Lesson Name",
       type: "string",
       description: "E.g. Three Ways to Start a Company",
     },
@@ -90,29 +90,5 @@ export default {
       title: "PDF or File Upload",
       type: "file",
     },
-    // {
-    //   name: "completedBy",
-    //   title: "CompletedBy",
-    //   type: "completedBy",
-    // },
-    {
-      name: "completed",
-      title: "Completed",
-      type: "array",
-      of: [{ type: "completed" }],
-    },
-
-    // REFERENCE TO USER
-    // {
-    //   name: "completed",
-    //   title: "users who completed this task",
-    //   type: "object",
-    //   fields: [
-    //     {
-    //       name: "userid",
-    //       type: "user",
-    //     },
-    //   ],
-    // },
   ],
 };

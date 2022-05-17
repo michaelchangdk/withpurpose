@@ -46,7 +46,7 @@ const Login = () => {
   //     });
   // };
 
-  const signin = () => {
+  const signin = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         dispatch(
@@ -55,7 +55,6 @@ const Login = () => {
             displayName: userCredential.user.displayName,
           })
         );
-        // dispatch UID for tracking progress
         navigate("/");
       })
       .catch((error) => {

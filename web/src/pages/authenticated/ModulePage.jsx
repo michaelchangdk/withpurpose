@@ -5,6 +5,7 @@ import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { Stack, Typography, CircularProgress, Box } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const CircularProgressWithLabel = (props) => {
   return (
@@ -39,14 +40,16 @@ const ModulePage = () => {
   const [progress, setProgress] = useState(0);
   const [moduleType, setModuleType] = useState("");
   const [moduleTitle, setModuleTitle] = useState("");
+  const [completedLessons, setCompletedLessons] = useState([]);
+  const userid = useSelector((store) => store.authenticated.uid);
   let lessonsArray = [];
 
-  const moduleQuery = `*[_type == "module" && name == "${module}"]`;
+  const moduleQuery = `*[_type == "module" && title == "${module}"]`;
 
   const fetchLessonRefs = async () => {
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
-    setModuleTitle(response[0].title);
+    setModuleTitle(response[0].name);
     setModuleType(response[0].type);
     if (response[0].description) {
       setModuleDescription(response[0].description);
@@ -72,9 +75,18 @@ const ModulePage = () => {
     });
   };
 
+  const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
+
+  const fetchUser = async () => {
+    const fetch = await client.fetch(completedLessonQuery);
+    const response = await fetch;
+    setCompletedLessons(response[0].completed);
+  };
+
   const fetchAll = async () => {
     await fetchLessonRefs();
     await fetchLessons();
+    fetchUser();
   };
 
   useEffect(() => {
@@ -106,7 +118,7 @@ const ModulePage = () => {
         {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
         {moduleDescription.length > 0 && <div>{moduleDescription}</div>}
       </PageContainer>
-      <LessonList lessons={lessons} />
+      <LessonList lessons={lessons} completedLessons={completedLessons} />
     </>
   );
 };
