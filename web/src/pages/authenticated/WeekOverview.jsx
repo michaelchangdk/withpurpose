@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { PageContainer } from "../../styledcomponents/globalstyles";
-import styled from "styled-components";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
