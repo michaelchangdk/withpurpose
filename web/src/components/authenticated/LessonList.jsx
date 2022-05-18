@@ -5,28 +5,14 @@ import { List, Typography, ListSubheader } from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 
-const LessonList = ({ lessons, completedLessons }) => {
+const LessonList = ({ lessons, completedLessons, completedLessonRefs }) => {
   const [videoUrl, selectVideoUrl] = useState("");
-  // const [checked, setChecked] = useState([1]);
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");
   const [taskLinkText, setTaskLinkText] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
   const userid = useSelector((store) => store.authenticated.uid);
-
-  const completedLessonRefs = completedLessons
-    ? completedLessons.map((a) => a.lessonRef)
-    : [];
-
-  console.log(
-    "lessons",
-    lessons,
-    "completed lessons",
-    completedLessons,
-    "completedlesson refs",
-    completedLessonRefs
-  );
 
   // FOR LOADING LESSON
   const clickTask = (lesson) => {
@@ -39,7 +25,6 @@ const LessonList = ({ lessons, completedLessons }) => {
       setTaskLink(lesson.otherUrl);
       setTaskLinkText(lesson.otherUrlText);
     }
-    console.log(lesson);
   };
 
   return (
@@ -83,10 +68,10 @@ const LessonList = ({ lessons, completedLessons }) => {
           </ListSubheader>
         }
       >
-        {lessons.map((lesson) => {
+        {lessons.map((lesson, index) => {
           return (
             <LessonItem
-              key={lesson._id}
+              key={`${completedLessons}${index}`}
               lesson={lesson}
               clickTask={clickTask}
               userid={userid}
@@ -114,60 +99,3 @@ const IFrame = styled.iframe`
   width: 100%;
   height: 100%;
 `;
-
-// const labelId = `checkbox-list-secondary-label-${lesson.title}`;
-// const completedLesson = completedLessons
-//   ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
-//   : [];
-// const booleanChecked = !!completedLessonRefs.filter(
-//   (a) => a === lesson._id
-// ).length;
-
-// return (
-//   <ListItem
-//     key={lesson._id}
-//     secondaryAction={
-//       <Checkbox
-//         edge="end"
-//         // onChange={handleToggle(lesson)}
-//         onChange={handleToggle(
-//           booleanChecked,
-//           completedLesson,
-//           lesson
-//         )}
-//         // checked={checked.indexOf(lesson) !== -1}
-//         checked={booleanChecked}
-//         inputProps={{ "aria-labelledby": labelId }}
-//         sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-//         checkedIcon={
-//           lesson.isVideo ? (
-//             <CheckCircleRoundedIcon />
-//           ) : (
-//             <CheckBoxIcon />
-//           )
-//         }
-//         icon={
-//           lesson.isVideo ? (
-//             <RadioButtonUncheckedRoundedIcon />
-//           ) : (
-//             <CheckBoxOutlineBlankIcon />
-//           )
-//         }
-//       />
-//     }
-//     disablePadding
-//   >
-//     <ListItemButton onClick={() => clickTask(lesson)}>
-//       <ListItemIcon sx={{ "& .MuiSvgIcon-root": { fontSize: 40 } }}>
-//         {lesson.isVideo && <PlayCircleIcon />}
-//         {lesson.isLink && <CloudCircleIcon />}
-//         {lesson.isPDF && <DownloadForOfflineRoundedIcon />}
-//       </ListItemIcon>
-//       <ListItemText
-//         id={labelId}
-//         primary={`${lesson.name}`}
-//         secondary={`${lesson.duration}`}
-//       />
-//     </ListItemButton>
-//   </ListItem>
-// );

@@ -14,7 +14,7 @@ const WeekOverview = () => {
   const fetchWeek = async () => {
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
-    console.log(response);
+    // console.log(response);
     // WE NEED TO MAKE SURE DRAFTS DON'T GET ADDED TO THE ARRAY! USE THE BELOW CODE IN IDS!
     let published = response.filter((a) => !a._id.includes("draft"));
     setCards(published.sort((a, b) => a.order - b.order));

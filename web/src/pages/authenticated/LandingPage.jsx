@@ -12,7 +12,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     client.fetch(query).then((response) => {
-      console.log(response);
+      // console.log(response);
       // console.log(response.sort((a, b) => a.order - b.order));
       setCards(response.sort((a, b) => a.order - b.order));
       setLoading(false);

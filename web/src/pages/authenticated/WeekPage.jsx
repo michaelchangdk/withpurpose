@@ -25,7 +25,6 @@ const WeekPage = () => {
   const fetchModuleRefs = async () => {
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
-    console.log(response[0]);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
     setDescription(response[0].description);
