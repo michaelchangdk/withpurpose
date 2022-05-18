@@ -84,11 +84,22 @@ const ModulePage = () => {
     setLoading(false);
   };
 
+  // For Setting Progress
+  const progressTracker = async () => {
+    const progress = (numberOfCompletedLessons / totalNumberOfLessons) * 100;
+    if (progress >= 0) {
+      setProgress(progress);
+    } else {
+      setProgress(0);
+    }
+  };
+
   // Async function for fetching everything in order
   const fetchAll = async () => {
     await fetchModule();
     await fetchLessons();
     await fetchCompletedLessons();
+    await progressTracker();
   };
 
   // UseEffect for fetchAll
@@ -126,20 +137,11 @@ const ModulePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // For Setting Progress
-  // const progressTracker = () => {
-  //   completedLessons.length > 0
-  //     ? setProgress((completedLessons.length / lessons.length) * 100)
-  //     : setProgress(0);
-  //   console.log(numberOfCompletedLessons, totalNumberOfLessons);
-  //   console.log((numberOfCompletedLessons / totalNumberOfLessons) * 100);
+  // useEffect(() => {
+  //   // progressTracker();
   //   setProgress((numberOfCompletedLessons / totalNumberOfLessons) * 100);
-  // };
-  useEffect(() => {
-    // progressTracker();
-    setProgress((numberOfCompletedLessons / totalNumberOfLessons) * 100);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
