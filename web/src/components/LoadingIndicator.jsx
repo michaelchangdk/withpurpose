@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoadingIndicator = () => {
-  return <></>;
+  return <>Loading...</>;
 };
 
 export default LoadingIndicator;

@@ -5,7 +5,11 @@ import { List, Typography, ListSubheader } from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 
-const LessonList = ({ lessons, completedLessons, completedLessonRefs }) => {
+const LessonList = ({
+  lessons,
+  // completedLessons,
+  // completedLessonRefs
+}) => {
   const [videoUrl, selectVideoUrl] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");
@@ -71,12 +75,13 @@ const LessonList = ({ lessons, completedLessons, completedLessonRefs }) => {
         {lessons.map((lesson, index) => {
           return (
             <LessonItem
-              key={`${completedLessons}${index}`}
+              // key={`${completedLessons}${index}`}
+              key={lesson.title}
               lesson={lesson}
               clickTask={clickTask}
               userid={userid}
-              completedLessons={completedLessons}
-              completedLessonRefs={completedLessonRefs}
+              // completedLessons={completedLessons}
+              // completedLessonRefs={completedLessonRefs}
             />
           );
         })}

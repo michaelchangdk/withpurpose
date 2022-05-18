@@ -19,25 +19,27 @@ const LessonItem = ({
   lesson,
   clickTask,
   userid,
-  completedLessonRefs,
-  completedLessons,
+  // completedLessonRefs,
+  // completedLessons,
 }) => {
+  const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
-  const completedLesson = completedLessons
-    ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
-    : [];
-  const booleanChecked = !!completedLessonRefs.filter((a) => a === lesson._id)
-    .length;
+  // const completedLesson = completedLessons
+  //   ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
+  //   : [];
+  // const booleanChecked = !!completedLessonRefs.filter((a) => a === lesson._id)
+  //   .length;
 
-  useEffect(() => {
-    if (booleanChecked) {
-      setChecked(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (booleanChecked) {
+  //     setChecked(true);
+  //   }
+  // }, []);
 
   const checkItem = (lesson) => {
+    setLoading(true);
     console.log("item checked completed", lesson);
     client
       .patch(userid)
@@ -52,9 +54,11 @@ const LessonItem = ({
       ])
       .commit({ autoGenerateArrayKeys: true })
       .then(() => {});
+    setLoading(false);
   };
 
   const unCheckItem = (completedLesson) => {
+    setLoading(true);
     console.log("item unchecked", completedLesson);
     const deleteQuery = [`completed[_key=="${completedLesson._key}"]`];
     client
@@ -62,25 +66,28 @@ const LessonItem = ({
       .unset(deleteQuery)
       .commit()
       .then(() => {});
+    setLoading(false);
   };
 
-  const handleToggle = (completedLesson, lesson) => () => {
-    console.log("is checked?", checked);
-    if (!checked) {
-      console.log(
-        "boolean not checked - setting checked to true and sending to sanity"
-      );
-      setChecked(true);
-      checkItem(lesson);
-    }
-    if (checked) {
-      console.log(
-        "boolean checked - setting checked to false and sending to sanity"
-      );
-      setChecked(false);
-      unCheckItem(completedLesson);
-    }
-  };
+  const handleToggle =
+    // completedLesson, lesson
+    () => {
+      console.log("is checked?", checked);
+      if (!checked) {
+        console.log(
+          "boolean not checked - setting checked to true and sending to sanity"
+        );
+        setChecked(true);
+        // checkItem(lesson);
+      }
+      if (checked) {
+        console.log(
+          "boolean checked - setting checked to false and sending to sanity"
+        );
+        setChecked(false);
+        // unCheckItem(completedLesson);
+      }
+    };
 
   return (
     <ListItem
@@ -88,7 +95,8 @@ const LessonItem = ({
       secondaryAction={
         <Checkbox
           edge="end"
-          onChange={handleToggle(completedLesson, lesson)}
+          // onChange={handleToggle(completedLesson, lesson)}
+          onChange={handleToggle}
           checked={checked}
           inputProps={{ "aria-labelledby": labelId }}
           sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
@@ -102,6 +110,7 @@ const LessonItem = ({
               <CheckBoxOutlineBlankIcon />
             )
           }
+          disabled={loading}
         />
       }
       disablePadding
