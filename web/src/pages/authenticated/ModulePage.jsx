@@ -113,8 +113,6 @@ const ModulePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(moduleDescription);
-
   return (
     <>
       <HeaderAuth />
@@ -137,18 +135,14 @@ const ModulePage = () => {
               <ProgressCircle value={progress} />
             </Stack>
           </PageContainer>
-          {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
+          {/* FIGURE OUT HOW TO ADD NEW LINES TO MODULEDESCRIPTION FOR NON-VIDEO! */}
           {moduleDescription && (
             <DescriptionContainer>
               <Typography>{moduleDescription}</Typography>
             </DescriptionContainer>
           )}
 
-          <LessonList
-            key={lessons}
-            lessons={lessons}
-            // completedLessonRefs={completedLessonRefs}
-          />
+          <LessonList key={lessons} lessons={lessons} />
         </>
       )}
     </>
