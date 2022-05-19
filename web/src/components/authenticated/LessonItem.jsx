@@ -54,15 +54,15 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
       // .commit({ autoGenerateArrayKeys: true })
       .commit()
       .then(() => {
-        dispatch(
-          authenticated.actions.addCompletedLesson({
-            _key: lesson._id,
-            lessonRef: lesson._id,
-            lessonTitle: lesson.title,
-            userId: userid,
-            completed: true,
-          })
-        );
+        // dispatch(
+        //   authenticated.actions.addCompletedLesson({
+        //     _key: lesson._id,
+        //     lessonRef: lesson._id,
+        //     lessonTitle: lesson.title,
+        //     userId: userid,
+        //     completed: true,
+        //   })
+        // );
       });
     setLoading(false);
   };
@@ -74,8 +74,8 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
       .patch(userid)
       .unset(deleteQuery)
       .commit()
-      .then((response) => {
-        dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
+      .then(() => {
+        // dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
       });
     setLoading(false);
   };
@@ -84,10 +84,20 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     if (!checked) {
       setChecked(true);
       checkItem(lesson);
+      dispatch(
+        authenticated.actions.addCompletedLesson({
+          _key: lesson._id,
+          lessonRef: lesson._id,
+          lessonTitle: lesson.title,
+          userId: userid,
+          completed: true,
+        })
+      );
     }
     if (checked) {
       setChecked(false);
       unCheckItem(completedLesson);
+      dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
     }
   };
 
