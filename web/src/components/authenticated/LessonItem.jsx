@@ -20,15 +20,15 @@ const LessonItem = ({
   clickTask,
   userid,
   // completedLessonRefs,
-  // completedLessons,
+  completedLessons,
 }) => {
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
-  // const completedLesson = completedLessons
-  //   ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
-  //   : [];
+  let completedLesson = completedLessons
+    ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
+    : [];
   // const booleanChecked = !!completedLessonRefs.filter((a) => a === lesson._id)
   //   .length;
 
@@ -46,13 +46,15 @@ const LessonItem = ({
       .setIfMissing({ completed: [] })
       .insert("after", "completed[-1]", [
         {
+          _key: lesson._id,
           lessonRef: lesson._id,
           lessonTitle: lesson.title,
           userId: userid,
           completed: true,
         },
       ])
-      .commit({ autoGenerateArrayKeys: true })
+      // .commit({ autoGenerateArrayKeys: true })
+      .commit()
       .then(() => {});
     setLoading(false);
   };
@@ -78,14 +80,14 @@ const LessonItem = ({
           "boolean not checked - setting checked to true and sending to sanity"
         );
         setChecked(true);
-        // checkItem(lesson);
+        checkItem(lesson);
       }
       if (checked) {
         console.log(
           "boolean checked - setting checked to false and sending to sanity"
         );
         setChecked(false);
-        // unCheckItem(completedLesson);
+        unCheckItem(completedLesson);
       }
     };
 
@@ -95,8 +97,8 @@ const LessonItem = ({
       secondaryAction={
         <Checkbox
           edge="end"
-          // onChange={handleToggle(completedLesson, lesson)}
-          onChange={handleToggle}
+          onChange={() => handleToggle(completedLesson, lesson)}
+          // onChange={handleToggle}
           checked={checked}
           inputProps={{ "aria-labelledby": labelId }}
           sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}

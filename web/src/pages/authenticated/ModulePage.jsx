@@ -10,15 +10,18 @@ import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
 const ModulePage = () => {
+  // For setting the page and beginning the queries
   const { module } = useParams();
   const [moduleTitle, setModuleTitle] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
   const [moduleType, setModuleType] = useState("");
   let lessonQueries = [];
 
+  // For loading and progress states
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
+  // For setting lessons
   let lessonsArray = [];
   const [lessons, setLessons] = useState([]);
 
@@ -27,6 +30,11 @@ const ModulePage = () => {
   // For Progress Circle
   const [numberOfCompletedLessons, setNumberOfCompletedLessons] = useState(0);
   const [totalNumberOfLessons, setTotalNumberOfLessons] = useState(0);
+
+  // For tracking completed lessons
+  const lessonIds = lessons.map((a) => a._id);
+  let completedArray = [];
+  const [completedLessons, setCompletedLessons] = useState([]);
 
   // For fetching module - Step 1
   const fetchModule = async () => {
@@ -70,17 +78,16 @@ const ModulePage = () => {
     const fetch = await client.fetch(completedLessonQuery);
     const response = await fetch;
     console.log("completed lessons response", response);
+
     if (response[0].completed === null) {
       setNumberOfCompletedLessons(0);
     } else {
-      setNumberOfCompletedLessons(response[0].completed.length);
+      completedArray = response[0].completed.filter((lesson) =>
+        lessonIds.includes(lesson.lessonRef)
+      );
+      setCompletedLessons(completedArray);
+      setNumberOfCompletedLessons(completedArray.length);
     }
-
-    // setCompletedLessons(
-    //   response[0].completed.filter((lesson) =>
-    //     lessonIds.includes(lesson.lessonRef)
-    //   )
-    // );
     setLoading(false);
   };
 
@@ -102,46 +109,39 @@ const ModulePage = () => {
     await progressTracker();
   };
 
+  // let completedLessonRefs = completedLessons
+  //   ? completedLessons.map((a) => a.lessonRef)
+  //   : [];
+
+  // console.log(completedLessons);
+
+  // For listening to changes in completed lessons
+  useEffect(() => {
+    const listenForLessonChange = () => {
+      const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
+      client.listen(completedLessonQuery).subscribe((update) => {
+        console.log(update);
+        completedArray = update.result.completed.filter((lesson) =>
+          lessonIds.includes(lesson.lessonRef)
+        );
+        setCompletedLessons(completedArray);
+      });
+    };
+
+    listenForLessonChange();
+
+    progressTracker();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [client]);
+
   // UseEffect for fetchAll
   useEffect(() => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const [completedLessons, setCompletedLessons] = useState([]);
-  // let completedLessonRefs = completedLessons
-  //   ? completedLessons.map((a) => a.lessonRef)
-  //   : [];
-  // const lessonIds = lessons.map((a) => a._id);
-
-  // console.log(completedLessons);
-
-  // For listening to changes in completed lessons
-  // const listenForLessonChange = () => {
-  //   client.listen(completedLessonQuery).subscribe((update) => {
-  //     console.log(
-  //       update.result.completed.filter((lesson) =>
-  //         lessonIds.includes(lesson.lessonRef)
-  //       )
-  //     );
-  //     setCompletedLessons(
-  //       update.result.completed.filter((lesson) =>
-  //         lessonIds.includes(lesson.lessonRef)
-  //       )
-  //     );
-  //   });
-  // };
-
-  useEffect(() => {
-    // listenForLessonChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // useEffect(() => {
-  //   // progressTracker();
-  //   setProgress((numberOfCompletedLessons / totalNumberOfLessons) * 100);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  console.log(completedLessons);
 
   return (
     <>
@@ -166,7 +166,7 @@ const ModulePage = () => {
           <LessonList
             key={lessons}
             lessons={lessons}
-            // completedLessons={completedLessons}
+            completedLessons={completedLessons}
             // completedLessonRefs={completedLessonRefs}
           />
         </>
