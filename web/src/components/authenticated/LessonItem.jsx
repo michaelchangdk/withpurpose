@@ -37,7 +37,6 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
 
   const checkItem = (lesson) => {
     setLoading(true);
-    console.log("item checked completed", lesson);
     client
       .patch(userid)
       .setIfMissing({
@@ -70,15 +69,12 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
 
   const unCheckItem = (completedLesson) => {
     setLoading(true);
-    console.log(completedLesson[0]._key);
-    console.log("item unchecked", completedLesson);
     const deleteQuery = [`completed[_key=="${completedLesson[0]._key}"]`];
     client
       .patch(userid)
       .unset(deleteQuery)
       .commit()
       .then((response) => {
-        console.log("unset response", response);
         dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
       });
     setLoading(false);
@@ -87,18 +83,11 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
   const handleToggle =
     // completedLesson, lesson
     () => {
-      console.log("is checked?", checked);
       if (!checked) {
-        console.log(
-          "boolean not checked - setting checked to true and sending to sanity"
-        );
         setChecked(true);
         checkItem(lesson);
       }
       if (checked) {
-        console.log(
-          "boolean checked - setting checked to false and sending to sanity"
-        );
         setChecked(false);
         unCheckItem(completedLesson);
       }

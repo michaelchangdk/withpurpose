@@ -19,7 +19,6 @@ const WeekPage = () => {
   let modulesArray = [];
   const [modules, setModules] = useState([]);
 
-  // const weekQuery = `*[_type == "week" && name == "${week}"] {title, subtitle, description, module`;
   const weekQuery = `*[_type == "week" && name == "${week}"]`;
 
   const fetchModuleRefs = async () => {
@@ -31,8 +30,7 @@ const WeekPage = () => {
     setHeroRef(response[0].heroImage.asset._ref);
     setModuleQueries(
       response[0].module.map(
-        (module) =>
-          `*[_type == "module" && _id == "${module._ref}"] {duration, order, name, title, type, _id}`
+        (module) => `*[_type == "module" && _id == "${module._ref}"]`
       )
     );
   };
@@ -90,6 +88,7 @@ const WeekPage = () => {
                   name={module.name}
                   title={module.title}
                   type={module.type}
+                  module={module}
                 />
               ))}
           </PageContainer>

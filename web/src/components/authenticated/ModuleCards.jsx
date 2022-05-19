@@ -1,49 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  Stack,
-  Typography,
-  Button,
-  CircularProgress,
-  Box,
-} from "@mui/material";
+import { Card, Stack, Typography, Button } from "@mui/material";
+import ProgressCircle from "./ProgressCircle";
+import { useSelector } from "react-redux";
+// import { authenticated } from "../../reducers/authenticated";
 
-const CircularProgressWithLabel = (props) => {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress variant="determinate" {...props} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
-
-const ModuleCards = ({ duration, name, title, type }) => {
+const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
-  const progressTracker = () => {
-    setProgress(0);
-  };
+  const lessonRefs = module.lesson.map((a) => a._ref);
+  const completedLessonsLength = useSelector(
+    (store) => store.authenticated.completedLessons
+  ).filter((lesson) => lessonRefs.includes(lesson._key)).length;
 
+  // useEffect for progress tracker
   useEffect(() => {
-    progressTracker();
-  }, []);
+    const progress = (completedLessonsLength / module.lesson.length) * 100;
+    if (progress >= 0) {
+      setProgress(progress);
+    } else {
+      setProgress(0);
+    }
+  }, [module.lesson.length, completedLessonsLength]);
 
   return (
     <Card
@@ -56,7 +35,7 @@ const ModuleCards = ({ duration, name, title, type }) => {
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="caption">{type}</Typography>
-        <CircularProgressWithLabel value={progress} />
+        <ProgressCircle value={progress} />
       </Stack>
       <Typography variant="body1" fontWeight={500}>
         {name}
