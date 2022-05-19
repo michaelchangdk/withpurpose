@@ -123,7 +123,7 @@ const HeaderNav = styled.div`
   /* margin: 5px 20px; */
   /* width: 92vw; */
   width: calc(100vw - 32px);
-  margin: 0 auto;
+  margin: 0 auto 2vh auto;
   padding-top: 3vh;
   /* z-index: 2; */
   /* position: absolute;
