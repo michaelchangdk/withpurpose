@@ -43,9 +43,11 @@ const LessonList = ({
                 frameBorder="0"
               />
             </FrameDiv>
-            <Typography>Now playing:</Typography>
-            <Typography>{taskTitle}</Typography>
-            <Typography>{taskDuration}</Typography>
+            <Typography variant="caption" fontSize={13}>
+              Now playing:
+            </Typography>
+            <Typography fontSize={16}>{taskTitle}</Typography>
+            <Typography variant="caption">{taskDuration}</Typography>
           </div>
         )}
         {taskDescription.length > 0 && (

@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Card, Stack, Typography, Button } from "@mui/material";
 import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
-// import { authenticated } from "../../reducers/authenticated";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 
 const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);
@@ -34,16 +36,25 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
       }}
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="caption">{type}</Typography>
+        <Typography variant="caption" fontSize={13}>
+          {type}
+        </Typography>
         <ProgressCircle value={progress} />
       </Stack>
-      <Typography variant="body1" fontWeight={500}>
+      <Typography variant="body1" fontWeight={500} mb={1}>
         {name}
       </Typography>
-      <Typography variant="body2" fontWeight={300} fontSize={14}>
-        Icon - {type}
-      </Typography>
-      <Typography variant="body2" fontWeight={300} fontSize={12}>
+      <Stack direction="row" alignItems="center" gap={1}>
+        {(type === "Course videos" || type === "Live session") && (
+          <OndemandVideoIcon />
+        )}
+        {type === "Exercises" && <ModeOutlinedIcon />}
+        {type === "Optional resources" && <PlaylistAddOutlinedIcon />}
+        <Typography variant="body2" fontWeight={300} fontSize={14}>
+          {type}
+        </Typography>
+      </Stack>
+      <Typography variant="body2" fontWeight={300} fontSize={12} mt={1}>
         {duration}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}

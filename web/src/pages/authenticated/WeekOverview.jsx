@@ -30,7 +30,6 @@ const WeekOverview = () => {
       <LandingPageHero order={1} />
       <PageContainer>
         {loading && <p>loading</p>}
-        {/* use "name" for useNavigate */}
         {!loading &&
           cards.map((week) => (
             <WeekCards

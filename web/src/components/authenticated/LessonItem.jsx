@@ -80,18 +80,16 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     setLoading(false);
   };
 
-  const handleToggle =
-    // completedLesson, lesson
-    () => {
-      if (!checked) {
-        setChecked(true);
-        checkItem(lesson);
-      }
-      if (checked) {
-        setChecked(false);
-        unCheckItem(completedLesson);
-      }
-    };
+  const handleToggle = () => {
+    if (!checked) {
+      setChecked(true);
+      checkItem(lesson);
+    }
+    if (checked) {
+      setChecked(false);
+      unCheckItem(completedLesson);
+    }
+  };
 
   return (
     <ListItem

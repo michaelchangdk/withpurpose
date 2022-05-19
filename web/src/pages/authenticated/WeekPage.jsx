@@ -77,8 +77,10 @@ const WeekPage = () => {
               </HeaderInstruction>
             </PageContainer>
           </Header>
-          <PageContainer>
+          <DescriptionContainer>
             <p>{description}</p>
+          </DescriptionContainer>
+          <PageContainer>
             {loading && <p>Loading...</p>}
             {!loading &&
               modules.map((module) => (
@@ -142,4 +144,11 @@ const HeaderInstruction = styled.div`
 const HeaderIcon = styled.img`
   width: 20px;
   height: 20px;
+`;
+
+const DescriptionContainer = styled.div`
+  background-color: #e93a7d;
+  color: white;
+  padding: 48px;
+  margin-bottom: 2vh;
 `;

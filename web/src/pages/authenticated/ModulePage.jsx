@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { authenticated } from "../../reducers/authenticated";
+import styled from "styled-components";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -112,6 +113,8 @@ const ModulePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(moduleDescription);
+
   return (
     <>
       <HeaderAuth />
@@ -123,14 +126,23 @@ const ModulePage = () => {
               direction="row"
               alignItems="center"
               justifyContent="space-between"
+              mb="3vh"
             >
-              <Typography>{moduleType}</Typography>
+              <div>
+                <Typography fontSize={28} fontWeight={500}>
+                  {moduleType}
+                </Typography>
+                <Typography variant="body2">{moduleTitle}</Typography>
+              </div>
               <ProgressCircle value={progress} />
             </Stack>
-            <Typography variant="body2">{moduleTitle}</Typography>
-            {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
-            <div>{moduleDescription}</div>
           </PageContainer>
+          {/* FIGURE OUT HOW TO ADD NEW LINES TO DESCRIPTION FOR NON-VIDEO! */}
+          {moduleDescription && (
+            <DescriptionContainer>
+              <Typography>{moduleDescription}</Typography>
+            </DescriptionContainer>
+          )}
 
           <LessonList
             key={lessons}
@@ -144,3 +156,10 @@ const ModulePage = () => {
 };
 
 export default ModulePage;
+
+const DescriptionContainer = styled.div`
+  background-color: #e93a7d;
+  color: white;
+  padding: 48px;
+  margin-bottom: 2vh;
+`;

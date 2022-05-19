@@ -17,7 +17,7 @@ const ProgressCircle = (props) => {
           justifyContent: "center",
         }}
       >
-        <Typography component="div" color="text.secondary">
+        <Typography component="div" color="text.secondary" fontSize={12}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
