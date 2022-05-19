@@ -121,10 +121,10 @@ const ModulePage = () => {
       const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
       client.listen(completedLessonQuery).subscribe((update) => {
         console.log(update);
-        completedArray = update.result.completed.filter((lesson) =>
+        let filteredArray = update.result.completed.filter((lesson) =>
           lessonIds.includes(lesson.lessonRef)
         );
-        setCompletedLessons(completedArray);
+        setCompletedLessons(filteredArray);
       });
     };
 
