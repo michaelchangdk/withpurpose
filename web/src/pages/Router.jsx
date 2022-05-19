@@ -20,7 +20,7 @@ import MasterClass from "./authenticated/MasterclassPage";
 import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
-import PleaseLogin from "./login/PleaseLogin";
+import NoAccess from "./login/NoAccess";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -48,36 +48,36 @@ const Router = () => {
         {/* NEED USER below */}
         <Route
           path="/startup-school-elearning"
-          element={loggedin ? <LandingPage /> : <PleaseLogin />}
+          element={loggedin ? <LandingPage /> : <NoAccess />}
         />
         <Route
           path="/startup-school-weeks"
-          element={loggedin ? <WeekOverview /> : <PleaseLogin />}
+          element={loggedin ? <WeekOverview /> : <NoAccess />}
         />
         {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
         <Route
           path="/week/:week"
-          element={loggedin ? <WeekPage /> : <PleaseLogin />}
+          element={loggedin ? <WeekPage /> : <NoAccess />}
         />
         <Route
           path="/module/:module"
-          element={loggedin ? <ModulePage /> : <PleaseLogin />}
+          element={loggedin ? <ModulePage /> : <NoAccess />}
         />
         <Route
           path="/masterclass"
-          element={loggedin ? <MasterClass /> : <PleaseLogin />}
+          element={loggedin ? <MasterClass /> : <NoAccess />}
         />
         <Route
           path="/book-a-mentor"
-          element={loggedin ? <MentorsPrivate /> : <PleaseLogin />}
+          element={loggedin ? <MentorsPrivate /> : <NoAccess />}
         />
         <Route
           path="/community"
-          element={loggedin ? <AlumniPrivate /> : <PleaseLogin />}
+          element={loggedin ? <AlumniPrivate /> : <NoAccess />}
         />
         <Route
           path="/profile/:user"
-          element={loggedin ? <ProfilePage /> : <PleaseLogin />}
+          element={loggedin ? <ProfilePage /> : <NoAccess />}
         />
       </Routes>
     </BrowserRouter>

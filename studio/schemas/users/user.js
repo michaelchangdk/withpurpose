@@ -62,6 +62,11 @@ export default {
       type: "boolean",
     },
     {
+      name: "approvedCommunity",
+      title: "Approved Community Page?",
+      type: "boolean",
+    },
+    {
       name: "approvedMasterClass",
       title: "Approved Master Class?",
       type: "boolean",

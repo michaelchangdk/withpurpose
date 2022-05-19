@@ -71,6 +71,16 @@ const Signup = () => {
           displayName: `${firstname} ${lastname}`,
           uniqueid: userCredential.user.uid,
           email: userCredential.user.email,
+          approvedSchool: false,
+          approvedWeek0: false,
+          approvedWeek1: false,
+          approvedWeek23: false,
+          approvedWeek4: false,
+          approvedWeek5: false,
+          approvedWeek6: false,
+          approvedMasterClass: false,
+          approvedMentorBooking: false,
+          approvedCommunity: false,
         };
 
         // userCredential.user.email;
@@ -84,6 +94,16 @@ const Signup = () => {
             authenticated.actions.login({
               uid: userCredential.user.uid,
               displayName: `${firstname} ${lastname}`,
+              approvedSchool: false,
+              approvedWeek0: false,
+              approvedWeek1: false,
+              approvedWeek23: false,
+              approvedWeek4: false,
+              approvedWeek5: false,
+              approvedWeek6: false,
+              approvedMasterClass: false,
+              approvedMentorBooking: false,
+              approvedCommunity: false,
             })
           );
 

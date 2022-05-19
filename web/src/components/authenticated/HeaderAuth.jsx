@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,16 +8,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 import logo from "../../assets/BWP_logotype.svg";
 import styled from "styled-components";
+import NoAccessModal from "./NoAccessModal";
 
 const HeaderAuth = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorElNav, setAnchorELNav] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElNav, setAnchorELNav] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const openProfile = Boolean(anchorEl);
   const openNav = Boolean(anchorElNav);
   const user = useSelector((store) => store.authenticated.uid);
   const displayName = useSelector((store) => store.authenticated.displayName);
+  const [openModal, setOpenModal] = useState(false);
+  const access = useSelector((store) => store.authenticated.access);
 
   const openProfileNav = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +33,39 @@ const HeaderAuth = () => {
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorELNav(null);
+  };
+
+  const navigateSchool = () => {
+    if (access.approvedSchool) {
+      navigate(`/startup-school-weeks`);
+    } else {
+      setOpenModal(true);
+    }
+  };
+
+  const navigateMasterClass = () => {
+    if (access.approvedMasterClass) {
+      navigate(`/masterclass`);
+    } else {
+      setOpenModal(true);
+    }
+  };
+
+  const navigateMentor = () => {
+    if (access.approvedMentorBooking) {
+      navigate(`/masterclass`);
+    } else {
+      setOpenModal(true);
+    }
+  };
+
+  // Add community to reducer, login, logout, signup, and also Sanity
+  const navigateCommunity = () => {
+    if (access.approvedCommunity) {
+      navigate(`/masterclass`);
+    } else {
+      setOpenModal(true);
+    }
   };
 
   const logout = () => {
@@ -69,15 +105,12 @@ const HeaderAuth = () => {
         <MenuItem onClick={() => navigate(`/startup-school-elearning`)}>
           Home
         </MenuItem>
-        <MenuItem onClick={() => navigate(`/startup-school-weeks`)}>
-          Startup School
-        </MenuItem>
-        <MenuItem onClick={() => navigate(`/masterclass`)}>
-          Masterclasses
-        </MenuItem>
-        <MenuItem onClick={() => navigate(`/book-a-mentor`)}>Mentors</MenuItem>
-        <MenuItem onClick={() => navigate(`/community`)}>Community</MenuItem>
+        <MenuItem onClick={navigateSchool}>Startup School</MenuItem>
+        <MenuItem onClick={navigateMasterClass}>Masterclasses</MenuItem>
+        <MenuItem onClick={navigateMentor}>Mentors</MenuItem>
+        <MenuItem onClick={navigateCommunity}>Community</MenuItem>
       </Menu>
+      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
       <Button
         id="basic-button"
         aria-controls={openProfile ? "basic-menu" : undefined}
