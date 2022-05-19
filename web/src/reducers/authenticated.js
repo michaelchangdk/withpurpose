@@ -31,7 +31,9 @@ export const authenticated = createSlice({
       }
     },
     removeCompletedLesson: (state, action) => {
-      console.log("remove complete to reducer", action.payload);
+      state.completedLessons = state.completedLessons.filter(
+        (lesson) => lesson._key !== action.payload[0]._key
+      );
     },
   },
 });

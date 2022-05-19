@@ -29,14 +29,11 @@ const ModulePage = () => {
 
   const userid = useSelector((store) => store.authenticated.uid);
 
-  // For Progress Circle
-  const [numberOfCompletedLessons, setNumberOfCompletedLessons] = useState(0);
-  const [totalNumberOfLessons, setTotalNumberOfLessons] = useState(0);
-
   // For tracking completed lessons
   const lessonIds = lessons.map((a) => a._id);
-  let completedArray = [];
-  const [completedLessons, setCompletedLessons] = useState([]);
+  const completedLessons = useSelector(
+    (store) => store.authenticated.completedLessons
+  ).filter((lesson) => lessonIds.includes(lesson._key));
 
   // For fetching module - Step 1
   const fetchModule = async () => {
@@ -48,7 +45,6 @@ const ModulePage = () => {
     setModuleTitle(response[0].name);
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
-    setTotalNumberOfLessons(response[0].lesson.length);
     lessonQueries = response[0].lesson.map(
       (lesson) => `*[_type == "lesson" && _id == "${lesson._ref}"]`
     );
@@ -83,90 +79,38 @@ const ModulePage = () => {
 
     if (response[0].completed === null || response[0].completed.length === 0) {
       console.log("completed lessons response registered as null or zero");
-      setNumberOfCompletedLessons(0);
+      // For progress tracker
     } else {
       console.log("completed lessons response registered as existing");
       response[0].completed.forEach((lesson) =>
         dispatch(authenticated.actions.addCompletedLesson(lesson))
       );
-      // WEIRDLY THIS REGISTERS THE COMPLETED LESSONS BELOW
-      console.log(
-        response[0].completed.filter((lesson) =>
-          lessonIds.includes(lesson.lessonRef)
-        )
-      );
-      // CALLING THE FUNCTION AND PUTTING IT INSIDE THE SETCOMPLETEDLESSONS RETURNS UNDEFINED?
-      // BUT ON LINE 135 - 146 THE SAME METHOD WORKS WHEN UPDATING???
-      const filteredArray = () => {
-        response[0].completed.filter((lesson) =>
-          lessonIds.includes(lesson.lessonRef)
-        );
-      };
-      // completedArray = response[0].completed.filter((lesson) =>
-      //   lessonIds.includes(lesson.lessonRef)
-      // );
-      setCompletedLessons(filteredArray());
-      setNumberOfCompletedLessons(completedArray.length);
-      progressTracker();
     }
     setLoading(false);
   };
 
-  // For Setting Progress
-  const progressTracker = async () => {
-    const progress = (numberOfCompletedLessons / totalNumberOfLessons) * 100;
+  // useEffect for progress tracker
+  useEffect(() => {
+    const progress = (completedLessons.length / lessons.length) * 100;
     if (progress >= 0) {
       setProgress(progress);
     } else {
       setProgress(0);
     }
-  };
+  }, [completedLessons.length, lessons.length]);
 
   // Async function for fetching everything in order
   const fetchAll = async () => {
     await fetchModule();
     await fetchLessons();
     await fetchCompletedLessons();
-    await progressTracker();
   };
-
-  // let completedLessonRefs = completedLessons
-  //   ? completedLessons.map((a) => a.lessonRef)
-  //   : [];
-
-  // console.log(completedLessons);
-
-  // For listening to changes in completed lessons
-  useEffect(() => {
-    const listenForLessonChange = () => {
-      const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
-      client.listen(completedLessonQuery).subscribe((update) => {
-        console.log(update);
-        const filteredArray = () => {
-          update.result.completed.filter((lesson) =>
-            lessonIds.includes(lesson.lessonRef)
-          );
-        };
-        update.result.completed.forEach((lesson) =>
-          dispatch(authenticated.actions.addCompletedLesson(lesson))
-        );
-        setCompletedLessons(filteredArray());
-      });
-    };
-
-    listenForLessonChange();
-
-    progressTracker();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client]);
 
   // UseEffect for fetchAll
   useEffect(() => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(completedLessons);
 
   return (
     <>
@@ -191,7 +135,6 @@ const ModulePage = () => {
           <LessonList
             key={lessons}
             lessons={lessons}
-            completedLessons={completedLessons}
             // completedLessonRefs={completedLessonRefs}
           />
         </>

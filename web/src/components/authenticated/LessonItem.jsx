@@ -14,29 +14,26 @@ import CloudCircleIcon from "@mui/icons-material/CloudCircle";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { client } from "../../client";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
 
-const LessonItem = ({
-  lesson,
-  clickTask,
-  userid,
-  // completedLessonRefs,
-  completedLessons,
-}) => {
+const LessonItem = ({ lesson, clickTask, userid }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
 
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
-  let completedLesson = completedLessons
-    ? completedLessons.filter((a) => a.lessonRef === lesson._id)[0]
-    : [];
-  // const booleanChecked = !!completedLessonRefs.filter((a) => a === lesson._id)
-  //   .length;
 
-  // useEffect(() => {
-  //   if (booleanChecked) {
-  //     setChecked(true);
-  //   }
-  // }, []);
+  const completedLesson = useSelector((store) =>
+    store.authenticated.completedLessons.filter((a) => a._key === lesson._id)
+  );
+
+  useEffect(() => {
+    if (completedLesson.length > 0) {
+      setChecked(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const checkItem = (lesson) => {
     setLoading(true);
@@ -57,19 +54,33 @@ const LessonItem = ({
       ])
       // .commit({ autoGenerateArrayKeys: true })
       .commit()
-      .then(() => {});
+      .then(() => {
+        dispatch(
+          authenticated.actions.addCompletedLesson({
+            _key: lesson._id,
+            lessonRef: lesson._id,
+            lessonTitle: lesson.title,
+            userId: userid,
+            completed: true,
+          })
+        );
+      });
     setLoading(false);
   };
 
   const unCheckItem = (completedLesson) => {
     setLoading(true);
+    console.log(completedLesson[0]._key);
     console.log("item unchecked", completedLesson);
-    const deleteQuery = [`completed[_key=="${completedLesson._key}"]`];
+    const deleteQuery = [`completed[_key=="${completedLesson[0]._key}"]`];
     client
       .patch(userid)
       .unset(deleteQuery)
       .commit()
-      .then(() => {});
+      .then((response) => {
+        console.log("unset response", response);
+        dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
+      });
     setLoading(false);
   };
 

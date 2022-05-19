@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 const LessonList = ({
   lessons,
-  completedLessons,
   // completedLessonRefs
 }) => {
   const [videoUrl, selectVideoUrl] = useState("");
@@ -76,13 +75,10 @@ const LessonList = ({
           lessons.map((lesson, index) => {
             return (
               <LessonItem
-                // key={`${completedLessons}${index}`}
                 key={lesson.title}
                 lesson={lesson}
                 clickTask={clickTask}
                 userid={userid}
-                completedLessons={completedLessons}
-                // completedLessonRefs={completedLessonRefs}
               />
             );
           })}
