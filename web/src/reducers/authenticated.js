@@ -6,6 +6,7 @@ export const authenticated = createSlice({
     loggedin: false,
     uid: "",
     displayName: "",
+    completedLessons: [],
   },
 
   reducers: {
@@ -18,6 +19,19 @@ export const authenticated = createSlice({
       state.loggedin = false;
       state.uid = "";
       state.displayName = "";
+      state.completedLessons = [];
+    },
+    addCompletedLesson: (state, action) => {
+      if (
+        !state.completedLessons.some(
+          (lesson) => lesson._key === action.payload._key
+        )
+      ) {
+        state.completedLessons.push(action.payload);
+      }
+    },
+    removeCompletedLesson: (state, action) => {
+      console.log("remove complete to reducer", action.payload);
     },
   },
 });

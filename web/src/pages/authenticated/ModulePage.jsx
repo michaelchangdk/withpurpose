@@ -5,12 +5,14 @@ import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { Stack, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { authenticated } from "../../reducers/authenticated";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
+  const dispatch = useDispatch();
   const { module } = useParams();
   const [moduleTitle, setModuleTitle] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
@@ -79,14 +81,33 @@ const ModulePage = () => {
     const response = await fetch;
     console.log("completed lessons response", response);
 
-    if (response[0].completed === null) {
+    if (response[0].completed === null || response[0].completed.length === 0) {
+      console.log("completed lessons response registered as null or zero");
       setNumberOfCompletedLessons(0);
     } else {
-      completedArray = response[0].completed.filter((lesson) =>
-        lessonIds.includes(lesson.lessonRef)
+      console.log("completed lessons response registered as existing");
+      response[0].completed.forEach((lesson) =>
+        dispatch(authenticated.actions.addCompletedLesson(lesson))
       );
-      setCompletedLessons(completedArray);
+      // WEIRDLY THIS REGISTERS THE COMPLETED LESSONS BELOW
+      console.log(
+        response[0].completed.filter((lesson) =>
+          lessonIds.includes(lesson.lessonRef)
+        )
+      );
+      // CALLING THE FUNCTION AND PUTTING IT INSIDE THE SETCOMPLETEDLESSONS RETURNS UNDEFINED?
+      // BUT ON LINE 135 - 146 THE SAME METHOD WORKS WHEN UPDATING???
+      const filteredArray = () => {
+        response[0].completed.filter((lesson) =>
+          lessonIds.includes(lesson.lessonRef)
+        );
+      };
+      // completedArray = response[0].completed.filter((lesson) =>
+      //   lessonIds.includes(lesson.lessonRef)
+      // );
+      setCompletedLessons(filteredArray());
       setNumberOfCompletedLessons(completedArray.length);
+      progressTracker();
     }
     setLoading(false);
   };
@@ -121,17 +142,21 @@ const ModulePage = () => {
       const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
       client.listen(completedLessonQuery).subscribe((update) => {
         console.log(update);
-        let filteredArray = update.result.completed.filter((lesson) =>
-          lessonIds.includes(lesson.lessonRef)
+        const filteredArray = () => {
+          update.result.completed.filter((lesson) =>
+            lessonIds.includes(lesson.lessonRef)
+          );
+        };
+        update.result.completed.forEach((lesson) =>
+          dispatch(authenticated.actions.addCompletedLesson(lesson))
         );
-        setCompletedLessons(filteredArray);
+        setCompletedLessons(filteredArray());
       });
     };
 
     listenForLessonChange();
 
     progressTracker();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client]);
 

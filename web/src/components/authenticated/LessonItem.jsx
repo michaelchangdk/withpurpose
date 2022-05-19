@@ -43,7 +43,9 @@ const LessonItem = ({
     console.log("item checked completed", lesson);
     client
       .patch(userid)
-      .setIfMissing({ completed: [] })
+      .setIfMissing({
+        completed: [],
+      })
       .insert("after", "completed[-1]", [
         {
           _key: lesson._id,
