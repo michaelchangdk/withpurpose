@@ -25,11 +25,9 @@ import NoAccess from "./login/NoAccess";
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   console.log(useSelector((store) => store.authenticated));
+  const access = useSelector((store) => store.authenticated.access);
 
-  // INSTEAD OF LOGGED IN FROM LINE 45 DOWN - CHECK IF USER IS ALLOWED ACCESS
-  // ACCESS FIELD TO SITE IN TOTAL - ACCESS TO STARTUP SCHOOL - ACCESS TO MASTERCLASS - BOOK A MEETING
-  // PULL FROM SANITY & SAVE IN REDUX STORE
-  // ADD COHORT FIELD TO USER & LESSONS
+  // HOW TO IMPLEMENT WEEKS ACCESS IN ROUTER?
 
   return (
     <BrowserRouter>
@@ -52,7 +50,9 @@ const Router = () => {
         />
         <Route
           path="/startup-school-weeks"
-          element={loggedin ? <WeekOverview /> : <NoAccess />}
+          element={
+            loggedin && access.approvedSchool ? <WeekOverview /> : <NoAccess />
+          }
         />
         {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
         <Route
@@ -65,15 +65,33 @@ const Router = () => {
         />
         <Route
           path="/masterclass"
-          element={loggedin ? <MasterClass /> : <NoAccess />}
+          element={
+            loggedin && access.approvedMasterClass ? (
+              <MasterClass />
+            ) : (
+              <NoAccess />
+            )
+          }
         />
         <Route
           path="/book-a-mentor"
-          element={loggedin ? <MentorsPrivate /> : <NoAccess />}
+          element={
+            loggedin && access.approvedMentorBooking ? (
+              <MentorsPrivate />
+            ) : (
+              <NoAccess />
+            )
+          }
         />
         <Route
           path="/community"
-          element={loggedin ? <AlumniPrivate /> : <NoAccess />}
+          element={
+            loggedin && access.approvedCommunity ? (
+              <AlumniPrivate />
+            ) : (
+              <NoAccess />
+            )
+          }
         />
         <Route
           path="/profile/:user"
