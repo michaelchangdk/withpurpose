@@ -4,6 +4,8 @@ import { Card, Stack, Typography, Button } from "@mui/material";
 import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
 import NoAccessModal from "./NoAccessModal";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../../styledcomponents/theme";
 // import StartRoundedIcon from "@mui/icons-material/StartRounded";
 
 const WeekCards = ({
@@ -38,54 +40,62 @@ const WeekCards = ({
     }
   };
 
-  if (access.length !== 1) {
-    setDisabled(true);
-  }
+  useEffect(() => {
+    if (access.length !== 1) {
+      setDisabled(true);
+    }
+  }, [access.length]);
 
   return (
     <Card
       sx={{
         // maxWidth: 345,
-        minHeight: 150,
-        padding: 1,
+        // minHeight: 150,
+        height: 175,
+        padding: 2,
         mx: "auto",
-        position: "relative",
       }}
     >
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Typography variant="caption">
-          {title} | {keyword}
-        </Typography>
-        <ProgressCircle value={progress} />
-      </Stack>
-      <Typography variant="body1" fontWeight={500}>
-        {shortDescription}
-      </Typography>
-      <Typography variant="body2" fontWeight={300} fontSize={14}>
-        {liveSessionTitle}
-      </Typography>
-      <Typography variant="body2" fontWeight={300} fontSize={12}>
-        {liveSessionDate}
-      </Typography>
-      {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
       <Stack
-        direction="column"
-        alignItems="flex-end"
-        position="absolute"
-        bottom="0"
-        right="0"
-        margin={1}
+        sx={{ height: "100%", justifyContent: "space-between" }}
+        height="100%"
       >
-        <Button
-          variant="contained"
-          disableElevation
-          disabled={disabled}
-          onClick={navigateToWeek}
-          size="small"
-          // endIcon={<StartRoundedIcon />}
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
         >
-          Start
-        </Button>
+          <Typography variant="caption">
+            {title} | {keyword}
+          </Typography>
+          <ProgressCircle value={progress} />
+        </Stack>
+        <Typography variant="body1" fontWeight={500}>
+          {shortDescription}
+        </Typography>
+        <Typography variant="body2" fontWeight={300} fontSize={14}>
+          {liveSessionTitle}
+        </Typography>
+        <Typography variant="body2" fontWeight={300} fontSize={12}>
+          {liveSessionDate}
+        </Typography>
+        {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
+        <Stack direction="column" alignItems="flex-start">
+          <ThemeProvider theme={theme}>
+            <Button
+              variant="contained"
+              disableElevation
+              disabled={disabled}
+              onClick={navigateToWeek}
+              size="small"
+              color={disabled ? "lightPurple" : "purple"}
+              sx={{ width: 120 }}
+              // endIcon={<StartRoundedIcon />}
+            >
+              {disabled ? "Coming soon" : "Start"}
+            </Button>
+          </ThemeProvider>
+        </Stack>
       </Stack>
       <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
     </Card>

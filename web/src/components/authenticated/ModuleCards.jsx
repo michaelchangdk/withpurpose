@@ -40,18 +40,17 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
     }
   }, [module.lesson.length, completedLessonsLength]);
 
-  console.log(progress);
-
   return (
     <Card
       sx={{
         // maxWidth: 345,
-        minHeight: 150,
-        padding: 1,
+        // minHeight: 150,
+        height: 175,
+        padding: 2,
         mx: "auto",
-        position: "relative",
       }}
     >
+      {/* <Stack sx={{ height: "100%" }} height="100%"> */}
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="caption" fontSize={13}>
           {type}
@@ -75,14 +74,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
         {duration}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Stack
-        direction="column"
-        alignItems="flex-end"
-        position="absolute"
-        bottom="0"
-        right="0"
-        margin={1}
-      >
+      <Stack direction="column" alignItems="flex-start">
         <ThemeProvider theme={theme}>
           <Button
             variant="contained"
@@ -97,6 +89,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
           </Button>
         </ThemeProvider>
       </Stack>
+      {/* </Stack> */}
     </Card>
   );
 };

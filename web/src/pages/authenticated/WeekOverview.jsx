@@ -19,7 +19,8 @@ const WeekOverview = () => {
   const fetchWeek = async () => {
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
-    // NEED BELOW CONSOLE LOG FOR TRACKING PROGRESS
+    // NEED BELOW CONSOLE LOG FOR TRACKING PROGRESS - MAYBE ON WEEK CARD INSTEAD??
+    // console.log(response);
     // console.log(response.map((lesson) => lesson.module));
 
     // WE NEED TO MAKE SURE DRAFTS DON'T GET ADDED TO THE ARRAY! USE THE BELOW CODE IN IDS!

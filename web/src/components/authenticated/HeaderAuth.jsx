@@ -53,16 +53,15 @@ const HeaderAuth = () => {
 
   const navigateMentor = () => {
     if (access.approvedMentorBooking) {
-      navigate(`/masterclass`);
+      navigate(`/book-a-mentor`);
     } else {
       setOpenModal(true);
     }
   };
 
-  // Add community to reducer, login, logout, signup, and also Sanity
   const navigateCommunity = () => {
     if (access.approvedCommunity) {
-      navigate(`/masterclass`);
+      navigate(`/community`);
     } else {
       setOpenModal(true);
     }

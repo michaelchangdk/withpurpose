@@ -7,6 +7,11 @@ import ModuleCards from "../../components/authenticated/ModuleCards";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
 import down from "../../assets/down.png";
+import { Stack, Button } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../../styledcomponents/theme";
+import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
 
 const WeekPage = () => {
   const [title, setTitle] = useState("");
@@ -15,19 +20,29 @@ const WeekPage = () => {
   const [moduleQueries, setModuleQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [heroRef, setHeroRef] = useState("");
+  const [weekOrder, setWeekOrder] = useState();
   const { week } = useParams();
   let modulesArray = [];
   const [modules, setModules] = useState([]);
+  const navigate = useNavigate();
+
+  // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
+  // ADD LOGIC FOR "NEXT WEEK / COMING SOON"
+  // const [navigateButtonColor, setNavigateButtonColor] = useState("purple");
+  // const [disabled, setDisabled] = useState()
+  // const access = useSelector((store) => store.authenticated.access);
 
   const weekQuery = `*[_type == "week" && name == "${week}"]`;
 
   const fetchModuleRefs = async () => {
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
+    console.log(response);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
     setDescription(response[0].description);
     setHeroRef(response[0].heroImage.asset._ref);
+    setWeekOrder(response[0].order);
     setModuleQueries(
       response[0].module.map(
         (module) => `*[_type == "module" && _id == "${module._ref}"]`
@@ -58,6 +73,32 @@ const WeekPage = () => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
+
+  const previousWeek = () => {
+    if (weekOrder === 4) {
+      navigate(`/week/Week2`);
+      window.location.reload();
+    } else if (weekOrder === 3) {
+      navigate(`/week/Week1`);
+      window.location.reload();
+    } else if (weekOrder === 2) {
+      navigate(`/week/Week0`);
+      window.location.reload();
+    } else {
+      navigate(`/week/Week${weekOrder - 1}`);
+      window.location.reload();
+    }
+  };
+
+  const nextWeek = () => {
+    if (weekOrder === 2) {
+      navigate(`/week/Week4`);
+      window.location.reload();
+    } else {
+      navigate(`/week/Week${weekOrder + 1}`);
+      window.location.reload();
+    }
+  };
 
   return (
     <>
@@ -93,6 +134,40 @@ const WeekPage = () => {
                   module={module}
                 />
               ))}
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              mt="2vh"
+              mb="2vh"
+            >
+              <ThemeProvider theme={theme}>
+                {weekOrder !== 1 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140 }}
+                    size="small"
+                    color="purple"
+                    onClick={() => previousWeek()}
+                    disableElevation
+                  >
+                    Previous week
+                  </Button>
+                )}
+
+                {weekOrder !== 6 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140 }}
+                    size="small"
+                    color="purple"
+                    onClick={() => nextWeek()}
+                    disableElevation
+                  >
+                    Next week
+                  </Button>
+                )}
+              </ThemeProvider>
+            </Stack>
           </PageContainer>
         </>
       )}

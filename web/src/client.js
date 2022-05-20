@@ -6,7 +6,7 @@ export const client = sanityClient({
   dataset: "production",
   apiVersion: "2022-05-12",
   // use true if you want cached versions, false for faster real-time
-  useCdn: false,
+  useCdn: true,
   token: process.env.REACT_APP_SANITY_TOKEN,
 });
 
