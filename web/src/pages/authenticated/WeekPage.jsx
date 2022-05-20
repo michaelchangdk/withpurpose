@@ -151,4 +151,6 @@ const DescriptionContainer = styled.div`
   color: white;
   padding: 48px;
   margin-bottom: 2vh;
+  white-space: pre-line;
+  vertical-align: bottom;
 `;

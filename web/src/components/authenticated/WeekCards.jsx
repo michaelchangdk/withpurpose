@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Stack, Typography, Button } from "@mui/material";
 import ProgressCircle from "./ProgressCircle";
+import { useSelector } from "react-redux";
+import NoAccessModal from "./NoAccessModal";
 
 const WeekCards = ({
   title,
@@ -12,7 +14,11 @@ const WeekCards = ({
   name,
 }) => {
   const [progress, setProgress] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const access = Object.entries(
+    useSelector((store) => store.authenticated.access)
+  ).filter(([key, val]) => key.includes(name) && val === true);
 
   const progressTracker = () => {
     setProgress(0);
@@ -21,6 +27,14 @@ const WeekCards = ({
   useEffect(() => {
     progressTracker();
   }, []);
+
+  const navigateToWeek = () => {
+    if (access.length === 1) {
+      navigate(`/week/${name}`);
+    } else {
+      setOpenModal(true);
+    }
+  };
 
   return (
     <Card
@@ -47,7 +61,8 @@ const WeekCards = ({
         {liveSessionDate}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={() => navigate(`/week/${name}`)}>Start</Button>
+      <Button onClick={navigateToWeek}>Start</Button>
+      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
     </Card>
   );
 };

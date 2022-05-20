@@ -135,7 +135,6 @@ const ModulePage = () => {
               <ProgressCircle value={progress} />
             </Stack>
           </PageContainer>
-          {/* FIGURE OUT HOW TO ADD NEW LINES TO MODULEDESCRIPTION FOR NON-VIDEO! */}
           {moduleDescription && (
             <DescriptionContainer>
               <Typography>{moduleDescription}</Typography>
@@ -156,4 +155,6 @@ const DescriptionContainer = styled.div`
   color: white;
   padding: 48px;
   margin-bottom: 2vh;
+  white-space: pre-line;
+  vertical-align: bottom;
 `;
