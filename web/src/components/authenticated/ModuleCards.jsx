@@ -6,9 +6,13 @@ import { useSelector } from "react-redux";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../../styledcomponents/theme";
 
 const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);
+  const [color, setColor] = useState("green");
+  const [buttonText, setButtonText] = useState("Start");
   const navigate = useNavigate();
 
   const lessonRefs = module.lesson.map((a) => a._ref);
@@ -19,12 +23,24 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
   // useEffect for progress tracker
   useEffect(() => {
     const progress = (completedLessonsLength / module.lesson.length) * 100;
-    if (progress >= 0) {
+    if (progress === 0) {
       setProgress(progress);
+      setColor("purple");
+      setButtonText("Start");
+    } else if (0 < progress && progress < 100) {
+      setProgress(progress);
+      setColor("pink");
+      setButtonText("Continue");
+    } else if (progress === 100) {
+      setProgress(progress);
+      setColor("green");
+      setButtonText("All done!");
     } else {
       setProgress(0);
     }
   }, [module.lesson.length, completedLessonsLength]);
+
+  console.log(progress);
 
   return (
     <Card
@@ -33,6 +49,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
         minHeight: 150,
         padding: 1,
         mx: "auto",
+        position: "relative",
       }}
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -58,7 +75,28 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
         {duration}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={() => navigate(`/module/${title}`)}>Start</Button>
+      <Stack
+        direction="column"
+        alignItems="flex-end"
+        position="absolute"
+        bottom="0"
+        right="0"
+        margin={1}
+      >
+        <ThemeProvider theme={theme}>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={() => navigate(`/module/${title}`)}
+            size="small"
+            color={color}
+            sx={{ width: 90 }}
+            // endIcon={<StartRoundedIcon />}
+          >
+            {buttonText}
+          </Button>
+        </ThemeProvider>
+      </Stack>
     </Card>
   );
 };

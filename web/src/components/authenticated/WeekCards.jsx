@@ -4,6 +4,7 @@ import { Card, Stack, Typography, Button } from "@mui/material";
 import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
 import NoAccessModal from "./NoAccessModal";
+// import StartRoundedIcon from "@mui/icons-material/StartRounded";
 
 const WeekCards = ({
   title,
@@ -15,6 +16,7 @@ const WeekCards = ({
 }) => {
   const [progress, setProgress] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
   const access = Object.entries(
     useSelector((store) => store.authenticated.access)
@@ -36,6 +38,10 @@ const WeekCards = ({
     }
   };
 
+  if (access.length !== 1) {
+    setDisabled(true);
+  }
+
   return (
     <Card
       sx={{
@@ -43,6 +49,7 @@ const WeekCards = ({
         minHeight: 150,
         padding: 1,
         mx: "auto",
+        position: "relative",
       }}
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -61,7 +68,25 @@ const WeekCards = ({
         {liveSessionDate}
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
-      <Button onClick={navigateToWeek}>Start</Button>
+      <Stack
+        direction="column"
+        alignItems="flex-end"
+        position="absolute"
+        bottom="0"
+        right="0"
+        margin={1}
+      >
+        <Button
+          variant="contained"
+          disableElevation
+          disabled={disabled}
+          onClick={navigateToWeek}
+          size="small"
+          // endIcon={<StartRoundedIcon />}
+        >
+          Start
+        </Button>
+      </Stack>
       <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
     </Card>
   );
