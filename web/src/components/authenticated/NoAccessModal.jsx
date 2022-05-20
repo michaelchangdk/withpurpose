@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
@@ -17,8 +16,6 @@ const style = {
 };
 
 const NoAccessModal = ({ openModal, setOpenModal }) => {
-  //   const [open, setOpen] = useState(false);
-  //   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpenModal(false);
 
   return (
@@ -36,6 +33,10 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Please contact us if you believe you should have access.
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+            You may need to sign out and sign in again if you have been provided
+            access.
           </Typography>
         </Box>
       </Modal>

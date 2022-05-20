@@ -15,8 +15,11 @@ import {
   Button,
   TextField,
   Typography,
+  Divider,
 } from "@mui/material";
 import { client } from "../../client";
+import logo from "../../assets/BWP_logotype.svg";
+import styled from "styled-components";
 
 // IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
 
@@ -110,6 +113,7 @@ const Login = () => {
   return (
     <Container maxWidth="xs">
       <Stack spacing={2} mt={12}>
+        <Logo src={logo} alt="logo." />
         <Typography
           variant="h1"
           fontSize={24}
@@ -153,9 +157,16 @@ const Login = () => {
             New here? Sign up
           </Button>
         </Stack>
+        <Divider />
       </Stack>
     </Container>
   );
 };
 
 export default Login;
+
+const Logo = styled.img`
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+`;

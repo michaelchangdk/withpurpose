@@ -72,6 +72,7 @@ const HeaderAuth = () => {
     dispatch(authenticated.actions.logout());
     setAnchorEl(null);
     navigate("/");
+    localStorage.clear();
   };
 
   return (
