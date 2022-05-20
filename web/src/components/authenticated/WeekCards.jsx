@@ -88,7 +88,7 @@ const WeekCards = ({
               disabled={disabled}
               onClick={navigateToWeek}
               size="small"
-              color={disabled ? "lightPurple" : "purple"}
+              color="purple"
               sx={{ width: 120 }}
               // endIcon={<StartRoundedIcon />}
             >

@@ -28,16 +28,25 @@ const WeekPage = () => {
 
   // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
   // ADD LOGIC FOR "NEXT WEEK / COMING SOON"
-  // const [navigateButtonColor, setNavigateButtonColor] = useState("purple");
-  // const [disabled, setDisabled] = useState()
-  // const access = useSelector((store) => store.authenticated.access);
+  // const [disabled, setDisabled] = useState();
+  // const access = Object.entries(
+  //   useSelector((store) => store.authenticated.access)
+  // );
+  // .filter(([key, val]) => key.includes(week) && val === true);
+
+  // console.log(access, week, title);
+
+  // useEffect(() => {
+  //   if (access.length !== 1) {
+  //     setDisabled(true);
+  //   }
+  // }, [access.length]);
 
   const weekQuery = `*[_type == "week" && name == "${week}"]`;
 
   const fetchModuleRefs = async () => {
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
-    console.log(response);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
     setDescription(response[0].description);
@@ -136,7 +145,7 @@ const WeekPage = () => {
               ))}
             <Stack
               direction="row"
-              justifyContent="space-between"
+              justifyContent={weekOrder === 1 ? "flex-end" : "space-between"}
               mt="2vh"
               mb="2vh"
             >
@@ -144,7 +153,7 @@ const WeekPage = () => {
                 {weekOrder !== 1 && (
                   <Button
                     variant="contained"
-                    sx={{ width: 140 }}
+                    sx={{ width: 140, height: 36 }}
                     size="small"
                     color="purple"
                     onClick={() => previousWeek()}
@@ -157,11 +166,12 @@ const WeekPage = () => {
                 {weekOrder !== 6 && (
                   <Button
                     variant="contained"
-                    sx={{ width: 140 }}
+                    sx={{ width: 140, height: 36 }}
                     size="small"
                     color="purple"
                     onClick={() => nextWeek()}
                     disableElevation
+                    // disabled={disabled}
                   >
                     Next week
                   </Button>
