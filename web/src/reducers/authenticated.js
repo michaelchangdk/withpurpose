@@ -19,6 +19,7 @@ export const authenticated = createSlice({
       approvedWeek6: "",
       approvedWeek23: "",
     },
+    // darkMode: false,
   },
 
   reducers: {
@@ -36,6 +37,7 @@ export const authenticated = createSlice({
       state.access.approvedMasterClass = action.payload.approvedMasterClass;
       state.access.approvedMentorBooking = action.payload.approvedMentorBooking;
       state.access.approvedCommunity = action.payload.approvedCommunity;
+      // state.access.darkMode = action.payload.darkMode;
     },
     logout: (state, action) => {
       state.loggedin = false;
@@ -52,6 +54,7 @@ export const authenticated = createSlice({
       state.access.approvedMasterClass = "";
       state.access.approvedMentorBooking = "";
       state.access.approvedCommunity = "";
+      // state.access.darkMode = "";
     },
     addCompletedLesson: (state, action) => {
       if (
