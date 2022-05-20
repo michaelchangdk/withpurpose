@@ -21,6 +21,8 @@ import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
 import NoAccess from "./login/NoAccess";
+import { ThemeProvider } from "@mui/material/styles";
+import { lightMode } from "../styledcomponents/themeoptions";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -30,75 +32,81 @@ const Router = () => {
   // HOW TO IMPLEMENT WEEKS ACCESS IN ROUTER?
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />
-        <Route path="/openletter" element={<OpenLetter />} />
-        <Route path="/startup-school" element={<StartupSchool />} />
-        <Route path="/blog" element={<BlogList />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/mentors" element={<MentorsPublic />} />
-        <Route path="/alumni" element={<AlumniPublic />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        {/* NEED USER below */}
-        <Route
-          path="/startup-school-elearning"
-          element={loggedin ? <LandingPage /> : <NoAccess />}
-        />
-        <Route
-          path="/startup-school-weeks"
-          element={
-            loggedin && access.approvedSchool ? <WeekOverview /> : <NoAccess />
-          }
-        />
-        {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
-        <Route
-          path="/week/:week"
-          element={loggedin ? <WeekPage /> : <NoAccess />}
-        />
-        <Route
-          path="/module/:module"
-          element={loggedin ? <ModulePage /> : <NoAccess />}
-        />
-        <Route
-          path="/masterclass"
-          element={
-            loggedin && access.approvedMasterClass ? (
-              <MasterClass />
-            ) : (
-              <NoAccess />
-            )
-          }
-        />
-        <Route
-          path="/book-a-mentor"
-          element={
-            loggedin && access.approvedMentorBooking ? (
-              <MentorsPrivate />
-            ) : (
-              <NoAccess />
-            )
-          }
-        />
-        <Route
-          path="/community"
-          element={
-            loggedin && access.approvedCommunity ? (
-              <AlumniPrivate />
-            ) : (
-              <NoAccess />
-            )
-          }
-        />
-        <Route
-          path="/profile/:user"
-          element={loggedin ? <ProfilePage /> : <NoAccess />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={lightMode}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />
+          <Route path="/openletter" element={<OpenLetter />} />
+          <Route path="/startup-school" element={<StartupSchool />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/mentors" element={<MentorsPublic />} />
+          <Route path="/alumni" element={<AlumniPublic />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          {/* NEED USER below */}
+          <Route
+            path="/startup-school-elearning"
+            element={loggedin ? <LandingPage /> : <NoAccess />}
+          />
+          <Route
+            path="/startup-school-weeks"
+            element={
+              loggedin && access.approvedSchool ? (
+                <WeekOverview />
+              ) : (
+                <NoAccess />
+              )
+            }
+          />
+          {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
+          <Route
+            path="/week/:week"
+            element={loggedin ? <WeekPage /> : <NoAccess />}
+          />
+          <Route
+            path="/module/:module"
+            element={loggedin ? <ModulePage /> : <NoAccess />}
+          />
+          <Route
+            path="/masterclass"
+            element={
+              loggedin && access.approvedMasterClass ? (
+                <MasterClass />
+              ) : (
+                <NoAccess />
+              )
+            }
+          />
+          <Route
+            path="/book-a-mentor"
+            element={
+              loggedin && access.approvedMentorBooking ? (
+                <MentorsPrivate />
+              ) : (
+                <NoAccess />
+              )
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              loggedin && access.approvedCommunity ? (
+                <AlumniPrivate />
+              ) : (
+                <NoAccess />
+              )
+            }
+          />
+          <Route
+            path="/profile/:user"
+            element={loggedin ? <ProfilePage /> : <NoAccess />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

@@ -6,12 +6,10 @@ import { useSelector } from "react-redux";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../styledcomponents/theme";
 
 const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);
-  const [color, setColor] = useState("green");
+  const [color, setColor] = useState("primary");
   const [buttonText, setButtonText] = useState("Start");
   const navigate = useNavigate();
 
@@ -25,15 +23,15 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
     const progress = (completedLessonsLength / module.lesson.length) * 100;
     if (progress === 0) {
       setProgress(progress);
-      setColor("purple");
+      setColor("primary");
       setButtonText("Start");
     } else if (0 < progress && progress < 100) {
       setProgress(progress);
-      setColor("pink");
+      setColor("secondary");
       setButtonText("Continue");
     } else if (progress === 100) {
       setProgress(progress);
-      setColor("green");
+      setColor("success");
       setButtonText("All done!");
     } else {
       setProgress(0);
@@ -75,21 +73,18 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
       </Typography>
       {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
       <Stack direction="column" alignItems="flex-start">
-        <ThemeProvider theme={theme}>
-          <Button
-            variant="contained"
-            disableElevation
-            onClick={() => navigate(`/module/${title}`)}
-            size="small"
-            color={color}
-            sx={{ width: 90 }}
-            // endIcon={<StartRoundedIcon />}
-          >
-            {buttonText}
-          </Button>
-        </ThemeProvider>
+        <Button
+          variant="contained"
+          disableElevation
+          onClick={() => navigate(`/module/${title}`)}
+          size="small"
+          color={color}
+          sx={{ width: 90 }}
+          // endIcon={<StartRoundedIcon />}
+        >
+          {buttonText}
+        </Button>
       </Stack>
-      {/* </Stack> */}
     </Card>
   );
 };

@@ -16,8 +16,6 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { client } from "../../client";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../styledcomponents/theme";
 
 const LessonItem = ({ lesson, clickTask, userid }) => {
   const dispatch = useDispatch();
@@ -107,46 +105,42 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     <ListItem
       key={lesson._id}
       secondaryAction={
-        <ThemeProvider theme={theme}>
-          <Checkbox
-            edge="end"
-            onChange={() => handleToggle(completedLesson, lesson)}
-            // onChange={handleToggle}
-            checked={checked}
-            inputProps={{ "aria-labelledby": labelId }}
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-            checkedIcon={
-              lesson.isVideo ? (
-                <CheckCircleRoundedIcon color="green" />
-              ) : (
-                <CheckBoxIcon color="green" />
-              )
-            }
-            icon={
-              lesson.isVideo ? (
-                <RadioButtonUncheckedRoundedIcon color="green" />
-              ) : (
-                <CheckBoxOutlineBlankIcon color="green" />
-              )
-            }
-            disabled={loading}
-            color="green"
-          />
-        </ThemeProvider>
+        <Checkbox
+          edge="end"
+          onChange={() => handleToggle(completedLesson, lesson)}
+          // onChange={handleToggle}
+          checked={checked}
+          inputProps={{ "aria-labelledby": labelId }}
+          sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+          checkedIcon={
+            lesson.isVideo ? (
+              <CheckCircleRoundedIcon color="success" />
+            ) : (
+              <CheckBoxIcon color="success" />
+            )
+          }
+          icon={
+            lesson.isVideo ? (
+              <RadioButtonUncheckedRoundedIcon color="success" />
+            ) : (
+              <CheckBoxOutlineBlankIcon color="success" />
+            )
+          }
+          disabled={loading}
+          color="success"
+        />
       }
       disablePadding
     >
       <ListItemButton onClick={() => clickTask(lesson)}>
-        <ThemeProvider theme={theme}>
-          <ListItemIcon
-            sx={{ "& .MuiSvgIcon-root": { fontSize: 40 } }}
-            color="pink"
-          >
-            {lesson.isVideo && <PlayCircleIcon color="pink" />}
-            {lesson.isLink && <CloudCircleIcon color="pink" />}
-            {lesson.isPDF && <DownloadForOfflineRoundedIcon color="pink" />}
-          </ListItemIcon>
-        </ThemeProvider>
+        <ListItemIcon
+          sx={{ "& .MuiSvgIcon-root": { fontSize: 40 } }}
+          color="secondary"
+        >
+          {lesson.isVideo && <PlayCircleIcon color="secondary" />}
+          {lesson.isLink && <CloudCircleIcon color="secondary" />}
+          {lesson.isPDF && <DownloadForOfflineRoundedIcon color="secondary" />}
+        </ListItemIcon>
         <ListItemText
           id={labelId}
           primary={`${lesson.name}`}

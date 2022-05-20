@@ -1,22 +1,20 @@
 import React from "react";
 import { CircularProgress, Box, Typography } from "@mui/material";
-import { theme } from "../../styledcomponents/theme";
-import { ThemeProvider } from "@mui/material/styles";
+// import { lightMode } from "../../styledcomponents/themeoptions";
+// import { ThemeProvider } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const ProgressCircle = (props) => {
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <ThemeProvider theme={theme}>
-        <CircularProgress
-          variant="determinate"
-          color="green"
-          {...props}
-          size={40}
-          // Setting thickness was creating lag along with themeprovider
-          // thickness={4}
-        />
-      </ThemeProvider>
+      <CircularProgress
+        variant="determinate"
+        color="success"
+        {...props}
+        size={40}
+        // Setting thickness was creating lag along with themeprovider
+        // thickness={4}
+      />
       <Box
         sx={{
           top: 0,
@@ -35,9 +33,7 @@ const ProgressCircle = (props) => {
           </Typography>
         )}
         {props.value === 100 && (
-          <ThemeProvider theme={theme}>
-            <CheckCircleIcon color="green" sx={{ fontSize: 42 }} />
-          </ThemeProvider>
+          <CheckCircleIcon color="success" sx={{ fontSize: 42 }} />
         )}
       </Box>
     </Box>

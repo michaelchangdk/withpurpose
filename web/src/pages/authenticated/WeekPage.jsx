@@ -8,8 +8,6 @@ import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
 import down from "../../assets/down.png";
 import { Stack, Button } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../styledcomponents/theme";
 import { useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
@@ -149,34 +147,32 @@ const WeekPage = () => {
               mt="2vh"
               mb="2vh"
             >
-              <ThemeProvider theme={theme}>
-                {weekOrder !== 1 && (
-                  <Button
-                    variant="contained"
-                    sx={{ width: 140, height: 36 }}
-                    size="small"
-                    color="purple"
-                    onClick={() => previousWeek()}
-                    disableElevation
-                  >
-                    Previous week
-                  </Button>
-                )}
+              {weekOrder !== 1 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="primary"
+                  onClick={() => previousWeek()}
+                  disableElevation
+                >
+                  Previous week
+                </Button>
+              )}
 
-                {weekOrder !== 6 && (
-                  <Button
-                    variant="contained"
-                    sx={{ width: 140, height: 36 }}
-                    size="small"
-                    color="purple"
-                    onClick={() => nextWeek()}
-                    disableElevation
-                    // disabled={disabled}
-                  >
-                    Next week
-                  </Button>
-                )}
-              </ThemeProvider>
+              {weekOrder !== 6 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="primary"
+                  onClick={() => nextWeek()}
+                  disableElevation
+                  // disabled={disabled}
+                >
+                  Next week
+                </Button>
+              )}
             </Stack>
           </PageContainer>
         </>

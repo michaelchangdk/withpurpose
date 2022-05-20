@@ -4,8 +4,6 @@ import { Card, Stack, Typography, Button } from "@mui/material";
 import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
 import NoAccessModal from "./NoAccessModal";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../styledcomponents/theme";
 // import StartRoundedIcon from "@mui/icons-material/StartRounded";
 
 const WeekCards = ({
@@ -81,20 +79,18 @@ const WeekCards = ({
         </Typography>
         {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
         <Stack direction="column" alignItems="flex-start">
-          <ThemeProvider theme={theme}>
-            <Button
-              variant="contained"
-              disableElevation
-              disabled={disabled}
-              onClick={navigateToWeek}
-              size="small"
-              color="purple"
-              sx={{ width: 120 }}
-              // endIcon={<StartRoundedIcon />}
-            >
-              {disabled ? "Coming soon" : "Start"}
-            </Button>
-          </ThemeProvider>
+          <Button
+            variant="contained"
+            disableElevation
+            disabled={disabled}
+            onClick={navigateToWeek}
+            size="small"
+            color="primary"
+            sx={{ width: 120 }}
+            // endIcon={<StartRoundedIcon />}
+          >
+            {disabled ? "Coming soon" : "Start"}
+          </Button>
         </Stack>
       </Stack>
       <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
