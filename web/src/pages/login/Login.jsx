@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 import {
   Alert,
@@ -21,8 +24,17 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [alert, setAlert] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const typeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const typePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
   // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
   // const googleLogin = () => {
@@ -84,12 +96,15 @@ const Login = () => {
       });
   };
 
-  const typeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const typePassword = (e) => {
-    setPassword(e.target.value);
+  const sendPassWordReset = () => {
+    sendPasswordResetEmail(auth, email)
+      .then((res) => {
+        setAlert("Password reset email sent!");
+        setEmail("");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -125,12 +140,15 @@ const Login = () => {
             {error}
           </Alert>
         )}
+        {alert.length > 0 && <Alert severity="success">{alert}</Alert>}
         <Button variant="contained" fullWidth size="large" onClick={signin}>
           SIGN IN
         </Button>
         <Stack direction="row" justifyContent="space-between">
           {/* FORGOT PASSWORD - HOW TO RESEND GOOGLE */}
-          <Button width={6}>Forgot password?</Button>
+          <Button width={6} onClick={sendPassWordReset}>
+            Forgot password?
+          </Button>
           <Button href="/signup" width={6}>
             New here? Sign up
           </Button>
