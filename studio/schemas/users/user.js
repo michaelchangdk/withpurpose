@@ -22,6 +22,12 @@ export default {
       description: "Do not edit!",
     },
     {
+      name: "darkMode",
+      title: "Dark mode",
+      type: "boolean",
+      description: "Do not edit!",
+    },
+    {
       name: "approvedSchool",
       title: "Approved School?",
       type: "boolean",

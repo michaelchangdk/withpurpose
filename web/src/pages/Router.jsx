@@ -22,17 +22,18 @@ import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
 import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
-import { lightMode } from "../styledcomponents/themeoptions";
+import { lightMode, darkMode } from "../styledcomponents/themeoptions";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   console.log(useSelector((store) => store.authenticated));
   const access = useSelector((store) => store.authenticated.access);
+  const darkModeTrue = useSelector((store) => store.authenticated.darkMode);
 
   // HOW TO IMPLEMENT WEEKS ACCESS IN ROUTER?
 
   return (
-    <ThemeProvider theme={lightMode}>
+    <ThemeProvider theme={darkModeTrue ? darkMode : lightMode}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />

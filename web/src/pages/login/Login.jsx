@@ -87,6 +87,7 @@ const Login = () => {
                 approvedMasterClass: res[0].approvedMasterClass,
                 approvedMentorBooking: res[0].approvedMentorBooking,
                 approvedCommunity: res[0].approvedCommunity,
+                darkMode: res[0].darkMode,
               })
             );
           });

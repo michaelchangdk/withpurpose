@@ -19,7 +19,7 @@ export const authenticated = createSlice({
       approvedWeek6: "",
       approvedWeek23: "",
     },
-    // darkMode: false,
+    darkMode: false,
   },
 
   reducers: {
@@ -37,7 +37,7 @@ export const authenticated = createSlice({
       state.access.approvedMasterClass = action.payload.approvedMasterClass;
       state.access.approvedMentorBooking = action.payload.approvedMentorBooking;
       state.access.approvedCommunity = action.payload.approvedCommunity;
-      // state.access.darkMode = action.payload.darkMode;
+      state.darkMode = action.payload.darkMode;
     },
     logout: (state, action) => {
       state.loggedin = false;
@@ -54,7 +54,7 @@ export const authenticated = createSlice({
       state.access.approvedMasterClass = "";
       state.access.approvedMentorBooking = "";
       state.access.approvedCommunity = "";
-      // state.access.darkMode = "";
+      state.darkMode = false;
     },
     addCompletedLesson: (state, action) => {
       if (
@@ -69,6 +69,10 @@ export const authenticated = createSlice({
       state.completedLessons = state.completedLessons.filter(
         (lesson) => lesson._key !== action.payload[0]._key
       );
+    },
+    toggleDarkMode: (state, action) => {
+      console.log(action.payload);
+      state.darkMode = !state.darkMode;
     },
   },
 });

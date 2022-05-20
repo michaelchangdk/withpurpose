@@ -84,6 +84,7 @@ const Signup = () => {
           approvedMasterClass: false,
           approvedMentorBooking: false,
           approvedCommunity: false,
+          darkMode: false,
         };
 
         // userCredential.user.email;
@@ -107,6 +108,7 @@ const Signup = () => {
               approvedMasterClass: false,
               approvedMentorBooking: false,
               approvedCommunity: false,
+              darkMode: false,
             })
           );
 
