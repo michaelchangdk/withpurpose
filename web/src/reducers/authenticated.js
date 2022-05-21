@@ -7,6 +7,7 @@ export const authenticated = createSlice({
     uid: "",
     displayName: "",
     completedLessons: [],
+    photoURL: "",
     access: {
       approvedMasterClass: "",
       approvedMentorBooking: "",
@@ -38,6 +39,7 @@ export const authenticated = createSlice({
       state.access.approvedMentorBooking = action.payload.approvedMentorBooking;
       state.access.approvedCommunity = action.payload.approvedCommunity;
       state.darkMode = action.payload.darkMode;
+      state.photoURL = action.payload.photoURL;
     },
     logout: (state, action) => {
       state.loggedin = false;
@@ -55,6 +57,7 @@ export const authenticated = createSlice({
       state.access.approvedMentorBooking = "";
       state.access.approvedCommunity = "";
       state.darkMode = false;
+      state.photoURL = "";
     },
     addCompletedLesson: (state, action) => {
       if (

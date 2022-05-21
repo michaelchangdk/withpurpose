@@ -16,7 +16,7 @@ export const lightMode = createTheme({
       contrastText: "white",
     },
     info: {
-      main: "#5390E3",
+      main: "#5491e3",
     },
   },
 });
@@ -34,7 +34,7 @@ export const darkMode = createTheme({
       main: "#64C800",
     },
     info: {
-      main: "#5390E3",
+      main: "#5491e3",
     },
   },
 });

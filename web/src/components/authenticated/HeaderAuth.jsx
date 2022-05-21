@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import IconButton from "@mui/material/IconButton";
+import { Avatar, IconButton, MenuItem, Menu, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
@@ -18,9 +15,18 @@ const HeaderAuth = () => {
   const openProfile = Boolean(anchorEl);
   const openNav = Boolean(anchorElNav);
   const user = useSelector((store) => store.authenticated.uid);
+  const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
   const [openModal, setOpenModal] = useState(false);
   const access = useSelector((store) => store.authenticated.access);
+
+  const stringAvatar = () => {
+    return {
+      children: `${displayName.split(" ")[0][0]}${
+        displayName.split(" ")[1][0]
+      }`,
+    };
+  };
 
   const openProfileNav = (event) => {
     setAnchorEl(event.currentTarget);
@@ -111,15 +117,35 @@ const HeaderAuth = () => {
         <MenuItem onClick={navigateCommunity}>Community</MenuItem>
       </Menu>
       <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={openProfile ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={openProfile ? "true" : undefined}
         onClick={openProfileNav}
       >
-        {displayName}
-      </Button>
+        {userAvatarUrl.length > 0 && (
+          <Avatar
+            src={userAvatarUrl}
+            alt={displayName}
+            aria-controls={openProfile ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openProfile ? "true" : undefined}
+            onClick={openProfileNav}
+          />
+        )}
+        {userAvatarUrl.length === 0 && (
+          <Avatar
+            {...stringAvatar({ displayName })}
+            alt={displayName}
+            sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
+            aria-controls={openProfile ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openProfile ? "true" : undefined}
+            onClick={openProfileNav}
+          />
+        )}
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

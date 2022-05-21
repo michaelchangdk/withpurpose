@@ -56,69 +56,75 @@ const Signup = () => {
 
   const register = () => {
     // ADD AUTHENTICATION FOR FIRST AND LAST NAME! Disable / don't allow
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential.user);
-        const user = userCredential.user;
-        updateProfile(user, {
-          displayName: `${firstname} ${lastname}`,
+    if (firstname.length < 2 || lastname.length < 2) {
+      setError("Please fill out your name.");
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential.user);
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: `${firstname} ${lastname}`,
+          });
+          // Also create user in Sanity Studio here
+
+          // PULL IN LIST OF LESSONS FROM SANITY - SEND IT AS AN OBJECT W USER CREATION
+          // GET ID OF TASK + BOOLEAN
+          // AND ADD BOOLEAN FOR COMPLETION
+          const doc = {
+            _id: userCredential.user.uid,
+            _type: "user",
+            displayName: `${firstname} ${lastname}`,
+            uniqueid: userCredential.user.uid,
+            email: userCredential.user.email,
+            approvedSchool: false,
+            approvedWeek0: false,
+            approvedWeek1: false,
+            approvedWeek23: false,
+            approvedWeek4: false,
+            approvedWeek5: false,
+            approvedWeek6: false,
+            approvedMasterClass: false,
+            approvedMentorBooking: false,
+            approvedCommunity: false,
+            darkMode: false,
+            photoURL: "",
+          };
+
+          // userCredential.user.email;
+          // userCredential.user.uid
+          // userCredential.user.displayName = firstname + lastname
+
+          client.createIfNotExists(doc).then((response) => {
+            console.log(response);
+            // dispatch UID for tracking progress
+            dispatch(
+              authenticated.actions.login({
+                uid: userCredential.user.uid,
+                displayName: `${firstname} ${lastname}`,
+                approvedSchool: false,
+                approvedWeek0: false,
+                approvedWeek1: false,
+                approvedWeek23: false,
+                approvedWeek4: false,
+                approvedWeek5: false,
+                approvedWeek6: false,
+                approvedMasterClass: false,
+                approvedMentorBooking: false,
+                approvedCommunity: false,
+                darkMode: false,
+                photoURL: "",
+              })
+            );
+
+            navigate("/");
+          });
+        })
+        .catch((error) => {
+          console.log(error.message);
+          setError(error.message);
         });
-        // Also create user in Sanity Studio here
-
-        // PULL IN LIST OF LESSONS FROM SANITY - SEND IT AS AN OBJECT W USER CREATION
-        // GET ID OF TASK + BOOLEAN
-        // AND ADD BOOLEAN FOR COMPLETION
-        const doc = {
-          _id: userCredential.user.uid,
-          _type: "user",
-          displayName: `${firstname} ${lastname}`,
-          uniqueid: userCredential.user.uid,
-          email: userCredential.user.email,
-          approvedSchool: false,
-          approvedWeek0: false,
-          approvedWeek1: false,
-          approvedWeek23: false,
-          approvedWeek4: false,
-          approvedWeek5: false,
-          approvedWeek6: false,
-          approvedMasterClass: false,
-          approvedMentorBooking: false,
-          approvedCommunity: false,
-          darkMode: false,
-        };
-
-        // userCredential.user.email;
-        // userCredential.user.uid
-        // userCredential.user.displayName = firstname + lastname
-
-        client.createIfNotExists(doc).then((response) => {
-          console.log(response);
-          // dispatch UID for tracking progress
-          dispatch(
-            authenticated.actions.login({
-              uid: userCredential.user.uid,
-              displayName: `${firstname} ${lastname}`,
-              approvedSchool: false,
-              approvedWeek0: false,
-              approvedWeek1: false,
-              approvedWeek23: false,
-              approvedWeek4: false,
-              approvedWeek5: false,
-              approvedWeek6: false,
-              approvedMasterClass: false,
-              approvedMentorBooking: false,
-              approvedCommunity: false,
-              darkMode: false,
-            })
-          );
-
-          navigate("/");
-        });
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setError(error.message);
-      });
+    }
   };
 
   const typeFirstname = (e) => {

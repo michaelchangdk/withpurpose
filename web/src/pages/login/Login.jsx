@@ -65,6 +65,7 @@ const Login = () => {
   const signin = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        console.log(userCredential);
         client
           .fetch(`*[_type == "user" && _id == "${userCredential.user.uid}"]`)
           .then((res) => {
@@ -88,6 +89,9 @@ const Login = () => {
                 approvedMentorBooking: res[0].approvedMentorBooking,
                 approvedCommunity: res[0].approvedCommunity,
                 darkMode: res[0].darkMode,
+                photoURL: userCredential.photoURL
+                  ? userCredential.photoURL
+                  : "",
               })
             );
           });
