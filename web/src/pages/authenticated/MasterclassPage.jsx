@@ -14,7 +14,10 @@ const MasterclassPage = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero order={2} />
+      <LandingPageHero
+        query={`*[_type == "landingpage" && order == 2]`}
+        type={"landingpage"}
+      />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
     </Box>
   );

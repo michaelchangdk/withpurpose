@@ -14,7 +14,10 @@ const MentorsPrivate = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero order={3} />
+      <LandingPageHero
+        query={`*[_type == "landingpage" && order == 3]`}
+        type={"landingpage"}
+      />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
     </Box>
   );

@@ -44,7 +44,10 @@ const WeekOverview = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero order={1} />
+      <LandingPageHero
+        query={`*[_type == "landingpage" && order == 1]`}
+        type={"landingpage"}
+      />
       <PageContainer>
         {loading && <p>loading</p>}
         {!loading &&

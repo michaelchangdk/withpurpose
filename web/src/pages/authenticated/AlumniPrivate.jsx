@@ -14,7 +14,10 @@ const AlumniPrivate = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero order={4} />
+      <LandingPageHero
+        query={`*[_type == "landingpage" && order == 4]`}
+        type={"landingpage"}
+      />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
     </Box>
   );

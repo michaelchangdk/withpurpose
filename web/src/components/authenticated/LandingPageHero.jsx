@@ -6,23 +6,23 @@ import { urlFor } from "../../client";
 import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 
-const LandingPageHero = ({ order }) => {
+const LandingPageHero = ({ order, query, type }) => {
   const [loading, setLoading] = useState(true);
   const [heroRef, setHeroRef] = useState("");
   const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
 
-  const pageQuery = `*[_type == "landingpage" && order == ${order}] {order, title, headline, description, linkTo, heroImage}`;
-
-  const fetchPage = async () => {
-    const fetch = await client.fetch(pageQuery);
+  const fetchHero = async () => {
+    const fetch = await client.fetch(query);
     const response = await fetch;
     setHeroRef(response[0].heroImage.asset._ref);
     setTitle(response[0].title);
+    setSubtitle(response[0].subtitle);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchPage();
+    fetchHero();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
@@ -33,9 +33,15 @@ const LandingPageHero = ({ order }) => {
         <PageContainer>
           <HeaderTitleWrapper>
             <HeaderTitle>{title}</HeaderTitle>
+            {type === "week" && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
           </HeaderTitleWrapper>
           <HeaderInstruction>
-            <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+            {type === "landingpage" && (
+              <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+            )}
+            {type === "week" && (
+              <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
+            )}
             <HeaderIcon src={down} alt="down arrow." />
           </HeaderInstruction>
         </PageContainer>
@@ -53,7 +59,6 @@ const Header = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
-  margin-bottom: 2vh;
 `;
 
 const HeaderTitle = styled.h1`

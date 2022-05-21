@@ -9,7 +9,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
+  bgcolor: "background.default",
+  color: "text.primary",
   border: "1px solid #000",
   boxShadow: 24,
   p: 4,
@@ -32,10 +33,10 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
           <Typography variant="h6" component="h2">
             You don't have access to this page yet.
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography sx={{ mt: 2 }}>
             Please contact us if you believe you should have access.
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+          <Typography sx={{ mt: 1 }}>
             You may need to sign out and sign in again if you have been provided
             access.
           </Typography>
