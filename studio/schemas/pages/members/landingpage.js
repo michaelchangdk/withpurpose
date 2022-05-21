@@ -9,20 +9,15 @@ export default {
       type: "string",
     },
     {
-      name: "headline",
-      title: "Headline",
+      name: "subtitle",
+      title: "Subtitle",
       type: "string",
     },
     {
-      name: "description",
-      title: "Description",
-      type: "string",
-    },
-    {
-      name: "order",
-      title: "Order",
-      type: "number",
-      description: "Order - 1, 2, 3, 4 from left to right",
+      name: "videoUrl",
+      title: "Video URL",
+      type: "url",
+      description: "Introduction video link.",
     },
     {
       name: "heroImage",
@@ -31,20 +26,6 @@ export default {
       options: {
         hotspot: true,
       },
-    },
-    {
-      name: "coverImage",
-      title: "Card Cover image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-    },
-    {
-      name: "linkTo",
-      title: "Link to",
-      type: "string",
-      description: "Please don't edit.",
     },
   ],
 };

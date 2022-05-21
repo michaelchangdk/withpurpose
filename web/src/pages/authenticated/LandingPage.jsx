@@ -4,6 +4,7 @@ import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { Box } from "@mui/material";
+import LandingPageHero from "../../components/authenticated/LandingPageHero";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +31,12 @@ const LandingPage = () => {
         height: "100%",
       }}
     >
-      <HeaderAuth />
+      {/* <HeaderAuth /> */}
+      <LandingPageHero
+        query={`*[_type == "landingpage"]`}
+        displaySubtitle={true}
+        type={"page"}
+      />
       <PageContainer>
         {!loading &&
           cards.map((card) => (

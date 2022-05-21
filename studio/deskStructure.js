@@ -178,6 +178,7 @@ export default () =>
             "blogpost",
             "user",
             "completed",
+            "landingpageelements",
           ].includes(listItem.getId())
       ),
     ]);

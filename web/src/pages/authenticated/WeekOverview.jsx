@@ -46,7 +46,7 @@ const WeekOverview = () => {
     >
       <LandingPageHero
         query={`*[_type == "landingpageelements" && order == 1]`}
-        type={"landingpage"}
+        type={"page"}
       />
       <PageContainer>
         {loading && <p>loading</p>}

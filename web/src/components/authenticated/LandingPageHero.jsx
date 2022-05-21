@@ -6,7 +6,7 @@ import { urlFor } from "../../client";
 import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 
-const LandingPageHero = ({ order, query, type }) => {
+const LandingPageHero = ({ query, displaySubtitle, type }) => {
   const [loading, setLoading] = useState(true);
   const [heroRef, setHeroRef] = useState("");
   const [title, setTitle] = useState("");
@@ -15,6 +15,7 @@ const LandingPageHero = ({ order, query, type }) => {
   const fetchHero = async () => {
     const fetch = await client.fetch(query);
     const response = await fetch;
+    console.log(response);
     setHeroRef(response[0].heroImage.asset._ref);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
@@ -33,10 +34,12 @@ const LandingPageHero = ({ order, query, type }) => {
         <PageContainer>
           <HeaderTitleWrapper>
             <HeaderTitle>{title}</HeaderTitle>
-            {type === "week" && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
+            {displaySubtitle === true && (
+              <HeaderSubtitle>{subtitle}</HeaderSubtitle>
+            )}
           </HeaderTitleWrapper>
           <HeaderInstruction>
-            {type === "landingpage" && (
+            {type === "page" && (
               <HeaderSubtitle>Scroll for more</HeaderSubtitle>
             )}
             {type === "week" && (

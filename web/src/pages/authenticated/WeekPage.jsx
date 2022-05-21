@@ -115,6 +115,7 @@ const WeekPage = () => {
           <LandingPageHero
             query={`*[_type == "week" && name == "${week}"]`}
             type={"week"}
+            displaySubtitle={true}
           />
           <DescriptionContainer>
             <p>{description}</p>
