@@ -5,17 +5,20 @@ import { client } from "../../client";
 import { urlFor } from "../../client";
 import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
+import { useSelector } from "react-redux";
 
-const LandingPageHero = ({ query, displaySubtitle, type }) => {
+const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
   const [loading, setLoading] = useState(true);
   const [heroRef, setHeroRef] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
+  const nameArray = useSelector(
+    (store) => store.authenticated.displayName
+  ).split(" ");
 
   const fetchHero = async () => {
     const fetch = await client.fetch(query);
     const response = await fetch;
-    console.log(response);
     setHeroRef(response[0].heroImage.asset._ref);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
@@ -33,7 +36,10 @@ const LandingPageHero = ({ query, displaySubtitle, type }) => {
         <HeaderAuth />
         <PageContainer>
           <HeaderTitleWrapper>
-            <HeaderTitle>{title}</HeaderTitle>
+            <HeaderTitle>
+              {title}
+              {displayName && ` ${nameArray[0]}`}
+            </HeaderTitle>
             {displaySubtitle === true && (
               <HeaderSubtitle>{subtitle}</HeaderSubtitle>
             )}

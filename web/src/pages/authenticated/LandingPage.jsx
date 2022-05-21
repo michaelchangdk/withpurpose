@@ -35,6 +35,7 @@ const LandingPage = () => {
         query={`*[_type == "landingpage"]`}
         displaySubtitle={true}
         type={"page"}
+        displayName={true}
       />
       <PageContainer>
         {!loading &&
