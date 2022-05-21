@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
 import { PageContainer } from "../../styledcomponents/globalstyles";
