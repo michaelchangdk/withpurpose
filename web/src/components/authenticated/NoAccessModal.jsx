@@ -31,15 +31,17 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
       >
         <Box sx={style}>
           <Typography variant="h6" component="h2">
-            You don't have access to this page yet.
+            This content is currently not available.
           </Typography>
           <Typography sx={{ mt: 2 }}>
-            Please contact us if you believe you should have access.
+            We have decided to enable the content one week at a time to ensure
+            everyone learns at the same pace.
+            <br />
+            Therefore, you can't access this specific content at the moment.
+            <br />
+            Xx, Nermeen, Ana & Ella
           </Typography>
-          <Typography sx={{ mt: 1 }}>
-            You may need to sign out and sign in again if you have been provided
-            access.
-          </Typography>
+          {/* <Typography sx={{ mt: 1 }}></Typography> */}
         </Box>
       </Modal>
     </div>

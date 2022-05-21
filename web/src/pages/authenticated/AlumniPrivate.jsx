@@ -14,7 +14,6 @@ const AlumniPrivate = () => {
     const alumniQuery = `*[_type == "alumni"]`;
     const fetch = await client.fetch(alumniQuery);
     const response = await fetch;
-    console.log(response);
     setAlumni(response);
     setLoading(false);
   };
