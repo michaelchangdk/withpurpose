@@ -36,12 +36,12 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
           <Typography sx={{ mt: 2 }}>
             We have decided to enable the content one week at a time to ensure
             everyone learns at the same pace.
-            <br />
-            Therefore, you can't access this specific content at the moment.
-            <br />
-            Xx, Nermeen, Ana & Ella
           </Typography>
-          {/* <Typography sx={{ mt: 1 }}></Typography> */}
+          <Typography sx={{ mt: 1 }}>
+            Therefore, you can't access this specific content at the moment.
+          </Typography>
+          <Typography sx={{ mt: 1 }}>Xx, </Typography>
+          <Typography>Nermeen, Ana & Ella</Typography>
         </Box>
       </Modal>
     </div>

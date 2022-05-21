@@ -41,7 +41,7 @@ const AlumniCards = ({ alumni }) => {
             {alumni.city} | {alumni.class}
           </Typography>
           <IconButton onClick={openLinkedin}>
-            <LinkedInIcon color="primary" fontSize="large" />
+            <LinkedInIcon color="info" fontSize="large" />
           </IconButton>
         </Stack>
       </CardContent>
