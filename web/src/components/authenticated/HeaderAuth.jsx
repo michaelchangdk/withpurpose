@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, IconButton, MenuItem, Menu, Button } from "@mui/material";
+import { Avatar, IconButton, MenuItem, Menu } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
@@ -125,24 +125,13 @@ const HeaderAuth = () => {
         onClick={openProfileNav}
       >
         {userAvatarUrl.length > 0 && (
-          <Avatar
-            src={userAvatarUrl}
-            alt={displayName}
-            aria-controls={openProfile ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={openProfile ? "true" : undefined}
-            onClick={openProfileNav}
-          />
+          <Avatar src={userAvatarUrl} alt={displayName} />
         )}
         {userAvatarUrl.length === 0 && (
           <Avatar
             {...stringAvatar({ displayName })}
             alt={displayName}
             sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
-            aria-controls={openProfile ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={openProfile ? "true" : undefined}
-            onClick={openProfileNav}
           />
         )}
       </IconButton>
