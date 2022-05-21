@@ -11,6 +11,10 @@ export const lightMode = createTheme({
       main: "#E93A7D",
       contrastText: "white",
     },
+    black: {
+      main: "000",
+      contrastText: "white",
+    },
     success: {
       main: "#64C800",
       contrastText: "white",
@@ -29,6 +33,10 @@ export const darkMode = createTheme({
     },
     secondary: {
       main: "#E93A7D",
+    },
+    black: {
+      main: "000",
+      contrastText: "white",
     },
     success: {
       main: "#64C800",
