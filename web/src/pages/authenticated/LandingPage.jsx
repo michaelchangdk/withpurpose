@@ -3,6 +3,7 @@ import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
 import { PageContainer } from "../../styledcomponents/globalstyles";
+import { Box } from "@mui/material";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,15 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        width: "100%",
+        minHeight: "100vh",
+        height: "100%",
+      }}
+    >
       <HeaderAuth />
       <PageContainer>
         {!loading &&
@@ -34,7 +43,7 @@ const LandingPage = () => {
             />
           ))}
       </PageContainer>
-    </>
+    </Box>
   );
 };
 

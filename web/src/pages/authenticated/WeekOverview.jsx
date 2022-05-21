@@ -3,6 +3,7 @@ import { PageContainer } from "../../styledcomponents/globalstyles";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import { Box } from "@mui/material";
 // import { useSelector } from "react-redux";
 
 const WeekOverview = () => {
@@ -34,7 +35,15 @@ const WeekOverview = () => {
   }, []);
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        width: "100%",
+        minHeight: "100vh",
+        height: "100%",
+      }}
+    >
       <LandingPageHero order={1} />
       <PageContainer>
         {loading && <p>loading</p>}
@@ -51,7 +60,7 @@ const WeekOverview = () => {
             />
           ))}
       </PageContainer>
-    </>
+    </Box>
   );
 };
 

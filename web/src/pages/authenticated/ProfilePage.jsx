@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
@@ -6,6 +6,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { client } from "../../client";
+import { Box } from "@mui/material";
 
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
@@ -26,7 +27,15 @@ const ProfilePage = () => {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        width: "100%",
+        minHeight: "100vh",
+        height: "100%",
+      }}
+    >
       <HeaderAuth />
       Profile Page
       <FormGroup>
@@ -35,7 +44,7 @@ const ProfilePage = () => {
           label="Dark Mode?"
         />
       </FormGroup>
-    </>
+    </Box>
   );
 };
 

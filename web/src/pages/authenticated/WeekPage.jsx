@@ -7,7 +7,7 @@ import ModuleCards from "../../components/authenticated/ModuleCards";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
 import down from "../../assets/down.png";
-import { Stack, Button } from "@mui/material";
+import { Stack, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
 
@@ -108,7 +108,15 @@ const WeekPage = () => {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        width: "100%",
+        minHeight: "100vh",
+        height: "100%",
+      }}
+    >
       {loading && <>Loading</>}
       {!loading && (
         <>
@@ -145,7 +153,6 @@ const WeekPage = () => {
               direction="row"
               justifyContent={weekOrder === 1 ? "flex-end" : "space-between"}
               mt="2vh"
-              mb="2vh"
             >
               {weekOrder !== 1 && (
                 <Button
@@ -177,7 +184,7 @@ const WeekPage = () => {
           </PageContainer>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

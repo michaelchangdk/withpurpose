@@ -53,6 +53,7 @@ const Header = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
+  margin-bottom: 2vh;
 `;
 
 const HeaderTitle = styled.h1`

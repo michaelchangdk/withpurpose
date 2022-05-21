@@ -4,7 +4,7 @@ import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
 import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
@@ -114,7 +114,15 @@ const ModulePage = () => {
   }, []);
 
   return (
-    <>
+    <Box
+      sx={{
+        bgcolor: "background.default",
+        color: "text.primary",
+        width: "100%",
+        minHeight: "100vh",
+        height: "100%",
+      }}
+    >
       <HeaderAuth />
       {loading && <LoadingIndicator />}
       {!loading && (
@@ -144,7 +152,7 @@ const ModulePage = () => {
           <LessonList key={lessons} lessons={lessons} />
         </>
       )}
-    </>
+    </Box>
   );
 };
 
