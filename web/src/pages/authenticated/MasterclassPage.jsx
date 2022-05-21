@@ -15,7 +15,7 @@ const MasterclassPage = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpage" && order == 2]`}
+        query={`*[_type == "landingpageelements" && order == 2]`}
         type={"landingpage"}
       />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>

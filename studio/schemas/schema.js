@@ -17,6 +17,7 @@ import completed from "./school/completed";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
+import landingpageelements from "./pages/members/landingpageelements";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -37,6 +38,7 @@ export default createSchema({
     homepage,
     blogpost,
     completed,
+    landingpageelements,
     /* Your types here! */
   ]),
 });

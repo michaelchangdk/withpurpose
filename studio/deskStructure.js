@@ -119,13 +119,17 @@ export default () =>
             .items([
               // Add the first list item
               S.listItem()
-                .title("Landing page elements")
+                .title("Landing page")
                 .schemaType("landingpage")
                 .child(S.documentTypeList("landingpage").title("landingpage")),
-              // S.listItem()
-              //   .title("Team")
-              //   .schemaType("teamMembers")
-              //   .child(S.documentTypeList("teamMembers").title("Team")),
+              S.listItem()
+                .title("Landing page elements")
+                .schemaType("landingpageelements")
+                .child(
+                  S.documentTypeList("landingpageelements").title(
+                    "landingpageelements"
+                  )
+                ),
               // S.listItem()
               //   .title("Company Mentors")
               //   .schemaType("companyMentors")

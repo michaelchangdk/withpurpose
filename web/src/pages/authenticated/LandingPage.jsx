@@ -9,7 +9,7 @@ const LandingPage = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState(null);
   const query =
-    '*[_type == "landingpage"] {order, title, headline, description, linkTo}';
+    '*[_type == "landingpageelements"] {order, title, headline, description, linkTo}';
 
   useEffect(() => {
     client.fetch(query).then((response) => {

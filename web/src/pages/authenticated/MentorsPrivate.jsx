@@ -15,7 +15,7 @@ const MentorsPrivate = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpage" && order == 3]`}
+        query={`*[_type == "landingpageelements" && order == 3]`}
         type={"landingpage"}
       />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
