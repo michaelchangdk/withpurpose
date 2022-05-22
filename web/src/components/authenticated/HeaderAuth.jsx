@@ -125,13 +125,22 @@ const HeaderAuth = () => {
         onClick={openProfileNav}
       >
         {userAvatarUrl.length > 0 && (
-          <Avatar src={userAvatarUrl} alt={displayName} />
+          <Avatar
+            src={userAvatarUrl}
+            alt={displayName}
+            sx={{ height: 50, width: 50 }}
+          />
         )}
         {userAvatarUrl.length === 0 && (
           <Avatar
             {...stringAvatar({ displayName })}
             alt={displayName}
-            sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
+            sx={{
+              bgcolor: "primary.main",
+              color: "primary.contrastText",
+              height: 50,
+              width: 50,
+            }}
           />
         )}
       </IconButton>

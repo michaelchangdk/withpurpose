@@ -18,7 +18,7 @@ const Homepage = () => {
         }}
       >
         <PublicHeader />
-        Welcome! Here's a link to signup:<Link to="/login">Login</Link>
+        Home
       </Box>
     </ThemeProvider>
   );
