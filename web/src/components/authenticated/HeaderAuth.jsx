@@ -128,7 +128,7 @@ const HeaderAuth = () => {
           <Avatar
             src={userAvatarUrl}
             alt={displayName}
-            sx={{ height: 50, width: 50 }}
+            sx={{ height: 48, width: 48 }}
           />
         )}
         {userAvatarUrl.length === 0 && (
@@ -138,8 +138,8 @@ const HeaderAuth = () => {
             sx={{
               bgcolor: "primary.main",
               color: "primary.contrastText",
-              height: 50,
-              width: 50,
+              height: 48,
+              width: 48,
             }}
           />
         )}
