@@ -4,18 +4,19 @@ import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
 import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography, Box, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
   const dispatch = useDispatch();
   const { module } = useParams();
-  const [moduleTitle, setModuleTitle] = useState("");
+  const [moduleName, setModuleName] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
   const [moduleType, setModuleType] = useState("");
   let lessonQueries = [];
@@ -36,14 +37,19 @@ const ModulePage = () => {
     (store) => store.authenticated.completedLessons
   ).filter((lesson) => lessonIds.includes(lesson._key));
 
+  // For Navigation
+  const navigate = useNavigate();
+  const [moduleArray, setModuleArray] = useState([]);
+  const [moduleIndex, setModuleIndex] = useState();
+  const [week, setWeek] = useState("");
+
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    console.log("fetchmodule and lesson queries begun");
     const moduleQuery = `*[_type == "module" && title == "${module}"]`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
-    setModuleTitle(response[0].name);
+    setModuleName(response[0].name);
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
     lessonQueries = response[0].lesson.map(
@@ -52,10 +58,41 @@ const ModulePage = () => {
     setLoading(false);
   };
 
+  // For Navigation
+  const fetchWeek = async () => {
+    setLoading(true);
+    const weekQuery = `*[_type == "module" && title == "${module}"] {"week": *[_type=='week' && references(^._id)]{name, title}}`;
+    const fetch = await client.fetch(weekQuery);
+    const response = await fetch;
+    setWeek(response[0].week[0].name);
+  };
+
+  const fetchModules = async () => {
+    setLoading(true);
+    const allModulesQuery = `*[_type == "module"]`;
+    const fetch = await client.fetch(allModulesQuery);
+    const response = await fetch;
+    const filteredSortedModules = response
+      .map((modules) => modules.title)
+      .filter((modules) => modules.includes(module.split("M")[0]))
+      .sort((a, b) => a[3] - b[3]);
+    // console.log(
+    //   response
+    //     .map((module) => module.title)
+    //     .filter((module) => module.includes(moduleTitle.split("M")[0]))
+    //     .sort((a, b) => a[3] - b[3])
+    // );
+    setModuleArray(filteredSortedModules);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setModuleIndex(moduleArray.indexOf(module));
+  }, [moduleArray, module, moduleIndex]);
+
   // For fetching lessons - waits for module fetch
   const fetchLessons = async () => {
     setLoading(true);
-    console.log("fetch lessons and set lessons begun");
     await Promise.all(
       lessonQueries.map((query) =>
         client.fetch(query).then((res) => {
@@ -65,24 +102,20 @@ const ModulePage = () => {
     ).then(() => {
       lessonsArray.sort((a, b) => a.order - b.order);
       setLessons(lessonsArray);
-      setLoading(false);
     });
+    setLoading(false);
   };
 
   // For fetching completed lessons by user
   const fetchCompletedLessons = async () => {
-    const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
     setLoading(true);
-    console.log("fetch completed lessons by user begun");
+    const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
     const fetch = await client.fetch(completedLessonQuery);
     const response = await fetch;
-    console.log("completed lessons response", response);
 
     if (response[0].completed === null || response[0].completed.length === 0) {
-      console.log("completed lessons response registered as null or zero");
       // For progress tracker
     } else {
-      console.log("completed lessons response registered as existing");
       response[0].completed.forEach((lesson) =>
         dispatch(authenticated.actions.addCompletedLesson(lesson))
       );
@@ -103,6 +136,8 @@ const ModulePage = () => {
   // Async function for fetching everything in order
   const fetchAll = async () => {
     await fetchModule();
+    await fetchModules();
+    await fetchWeek();
     await fetchLessons();
     await fetchCompletedLessons();
   };
@@ -112,6 +147,19 @@ const ModulePage = () => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // For Navigation
+  const navPreviousModule = () => {
+    navigate(`/module/${moduleArray[moduleIndex - 1]}`);
+    window.location.reload();
+  };
+
+  const navNextModule = () => {
+    navigate(`/module/${moduleArray[moduleIndex + 1]}`);
+    window.location.reload();
+  };
+
+  // console.log(moduleIndex, moduleArray);
 
   return (
     <Box
@@ -138,7 +186,7 @@ const ModulePage = () => {
                 <Typography fontSize={28} fontWeight={500}>
                   {moduleType}
                 </Typography>
-                <Typography variant="body2">{moduleTitle}</Typography>
+                <Typography variant="body2">{moduleName}</Typography>
               </div>
               <ProgressCircle value={progress} />
             </Stack>
@@ -150,6 +198,68 @@ const ModulePage = () => {
           )}
 
           <LessonList key={lessons} lessons={lessons} />
+          <PageContainer>
+            <Stack
+              direction="row"
+              // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
+              justifyContent="space-between"
+              mt="2vh"
+            >
+              {moduleIndex !== 0 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="primary"
+                  onClick={() => navPreviousModule()}
+                  disableElevation
+                >
+                  Last module
+                </Button>
+              )}
+              {/* SET PROPER WEEK - INCLUDE WEEK # */}
+              {moduleIndex === 0 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="info"
+                  onClick={() => navigate(`/week/${week}`)}
+                  disableElevation
+                >
+                  Return to week
+                </Button>
+              )}
+
+              {moduleIndex !== moduleArray.length - 1 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="primary"
+                  onClick={() => navNextModule()}
+                  disableElevation
+                  // disabled={disabled}
+                >
+                  Next module
+                </Button>
+              )}
+              {/* SET PROPER WEEK */}
+              {moduleIndex === moduleArray.length - 1 && (
+                <Button
+                  variant="contained"
+                  sx={{ width: 140, height: 36 }}
+                  size="small"
+                  color="success"
+                  onClick={() => navigate(`/week/${week}`)}
+                  disableElevation
+                  // disabled={disabled}
+                >
+                  All done!
+                </Button>
+              )}
+            </Stack>
+          </PageContainer>
         </>
       )}
     </Box>

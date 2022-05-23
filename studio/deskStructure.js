@@ -147,7 +147,7 @@ export default () =>
 
       S.listItem()
         // Give it a title
-        .title("User Info & Progress")
+        .title("User Info / Management")
         .child(
           S.list()
             .title("Users")
