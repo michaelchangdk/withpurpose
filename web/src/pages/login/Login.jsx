@@ -62,10 +62,10 @@ const Login = () => {
   //     });
   // };
 
+  // ALSO RETURNS ACCESS TOKEN - HOW TO IMPLEMENT IN ROUTER FOR ACCESS??
   const signin = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
         client
           .fetch(`*[_type == "user" && _id == "${userCredential.user.uid}"]`)
           .then((res) => {

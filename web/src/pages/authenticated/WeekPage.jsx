@@ -14,6 +14,7 @@ const WeekPage = () => {
   const [moduleQueries, setModuleQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [weekOrder, setWeekOrder] = useState();
+  const [allWeeks, setAllWeeks] = useState([]);
   const { week } = useParams();
   let modulesArray = [];
   const [modules, setModules] = useState([]);
@@ -24,10 +25,11 @@ const WeekPage = () => {
   // const [disabled, setDisabled] = useState();
   // const access = Object.entries(
   //   useSelector((store) => store.authenticated.access)
+  // ).filter(
+  //   ([key, val]) => key.includes(allWeeks[weekOrder].name) && val === true
   // );
-  // .filter(([key, val]) => key.includes(week) && val === true);
 
-  // console.log(access, week, title);
+  // console.log(access, week);
 
   // useEffect(() => {
   //   if (access.length !== 1) {
@@ -35,9 +37,9 @@ const WeekPage = () => {
   //   }
   // }, [access.length]);
 
-  const weekQuery = `*[_type == "week" && name == "${week}"]`;
-
   const fetchModuleRefs = async () => {
+    setLoading(true);
+    const weekQuery = `*[_type == "week" && name == "${week}"] {description, module, order}`;
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
     setDescription(response[0].description);
@@ -47,9 +49,11 @@ const WeekPage = () => {
         (module) => `*[_type == "module" && _id == "${module._ref}"]`
       )
     );
+    setLoading(false);
   };
 
   const fetchModules = async () => {
+    setLoading(true);
     await Promise.all(
       moduleQueries.map((query) =>
         client.fetch(query).then((res) => {
@@ -61,42 +65,37 @@ const WeekPage = () => {
       setModules(modulesArray);
       setLoading(false);
     });
+    setLoading(false);
+  };
+
+  const fetchWeeks = async () => {
+    setLoading(true);
+    const weeksQuery = `*[_type == "week"] {name, order}`;
+    const fetch = await client.fetch(weeksQuery);
+    const response = await fetch;
+    setAllWeeks(response.sort((a, b) => a.order - b.order));
+    setLoading(false);
   };
 
   const fetchAll = async () => {
     await fetchModuleRefs();
     await fetchModules();
+    await fetchWeeks();
   };
 
   useEffect(() => {
     fetchAll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  }, []);
 
   const previousWeek = () => {
-    if (weekOrder === 4) {
-      navigate(`/week/Week2`);
-      window.location.reload();
-    } else if (weekOrder === 3) {
-      navigate(`/week/Week1`);
-      window.location.reload();
-    } else if (weekOrder === 2) {
-      navigate(`/week/Week0`);
-      window.location.reload();
-    } else {
-      navigate(`/week/Week${weekOrder - 1}`);
-      window.location.reload();
-    }
+    navigate(`/week/${allWeeks[weekOrder - 2].name}`);
+    window.location.reload();
   };
 
   const nextWeek = () => {
-    if (weekOrder === 2) {
-      navigate(`/week/Week4`);
-      window.location.reload();
-    } else {
-      navigate(`/week/Week${weekOrder + 1}`);
-      window.location.reload();
-    }
+    navigate(`/week/${allWeeks[weekOrder].name}`);
+    window.location.reload();
   };
 
   return (
