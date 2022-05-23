@@ -37,7 +37,7 @@ const PublicHeader = () => {
   };
 
   return (
-    <AppBar position="static" color="transparent" elevation="0">
+    <AppBar position="static" color="transparent" elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Button onClick={() => navigate("/")}>
@@ -89,7 +89,7 @@ const PublicHeader = () => {
               <MenuItem onClick={() => navigate("/startup-school")}>
                 <Typography textAlign="center">Startup School</Typography>
               </MenuItem>
-              <MenuItem onClick={() => navigate("/blog")} divider="true">
+              <MenuItem onClick={() => navigate("/blog")} divider={true}>
                 <Typography textAlign="center">Blog</Typography>
               </MenuItem>
               <MenuItem onClick={() => navigate("/team")}>
@@ -101,7 +101,7 @@ const PublicHeader = () => {
               <MenuItem onClick={() => navigate("/alumni")}>
                 <Typography textAlign="center">Alumni</Typography>
               </MenuItem>
-              <MenuItem onClick={() => navigate("/contact")} divider="true">
+              <MenuItem onClick={() => navigate("/contact")} divider={true}>
                 <Typography textAlign="center">Contact Us</Typography>
               </MenuItem>
               <MenuItem onClick={() => navigate("/login")}>
