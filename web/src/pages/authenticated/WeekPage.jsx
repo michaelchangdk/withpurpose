@@ -11,7 +11,7 @@ import LandingPageHero from "../../components/authenticated/LandingPageHero";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
-  const [moduleQueries, setModuleQueries] = useState([]);
+  // const [moduleQueries, setModuleQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [weekOrder, setWeekOrder] = useState();
   const [allWeeks, setAllWeeks] = useState([]);
@@ -19,6 +19,7 @@ const WeekPage = () => {
   let modulesArray = [];
   const [modules, setModules] = useState([]);
   const navigate = useNavigate();
+  let moduleQueries = [];
 
   // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
   // ADD LOGIC FOR "NEXT WEEK / COMING SOON"
@@ -44,10 +45,13 @@ const WeekPage = () => {
     const response = await fetch;
     setDescription(response[0].description);
     setWeekOrder(response[0].order);
-    setModuleQueries(
-      response[0].module.map(
-        (module) => `*[_type == "module" && _id == "${module._ref}"]`
-      )
+    // setModuleQueries(
+    //   response[0].module.map(
+    //     (module) => `*[_type == "module" && _id == "${module._ref}"]`
+    //   )
+    // );
+    moduleQueries = response[0].module.map(
+      (module) => `*[_type == "module" && _id == "${module._ref}"]`
     );
     setLoading(false);
   };
