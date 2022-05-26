@@ -208,7 +208,7 @@ const Signup = () => {
   return (
     <Container maxWidth="xs">
       <Stack spacing={2} mt={12} component="form">
-        <Logo src={logo} alt="logo." />
+        <Logo src={logo} alt="With Purpose Logo." />
         <Typography
           variant="h1"
           fontSize={24}
