@@ -5,6 +5,8 @@ import { auth } from "../../firebase";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { client } from "../../client";
 import { authenticated } from "../../reducers/authenticated";
@@ -26,33 +28,94 @@ import logo from "../../assets/BWP_logotype.svg";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const provider = new GoogleAuthProvider();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState("");
 
-  // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
-  // const googleLogin = () => {
-  //   signInWithPopup(auth, provider)
-  //     .then((result) => {
-  //       // This gives you a Google Access Token. You can use it to access the Google API.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       // ...
-  //     })
-  //     .catch((error) => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // };
+  // Sign in with Google
+  const googleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        client
+          .fetch(
+            `*[_type == "user" && _id == "${result.user.uid}"] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6, completed, darkMode, displayName, photoURL}`
+          )
+          .then((res) => {
+            console.log(res);
+            if (res === []) {
+              const doc = {
+                _id: result.user.uid,
+                _type: "user",
+                displayName: result.user.displayName,
+                uniqueid: result.user.uid,
+                email: result.user.email,
+                approvedSchool: false,
+                approvedWeek0: false,
+                approvedWeek1: false,
+                approvedWeek23: false,
+                approvedWeek4: false,
+                approvedWeek5: false,
+                approvedWeek6: false,
+                approvedMasterClass: false,
+                approvedMentorBooking: false,
+                approvedCommunity: false,
+                darkMode: false,
+                photoURL: result.user.photoURL,
+              };
+
+              client.createIfNotExists(doc).then((response) => {
+                console.log(response);
+                dispatch(
+                  authenticated.actions.login({
+                    uid: result.user.uid,
+                    displayName: result.user.displayName,
+                    approvedSchool: false,
+                    approvedWeek0: false,
+                    approvedWeek1: false,
+                    approvedWeek23: false,
+                    approvedWeek4: false,
+                    approvedWeek5: false,
+                    approvedWeek6: false,
+                    approvedMasterClass: false,
+                    approvedMentorBooking: false,
+                    approvedCommunity: false,
+                    darkMode: false,
+                    photoURL: result.user.photoURL,
+                  })
+                );
+              });
+              navigate("/");
+            } else {
+              dispatch(
+                authenticated.actions.login({
+                  uid: result.user.uid,
+                  displayName: result.user.displayName,
+                  approvedSchool: res[0].approvedSchool,
+                  approvedWeek0: res[0].approvedWeek0,
+                  approvedWeek1: res[0].approvedWeek1,
+                  approvedWeek23: res[0].approvedWeek23,
+                  approvedWeek4: res[0].approvedWeek4,
+                  approvedWeek5: res[0].approvedWeek5,
+                  approvedWeek6: res[0].approvedWeek6,
+                  approvedMasterClass: res[0].approvedMasterClass,
+                  approvedMentorBooking: res[0].approvedMentorBooking,
+                  approvedCommunity: res[0].approvedCommunity,
+                  darkMode: res[0].darkMode,
+                  photoURL: result.user.photoURL,
+                })
+              );
+              navigate("/");
+            }
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+  };
 
   // ALSO RETURNS ACCESS TOKEN
   const signin = async () => {
@@ -168,6 +231,9 @@ const Login = () => {
           </Button>
         </Stack>
         <Divider />
+        <Button variant="contained" onClick={googleLogin}>
+          Sign in with Google
+        </Button>
       </Stack>
     </Container>
   );
