@@ -33,7 +33,7 @@ const AlumniPrivate = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpageelements" && order == 4]`}
+        query={`*[_type == "landingpageelements" && order == 4] {heroImage, title, subtitle}`}
         type={"page"}
         displaySubtitle={true}
       />
