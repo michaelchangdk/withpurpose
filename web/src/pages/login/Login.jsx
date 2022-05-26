@@ -163,7 +163,7 @@ const Login = () => {
           <Button width={6} onClick={sendPassWordReset}>
             Forgot password?
           </Button>
-          <Button href="/signup" width={6}>
+          <Button onClick={() => navigate("/signup")} width={6}>
             New here? Sign up
           </Button>
         </Stack>

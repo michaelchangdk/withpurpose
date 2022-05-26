@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { client } from "../../client";
 import {
   Alert,
@@ -33,29 +38,74 @@ const Signup = () => {
   const emailPattern =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-  // IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
-  // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
-  // const googleLogin = () => {
-  //   signInWithPopup(auth, provider)
-  //     .then((result) => {
-  //       // This gives you a Google Access Token. You can use it to access the Google API.
-  //       const credential = GoogleAuthProvider.credentialFromResult(result);
-  //       const token = credential.accessToken;
-  //       // The signed-in user info.
-  //       const user = result.user;
-  //       // ...
-  //     })
-  //     .catch((error) => {
-  //       // Handle Errors here.
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // The email of the user's account used.
-  //       const email = error.email;
-  //       // The AuthCredential type that was used.
-  //       const credential = GoogleAuthProvider.credentialFromError(error);
-  //       // ...
-  //     });
-  // };
+  const provider = new GoogleAuthProvider();
+  const googleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        // ...
+        const doc = {
+          _id: result.user.uid,
+          _type: "user",
+          displayName: result.user.displayName,
+          uniqueid: result.user.uid,
+          email: result.user.email,
+          approvedSchool: false,
+          approvedWeek0: false,
+          approvedWeek1: false,
+          approvedWeek23: false,
+          approvedWeek4: false,
+          approvedWeek5: false,
+          approvedWeek6: false,
+          approvedMasterClass: false,
+          approvedMentorBooking: false,
+          approvedCommunity: false,
+          darkMode: false,
+          photoURL: result.user.photoURL,
+        };
+
+        client.createIfNotExists(doc).then((response) => {
+          console.log(response);
+          dispatch(
+            authenticated.actions.login({
+              uid: result.user.uid,
+              displayName: result.user.uid,
+              approvedSchool: false,
+              approvedWeek0: false,
+              approvedWeek1: false,
+              approvedWeek23: false,
+              approvedWeek4: false,
+              approvedWeek5: false,
+              approvedWeek6: false,
+              approvedMasterClass: false,
+              approvedMentorBooking: false,
+              approvedCommunity: false,
+              darkMode: false,
+              photoURL: result.user.photoURL,
+            })
+          );
+
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle Errors here.
+        setError(error.message);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   const registerUser = () => {
     if (firstname.length < 2 || lastname.length < 2) {
@@ -209,8 +259,13 @@ const Signup = () => {
         >
           SIGN UP
         </Button>
-        <Button href="/login">Already have an account? Sign in</Button>
+        <Button onClick={() => navigate("/login")}>
+          Already have an account? Sign in
+        </Button>
         <Divider />
+        <Button variant="contained" onClick={googleLogin}>
+          Sign in with Google
+        </Button>
       </Stack>
     </Container>
   );
