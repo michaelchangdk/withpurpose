@@ -31,16 +31,15 @@ const WeekCards = ({
   // THIS IS FOR THE PROGRESS BARS - BUGGY //
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
-  );
-  // .map((lesson) => lesson.lessonRef)
-  // .filter((lesson) => lessonRefArray.includes(lesson));
+  )
+    .map((lesson) => lesson.lessonRef)
+    .filter((lesson) => lessonRefArray.includes(lesson));
 
   const fetchLessonRefs = async () => {
     // eslint-disable-next-line array-callback-return
     moduleQueries.map((query) => {
       client.fetch(query).then((response) => {
         const lessonRefs = response[0].lesson.map((lesson) => lesson._ref);
-        lessonRefs.forEach((ref) => console.log(ref));
         lessonRefs.forEach((ref) =>
           setLessonRefArray((prev) => [...prev, ref])
         );
@@ -48,27 +47,14 @@ const WeekCards = ({
     });
   };
 
-  console.log(completedLessons, lessonRefArray);
-
-  const fetchAndCompare = async () => {
-    await fetchLessonRefs();
-  };
-
   useEffect(() => {
-    fetchAndCompare();
+    fetchLessonRefs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const progressTracker = () => {
-  //   setProgress((counter / lessonRefArray.length) * 100);
-  // };
-
   useEffect(() => {
-    // progressTracker();
     setProgress((completedLessons.length / lessonRefArray.length) * 100);
   }, [completedLessons.length, lessonRefArray.length]);
-
-  console.log(completedLessons.length, lessonRefArray.length);
   // PROGRESS BAR SECTION OVER
 
   // NAVIGATION AND ACCESS //
