@@ -29,12 +29,13 @@ const WeekCards = ({
   const [lessonRefArray, setLessonRefArray] = useState([]);
 
   // THIS IS FOR THE PROGRESS BARS - BUGGY //
-  let completed = useSelector(
+  const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
-  ).map((lesson) => lesson.lessonRef);
-  let counter = 0;
+  );
+  // .map((lesson) => lesson.lessonRef)
+  // .filter((lesson) => lessonRefArray.includes(lesson));
 
-  const fetchLessonRefs = () => {
+  const fetchLessonRefs = async () => {
     // eslint-disable-next-line array-callback-return
     moduleQueries.map((query) => {
       client.fetch(query).then((response) => {
@@ -47,18 +48,14 @@ const WeekCards = ({
     });
   };
 
-  // I THINK THE ISSUE IS THIS FUNCTION AND WHEN IT GETS CALLED
-  const compareArrays = (array1, array2) => {
-    array1.forEach((element) => {
-      if (array2.includes(element)) {
-        counter++;
-      }
-    });
+  console.log(completedLessons, lessonRefArray);
+
+  const fetchAndCompare = async () => {
+    await fetchLessonRefs();
   };
 
   useEffect(() => {
-    fetchLessonRefs();
-    compareArrays(completed, lessonRefArray);
+    fetchAndCompare();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -68,8 +65,10 @@ const WeekCards = ({
 
   useEffect(() => {
     // progressTracker();
-    setProgress((counter / lessonRefArray.length) * 100);
-  }, [counter, lessonRefArray.length]);
+    setProgress((completedLessons.length / lessonRefArray.length) * 100);
+  }, [completedLessons.length, lessonRefArray.length]);
+
+  console.log(completedLessons.length, lessonRefArray.length);
   // PROGRESS BAR SECTION OVER
 
   // NAVIGATION AND ACCESS //

@@ -87,6 +87,11 @@ const Login = () => {
               });
               navigate("/");
             } else {
+              if (!!res[0].completed) {
+                res[0].completed.forEach((lesson) =>
+                  dispatch(authenticated.actions.addCompletedLesson(lesson))
+                );
+              }
               dispatch(
                 authenticated.actions.login({
                   uid: result.user.uid,
