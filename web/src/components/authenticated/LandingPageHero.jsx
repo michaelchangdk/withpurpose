@@ -7,7 +7,7 @@ import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { useSelector } from "react-redux";
 
-const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
+const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);
   const [heroRef, setHeroRef] = useState("");
   const [title, setTitle] = useState("");
@@ -16,20 +16,14 @@ const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
     (store) => store.authenticated.displayName
   ).split(" ");
 
-  const fetchHero = async () => {
-    const fetch = await client.fetch(query);
-    const response = await fetch;
-    console.log(response);
-    setHeroRef(response[0].heroImage.asset._ref);
-    setTitle(response[0].title);
-    setSubtitle(response[0].subtitle);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    fetchHero();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+    client.fetch(query).then((response) => {
+      setHeroRef(response[0].heroImage.asset._ref);
+      setTitle(response[0].title);
+      setSubtitle(response[0].subtitle);
+      setLoading(false);
+    });
+  }, [query]);
 
   return (
     <>
@@ -41,9 +35,7 @@ const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
               {title}
               {displayName && ` ${nameArray[0]}`}
             </HeaderTitle>
-            {displaySubtitle === true && (
-              <HeaderSubtitle>{subtitle}</HeaderSubtitle>
-            )}
+            {!!subtitle && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
           </HeaderTitleWrapper>
           <HeaderInstruction>
             {type === "page" && (
@@ -52,7 +44,7 @@ const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
             {type === "week" && (
               <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
             )}
-            <HeaderIcon src={down} alt="down arrow." />
+            <HeaderIcon src={down} alt="Down arrow." />
           </HeaderInstruction>
         </PageContainer>
       </Header>
