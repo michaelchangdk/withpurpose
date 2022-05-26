@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authenticated } from "../../reducers/authenticated";
+import { auth } from "../../firebase";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { auth } from "../../firebase";
+import { client } from "../../client";
+import { authenticated } from "../../reducers/authenticated";
 import {
   Alert,
   AlertTitle,
@@ -17,27 +18,18 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import { client } from "../../client";
-import logo from "../../assets/BWP_logotype.svg";
 import styled from "styled-components";
+import logo from "../../assets/BWP_logotype.svg";
 
 // IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const typeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const typePassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   // UNSURE ABOUT GOOGLE LOGIN - MAYBE ADD AS FEATURE LATER, or VIA oAUTH
   // const googleLogin = () => {
@@ -62,13 +54,15 @@ const Login = () => {
   //     });
   // };
 
-  // ALSO RETURNS ACCESS TOKEN - HOW TO IMPLEMENT IN ROUTER FOR ACCESS??
+  // ALSO RETURNS ACCESS TOKEN
   const signin = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
         client
-          .fetch(`*[_type == "user" && _id == "${userCredential.user.uid}"]`)
+          .fetch(
+            `*[_type == "user" && _id == "${userCredential.user.uid}"] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6, completed, darkMode, displayName, photoURL}`
+          )
           .then((res) => {
             if (!!res[0].completed) {
               res[0].completed.forEach((lesson) =>
@@ -96,12 +90,17 @@ const Login = () => {
               })
             );
           });
-
         navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
-        setError(error.message);
+        if (error.message === "Firebase: Error (auth/wrong-password).") {
+          setError("Wrong password");
+        } else if (error.message === "Firebase: Error (auth/user-not-found).") {
+          setError("User not found");
+        } else {
+          setError(error.message);
+        }
       });
   };
 
@@ -112,13 +111,17 @@ const Login = () => {
         setEmail("");
       })
       .catch((error) => {
-        setError(error.message);
+        if (error.message === "Firebase: Error (auth/user-not-found).") {
+          setError("User not found");
+        } else {
+          setError(error.message);
+        }
       });
   };
 
   return (
     <Container maxWidth="xs">
-      <Stack spacing={2} mt={12}>
+      <Stack spacing={2} mt={12} component="form">
         <Logo src={logo} alt="logo." />
         <Typography
           variant="h1"
@@ -133,16 +136,17 @@ const Login = () => {
           variant="outlined"
           fullWidth
           required={true}
-          onChange={typeEmail}
-          autoComplete="true"
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="Email"
         />
         <TextField
           label="Password"
           variant="outlined"
           fullWidth
           type="password"
+          autoComplete="current-password"
           required={true}
-          onChange={typePassword}
+          onChange={(e) => setPassword(e.target.value)}
         />
         {error.length > 0 && (
           <Alert severity="error">
