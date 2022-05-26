@@ -30,7 +30,6 @@ const LandingPage = () => {
     >
       <LandingPageHero
         query={`*[_type == "landingpage"] {heroImage, title, subtitle}`}
-        displaySubtitle={true}
         type={"page"}
         displayName={true}
       />
