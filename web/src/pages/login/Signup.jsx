@@ -39,6 +39,7 @@ const Signup = () => {
   const emailPattern =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
+  // Sign in with Google
   const googleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -121,6 +122,7 @@ const Signup = () => {
       });
   };
 
+  // Register with Firebase
   const registerUser = () => {
     if (firstname.length < 2 || lastname.length < 2) {
       setError("Please fill out your name.");

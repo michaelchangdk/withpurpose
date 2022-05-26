@@ -23,8 +23,6 @@ import {
 import styled from "styled-components";
 import logo from "../../assets/BWP_logotype.svg";
 
-// IMPLEMENT GOOGLE LOGIN - THERES AN NPM PACKAGE I SAW
-
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -117,7 +115,7 @@ const Login = () => {
       });
   };
 
-  // ALSO RETURNS ACCESS TOKEN
+  // Sign in with Firebase
   const signin = async () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -167,6 +165,7 @@ const Login = () => {
       });
   };
 
+  // Send Password Reset Email
   const sendPassWordReset = () => {
     sendPasswordResetEmail(auth, email)
       .then((res) => {
