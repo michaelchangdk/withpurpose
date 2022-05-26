@@ -18,11 +18,11 @@ const ProfilePage = () => {
     if (checked) {
       setChecked(false);
       dispatch(authenticated.actions.toggleDarkMode(false));
-      client.patch(userid).set({ darkMode: false }).commit();
+      client.patch(userid).set({ darkMode: true }).commit();
     } else if (!checked) {
       setChecked(true);
       dispatch(authenticated.actions.toggleDarkMode(true));
-      client.patch(userid).set({ darkMode: true }).commit();
+      client.patch(userid).set({ darkMode: false }).commit();
     }
   };
 

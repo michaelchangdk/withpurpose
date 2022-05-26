@@ -7,11 +7,10 @@ import styled from "styled-components";
 import { Stack, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
-  // const [moduleQueries, setModuleQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [weekOrder, setWeekOrder] = useState();
   const [allWeeks, setAllWeeks] = useState([]);
@@ -20,23 +19,16 @@ const WeekPage = () => {
   const [modules, setModules] = useState([]);
   const navigate = useNavigate();
   let moduleQueries = [];
+  const weekAccess = Object.entries(
+    useSelector((store) => store.authenticated.access)
+  ).filter(([key, val]) => key.includes("Week"));
 
   // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
-  // ADD LOGIC FOR "NEXT WEEK / COMING SOON"
-  // const [disabled, setDisabled] = useState();
-  // const access = Object.entries(
-  //   useSelector((store) => store.authenticated.access)
-  // ).filter(
-  //   ([key, val]) => key.includes(allWeeks[weekOrder].name) && val === true
-  // );
-
-  // console.log(access, week);
-
-  // useEffect(() => {
-  //   if (access.length !== 1) {
-  //     setDisabled(true);
-  //   }
-  // }, [access.length]);
+  const [disabled, setDisabled] = useState();
+  const setAccess = (order) => {
+    const nextWeekAccess = weekAccess[order][1];
+    setDisabled(nextWeekAccess);
+  };
 
   const fetchModuleRefs = async () => {
     setLoading(true);
@@ -45,11 +37,7 @@ const WeekPage = () => {
     const response = await fetch;
     setDescription(response[0].description);
     setWeekOrder(response[0].order);
-    // setModuleQueries(
-    //   response[0].module.map(
-    //     (module) => `*[_type == "module" && _id == "${module._ref}"]`
-    //   )
-    // );
+    setAccess(response[0].order);
     moduleQueries = response[0].module.map(
       (module) => `*[_type == "module" && _id == "${module._ref}"]`
     );
@@ -162,9 +150,9 @@ const WeekPage = () => {
                   color="primary"
                   onClick={() => nextWeek()}
                   disableElevation
-                  // disabled={disabled}
+                  disabled={!disabled}
                 >
-                  Next week
+                  {!disabled ? "Coming soon" : "Next week"}
                 </Button>
               )}
             </Stack>

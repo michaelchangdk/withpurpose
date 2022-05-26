@@ -15,10 +15,10 @@ export const authenticated = createSlice({
       approvedSchool: "",
       approvedWeek0: "",
       approvedWeek1: "",
+      approvedWeek23: "",
       approvedWeek4: "",
       approvedWeek5: "",
       approvedWeek6: "",
-      approvedWeek23: "",
     },
     darkMode: false,
   },
@@ -49,10 +49,10 @@ export const authenticated = createSlice({
       state.access.approvedSchool = "";
       state.access.approvedWeek0 = "";
       state.access.approvedWeek1 = "";
+      state.access.approvedWeek23 = "";
       state.access.approvedWeek4 = "";
       state.access.approvedWeek5 = "";
       state.access.approvedWeek6 = "";
-      state.access.approvedWeek23 = "";
       state.access.approvedMasterClass = "";
       state.access.approvedMentorBooking = "";
       state.access.approvedCommunity = "";
@@ -74,7 +74,6 @@ export const authenticated = createSlice({
       );
     },
     toggleDarkMode: (state, action) => {
-      console.log(action.payload);
       state.darkMode = !state.darkMode;
     },
   },
