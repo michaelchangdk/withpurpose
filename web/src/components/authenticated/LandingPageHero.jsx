@@ -19,6 +19,7 @@ const LandingPageHero = ({ query, displaySubtitle, type, displayName }) => {
   const fetchHero = async () => {
     const fetch = await client.fetch(query);
     const response = await fetch;
+    console.log(response);
     setHeroRef(response[0].heroImage.asset._ref);
     setTitle(response[0].title);
     setSubtitle(response[0].subtitle);
