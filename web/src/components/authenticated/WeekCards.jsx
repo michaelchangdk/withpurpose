@@ -20,21 +20,22 @@ const WeekCards = ({
   const [progress, setProgress] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [color, setColor] = useState("primary");
+  const [buttonText, setButtonText] = useState("Start");
+  const [lessonRefArray, setLessonRefArray] = useState([]);
   const access = Object.entries(
     useSelector((store) => store.authenticated.access)
   ).filter(([key, val]) => key.includes(name) && val === true);
   const moduleQueries = module.map(
     (module) => `*[_type == "module" && _id == "${module._ref}"] {lesson}`
   );
-  const [lessonRefArray, setLessonRefArray] = useState([]);
-
-  // THIS IS FOR THE PROGRESS BARS - BUGGY //
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
   )
     .map((lesson) => lesson.lessonRef)
     .filter((lesson) => lessonRefArray.includes(lesson));
 
+  // THIS IS FOR THE PROGRESS BARS - BUGGY //
   const fetchLessonRefs = async () => {
     // eslint-disable-next-line array-callback-return
     moduleQueries.map((query) => {
@@ -53,7 +54,22 @@ const WeekCards = ({
   }, []);
 
   useEffect(() => {
-    setProgress((completedLessons.length / lessonRefArray.length) * 100);
+    const progress = (completedLessons.length / lessonRefArray.length) * 100;
+    if (progress === 0) {
+      setProgress(progress);
+      setColor("primary");
+      setButtonText("Start");
+    } else if (0 < progress && progress < 100) {
+      setProgress(progress);
+      setColor("secondary");
+      setButtonText("Continue");
+    } else if (progress === 100) {
+      setProgress(progress);
+      setColor("success");
+      setButtonText("All done!");
+    } else {
+      setProgress(0);
+    }
   }, [completedLessons.length, lessonRefArray.length]);
   // PROGRESS BAR SECTION OVER
 
@@ -112,11 +128,11 @@ const WeekCards = ({
             disabled={disabled}
             onClick={navigateToWeek}
             size="small"
-            color="primary"
+            color={color}
             sx={{ width: 120 }}
             // endIcon={<StartRoundedIcon />}
           >
-            {disabled ? "Coming soon" : "Start"}
+            {disabled ? "Coming soon" : buttonText}
           </Button>
         </Stack>
       </Stack>
