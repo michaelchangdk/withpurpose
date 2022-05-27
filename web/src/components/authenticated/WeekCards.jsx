@@ -35,9 +35,8 @@ const WeekCards = ({
     .map((lesson) => lesson.lessonRef)
     .filter((lesson) => lessonRefArray.includes(lesson));
 
-  // THIS IS FOR THE PROGRESS BARS - BUGGY //
+  // THIS IS FOR THE PROGRESS BARS //
   const fetchLessonRefs = async () => {
-    // eslint-disable-next-line array-callback-return
     moduleQueries.map((query) => {
       client.fetch(query).then((response) => {
         const lessonRefs = response[0].lesson.map((lesson) => lesson._ref);
@@ -45,6 +44,7 @@ const WeekCards = ({
           setLessonRefArray((prev) => [...prev, ref])
         );
       });
+      return null;
     });
   };
 
@@ -71,7 +71,7 @@ const WeekCards = ({
       setProgress(0);
     }
   }, [completedLessons.length, lessonRefArray.length]);
-  // PROGRESS BAR SECTION OVER
+  // PROGRESS BAR SECTION OVER //
 
   // NAVIGATION AND ACCESS //
   const navigateToWeek = () => {
