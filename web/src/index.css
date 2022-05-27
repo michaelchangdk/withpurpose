@@ -18,3 +18,9 @@ body {
   /* padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right); */
 }
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

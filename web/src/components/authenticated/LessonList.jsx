@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { List, Typography, ListSubheader } from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
+import ReactPlayer from "react-player";
 
 const LessonList = ({
   lessons,
@@ -33,7 +34,7 @@ const LessonList = ({
   return (
     <>
       <PageContainer>
-        {videoUrl.length > 0 && (
+        {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
               <IFrame
@@ -41,6 +42,25 @@ const LessonList = ({
                 src={videoUrl}
                 allowFullScreen
                 frameBorder="0"
+              />
+            </FrameDiv>
+            <Typography variant="caption" fontSize={13}>
+              Now playing:
+            </Typography>
+            <Typography fontSize={16}>{taskTitle}</Typography>
+            <Typography variant="caption">{taskDuration}</Typography>
+          </div>
+        )} */}
+        {/* Using React Player - take note of className below */}
+        {videoUrl.length > 0 && (
+          <div>
+            <FrameDiv>
+              <ReactPlayer
+                url={videoUrl}
+                controls={true}
+                width="100%"
+                height="100%"
+                className="react-player"
               />
             </FrameDiv>
             <Typography variant="caption" fontSize={13}>
@@ -96,10 +116,10 @@ const FrameDiv = styled.div`
   padding-top: 56.25%;
 `;
 
-const IFrame = styled.iframe`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
+// const IFrame = styled.iframe`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+// `;
