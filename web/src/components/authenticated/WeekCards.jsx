@@ -109,7 +109,12 @@ const WeekCards = ({
           <Typography variant="caption">
             {title} | {keyword}
           </Typography>
-          <ProgressCircle value={progress} />
+          <ProgressCircle
+            value={progress}
+            circleSize={30}
+            iconSize={30}
+            fontSize={10}
+          />
         </Stack>
         <Typography variant="body1" fontWeight={500}>
           {shortDescription}

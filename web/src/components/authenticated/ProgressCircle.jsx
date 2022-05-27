@@ -4,16 +4,17 @@ import { CircularProgress, Box, Typography } from "@mui/material";
 // import { ThemeProvider } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-const ProgressCircle = (props) => {
+const ProgressCircle = ({ value, circleSize, iconSize, fontSize }) => {
+  // console.log(props);
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
         variant="determinate"
         color="success"
-        {...props}
-        size={40}
+        {...{ value: value }}
+        size={circleSize}
         // Setting thickness was creating lag along with themeprovider
-        // thickness={4}
+        thickness={6}
       />
       <Box
         sx={{
@@ -27,13 +28,17 @@ const ProgressCircle = (props) => {
           justifyContent: "center",
         }}
       >
-        {props.value < 100 && (
-          <Typography component="div" color="text.secondary" fontSize={12}>
-            {`${Math.round(props.value)}%`}
+        {value < 100 && (
+          <Typography
+            component="div"
+            color="text.secondary"
+            fontSize={fontSize}
+          >
+            {`${Math.round(value)}%`}
           </Typography>
         )}
-        {props.value === 100 && (
-          <CheckCircleIcon color="success" sx={{ fontSize: 42 }} />
+        {value === 100 && (
+          <CheckCircleIcon color="success" sx={{ fontSize: iconSize }} />
         )}
       </Box>
     </Box>

@@ -188,7 +188,12 @@ const ModulePage = () => {
                 </Typography>
                 <Typography variant="body2">{moduleName}</Typography>
               </div>
-              <ProgressCircle value={progress} />
+              <ProgressCircle
+                value={progress}
+                circleSize={40}
+                iconSize={42}
+                fontSize={14}
+              />
             </Stack>
           </PageContainer>
           {moduleDescription && (
