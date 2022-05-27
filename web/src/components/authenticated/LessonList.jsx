@@ -51,7 +51,11 @@ const LessonList = ({
             <Typography variant="caption">{taskDuration}</Typography>
           </div>
         )} */}
+
         {/* Using React Player - take note of className below */}
+        {/* We can find ref hooks to automatically check it when the video is done playing */}
+        {/* https://www.npmjs.com/package/react-player */}
+        {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
         {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
