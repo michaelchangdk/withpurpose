@@ -26,8 +26,12 @@ const WeekPage = () => {
   // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
   const [disabled, setDisabled] = useState();
   const setAccess = (order) => {
-    const nextWeekAccess = weekAccess[order][1];
-    setDisabled(nextWeekAccess);
+    if (weekAccess[order]) {
+      const nextWeekAccess = weekAccess[order][1];
+      setDisabled(nextWeekAccess);
+    } else {
+      return;
+    }
   };
 
   const fetchModuleRefs = async () => {
