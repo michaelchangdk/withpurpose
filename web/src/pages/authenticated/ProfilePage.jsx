@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import { getAuth, updateProfile, updateEmail, sendPasswordResetEmail  } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Alert,
+  AlertTitle,
   Avatar,
   Button,
   Container,
@@ -23,12 +26,23 @@ import { Box } from "@mui/material";
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
   const [filename, setFilename] = useState('choose image');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [confirmNewEmail, setConfirmNewEmail] = useState('');
+  const [error, setError] = useState("");
+
+  const auth = getAuth();
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
   const darkMode = useSelector((store) => store.authenticated.darkMode);
 
   const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
+
+  const emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   const toggleDarkMode = () => {
     if (checked) {
@@ -50,6 +64,68 @@ const ProfilePage = () => {
     };
   };
 
+  const updateDisplayName = () => {
+    // console.log(firstname, lastname)
+    if (firstname.length < 2 || lastname.length < 2) {
+      setError("Please fill out your name.");
+    } else {
+      setError('');
+      updateProfile(auth.currentUser, {... auth.currentUser,
+        displayName: `${firstname} ${lastname}`
+      }).then(() => {
+        // Profile updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+
+      client
+        .patch(userid)
+        .set({
+          displayName: `${firstname} ${lastname}`
+        })
+        // .commit({ autoGenerateArrayKeys: true })
+        .commit()
+        .then((result) => {
+          console.log(result);
+          dispatch(authenticated.actions.changeDisplayname(`${firstname} ${lastname}`));
+        })
+    }
+  };
+
+  const resetPassword = () => {
+    sendPasswordResetEmail(auth, currentEmail)
+    .then(() => {
+      // Password reset email sent!
+      // ..
+    })
+    .catch((error) => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      setError(error.message)
+      // ..
+    });
+  }
+
+  const updateEmail = () => {
+    // console.log(newEmail)
+    if (newEmail !== confirmNewEmail) {
+      setError("Emails do not match.");
+    } else if (!newEmail.match(emailPattern)) {
+      setError("Please enter a valid email address.");
+    } else {
+      setError('');
+      updateEmail(auth.currentUser, newEmail).then(() => {
+        // Email updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+      // call on client and firebase to update email?
+    }
+  };
 
   return (
     <Box
@@ -126,13 +202,22 @@ const ProfilePage = () => {
             </AccordionSummary>
             <AccordionDetails>
               <TextField
-                label="New display name"
+                label="First name"
                 variant="outlined"
                 fullWidth
                 required={true}
+                onChange={(e) => setFirstname(e.target.value)}
                 >
               </TextField>
-              <Button>
+              <TextField
+                label="Last name"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setLastname(e.target.value)}
+                >
+              </TextField>
+              <Button onClick={updateDisplayName}>
                 Change display name
               </Button>
             </AccordionDetails>
@@ -144,22 +229,21 @@ const ProfilePage = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <TextField
+              {/* <TextField
               label="Current email address"
               variant="outlined"
               fullWidth
               required={true}
               // onChange={(e) => setEmail(e.target.value)}
               // autoComplete="Email"
-              >
-                
-              </TextField>
+              > 
+              </TextField> */}
               <TextField
               label="New email address"
               variant="outlined"
               fullWidth
               required={true}
-              // onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setNewEmail(e.target.value)}
               // autoComplete="Email"
               >
               
@@ -169,12 +253,18 @@ const ProfilePage = () => {
               variant="outlined"
               fullWidth
               required={true}
-              // onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setConfirmNewEmail(e.target.value)}
               // autoComplete="Email"
               >
               
               </TextField>
-              <Button>
+              {error.length > 0 && (
+                <Alert severity="warning">
+                  <AlertTitle>Error</AlertTitle>
+                  {error}
+                </Alert>
+              )}
+              <Button onClick={updateEmail}>
                 Change email
               </Button>
             </AccordionDetails>
@@ -186,8 +276,17 @@ const ProfilePage = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              
-              <Button>
+              <TextField
+                label="Email address"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setCurrentEmail(e.target.value)}
+                // autoComplete="Email"
+                >
+                
+                </TextField>
+              <Button onClick={resetPassword}>
                 Click to recieve email to reset password
               </Button>
               {/* Some sort of alarm to confirm that email has been sent */}

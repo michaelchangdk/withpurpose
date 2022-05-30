@@ -76,5 +76,8 @@ export const authenticated = createSlice({
     toggleDarkMode: (state, action) => {
       state.darkMode = !state.darkMode;
     },
+    changeDisplayname: (state, action) => {
+      state.displayName = action.payload
+    }
   },
 });
