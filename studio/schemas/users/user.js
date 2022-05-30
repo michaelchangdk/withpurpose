@@ -22,20 +22,15 @@ export default {
       description: "Do not edit!",
     },
     {
-      name: "profilePhoto",
-      title: "Profile Photo",
+      name: "avatar",
+      title: "Avatar",
       type: "image",
     },
     {
       name: "photoURL",
       title: "Avatar URL",
-      type: "url",
+      type: "string",
       description: "Do not edit",
-    },
-    {
-      name: "avatar",
-      title: "Avatar",
-      type: "image",
     },
     {
       name: "darkMode",
