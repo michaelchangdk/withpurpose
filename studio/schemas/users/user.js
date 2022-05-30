@@ -22,6 +22,11 @@ export default {
       description: "Do not edit!",
     },
     {
+      name: "profilePhoto",
+      title: "Profile Photo",
+      type: "image",
+    },
+    {
       name: "photoURL",
       title: "Avatar URL",
       type: "url",
