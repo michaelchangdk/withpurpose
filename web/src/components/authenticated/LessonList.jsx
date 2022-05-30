@@ -57,7 +57,7 @@ const LessonList = ({
         {/* https://www.npmjs.com/package/react-player */}
         {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
         {videoUrl.length > 0 && (
-          <div>
+          <>
             <FrameDiv>
               <ReactPlayer
                 url={videoUrl}
@@ -72,7 +72,7 @@ const LessonList = ({
             </Typography>
             <Typography fontSize={16}>{taskTitle}</Typography>
             <Typography variant="caption">{taskDuration}</Typography>
-          </div>
+          </>
         )}
         {taskDescription.length > 0 && (
           <div>
