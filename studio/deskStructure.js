@@ -189,6 +189,7 @@ export default () =>
             "user",
             "completed",
             "landingpageelements",
+            "media.tag",
           ].includes(listItem.getId())
       ),
     ]);

@@ -12,7 +12,8 @@
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "asset-source-unsplash"
+    "asset-source-unsplash",
+    "media"
   ],
   "env": {
     "development": {
@@ -35,6 +36,14 @@
     {
       "implements": "part:@sanity/base/theme/variables/override-style",
       "path": "./styles/variables.css"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/image/asset-sources",
+      "path": "./parts/assetSources.js"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/file/asset-sources",
+      "path": "./parts/assetSources.js"
     }
   ]
 }
