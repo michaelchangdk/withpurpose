@@ -9,6 +9,7 @@ import {
   Avatar,
   Button,
   Container,
+  Input,
   Stack,
   TextField,
   Typography,
@@ -21,6 +22,7 @@ import { Box } from "@mui/material";
 
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
+  const [filename, setFilename] = useState('choose image');
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
   const darkMode = useSelector((store) => store.authenticated.darkMode);
@@ -64,31 +66,77 @@ const ProfilePage = () => {
       {/* Profile Page */}
       <Container maxWidth="xs">
         <Stack spacing={2} mt={12}>
-          {userAvatarUrl.length > 0 && (
-            <Avatar
-              src={userAvatarUrl}
-              alt={displayName}
-              sx={{ height: 100, width: 100 }}
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {userAvatarUrl.length > 0 && (
+              <Avatar
+                src={userAvatarUrl}
+                alt={displayName}
+                sx={{ height: 100, width: 100 }}
+              />
+            )}
+            {userAvatarUrl.length === 0 && (
+              <Avatar
+                {...stringAvatar({ displayName })}
+                alt={displayName}
+                sx={{
+                  bgcolor: "primary.main",
+                  color: "primary.contrastText",
+                  height: 100,
+                  width: 100,
+                }}
+              />
+            )}
+            <Typography>
+              {displayName}
+            </Typography>
+          </Box>
+          <Accordion>
+            <AccordionSummary>
+              Upload new profile image
+            </AccordionSummary>
+            <AccordionDetails>
+              <Input
+              accept="image/*"
+              // className={classes.input}
+              style={{ display: 'none' }}
+              id="raised-button-file"
+              multiple
+              type="file"
+              onChange={(event) => setFilename(event.target.value)}
             />
-          )}
-          {userAvatarUrl.length === 0 && (
-            <Avatar
-              {...stringAvatar({ displayName })}
-              alt={displayName}
-              sx={{
-                bgcolor: "primary.main",
-                color: "primary.contrastText",
-                height: 100,
-                width: 100,
-              }}
-            />
-          )}
-          <Typography>
-            {displayName}
-          </Typography>
-          <Button>
-            Change display name
-          </Button>
+            <label htmlFor="raised-button-file">
+              <Button variant="raised" component="span" 
+              >
+              {filename}
+              </Button>
+            </label>
+            <Button>
+              Upload
+            </Button>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary>
+              Change display name
+            </AccordionSummary>
+            <AccordionDetails>
+              <TextField
+                label="New display name"
+                variant="outlined"
+                fullWidth
+                required={true}
+                >
+              </TextField>
+              <Button>
+                Change display name
+              </Button>
+            </AccordionDetails>
+          </Accordion>
           <Accordion>
             <AccordionSummary>
               <Typography>
