@@ -1,4 +1,9 @@
 import S from "@sanity/desk-tool/structure-builder";
+import schoolIcon from "./components/schoolIcon";
+import peopleIcon from "./components/peopleIcon";
+import publicIcon from "./components/publicIcon";
+import privateIcon from "./components/privateIcon";
+import userIcon from "./components/userIcon";
 
 export default () =>
   S.list()
@@ -8,6 +13,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("School")
+        .icon(schoolIcon)
         .child(
           // Make a list in the second pane called Portfolio
           S.list()
@@ -40,6 +46,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("People")
+        .icon(peopleIcon)
         .child(
           // Make a list in the second pane called Portfolio
           S.list()
@@ -82,6 +89,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("Public Pages")
+        .icon(publicIcon)
         .child(
           S.list()
             .title("Public Pages")
@@ -113,6 +121,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("Private Pages")
+        .icon(privateIcon)
         .child(
           S.list()
             .title("Private Pages")
@@ -148,6 +157,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("User Info / Management")
+        .icon(userIcon)
         .child(
           S.list()
             .title("Users")
