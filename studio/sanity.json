@@ -17,9 +17,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [
@@ -38,10 +36,6 @@
     {
       "implements": "part:@sanity/base/theme/variables/override-style",
       "path": "./styles/variables.css"
-    },
-    {
-      "implements": "part:@sanity/form-builder/input/image/asset-sources",
-      "path": "./assetSources.js"
     }
   ]
 }
