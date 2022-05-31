@@ -1482,7 +1482,7 @@
   "resolved" "https://registry.npmjs.org/@sanity/components/-/components-2.14.0.tgz"
   "version" "2.14.0"
 
-"@sanity/core@^2.0.5":
+"@sanity/core@^2.30.0":
   "integrity" "sha512-hST1gU2MGsLu0cppPqru3RvmCwOlL5GVGZsuktgIStjQu3rhPEQhT3IQDBmZZWkB5tC9l9yn2wKmEex15jiQNA=="
   "resolved" "https://registry.npmjs.org/@sanity/core/-/core-2.30.0.tgz"
   "version" "2.30.0"
