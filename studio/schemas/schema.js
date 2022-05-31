@@ -18,6 +18,8 @@ import community from "./pages/members/community";
 import masterclasses from "./pages/members/masterclasses";
 import mentors from "./pages/members/mentors";
 import startupschool from "./pages/members/startupschool";
+import openletter from "./pages/public/openletter";
+import startupschoolinfo from "./pages/public/startupschoolinfo";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -47,6 +49,8 @@ export default createSchema({
     masterclasses,
     mentors,
     startupschool,
+    openletter,
+    startupschoolinfo,
     /* Your types here! */
   ]),
 });

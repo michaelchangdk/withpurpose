@@ -28,12 +28,6 @@ export default {
       type: "string",
       description: "Estimated duration to complete, e.g. 1h 20m, 5m, etc.",
     },
-    // {
-    //   name: "type",
-    //   title: "Type",
-    //   type: "string",
-    //   description: "Type of lesson: Video, Task, PDF, Link, Resource",
-    // },
     {
       name: "isVideo",
       title: "Is this task a video?",
@@ -77,13 +71,6 @@ export default {
       name: "otherUrl",
       title: "Task or Resource URL",
       type: "url",
-    },
-    {
-      name: "pdfText",
-      title: "File - Download Link Text",
-      type: "string",
-      description:
-        "The text for the linked file download. E.g. 'Download Business Model Canvas PDF'",
     },
     {
       name: "file",

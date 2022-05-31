@@ -18,10 +18,25 @@ export default () =>
             .title("Public Pages")
             .items([
               // Add the first list item
+              // S.listItem()
+              //   .title("Public Home Page")
+              //   .schemaType("homepage")
+              //   .child(S.documentTypeList("homepage").title("Home")),
               S.listItem()
                 .title("Public Home Page")
-                .schemaType("homepage")
-                .child(S.documentTypeList("homepage").title("Home")),
+                .child(S.editor().schemaType("homepage").documentId("Home")),
+              S.listItem()
+                .title("Open Letter")
+                .child(
+                  S.editor().schemaType("openletter").documentId("openletter")
+                ),
+              S.listItem()
+                .title("Startup School Info Page")
+                .child(
+                  S.editor()
+                    .schemaType("startupschoolinfo")
+                    .documentId("startupschoolinfo")
+                ),
               S.listItem()
                 .title("Blog posts")
                 .schemaType("blogpost")
@@ -210,6 +225,8 @@ export default () =>
             "masterclasses",
             "mentors",
             "community",
+            "openletter",
+            "startupschoolinfo",
           ].includes(listItem.getId())
       ),
     ]);
