@@ -13,7 +13,7 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "asset-source-unsplash",
-    "media"
+    "media-library"
   ],
   "env": {
     "development": {
@@ -41,11 +41,7 @@
     },
     {
       "implements": "part:@sanity/form-builder/input/image/asset-sources",
-      "path": "./parts/assetSources.js"
-    },
-    {
-      "implements": "part:@sanity/form-builder/input/file/asset-sources",
-      "path": "./parts/assetSources.js"
+      "path": "./assetSources.js"
     }
   ]
 }
