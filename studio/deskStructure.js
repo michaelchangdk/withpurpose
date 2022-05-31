@@ -166,10 +166,6 @@ export default () =>
                 .title("Users")
                 .schemaType("user")
                 .child(S.documentTypeList("user").title("User")),
-              // S.listItem()
-              //   .title("Completed")
-              //   .schemaType("completed")
-              //   .child(S.documentTypeList("completed").title("completed")),
             ])
         ),
 
