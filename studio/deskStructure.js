@@ -9,37 +9,35 @@ export default () =>
   S.list()
     .title("With Purpose")
     .items([
-      // Make a new list item
       S.listItem()
         // Give it a title
-        .title("School")
-        .icon(schoolIcon)
+        .title("Public Pages")
+        .icon(publicIcon)
         .child(
-          // Make a list in the second pane called Portfolio
           S.list()
-            .title("School")
+            .title("Public Pages")
             .items([
               // Add the first list item
               S.listItem()
-                .title("Weeks")
-                // This automatically gives it properties from the project type
-                .schemaType("week")
-                // When you open this list item, list out the documents
-                // of the type “project"
-                .child(S.documentTypeList("week").title("Modules")),
-              // Add a second list item
+                .title("Public Home Page")
+                .schemaType("homepage")
+                .child(S.documentTypeList("homepage").title("Home")),
               S.listItem()
-                .title("Modules")
-                .schemaType("module")
-                // When you open this list item, list out the documents
-                // of the type category"
-                .child(S.documentTypeList("module").title("Modules")),
-              S.listItem()
-                .title("Lesson")
-                .schemaType("lesson")
-                // When you open this list item, list out the documents
-                // of the type category"
-                .child(S.documentTypeList("lesson").title("Lessons")),
+                .title("Blog posts")
+                .schemaType("blogpost")
+                .child(S.documentTypeList("blogpost").title("Blog Post")),
+              // S.listItem()
+              //   .title("Company Mentors")
+              //   .schemaType("companyMentors")
+              //   .child(
+              //     S.documentTypeList("companyMentors").title("Company Mentors")
+              //   ),
+              // S.listItem()
+              //   .title("Student Mentors")
+              //   .schemaType("studentMentors")
+              //   .child(
+              //     S.documentTypeList("studentMentors").title("Student Mentors")
+              //   ),
             ])
         ),
 
@@ -88,38 +86,6 @@ export default () =>
 
       S.listItem()
         // Give it a title
-        .title("Public Pages")
-        .icon(publicIcon)
-        .child(
-          S.list()
-            .title("Public Pages")
-            .items([
-              // Add the first list item
-              S.listItem()
-                .title("Public Home Page")
-                .schemaType("homepage")
-                .child(S.documentTypeList("homepage").title("Home")),
-              S.listItem()
-                .title("Blog posts")
-                .schemaType("blogpost")
-                .child(S.documentTypeList("blogpost").title("Blog Post")),
-              // S.listItem()
-              //   .title("Company Mentors")
-              //   .schemaType("companyMentors")
-              //   .child(
-              //     S.documentTypeList("companyMentors").title("Company Mentors")
-              //   ),
-              // S.listItem()
-              //   .title("Student Mentors")
-              //   .schemaType("studentMentors")
-              //   .child(
-              //     S.documentTypeList("studentMentors").title("Student Mentors")
-              //   ),
-            ])
-        ),
-
-      S.listItem()
-        // Give it a title
         .title("Private Pages")
         .icon(privateIcon)
         .child(
@@ -133,6 +99,28 @@ export default () =>
                   S.editor()
                     .schemaType("landingpage")
                     .documentId("b8f2ad7b-7943-41ad-bd0d-387c9dcf4a77")
+                ),
+              S.listItem()
+                .title("Startup School")
+                .child(
+                  S.editor()
+                    .schemaType("startupschool")
+                    .documentId("startupschool")
+                ),
+              S.listItem()
+                .title("Masterclasses")
+                .child(
+                  S.editor()
+                    .schemaType("masterclasses")
+                    .documentId("masterclasses")
+                ),
+              S.listItem()
+                .title("Mentors")
+                .child(S.editor().schemaType("mentors").documentId("mentors")),
+              S.listItem()
+                .title("Community")
+                .child(
+                  S.editor().schemaType("community").documentId("community")
                 ),
               // S.listItem()
               //   .title("Landing page elements")
@@ -157,6 +145,40 @@ export default () =>
             ])
         ),
 
+      // Make a new list item
+      S.listItem()
+        // Give it a title
+        .title("School")
+        .icon(schoolIcon)
+        .child(
+          // Make a list in the second pane called Portfolio
+          S.list()
+            .title("School")
+            .items([
+              // Add the first list item
+              S.listItem()
+                .title("Weeks")
+                // This automatically gives it properties from the project type
+                .schemaType("week")
+                // When you open this list item, list out the documents
+                // of the type “project"
+                .child(S.documentTypeList("week").title("Weeks")),
+              // Add a second list item
+              S.listItem()
+                .title("Modules")
+                .schemaType("module")
+                // When you open this list item, list out the documents
+                // of the type category"
+                .child(S.documentTypeList("module").title("Modules")),
+              S.listItem()
+                .title("Lesson")
+                .schemaType("lesson")
+                // When you open this list item, list out the documents
+                // of the type category"
+                .child(S.documentTypeList("lesson").title("Lessons")),
+            ])
+        ),
+
       // Add a visual divider (optional)
       S.divider(),
 
@@ -164,7 +186,7 @@ export default () =>
         .title("User Management")
         .icon(userIcon)
         .schemaType("user")
-        .child(S.documentTypeList("user").title("User")),
+        .child(S.documentTypeList("user").title("Users")),
 
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -184,6 +206,10 @@ export default () =>
             "landingpageelements",
             "media.tag",
             "landingpageelements",
+            "startupschool",
+            "masterclasses",
+            "mentors",
+            "community",
           ].includes(listItem.getId())
       ),
     ]);

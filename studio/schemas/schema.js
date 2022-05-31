@@ -14,6 +14,10 @@ import companyMentors from "./people/companymentors";
 import homepage from "./pages/public/homepage";
 import blogpost from "./pages/public/blogpost";
 import completed from "./school/completed";
+import community from "./pages/members/community";
+import masterclasses from "./pages/members/masterclasses";
+import mentors from "./pages/members/mentors";
+import startupschool from "./pages/members/startupschool";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -39,6 +43,10 @@ export default createSchema({
     blogpost,
     completed,
     landingpageelements,
+    community,
+    masterclasses,
+    mentors,
+    startupschool,
     /* Your types here! */
   ]),
 });
