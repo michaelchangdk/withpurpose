@@ -2,6 +2,7 @@ export default {
   name: "landingpage",
   title: "Startup School Landing Page Elements",
   type: "document",
+  __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
   fields: [
     {
       name: "title",
@@ -14,18 +15,23 @@ export default {
       type: "string",
     },
     {
-      name: "videoUrl",
-      title: "Video URL",
-      type: "url",
-      description: "Introduction video link.",
-    },
-    {
       name: "heroImage",
       title: "Hero image",
       type: "image",
       options: {
         hotspot: true,
       },
+    },
+    {
+      name: "landingpageelements",
+      title: "Landing Page Cards",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "landingpageelements" }],
+        },
+      ],
     },
   ],
 };

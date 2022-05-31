@@ -126,19 +126,22 @@ export default () =>
           S.list()
             .title("Private Pages")
             .items([
-              // Add the first list item
+              // For making singleton documents
               S.listItem()
                 .title("Landing page")
-                .schemaType("landingpage")
-                .child(S.documentTypeList("landingpage").title("landingpage")),
-              S.listItem()
-                .title("Landing page elements")
-                .schemaType("landingpageelements")
                 .child(
-                  S.documentTypeList("landingpageelements").title(
-                    "landingpageelements"
-                  )
+                  S.editor()
+                    .schemaType("landingpage")
+                    .documentId("b8f2ad7b-7943-41ad-bd0d-387c9dcf4a77")
                 ),
+              // S.listItem()
+              //   .title("Landing page elements")
+              //   .schemaType("landingpageelements")
+              //   .child(
+              //     S.documentTypeList("landingpageelements").title(
+              //       "landingpageelements"
+              //     )
+              //   ),
               // S.listItem()
               //   .title("Company Mentors")
               //   .schemaType("companyMentors")
@@ -154,20 +157,14 @@ export default () =>
             ])
         ),
 
+      // Add a visual divider (optional)
+      S.divider(),
+
       S.listItem()
-        // Give it a title
-        .title("User Info / Management")
+        .title("User Management")
         .icon(userIcon)
-        .child(
-          S.list()
-            .title("Users")
-            .items([
-              S.listItem()
-                .title("Users")
-                .schemaType("user")
-                .child(S.documentTypeList("user").title("User")),
-            ])
-        ),
+        .schemaType("user")
+        .child(S.documentTypeList("user").title("User")),
 
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -186,6 +183,7 @@ export default () =>
             "completed",
             "landingpageelements",
             "media.tag",
+            "landingpageelements",
           ].includes(listItem.getId())
       ),
     ]);
