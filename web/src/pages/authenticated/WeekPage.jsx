@@ -117,49 +117,50 @@ const WeekPage = () => {
           </DescriptionContainer>
           <PageContainer>
             {loading && <p>Loading...</p>}
-            {!loading &&
-              modules.map((module) => (
-                <ModuleCards
-                  key={module.title}
-                  duration={module.duration}
-                  name={module.name}
-                  title={module.title}
-                  type={module.type}
-                  module={module}
-                />
-              ))}
-            <Stack
-              direction="row"
-              justifyContent={weekOrder === 1 ? "flex-end" : "space-between"}
-              mt="2vh"
-            >
-              {weekOrder !== 1 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="primary"
-                  onClick={() => previousWeek()}
-                  disableElevation
-                >
-                  Previous week
-                </Button>
-              )}
+            <CardContainer>
+              {!loading &&
+                modules.map((module) => (
+                  <ModuleCards
+                    key={module.title}
+                    duration={module.duration}
+                    name={module.name}
+                    title={module.title}
+                    type={module.type}
+                    module={module}
+                  />
+                ))}
+              <Stack
+                direction="row"
+                justifyContent={weekOrder === 1 ? "flex-end" : "space-between"}
+              >
+                {weekOrder !== 1 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="primary"
+                    onClick={() => previousWeek()}
+                    disableElevation
+                  >
+                    Previous week
+                  </Button>
+                )}
 
-              {weekOrder !== 6 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="primary"
-                  onClick={() => nextWeek()}
-                  disableElevation
-                  disabled={!disabled}
-                >
-                  {!disabled ? "Coming soon" : "Next week"}
-                </Button>
-              )}
-            </Stack>
+                {weekOrder !== 6 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="primary"
+                    onClick={() => nextWeek()}
+                    disableElevation
+                    disabled={!disabled}
+                  >
+                    {!disabled ? "Coming soon" : "Next week"}
+                  </Button>
+                )}
+              </Stack>
+            </CardContainer>
           </PageContainer>
         </>
       )}
@@ -173,7 +174,19 @@ const DescriptionContainer = styled.div`
   background-color: #e93a7d;
   color: white;
   padding: 48px;
-  margin-bottom: 2vh;
   white-space: pre-line;
   vertical-align: bottom;
+`;
+
+const CardContainer = styled.div`
+  display: grid;
+  gap: 2vh;
+  padding: 2vh 0;
+  margin: 0 auto;
+  max-width: 500px;
+
+  @media (min-width: 768px) {
+    gap: 3vh;
+    padding: 3vh 0;
+  }
 `;

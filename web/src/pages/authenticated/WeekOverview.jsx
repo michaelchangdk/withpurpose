@@ -39,6 +39,8 @@ const WeekOverview = () => {
     });
   }, []);
 
+  console.log(introURL);
+
   return (
     <Box
       sx={{
@@ -55,31 +57,35 @@ const WeekOverview = () => {
       />
       <PageContainer>
         {loading && <p>loading</p>}
-        <Typography variant="h4" fontWeight={500}>
-          Welcome, {firstName}!
-        </Typography>
-        <FrameDiv>
-          <ReactPlayer
-            url={introURL}
-            controls={true}
-            width="100%"
-            height="100%"
-            className="react-player"
-          />
-        </FrameDiv>
-        {!loading &&
-          cards.map((week) => (
-            <WeekCards
-              key={week.title}
-              name={week.name}
-              title={week.title}
-              keyword={week.keyword}
-              shortDescription={week.shortDescription}
-              liveSessionTitle={week.liveSessionTitle}
-              liveSessionDate={week.liveSessionDate}
-              module={week.module}
-            />
-          ))}
+        <CardContainer>
+          <Typography variant="h4" fontWeight={500}>
+            Welcome, {firstName}!
+          </Typography>
+          {introURL.length > 0 && (
+            <FrameDiv>
+              <ReactPlayer
+                url={introURL}
+                controls={true}
+                width="100%"
+                height="100%"
+                className="react-player"
+              />
+            </FrameDiv>
+          )}
+          {!loading &&
+            cards.map((week) => (
+              <WeekCards
+                key={week.title}
+                name={week.name}
+                title={week.title}
+                keyword={week.keyword}
+                shortDescription={week.shortDescription}
+                liveSessionTitle={week.liveSessionTitle}
+                liveSessionDate={week.liveSessionDate}
+                module={week.module}
+              />
+            ))}
+        </CardContainer>
       </PageContainer>
     </Box>
   );
@@ -90,4 +96,17 @@ export default WeekOverview;
 const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
+`;
+
+const CardContainer = styled.div`
+  display: grid;
+  gap: 2vh;
+  padding: 2vh 0;
+  margin: 0 auto;
+  max-width: 500px;
+
+  @media (min-width: 768px) {
+    gap: 3vh;
+    padding: 3vh 0;
+  }
 `;
