@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
-import imageUrlBuilder from '@sanity/image-url';
 import { EmailAuthProvider, getAuth, updateProfile, updateEmail, sendPasswordResetEmail, reauthenticateWithCredential  } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
+import { urlFor } from "../../client";
 import {
   Accordion,
   AccordionDetails,
@@ -26,32 +26,24 @@ import { Box } from "@mui/material";
 
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
-  const [filename, setFilename] = useState('choose image');
-  const [imageFile, setImageFile] = useState({});
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [currentEmail, setCurrentEmail] = useState('');
   const [password, setPassword] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [confirmNewEmail, setConfirmNewEmail] = useState('');
+  const [userAvatarURL, setUserAvatarURL] = useState('');
   const [error, setError] = useState("");
 
   const auth = getAuth();
-  const builder = imageUrlBuilder(client);
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
   const darkMode = useSelector((store) => store.authenticated.darkMode);
 
-  const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
 
   const emailPattern =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-    const urlFor = (source) => {
-      
-      return builder.image(source)
-    }
 
   const toggleDarkMode = () => {
     if (checked) {
@@ -72,30 +64,6 @@ const ProfilePage = () => {
       }`,
     };
   };
-
-  const updateAvatar = () => {
-    
-    
-    const photoURL = urlFor(imageFile)
-
-    // client
-    //   .patch(userid)
-    //   .set({
-    //     avatar: imageFile
-    //   })
-    //   // .commit({ autoGenerateArrayKeys: true })
-    //   .commit()
-    //   .then((result) => {
-    //     
-    //     // dispatch(authenticated.actions.changeDisplayname(`${firstname} ${lastname}`));
-    //   })
-  //   curl \
-  // -X POST \
-  // -H 'Content-Type: image/jpeg' \
-  // --data-binary "@/Users/mike/images/bicycle.jpg" \
-  // 'https://myProjectId.api.sanity.io/v2021-06-07/assets/images/myDataset'
-
-  }
 
   const updateDisplayName = () => {
     // 
@@ -118,7 +86,6 @@ const ProfilePage = () => {
         .set({
           displayName: `${firstname} ${lastname}`
         })
-        // .commit({ autoGenerateArrayKeys: true })
         .commit()
         .then((result) => {
           dispatch(authenticated.actions.changeDisplayname(`${firstname} ${lastname}`));
@@ -129,20 +96,15 @@ const ProfilePage = () => {
   const resetPassword = () => {
     sendPasswordResetEmail(auth, currentEmail)
     .then(() => {
-      // Password reset email sent!
       // give user confirmation that the email was sent, and suggest looking in spam too
-      // ..
     })
     .catch((error) => {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
       setError(error.message)
       // ..
     });
   }
 
   const updateEmailAddress = () => {
-    // 
     if (newEmail !== confirmNewEmail) {
       setError("Emails do not match.");
     } else if (!newEmail.match(emailPattern)) {
@@ -154,22 +116,15 @@ const ProfilePage = () => {
         auth.currentUser.email,
         password
       );
-
       
       reauthenticateWithCredential(auth.currentUser, credential)
       .then(result => {
-      // User successfully reauthenticated. New ID tokens should be valid.
         updateEmail(auth.currentUser, newEmail).then(() => {
-          
-
-          //Add it to client tooooo
-
           client
             .patch(userid)
             .set({
               email: newEmail
             })
-            // .commit({ autoGenerateArrayKeys: true })
             .commit()
             .then((data) => {
               
@@ -202,14 +157,14 @@ const ProfilePage = () => {
             alignItems="center"
             justifyContent="center"
           >
-            {userAvatarUrl.length > 0 && (
+            {userAvatarURL.length > 0 && (
               <Avatar
-                src={userAvatarUrl}
+                src={urlFor(userAvatarURL._ref).url()}
                 alt={displayName}
                 sx={{ height: 100, width: 100 }}
               />
             )}
-            {userAvatarUrl.length === 0 && (
+            {userAvatarURL.length === 0 && (
               <Avatar
                 {...stringAvatar({ displayName })}
                 alt={displayName}
@@ -225,34 +180,6 @@ const ProfilePage = () => {
               {displayName}
             </Typography>
           </Box>
-          <Accordion>
-            <AccordionSummary>
-              Upload new profile image
-            </AccordionSummary>
-            <AccordionDetails>
-              <Input
-              accept="image/*"
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              multiple
-              type="file"
-              onChange={(event) => {
-                setFilename(event.target.files[0].name)
-                setImageFile(event.target.files[0])
-                }
-              }
-            />
-            <label htmlFor="raised-button-file">
-              <Button variant="raised" component="span" 
-              >
-              {filename}
-              </Button>
-            </label>
-            <Button onClick={() => updateAvatar()}>
-              Upload
-            </Button>
-            </AccordionDetails>
-          </Accordion>
           <Accordion>
             <AccordionSummary>
               Change display name
