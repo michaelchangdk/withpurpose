@@ -35,11 +35,8 @@ const WeekOverview = () => {
   useEffect(() => {
     client.fetch(pageQuery).then((response) => {
       setIntroURL(response[0].introVideo);
-      setLoading(false);
     });
   }, []);
-
-  console.log(introURL);
 
   return (
     <Box
