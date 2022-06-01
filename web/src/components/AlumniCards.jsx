@@ -16,17 +16,17 @@ const AlumniCards = ({ alumni }) => {
   };
   return (
     <Card
-      sx={
-        {
-          // maxWidth: 345
-        }
-      }
+      sx={{
+        width: "100%",
+        maxWidth: 375,
+        height: "100%",
+      }}
     >
       <CardMedia
         component="img"
-        height="100%"
+        width="100%"
         image={urlFor(alumni.profilePhoto.asset._ref).url()}
-        alt="green iguana"
+        alt={alumni.fullName}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -36,6 +36,7 @@ const AlumniCards = ({ alumni }) => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
+          bottom={0}
         >
           <Typography variant="body2" color="text.secondary">
             {alumni.city} | {alumni.class}

@@ -183,7 +183,6 @@ const CardContainer = styled.div`
   gap: 2vh;
   padding: 2vh 0;
   margin: 0 auto;
-  max-width: 500px;
 
   @media (min-width: 768px) {
     gap: 3vh;
