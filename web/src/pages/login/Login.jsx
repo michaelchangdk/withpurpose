@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 import logo from "../../assets/BWP_logotype.svg";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -235,7 +236,13 @@ const Login = () => {
           </Button>
         </Stack>
         <Divider />
-        <Button variant="contained" onClick={googleLogin}>
+        <Button
+          variant="contained"
+          onClick={googleLogin}
+          startIcon={<GoogleIcon />}
+          size="large"
+          color="info"
+        >
           Sign in with Google
         </Button>
       </Stack>
