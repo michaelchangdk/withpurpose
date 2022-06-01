@@ -61,13 +61,6 @@ export default {
         "Description for linked task, e.g. 'Use the Test Card to create assumptions based on your Business Model Canvas', or 'Here's your copy of the Business Model Canvas!'",
     },
     {
-      name: "otherUrlText",
-      title: "Task, Resource - Link Text",
-      type: "string",
-      description:
-        "The text for the linked task. E.g. 'Don't forget to fill out this form!', or 'Practice Template Week 1', etc.",
-    },
-    {
       name: "otherUrl",
       title: "Task or Resource URL",
       type: "url",

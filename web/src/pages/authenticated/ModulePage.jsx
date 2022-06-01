@@ -53,7 +53,8 @@ const ModulePage = () => {
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
     lessonQueries = response[0].lesson.map(
-      (lesson) => `*[_type == "lesson" && _id == "${lesson._ref}"]`
+      (lesson) =>
+        `*[_type == "lesson" && _id == "${lesson._ref}"] {name, duration, isLink, isVideo, isPDF, order, otherUrl, taskDescription, title, file, videoUrl, "pdfUrl": file.asset->url}`
     );
     setLoading(false);
   };
@@ -105,6 +106,8 @@ const ModulePage = () => {
     });
     setLoading(false);
   };
+
+  console.log(lessons);
 
   // For fetching completed lessons by user
   const fetchCompletedLessons = async () => {

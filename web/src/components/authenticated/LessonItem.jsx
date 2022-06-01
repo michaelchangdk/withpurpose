@@ -28,6 +28,8 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     store.authenticated.completedLessons.filter((a) => a._key === lesson._id)
   );
 
+  console.log(lesson);
+
   useEffect(() => {
     if (completedLesson.length > 0) {
       setChecked(true);
