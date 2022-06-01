@@ -107,8 +107,6 @@ const ModulePage = () => {
     setLoading(false);
   };
 
-  console.log(lessons);
-
   // For fetching completed lessons by user
   const fetchCompletedLessons = async () => {
     setLoading(true);
@@ -162,8 +160,6 @@ const ModulePage = () => {
     window.location.reload();
   };
 
-  // console.log(moduleIndex, moduleArray);
-
   return (
     <Box
       sx={{
@@ -184,7 +180,7 @@ const ModulePage = () => {
                 direction="row"
                 alignItems="center"
                 justifyContent="space-between"
-                mb="3vh"
+                mb="1vh"
               >
                 <div>
                   <Typography fontSize={28} fontWeight={500}>
