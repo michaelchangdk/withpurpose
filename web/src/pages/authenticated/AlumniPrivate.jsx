@@ -11,7 +11,7 @@ const AlumniPrivate = () => {
 
   const fetchAlumni = async () => {
     setLoading(true);
-    const alumniQuery = `*[_type == "alumni"]`;
+    const alumniQuery = `*[_type == "alumni"] {city, class, fullName, linkedin, profilePhoto, _id}`;
     const fetch = await client.fetch(alumniQuery);
     const response = await fetch;
     setAlumni(response);
@@ -33,7 +33,7 @@ const AlumniPrivate = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpageelements" && order == 4] {heroImage, title, subtitle}`}
+        query={`*[_type == "community"] {heroImage, title, subtitle}`}
         type={"page"}
       />
       <PageContainer>

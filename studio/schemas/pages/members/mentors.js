@@ -22,16 +22,16 @@ export default {
         hotspot: true,
       },
     },
-    {
-      name: "studentmentors",
-      title: "Student Mentors",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "studentMentors" }],
-        },
-      ],
-    },
+    // {
+    //   name: "studentmentors",
+    //   title: "Student Mentors",
+    //   type: "array",
+    //   of: [
+    //     {
+    //       type: "reference",
+    //       to: [{ type: "studentMentors" }],
+    //     },
+    //   ],
+    // },
   ],
 };

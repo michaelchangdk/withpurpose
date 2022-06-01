@@ -10,11 +10,6 @@ export default {
       type: "string",
     },
     {
-      name: "subtitle",
-      title: "Subtitle",
-      type: "string",
-    },
-    {
       name: "headline",
       title: "Headline",
       type: "string",
@@ -29,14 +24,6 @@ export default {
       title: "Order",
       type: "number",
       description: "Order - 1, 2, 3, 4 from left to right",
-    },
-    {
-      name: "heroImage",
-      title: "Hero image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
     },
     {
       name: "coverImage",

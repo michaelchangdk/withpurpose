@@ -3,20 +3,38 @@ import { PageContainer } from "../../styledcomponents/globalstyles";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import ReactPlayer from "react-player";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+
+// For setting the week cards
+const weekQuery =
+  '*[_type == "week"] {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}';
+
+// For fetching the page information
+const pageQuery = `*[_type == "startupschool"] {introVideo}`;
 
 const WeekOverview = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState(null);
+  const [introURL, setIntroURL] = useState("");
 
-  // For setting the week cards
-  const weekQuery =
-    '*[_type == "week"] {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}';
+  const firstName = useSelector(
+    (store) => store.authenticated.displayName
+  ).split(" ")[0];
 
   useEffect(() => {
     client.fetch(weekQuery).then((response) => {
       let published = response.filter((a) => !a._id.includes("draft"));
       setCards(published.sort((a, b) => a.order - b.order));
+      setLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    client.fetch(pageQuery).then((response) => {
+      setIntroURL(response[0].introVideo);
       setLoading(false);
     });
   }, []);
@@ -32,11 +50,23 @@ const WeekOverview = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpageelements" && order == 1] {heroImage, title, subtitle}`}
+        query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
         type={"page"}
       />
       <PageContainer>
         {loading && <p>loading</p>}
+        <Typography variant="h4" fontWeight={500}>
+          Welcome, {firstName}!
+        </Typography>
+        <FrameDiv>
+          <ReactPlayer
+            url={introURL}
+            controls={true}
+            width="100%"
+            height="100%"
+            className="react-player"
+          />
+        </FrameDiv>
         {!loading &&
           cards.map((week) => (
             <WeekCards
@@ -56,3 +86,8 @@ const WeekOverview = () => {
 };
 
 export default WeekOverview;
+
+const FrameDiv = styled.div`
+  position: relative;
+  padding-top: 56.25%;
+`;
