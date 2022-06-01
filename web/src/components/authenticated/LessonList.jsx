@@ -33,8 +33,7 @@ const LessonList = ({
 
   return (
     <>
-      <PageContainer>
-        {/* {videoUrl.length > 0 && (
+      {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
               <IFrame
@@ -52,37 +51,36 @@ const LessonList = ({
           </div>
         )} */}
 
-        {/* Using React Player - take note of className below */}
-        {/* We can find ref hooks to automatically check it when the video is done playing */}
-        {/* https://www.npmjs.com/package/react-player */}
-        {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
-        {videoUrl.length > 0 && (
-          <>
-            <FrameDiv>
-              <ReactPlayer
-                url={videoUrl}
-                controls={true}
-                width="100%"
-                height="100%"
-                className="react-player"
-              />
-            </FrameDiv>
-            <Typography variant="caption" fontSize={13}>
-              Now playing:
-            </Typography>
-            <Typography fontSize={16}>{taskTitle}</Typography>
-            <Typography variant="caption">{taskDuration}</Typography>
-          </>
-        )}
-        {taskDescription.length > 0 && (
-          <div>
-            <p>{taskDescription}</p>
-            <a href={taskLink} target="_blank" rel="noreferrer">
-              {taskLinkText}
-            </a>
-          </div>
-        )}
-      </PageContainer>
+      {/* Using React Player - take note of className below */}
+      {/* We can find ref hooks to automatically check it when the video is done playing */}
+      {/* https://www.npmjs.com/package/react-player */}
+      {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
+      {videoUrl.length > 0 && (
+        <PageContainer>
+          <FrameDiv>
+            <ReactPlayer
+              url={videoUrl}
+              controls={true}
+              width="100%"
+              height="100%"
+              className="react-player"
+            />
+          </FrameDiv>
+          <Typography variant="caption" fontSize={13}>
+            Now playing:
+          </Typography>
+          <Typography fontSize={16}>{taskTitle}</Typography>
+          <Typography variant="caption">{taskDuration}</Typography>
+        </PageContainer>
+      )}
+      {taskDescription.length > 0 && (
+        <PageContainer>
+          <p>{taskDescription}</p>
+          <a href={taskLink} target="_blank" rel="noreferrer">
+            {taskLinkText}
+          </a>
+        </PageContainer>
+      )}
       <List
         dense
         sx={{
