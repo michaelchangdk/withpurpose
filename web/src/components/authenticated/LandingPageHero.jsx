@@ -6,6 +6,15 @@ import { urlFor } from "../../client";
 import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { useSelector } from "react-redux";
+import {
+  Link,
+  DirectLink,
+  Element,
+  Events,
+  animateScroll,
+  scrollSpy,
+  scroller
+} from "react-scroll";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);
@@ -37,15 +46,25 @@ const LandingPageHero = ({ query, type, displayName }) => {
             </HeaderTitle>
             {!!subtitle && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
           </HeaderTitleWrapper>
-          <HeaderInstruction>
-            {type === "page" && (
-              <HeaderSubtitle>Scroll for more</HeaderSubtitle>
-            )}
-            {type === "week" && (
-              <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
-            )}
-            <HeaderIcon src={down} alt="Down arrow." />
-          </HeaderInstruction>
+          <Link
+            activeClass="active"
+            className="test1"
+            to="test1"
+            spy={true}
+            smooth={true}
+            duration={500}
+            offset={90}
+          >
+            <HeaderInstruction id='test1'>
+              {type === "page" && (
+                <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+              )}
+              {type === "week" && (
+                <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
+              )}
+              <HeaderIcon src={down} alt="Down arrow." />
+            </HeaderInstruction>
+          </Link>
         </PageContainer>
       </Header>
     </>
