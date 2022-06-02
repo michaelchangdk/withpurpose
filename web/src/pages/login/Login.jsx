@@ -19,6 +19,7 @@ import {
   TextField,
   Typography,
   Divider,
+  IconButton,
 } from "@mui/material";
 import styled from "styled-components";
 import logo from "../../assets/BWP_logotype.svg";
@@ -190,7 +191,12 @@ const Login = () => {
   return (
     <Container maxWidth="xs">
       <Stack spacing={2} mt={12} component="form">
-        <Logo src={logo} alt="With Purpose Logo." />
+        <IconButton
+          onClick={() => navigate("/")}
+          sx={{ width: "90px", margin: "0 auto" }}
+        >
+          <Logo src={logo} alt="With Purpose Logo." />
+        </IconButton>
         <Typography
           variant="h1"
           fontSize={24}
