@@ -125,8 +125,6 @@ const ModulePage = () => {
     setLoading(false);
   };
 
-  console.log(completedLessons);
-
   // useEffect for progress tracker
   useEffect(() => {
     const progress = (completedLessons.length / lessons.length) * 100;
