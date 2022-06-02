@@ -7,12 +7,13 @@ import {
   CardContent,
   IconButton,
 } from "@mui/material";
-import { urlFor } from "../client";
+import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-const AlumniCards = ({ alumni }) => {
+const TeamCards = ({ member }) => {
+  console.log(member);
   const openLinkedin = () => {
-    window.open(alumni.linkedin, "_blank");
+    window.open(member.linkedin, "_blank");
   };
   return (
     <Card
@@ -25,29 +26,33 @@ const AlumniCards = ({ alumni }) => {
       <CardMedia
         component="img"
         width="100%"
-        image={urlFor(alumni.profilePhoto.asset._ref).url()}
-        alt={alumni.fullName}
+        image={urlFor(member.profilePhoto.asset._ref).url()}
+        alt={member.fullName}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {alumni.fullName}
-        </Typography>
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
           bottom={0}
+          mb={2}
         >
-          <Typography variant="body2" color="text.secondary">
-            {alumni.city} | {alumni.class}
-          </Typography>
+          <div>
+            <Typography variant="h5" component="div">
+              {member.fullName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {member.city}
+            </Typography>
+          </div>
           <IconButton onClick={openLinkedin}>
             <LinkedInIcon color="info" fontSize="large" />
           </IconButton>
         </Stack>
+        <Typography>{member.quote}</Typography>
       </CardContent>
     </Card>
   );
 };
 
-export default AlumniCards;
+export default TeamCards;
