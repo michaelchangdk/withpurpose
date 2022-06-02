@@ -36,7 +36,7 @@ const ModulePage = () => {
   const lessonIds = lessons.map((a) => a._id);
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
-  ).filter((lesson) => lessonIds.includes(lesson._key));
+  ).filter((lesson) => lessonIds.includes(lesson.lessonRef));
 
   // For Navigation
   const navigate = useNavigate();
@@ -124,6 +124,8 @@ const ModulePage = () => {
     }
     setLoading(false);
   };
+
+  console.log(completedLessons);
 
   // useEffect for progress tracker
   useEffect(() => {

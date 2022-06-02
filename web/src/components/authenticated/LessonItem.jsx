@@ -25,7 +25,9 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
 
   const completedLesson = useSelector((store) =>
-    store.authenticated.completedLessons.filter((a) => a._key === lesson._id)
+    store.authenticated.completedLessons.filter(
+      (a) => a.lessonRef === lesson._id
+    )
   );
 
   useEffect(() => {
@@ -67,7 +69,9 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
 
   const unCheckItem = (completedLesson) => {
     setLoading(true);
-    const deleteQuery = [`completed[_key=="${completedLesson[0]._key}"]`];
+    const deleteQuery = [
+      `completed[lessonRef=="${completedLesson[0].lessonRef}"]`,
+    ];
     client
       .patch(userid)
       .unset(deleteQuery)
