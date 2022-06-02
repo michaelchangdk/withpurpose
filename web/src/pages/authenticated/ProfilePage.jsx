@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import { EmailAuthProvider, getAuth, updateProfile, updateEmail, sendPasswordResetEmail, reauthenticateWithCredential  } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,6 @@ import {
   Avatar,
   Button,
   Container,
-  Input,
   Stack,
   TextField,
   Typography,
