@@ -2,6 +2,7 @@ import React from "react";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { Box } from "@mui/material";
+import ScrollToTop from "../ScrollToTop";
 
 const MasterclassPage = () => {
   return (
@@ -15,10 +16,11 @@ const MasterclassPage = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpageelements" && order == 2] {heroImage, title, subtitle}`}
+        query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
         type={"page"}
       />
       <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
+      <ScrollToTop />
     </Box>
   );
 };

@@ -11,6 +11,7 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "../ScrollToTop";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -53,7 +54,8 @@ const ModulePage = () => {
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
     lessonQueries = response[0].lesson.map(
-      (lesson) => `*[_type == "lesson" && _id == "${lesson._ref}"]`
+      (lesson) =>
+        `*[_type == "lesson" && _id == "${lesson._ref}"] {name, duration, isLink, isVideo, isPDF, order, otherUrl, taskDescription, title, file, videoUrl, "pdfUrl": file.asset->url}`
     );
     setLoading(false);
   };
@@ -159,8 +161,6 @@ const ModulePage = () => {
     window.location.reload();
   };
 
-  // console.log(moduleIndex, moduleArray);
-
   return (
     <Box
       sx={{
@@ -172,101 +172,103 @@ const ModulePage = () => {
       }}
     >
       <HeaderAuth />
-      {loading && <LoadingIndicator />}
-      {!loading && (
-        <>
-          <PageContainer>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              mb="3vh"
-            >
-              <div>
-                <Typography fontSize={28} fontWeight={500}>
-                  {moduleType}
-                </Typography>
-                <Typography variant="body2">{moduleName}</Typography>
-              </div>
-              <ProgressCircle
-                value={progress}
-                circleSize={40}
-                iconSize={42}
-                fontSize={14}
-              />
-            </Stack>
-          </PageContainer>
-          {moduleDescription && (
-            <DescriptionContainer>
-              <Typography>{moduleDescription}</Typography>
-            </DescriptionContainer>
-          )}
+      <CardContainer>
+        {loading && <LoadingIndicator />}
+        {!loading && (
+          <>
+            <PageContainer>
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                mb="1vh"
+              >
+                <div>
+                  <Typography fontSize={28} fontWeight={500}>
+                    {moduleType}
+                  </Typography>
+                  <Typography variant="body2">{moduleName}</Typography>
+                </div>
+                <ProgressCircle
+                  value={progress}
+                  circleSize={40}
+                  iconSize={42}
+                  fontSize={14}
+                />
+              </Stack>
+            </PageContainer>
+            {moduleDescription && (
+              <DescriptionContainer>
+                <Typography>{moduleDescription}</Typography>
+              </DescriptionContainer>
+            )}
 
-          <LessonList key={lessons} lessons={lessons} />
-          <PageContainer>
-            <Stack
-              direction="row"
-              // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
-              justifyContent="space-between"
-              mt="2vh"
-            >
-              {moduleIndex !== 0 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="primary"
-                  onClick={() => navPreviousModule()}
-                  disableElevation
-                >
-                  Last module
-                </Button>
-              )}
-              {/* SET PROPER WEEK - INCLUDE WEEK # */}
-              {moduleIndex === 0 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="info"
-                  onClick={() => navigate(`/week/${week}`)}
-                  disableElevation
-                >
-                  Return to week
-                </Button>
-              )}
+            <LessonList key={lessons} lessons={lessons} />
+            <PageContainer>
+              <Stack
+                direction="row"
+                // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
+                justifyContent="space-between"
+              >
+                {moduleIndex !== 0 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="primary"
+                    onClick={() => navPreviousModule()}
+                    disableElevation
+                  >
+                    Last module
+                  </Button>
+                )}
+                {/* SET PROPER WEEK - INCLUDE WEEK # */}
+                {moduleIndex === 0 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="info"
+                    onClick={() => navigate(`/week/${week}`)}
+                    disableElevation
+                  >
+                    Return to week
+                  </Button>
+                )}
 
-              {moduleIndex !== moduleArray.length - 1 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="primary"
-                  onClick={() => navNextModule()}
-                  disableElevation
-                  // disabled={disabled}
-                >
-                  Next module
-                </Button>
-              )}
-              {/* SET PROPER WEEK */}
-              {moduleIndex === moduleArray.length - 1 && (
-                <Button
-                  variant="contained"
-                  sx={{ width: 140, height: 36 }}
-                  size="small"
-                  color="success"
-                  onClick={() => navigate(`/week/${week}`)}
-                  disableElevation
-                  // disabled={disabled}
-                >
-                  All done!
-                </Button>
-              )}
-            </Stack>
-          </PageContainer>
-        </>
-      )}
+                {moduleIndex !== moduleArray.length - 1 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="primary"
+                    onClick={() => navNextModule()}
+                    disableElevation
+                    // disabled={disabled}
+                  >
+                    Next module
+                  </Button>
+                )}
+                {/* SET PROPER WEEK */}
+                {moduleIndex === moduleArray.length - 1 && (
+                  <Button
+                    variant="contained"
+                    sx={{ width: 140, height: 36 }}
+                    size="small"
+                    color="success"
+                    onClick={() => navigate(`/week/${week}`)}
+                    disableElevation
+                    // disabled={disabled}
+                  >
+                    All done!
+                  </Button>
+                )}
+              </Stack>
+            </PageContainer>
+          </>
+        )}
+      </CardContainer>
+      <ScrollToTop />
     </Box>
   );
 };
@@ -277,7 +279,18 @@ const DescriptionContainer = styled.div`
   background-color: #e93a7d;
   color: white;
   padding: 48px;
-  margin-bottom: 2vh;
   white-space: pre-line;
   vertical-align: bottom;
+`;
+
+const CardContainer = styled.div`
+  display: grid;
+  gap: 2vh;
+  padding: 2vh 0;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    gap: 3vh;
+    padding: 3vh 0;
+  }
 `;

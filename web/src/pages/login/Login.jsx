@@ -19,9 +19,11 @@ import {
   TextField,
   Typography,
   Divider,
+  IconButton,
 } from "@mui/material";
 import styled from "styled-components";
 import logo from "../../assets/BWP_logotype.svg";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -189,7 +191,12 @@ const Login = () => {
   return (
     <Container maxWidth="xs">
       <Stack spacing={2} mt={12} component="form">
-        <Logo src={logo} alt="With Purpose Logo." />
+        <IconButton
+          onClick={() => navigate("/")}
+          sx={{ width: "90px", margin: "0 auto" }}
+        >
+          <Logo src={logo} alt="With Purpose Logo." />
+        </IconButton>
         <Typography
           variant="h1"
           fontSize={24}
@@ -235,7 +242,13 @@ const Login = () => {
           </Button>
         </Stack>
         <Divider />
-        <Button variant="contained" onClick={googleLogin}>
+        <Button
+          variant="contained"
+          onClick={googleLogin}
+          startIcon={<GoogleIcon />}
+          size="large"
+          color="info"
+        >
           Sign in with Google
         </Button>
       </Stack>

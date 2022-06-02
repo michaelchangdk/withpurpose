@@ -97,6 +97,8 @@ const WeekCards = ({
         height: 175,
         padding: 2,
         mx: "auto",
+        width: "100%",
+        maxWidth: 500,
       }}
     >
       {/* Is height necessary below? */}

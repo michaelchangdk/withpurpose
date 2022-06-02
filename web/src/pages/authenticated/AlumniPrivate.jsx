@@ -3,7 +3,10 @@ import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { Box } from "@mui/material";
 import { client } from "../../client";
+import styled from "styled-components";
 import AlumniCards from "../../components/AlumniCards";
+import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const AlumniPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +14,7 @@ const AlumniPrivate = () => {
 
   const fetchAlumni = async () => {
     setLoading(true);
-    const alumniQuery = `*[_type == "alumni"]`;
+    const alumniQuery = `*[_type == "alumni"] {city, class, fullName, linkedin, profilePhoto, _id}`;
     const fetch = await client.fetch(alumniQuery);
     const response = await fetch;
     setAlumni(response);
@@ -33,18 +36,44 @@ const AlumniPrivate = () => {
       }}
     >
       <LandingPageHero
-        query={`*[_type == "landingpageelements" && order == 4] {heroImage, title, subtitle}`}
+        query={`*[_type == "community"] {heroImage, title, subtitle}`}
         type={"page"}
       />
       <PageContainer>
-        {!loading &&
-          alumni.map((student) => {
-            return <AlumniCards key={student._id} alumni={student} />;
-          })}
-        {/* PAGE INFORMATION */}
+        <CardContainer>
+          {loading && <LoadingIndicator />}
+          {!loading &&
+            alumni.map((student) => {
+              return <AlumniCards key={student._id} alumni={student} />;
+            })}
+          {/* PAGE INFORMATION */}
+        </CardContainer>
       </PageContainer>
+      <ScrollToTop />
     </Box>
   );
 };
 
 export default AlumniPrivate;
+
+const CardContainer = styled.div`
+  display: grid;
+  gap: 2vh;
+  padding: 2vh 0;
+  margin: 0 auto;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    max-width: calc(750px + 3vh);
+    gap: 3vh;
+    padding: 3vh 0;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1100px) {
+    max-width: calc(1125px + 3vh);
+    gap: 3vh;
+    padding: 3vh 0;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+`;

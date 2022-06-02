@@ -46,6 +46,8 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
         height: 175,
         padding: 2,
         mx: "auto",
+        width: "100%",
+        maxWidth: 500,
       }}
     >
       {/* <Stack sx={{ height: "100%" }} height="100%"> */}

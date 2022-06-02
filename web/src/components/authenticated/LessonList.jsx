@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
-import { List, Typography, ListSubheader } from "@mui/material";
+import { List, Typography, ListSubheader, Fab } from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
+// import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import MouseIcon from "@mui/icons-material/Mouse";
 
 const LessonList = ({
   lessons,
@@ -13,7 +15,6 @@ const LessonList = ({
   const [videoUrl, selectVideoUrl] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");
-  const [taskLinkText, setTaskLinkText] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
   const userid = useSelector((store) => store.authenticated.uid);
@@ -24,17 +25,18 @@ const LessonList = ({
       selectVideoUrl(lesson.videoUrl);
       setTaskTitle(lesson.name);
       setTaskDuration(lesson.duration);
-    } else {
+    } else if (lesson.isLink === true) {
       setTaskDescription(lesson.taskDescription);
       setTaskLink(lesson.otherUrl);
-      setTaskLinkText(lesson.otherUrlText);
+    } else {
+      setTaskDescription(lesson.taskDescription);
+      setTaskLink(`${lesson.pdfUrl}?dl=`);
     }
   };
 
   return (
     <>
-      <PageContainer>
-        {/* {videoUrl.length > 0 && (
+      {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
               <IFrame
@@ -52,37 +54,45 @@ const LessonList = ({
           </div>
         )} */}
 
-        {/* Using React Player - take note of className below */}
-        {/* We can find ref hooks to automatically check it when the video is done playing */}
-        {/* https://www.npmjs.com/package/react-player */}
-        {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
-        {videoUrl.length > 0 && (
-          <>
-            <FrameDiv>
-              <ReactPlayer
-                url={videoUrl}
-                controls={true}
-                width="100%"
-                height="100%"
-                className="react-player"
-              />
-            </FrameDiv>
-            <Typography variant="caption" fontSize={13}>
-              Now playing:
-            </Typography>
-            <Typography fontSize={16}>{taskTitle}</Typography>
-            <Typography variant="caption">{taskDuration}</Typography>
-          </>
-        )}
-        {taskDescription.length > 0 && (
-          <div>
+      {/* Using React Player - take note of className below */}
+      {/* We can find ref hooks to automatically check it when the video is done playing */}
+      {/* https://www.npmjs.com/package/react-player */}
+      {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
+      {videoUrl.length > 0 && (
+        <PageContainer>
+          <FrameDiv>
+            <ReactPlayer
+              url={videoUrl}
+              controls={true}
+              width="100%"
+              height="100%"
+              className="react-player"
+            />
+          </FrameDiv>
+          <Typography variant="caption" fontSize={13}>
+            Now playing:
+          </Typography>
+          <Typography fontSize={16}>{taskTitle}</Typography>
+          <Typography variant="caption">{taskDuration}</Typography>
+        </PageContainer>
+      )}
+      {taskDescription.length > 0 && (
+        <PageContainer>
+          <TaskItem>
             <p>{taskDescription}</p>
-            <a href={taskLink} target="_blank" rel="noreferrer">
-              {taskLinkText}
-            </a>
-          </div>
-        )}
-      </PageContainer>
+            <Fab
+              color="info"
+              size="large"
+              target="_blank"
+              rel="noreferrer"
+              href={taskLink}
+            >
+              {/* <ModeOutlinedIcon sx={{ fontSize: 30 }} /> */}
+              <MouseIcon sx={{ fontSize: 30 }} />
+            </Fab>
+          </TaskItem>
+        </PageContainer>
+      )}
       <List
         dense
         sx={{
@@ -127,3 +137,10 @@ const FrameDiv = styled.div`
 //   width: 100%;
 //   height: 100%;
 // `;
+
+const TaskItem = styled.div`
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: 16px;
+  align-items: center;
+`;

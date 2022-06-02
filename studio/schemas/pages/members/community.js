@@ -22,16 +22,16 @@ export default {
         hotspot: true,
       },
     },
-    {
-      name: "alumni",
-      title: "Alumni",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "alumni" }],
-        },
-      ],
-    },
+    // {
+    //   name: "alumni",
+    //   title: "Alumni",
+    //   type: "array",
+    //   of: [
+    //     {
+    //       type: "reference",
+    //       to: [{ type: "alumni" }],
+    //     },
+    //   ],
+    // },
   ],
 };
