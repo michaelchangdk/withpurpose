@@ -16,7 +16,6 @@ import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const MentorCards = ({ mentor }) => {
-  console.log(mentor);
   const openLinkedin = () => {
     window.open(mentor.linkedin, "_blank");
   };
