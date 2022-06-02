@@ -8,6 +8,8 @@ import { Stack, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { useSelector } from "react-redux";
+import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
@@ -104,7 +106,7 @@ const WeekPage = () => {
         height: "100%",
       }}
     >
-      {loading && <>Loading</>}
+      {loading && <LoadingIndicator />}
       {!loading && (
         <>
           <LandingPageHero
@@ -161,6 +163,7 @@ const WeekPage = () => {
                 )}
               </Stack>
             </CardContainer>
+            <ScrollToTop />
           </PageContainer>
         </>
       )}

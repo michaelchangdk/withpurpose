@@ -5,6 +5,8 @@ import { PageContainer } from "../../styledcomponents/globalstyles";
 import { Box } from "@mui/material";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import styled from "styled-components";
+import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,7 @@ const LandingPage = () => {
       />
       <PageContainer>
         <CardGrid>
+          {loading && <LoadingIndicator />}
           {!loading &&
             cards.map((card) => (
               <LandingCards
@@ -49,6 +52,7 @@ const LandingPage = () => {
             ))}
         </CardGrid>
       </PageContainer>
+      <ScrollToTop />
     </Box>
   );
 };

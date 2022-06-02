@@ -5,6 +5,8 @@ import { Box } from "@mui/material";
 import { client } from "../../client";
 import styled from "styled-components";
 import AlumniCards from "../../components/AlumniCards";
+import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 const AlumniPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -39,6 +41,7 @@ const AlumniPrivate = () => {
       />
       <PageContainer>
         <CardContainer>
+          {loading && <LoadingIndicator />}
           {!loading &&
             alumni.map((student) => {
               return <AlumniCards key={student._id} alumni={student} />;
@@ -46,6 +49,7 @@ const AlumniPrivate = () => {
           {/* PAGE INFORMATION */}
         </CardContainer>
       </PageContainer>
+      <ScrollToTop />
     </Box>
   );
 };

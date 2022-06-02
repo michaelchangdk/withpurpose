@@ -7,6 +7,8 @@ import { Box, Typography } from "@mui/material";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/LoadingIndicator";
 
 // For setting the week cards
 const weekQuery =
@@ -53,7 +55,7 @@ const WeekOverview = () => {
         type={"page"}
       />
       <PageContainer>
-        {loading && <p>loading</p>}
+        {loading && <LoadingIndicator />}
         <CardContainer>
           <Typography variant="h4" fontWeight={500}>
             Welcome, {firstName}!
@@ -84,6 +86,7 @@ const WeekOverview = () => {
             ))}
         </CardContainer>
       </PageContainer>
+      <ScrollToTop />
     </Box>
   );
 };

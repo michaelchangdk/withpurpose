@@ -11,6 +11,7 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "../ScrollToTop";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -267,6 +268,7 @@ const ModulePage = () => {
           </>
         )}
       </CardContainer>
+      <ScrollToTop />
     </Box>
   );
 };
