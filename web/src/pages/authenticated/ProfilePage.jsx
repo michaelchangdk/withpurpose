@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import { EmailAuthProvider, getAuth, updateProfile, updateEmail, sendPasswordResetEmail, reauthenticateWithCredential  } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
+import { urlFor } from "../../client";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Alert,
+  AlertTitle,
   Avatar,
   Button,
   Container,
@@ -22,13 +26,24 @@ import { Box } from "@mui/material";
 
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
-  const [filename, setFilename] = useState('choose image');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [confirmNewEmail, setConfirmNewEmail] = useState('');
+  const [userAvatarURL, setUserAvatarURL] = useState('');
+  const [error, setError] = useState("");
+
+  const auth = getAuth();
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
   const darkMode = useSelector((store) => store.authenticated.darkMode);
 
-  const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
+
+  const emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   const toggleDarkMode = () => {
     if (checked) {
@@ -50,6 +65,76 @@ const ProfilePage = () => {
     };
   };
 
+  const updateDisplayName = () => {
+    // 
+    if (firstname.length < 2 || lastname.length < 2) {
+      setError("Please fill out your name.");
+    } else {
+      setError('');
+      updateProfile(auth.currentUser, {...auth.currentUser,
+        displayName: `${firstname} ${lastname}`
+      }).then(() => {
+        // Profile updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+
+      client
+        .patch(userid)
+        .set({
+          displayName: `${firstname} ${lastname}`
+        })
+        .commit()
+        .then((result) => {
+          dispatch(authenticated.actions.changeDisplayname(`${firstname} ${lastname}`));
+        })
+    }
+  };
+
+  const resetPassword = () => {
+    sendPasswordResetEmail(auth, currentEmail)
+    .then(() => {
+      // give user confirmation that the email was sent, and suggest looking in spam too
+    })
+    .catch((error) => {
+      setError(error.message)
+      // ..
+    });
+  }
+
+  const updateEmailAddress = () => {
+    if (newEmail !== confirmNewEmail) {
+      setError("Emails do not match.");
+    } else if (!newEmail.match(emailPattern)) {
+      setError("Please enter a valid email address.");
+    } else {
+      setError('');
+      // 
+      let credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        password
+      );
+      
+      reauthenticateWithCredential(auth.currentUser, credential)
+      .then(result => {
+        updateEmail(auth.currentUser, newEmail).then(() => {
+          client
+            .patch(userid)
+            .set({
+              email: newEmail
+            })
+            .commit()
+            .then((data) => {
+              
+            })
+      }).catch((error) => {
+        
+      });
+    })
+    }
+  };
 
   return (
     <Box
@@ -72,14 +157,14 @@ const ProfilePage = () => {
             alignItems="center"
             justifyContent="center"
           >
-            {userAvatarUrl.length > 0 && (
+            {userAvatarURL.length > 0 && (
               <Avatar
-                src={userAvatarUrl}
+                src={urlFor(userAvatarURL._ref).url()}
                 alt={displayName}
                 sx={{ height: 100, width: 100 }}
               />
             )}
-            {userAvatarUrl.length === 0 && (
+            {userAvatarURL.length === 0 && (
               <Avatar
                 {...stringAvatar({ displayName })}
                 alt={displayName}
@@ -88,51 +173,38 @@ const ProfilePage = () => {
                   color: "primary.contrastText",
                   height: 100,
                   width: 100,
+                  fontSize: 35
                 }}
               />
             )}
-            <Typography>
+            <Typography sx={{marginTop: '10px', fontSize: 25}}>
               {displayName}
             </Typography>
           </Box>
           <Accordion>
             <AccordionSummary>
-              Upload new profile image
-            </AccordionSummary>
-            <AccordionDetails>
-              <Input
-              accept="image/*"
-              // className={classes.input}
-              style={{ display: 'none' }}
-              id="raised-button-file"
-              multiple
-              type="file"
-              onChange={(event) => setFilename(event.target.value)}
-            />
-            <label htmlFor="raised-button-file">
-              <Button variant="raised" component="span" 
-              >
-              {filename}
-              </Button>
-            </label>
-            <Button>
-              Upload
-            </Button>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary>
               Change display name
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{display: 'grid', gap: 1}}
+              >
               <TextField
-                label="New display name"
+                label="First name"
                 variant="outlined"
                 fullWidth
                 required={true}
+                onChange={(e) => setFirstname(e.target.value)}
                 >
               </TextField>
-              <Button>
+              <TextField
+                label="Last name"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setLastname(e.target.value)}
+                >
+              </TextField>
+              <Button onClick={updateDisplayName}>
                 Change display name
               </Button>
             </AccordionDetails>
@@ -143,38 +215,45 @@ const ProfilePage = () => {
                 Change email
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{display: 'grid', gap: 1}}
+              >  
               <TextField
-              label="Current email address"
-              variant="outlined"
-              fullWidth
-              required={true}
-              // onChange={(e) => setEmail(e.target.value)}
-              // autoComplete="Email"
-              >
-                
-              </TextField>
+                label="Current email address"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setCurrentEmail(e.target.value)}
+                />
               <TextField
-              label="New email address"
-              variant="outlined"
-              fullWidth
-              required={true}
-              // onChange={(e) => setEmail(e.target.value)}
-              // autoComplete="Email"
-              >
-              
-              </TextField>
+                label="Password"
+                variant="outlined"
+                type="password"
+                required={true}
+                fullWidth
+                onChange={(e) => setPassword(e.target.value)}
+              />
               <TextField
-              label="Confirm new email"
-              variant="outlined"
-              fullWidth
-              required={true}
-              // onChange={(e) => setEmail(e.target.value)}
-              // autoComplete="Email"
-              >
-              
-              </TextField>
-              <Button>
+                label="New email address"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setNewEmail(e.target.value)}
+              />
+              <TextField
+                label="Confirm new email"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setConfirmNewEmail(e.target.value)}
+              />
+              {error.length > 0 && (
+                <Alert severity="warning">
+                  <AlertTitle>Error</AlertTitle>
+                  {error}
+                </Alert>
+              )}
+              <Button onClick={updateEmailAddress}>
                 Change email
               </Button>
             </AccordionDetails>
@@ -186,8 +265,16 @@ const ProfilePage = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              
-              <Button>
+              <TextField
+                label="Email address"
+                variant="outlined"
+                fullWidth
+                required={true}
+                onChange={(e) => setCurrentEmail(e.target.value)}
+                >
+                
+                </TextField>
+              <Button onClick={resetPassword}>
                 Click to recieve email to reset password
               </Button>
               {/* Some sort of alarm to confirm that email has been sent */}
@@ -197,6 +284,7 @@ const ProfilePage = () => {
       </Container>
       <FormGroup>
         <FormControlLabel
+        sx={{margin: '10px auto'}}
           control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
           label="Dark Mode?"
         />
