@@ -29,18 +29,20 @@ const AlumniCards = ({ alumni }) => {
         alt={alumni.fullName}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {alumni.fullName}
-        </Typography>
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
           bottom={0}
         >
-          <Typography variant="body2" color="text.secondary">
-            {alumni.city} | {alumni.class}
-          </Typography>
+          <div>
+            <Typography variant="h5" component="div">
+              {alumni.fullName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {alumni.city} | {alumni.class}
+            </Typography>
+          </div>
           <IconButton onClick={openLinkedin}>
             <LinkedInIcon color="info" fontSize="large" />
           </IconButton>
