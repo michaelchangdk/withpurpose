@@ -173,10 +173,11 @@ const ProfilePage = () => {
                   color: "primary.contrastText",
                   height: 100,
                   width: 100,
+                  fontSize: 35
                 }}
               />
             )}
-            <Typography>
+            <Typography sx={{marginTop: '10px', fontSize: 25}}>
               {displayName}
             </Typography>
           </Box>
@@ -184,7 +185,9 @@ const ProfilePage = () => {
             <AccordionSummary>
               Change display name
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+              sx={{display: 'grid', gap: 1}}
+              >
               <TextField
                 label="First name"
                 variant="outlined"
@@ -212,7 +215,9 @@ const ProfilePage = () => {
                 Change email
               </Typography>
             </AccordionSummary>
-            <AccordionDetails>  
+            <AccordionDetails
+              sx={{display: 'grid', gap: 1}}
+              >  
               <TextField
                 label="Current email address"
                 variant="outlined"
@@ -266,7 +271,6 @@ const ProfilePage = () => {
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
-                // autoComplete="Email"
                 >
                 
                 </TextField>
@@ -280,6 +284,7 @@ const ProfilePage = () => {
       </Container>
       <FormGroup>
         <FormControlLabel
+        sx={{margin: '10px auto'}}
           control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
           label="Dark Mode?"
         />
