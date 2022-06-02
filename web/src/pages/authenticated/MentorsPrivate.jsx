@@ -62,7 +62,6 @@ const CardContainer = styled.div`
   padding: 2vh 0;
   margin: 0 auto;
   justify-content: center;
-  grid-template-columns: 1fr 1fr;
 
   @media (min-width: 768px) {
     max-width: calc(750px + 3vh);
