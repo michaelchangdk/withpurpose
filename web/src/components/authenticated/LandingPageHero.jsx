@@ -6,15 +6,7 @@ import { urlFor } from "../../client";
 import down from "../../assets/down.png";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import { useSelector } from "react-redux";
-import {
-  Link,
-  DirectLink,
-  Element,
-  Events,
-  animateScroll,
-  scrollSpy,
-  scroller
-} from "react-scroll";
+import { Link } from "react-scroll";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);

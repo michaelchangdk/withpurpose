@@ -32,8 +32,8 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('');
   const [newEmail, setNewEmail] = useState('');
   const [confirmNewEmail, setConfirmNewEmail] = useState('');
-  const [userAvatarURL, setUserAvatarURL] = useState('');
   const [error, setError] = useState("");
+  const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
 
   const auth = getAuth();
   const dispatch = useDispatch();
