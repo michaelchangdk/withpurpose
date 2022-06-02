@@ -44,7 +44,6 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
       })
       .insert("after", "completed[-1]", [
         {
-          _key: lesson._id,
           lessonRef: lesson._id,
           lessonTitle: lesson.title,
           userId: userid,
@@ -52,7 +51,7 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
         },
       ])
       // .commit({ autoGenerateArrayKeys: true })
-      .commit()
+      .commit({ autoGenerateArrayKeys: true })
       .then(() => {
         // dispatch(
         //   authenticated.actions.addCompletedLesson({
