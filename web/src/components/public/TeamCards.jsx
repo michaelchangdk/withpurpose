@@ -11,7 +11,6 @@ import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const TeamCards = ({ member }) => {
-  console.log(member);
   const openLinkedin = () => {
     window.open(member.linkedin, "_blank");
   };
@@ -21,6 +20,7 @@ const TeamCards = ({ member }) => {
         width: "100%",
         maxWidth: 375,
         height: "100%",
+        bgcolor: "primary.main",
       }}
     >
       <CardMedia
@@ -46,7 +46,7 @@ const TeamCards = ({ member }) => {
             </Typography>
           </div>
           <IconButton onClick={openLinkedin}>
-            <LinkedInIcon color="info" fontSize="large" />
+            <LinkedInIcon color="secondary" fontSize="large" />
           </IconButton>
         </Stack>
         <Typography>{member.quote}</Typography>

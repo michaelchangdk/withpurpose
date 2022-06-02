@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { client } from "../../client";
@@ -17,7 +17,6 @@ const Team = () => {
 
   useEffect(() => {
     client.fetch(teamQuery).then((response) => {
-      console.log(response);
       setTeam(response);
     });
     setLoading(false);
@@ -35,7 +34,9 @@ const Team = () => {
         }}
       >
         <PublicHeader />
-        Meet the Team
+        <Typography variant="h3" textAlign="center">
+          Meet the Team
+        </Typography>
         {loading && <LoadingIndicator />}
         <CardContainer>
           {!loading &&
