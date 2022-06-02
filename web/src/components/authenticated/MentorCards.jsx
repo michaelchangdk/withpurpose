@@ -6,10 +6,14 @@ import {
   CardMedia,
   CardContent,
   IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
 import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import styled from "styled-components";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const MentorCards = ({ mentor }) => {
   console.log(mentor);
@@ -45,13 +49,51 @@ const MentorCards = ({ mentor }) => {
               <LinkedInIcon color="info" fontSize="large" />
             </IconButton>
           </Stack>
+          {/* <Typography variant="body2" color="text.secondary">
+            {mentor.bio}
+          </Typography> */}
+        </Stack>
+      </CardContent>
+      <Accordion
+        elevation={1}
+        sx={{
+          boxShadow: "none",
+          //   borderTop: "none",
+          //   border: 0,
+          //   borderColor: "secondary.main",
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="topics-content"
+        >
+          <Typography>{mentor.fullName.split(" ")[0]}'s bio</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <Typography variant="body2" color="text.secondary">
             {mentor.bio}
           </Typography>
-          <Typography variant="body1">
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        elevation={1}
+        sx={{
+          boxShadow: "none",
+          //   borderTop: "none",
+          //   border: 0,
+          //   borderColor: "secondary.main",
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="topics-content"
+        >
+          <Typography>
             Topics {mentor.fullName.split(" ")[0]} would love to discuss with
             you:
           </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
           <ul>
             {mentor.topics.map((topic) => {
               return (
@@ -61,8 +103,8 @@ const MentorCards = ({ mentor }) => {
               );
             })}
           </ul>
-        </Stack>
-      </CardContent>
+        </AccordionDetails>
+      </Accordion>
     </Card>
   );
 };
