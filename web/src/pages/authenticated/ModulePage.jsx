@@ -55,7 +55,7 @@ const ModulePage = () => {
     setModuleDescription(response[0].description);
     lessonQueries = response[0].lesson.map(
       (lesson) =>
-        `*[_type == "lesson" && _id == "${lesson._ref}"] {name, duration, isLink, isVideo, isPDF, order, otherUrl, taskDescription, title, file, videoUrl, "pdfUrl": file.asset->url}`
+        `*[_type == "lesson" && _id == "${lesson._ref}"] {name, duration, isLink, isVideo, isPDF, order, otherUrl, taskDescription, title, file, videoUrl, "pdfUrl": file.asset->url, _id}`
     );
     setLoading(false);
   };

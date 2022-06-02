@@ -96,7 +96,7 @@ const MentorCards = ({ mentor }) => {
           <ul>
             {mentor.topics.map((topic) => {
               return (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" key={topic}>
                   <ListItem>{topic}</ListItem>
                 </Typography>
               );

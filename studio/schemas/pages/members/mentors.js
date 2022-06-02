@@ -15,6 +15,16 @@ export default {
       type: "string",
     },
     {
+      name: "headline",
+      title: "Headline",
+      type: "string",
+    },
+    {
+      name: "description",
+      title: "Description",
+      type: "text",
+    },
+    {
       name: "heroImage",
       title: "Hero image",
       type: "image",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { client } from "../../client";
@@ -11,6 +11,7 @@ import styled from "styled-components";
 const MentorsPrivate = () => {
   const [loading, setLoading] = useState(true);
   const [mentors, setMentors] = useState([]);
+  const [description, setDescription] = useState();
 
   const fetchMentors = async () => {
     setLoading(true);
@@ -21,8 +22,18 @@ const MentorsPrivate = () => {
     setLoading(false);
   };
 
+  const fetchPage = async () => {
+    setLoading(true);
+    const pageQuery = `*[_type == "mentors"] {headline, description}`;
+    const fetch = await client.fetch(pageQuery);
+    const response = await fetch;
+    setDescription(response[0].description);
+    setLoading(false);
+  };
+
   useEffect(() => {
     fetchMentors();
+    fetchPage();
   }, []);
 
   return (
@@ -39,13 +50,18 @@ const MentorsPrivate = () => {
         query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-
+      {description && (
+        <DescriptionContainer>
+          <Typography>{description}</Typography>
+        </DescriptionContainer>
+      )}
       <PageContainer>
         {loading && <LoadingIndicator />}
+
         <CardContainer>
           {!loading &&
             mentors.map((mentor) => {
-              return <MentorCards key={mentor._id} mentor={mentor} />;
+              return <MentorCards key={mentor.fullName} mentor={mentor} />;
             })}
         </CardContainer>
       </PageContainer>
@@ -76,4 +92,12 @@ const CardContainer = styled.div`
     padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+`;
+
+const DescriptionContainer = styled.div`
+  background-color: #e93a7d;
+  color: white;
+  padding: 48px;
+  white-space: pre-line;
+  vertical-align: bottom;
 `;

@@ -50,7 +50,6 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
           completed: true,
         },
       ])
-      // .commit({ autoGenerateArrayKeys: true })
       .commit({ autoGenerateArrayKeys: true })
       .then(() => {
         // dispatch(
