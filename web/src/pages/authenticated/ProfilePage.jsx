@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
-import { EmailAuthProvider, getAuth, updateProfile, updateEmail, sendPasswordResetEmail, reauthenticateWithCredential  } from "firebase/auth";
+import {
+  EmailAuthProvider,
+  getAuth,
+  updateProfile,
+  updateEmail,
+  sendPasswordResetEmail,
+  reauthenticateWithCredential,
+} from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 import { urlFor } from "../../client";
@@ -25,12 +32,12 @@ import { Box } from "@mui/material";
 
 const ProfilePage = () => {
   const [checked, setChecked] = useState(false);
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [currentEmail, setCurrentEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [confirmNewEmail, setConfirmNewEmail] = useState('');
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [confirmNewEmail, setConfirmNewEmail] = useState("");
   const [error, setError] = useState("");
   const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
 
@@ -65,43 +72,48 @@ const ProfilePage = () => {
   };
 
   const updateDisplayName = () => {
-    // 
+    //
     if (firstname.length < 2 || lastname.length < 2) {
       setError("Please fill out your name.");
     } else {
-      setError('');
-      updateProfile(auth.currentUser, {...auth.currentUser,
-        displayName: `${firstname} ${lastname}`
-      }).then(() => {
-        // Profile updated!
-        // ...
-      }).catch((error) => {
-        // An error occurred
-        // ...
-      });
+      setError("");
+      updateProfile(auth.currentUser, {
+        ...auth.currentUser,
+        displayName: `${firstname} ${lastname}`,
+      })
+        .then(() => {
+          // Profile updated!
+          // ...
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
 
       client
         .patch(userid)
         .set({
-          displayName: `${firstname} ${lastname}`
+          displayName: `${firstname} ${lastname}`,
         })
         .commit()
         .then((result) => {
-          dispatch(authenticated.actions.changeDisplayname(`${firstname} ${lastname}`));
-        })
+          dispatch(
+            authenticated.actions.changeDisplayname(`${firstname} ${lastname}`)
+          );
+        });
     }
   };
 
   const resetPassword = () => {
     sendPasswordResetEmail(auth, currentEmail)
-    .then(() => {
-      // give user confirmation that the email was sent, and suggest looking in spam too
-    })
-    .catch((error) => {
-      setError(error.message)
-      // ..
-    });
-  }
+      .then(() => {
+        // give user confirmation that the email was sent, and suggest looking in spam too
+      })
+      .catch((error) => {
+        setError(error.message);
+        // ..
+      });
+  };
 
   const updateEmailAddress = () => {
     if (newEmail !== confirmNewEmail) {
@@ -109,29 +121,28 @@ const ProfilePage = () => {
     } else if (!newEmail.match(emailPattern)) {
       setError("Please enter a valid email address.");
     } else {
-      setError('');
-      // 
+      setError("");
+      //
       let credential = EmailAuthProvider.credential(
         auth.currentUser.email,
         password
       );
-      
-      reauthenticateWithCredential(auth.currentUser, credential)
-      .then(result => {
-        updateEmail(auth.currentUser, newEmail).then(() => {
-          client
-            .patch(userid)
-            .set({
-              email: newEmail
+
+      reauthenticateWithCredential(auth.currentUser, credential).then(
+        (result) => {
+          updateEmail(auth.currentUser, newEmail)
+            .then(() => {
+              client
+                .patch(userid)
+                .set({
+                  email: newEmail,
+                })
+                .commit()
+                .then((data) => {});
             })
-            .commit()
-            .then((data) => {
-              
-            })
-      }).catch((error) => {
-        
-      });
-    })
+            .catch((error) => {});
+        }
+      );
     }
   };
 
@@ -158,7 +169,8 @@ const ProfilePage = () => {
           >
             {userAvatarURL.length > 0 && (
               <Avatar
-                src={urlFor(userAvatarURL._ref).url()}
+                src={userAvatarURL}
+                // src={urlFor(userAvatarURL._ref).url()}
                 alt={displayName}
                 sx={{ height: 100, width: 100 }}
               />
@@ -172,58 +184,46 @@ const ProfilePage = () => {
                   color: "primary.contrastText",
                   height: 100,
                   width: 100,
-                  fontSize: 35
+                  fontSize: 35,
                 }}
               />
             )}
-            <Typography sx={{marginTop: '10px', fontSize: 25}}>
+            <Typography sx={{ marginTop: "10px", fontSize: 25 }}>
               {displayName}
             </Typography>
           </Box>
           <Accordion>
-            <AccordionSummary>
-              Change display name
-            </AccordionSummary>
-            <AccordionDetails
-              sx={{display: 'grid', gap: 1}}
-              >
+            <AccordionSummary>Change display name</AccordionSummary>
+            <AccordionDetails sx={{ display: "grid", gap: 1 }}>
               <TextField
                 label="First name"
                 variant="outlined"
                 fullWidth
                 required={true}
                 onChange={(e) => setFirstname(e.target.value)}
-                >
-              </TextField>
+              ></TextField>
               <TextField
                 label="Last name"
                 variant="outlined"
                 fullWidth
                 required={true}
                 onChange={(e) => setLastname(e.target.value)}
-                >
-              </TextField>
-              <Button onClick={updateDisplayName}>
-                Change display name
-              </Button>
+              ></TextField>
+              <Button onClick={updateDisplayName}>Change display name</Button>
             </AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary>
-              <Typography>
-                Change email
-              </Typography>
+              <Typography>Change email</Typography>
             </AccordionSummary>
-            <AccordionDetails
-              sx={{display: 'grid', gap: 1}}
-              >  
+            <AccordionDetails sx={{ display: "grid", gap: 1 }}>
               <TextField
                 label="Current email address"
                 variant="outlined"
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
-                />
+              />
               <TextField
                 label="Password"
                 variant="outlined"
@@ -252,16 +252,12 @@ const ProfilePage = () => {
                   {error}
                 </Alert>
               )}
-              <Button onClick={updateEmailAddress}>
-                Change email
-              </Button>
+              <Button onClick={updateEmailAddress}>Change email</Button>
             </AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary>
-              <Typography>
-                Reset password
-              </Typography>
+              <Typography>Reset password</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <TextField
@@ -270,9 +266,7 @@ const ProfilePage = () => {
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
-                >
-                
-                </TextField>
+              ></TextField>
               <Button onClick={resetPassword}>
                 Click to recieve email to reset password
               </Button>
@@ -283,7 +277,7 @@ const ProfilePage = () => {
       </Container>
       <FormGroup>
         <FormControlLabel
-        sx={{margin: '10px auto'}}
+          sx={{ margin: "10px auto" }}
           control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
           label="Dark Mode?"
         />
