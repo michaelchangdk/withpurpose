@@ -38,25 +38,27 @@ const LandingPageHero = ({ query, type, displayName }) => {
             </HeaderTitle>
             {!!subtitle && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
           </HeaderTitleWrapper>
-          <Link
-            activeClass="active"
-            className="test1"
-            to="test1"
-            spy={true}
-            smooth={true}
-            duration={500}
-            offset={90}
-          >
-            <HeaderInstruction id='test1'>
-              {type === "page" && (
-                <HeaderSubtitle>Scroll for more</HeaderSubtitle>
-              )}
-              {type === "week" && (
-                <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
-              )}
-              <HeaderIcon src={down} alt="Down arrow." />
-            </HeaderInstruction>
-          </Link>
+          <ButtonWrapper>
+            <Link
+              activeClass="active"
+              className="test1"
+              to="test1"
+              spy={true}
+              smooth={true}
+              duration={500}
+              offset={90}
+            >
+              <HeaderInstruction id="test1">
+                {type === "page" && (
+                  <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+                )}
+                {type === "week" && (
+                  <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
+                )}
+                <HeaderIcon src={down} alt="Down arrow." />
+              </HeaderInstruction>
+            </Link>
+          </ButtonWrapper>
         </PageContainer>
       </Header>
     </>
@@ -72,6 +74,27 @@ const Header = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
+
+  @media (min-width: 1100px) {
+    height: 30vh;
+    min-height: 300px;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  @media (min-width: 1100px) {
+    display: none;
+  }
+`;
+
+const HeaderTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 20vh;
+
+  @media (min-width: 1100px) {
+    padding-top: 1vh;
+  }
 `;
 
 const HeaderTitle = styled.h1`
@@ -84,12 +107,6 @@ const HeaderSubtitle = styled.h2`
   color: white;
   font-size: 20px;
   font-weight: 300;
-`;
-
-const HeaderTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-top: 20vh;
 `;
 
 const HeaderInstruction = styled.div`

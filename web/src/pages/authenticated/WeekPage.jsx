@@ -180,6 +180,11 @@ const DescriptionContainer = styled.div`
   padding: 48px;
   white-space: pre-line;
   vertical-align: bottom;
+
+  @media (min-width: 1100px) {
+    padding-left: 30vh;
+    padding-right: 30vh;
+  }
 `;
 
 const CardContainer = styled.div`

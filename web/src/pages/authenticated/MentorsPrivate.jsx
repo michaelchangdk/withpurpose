@@ -50,9 +50,15 @@ const MentorsPrivate = () => {
         query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      {description && (
+      {/* {description && (
         <DescriptionContainer>
           <Typography>{description}</Typography>
+        </DescriptionContainer>
+      )} */}
+
+      {description && (
+        <DescriptionContainer>
+          <StyledTypo>{description}</StyledTypo>
         </DescriptionContainer>
       )}
       <PageContainer>
@@ -100,4 +106,22 @@ const DescriptionContainer = styled.div`
   padding: 48px;
   white-space: pre-line;
   vertical-align: bottom;
+
+  @media (min-width: 1100px) {
+    padding-left: 30vh;
+    padding-right: 30vh;
+  }
+`;
+
+const StyledTypo = styled(Typography)`
+  && {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  @media (min-width: 1100px) {
+    && {
+      /* color: blue; */
+    }
+  }
 `;
