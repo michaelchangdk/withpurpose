@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
-import { urlFor } from "../../client";
+// import { urlFor } from "../../client";
 import {
   Accordion,
   AccordionDetails,
