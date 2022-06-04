@@ -78,6 +78,7 @@ const Header = styled.header`
   @media (min-width: 1100px) {
     height: 30vh;
     min-height: 300px;
+    background-position-y: center;
   }
 `;
 
