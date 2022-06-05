@@ -69,9 +69,11 @@ const MentorCards = ({ mentor }) => {
           <Typography>{mentor.fullName.split(" ")[0]}'s bio</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography variant="body2" color="text.secondary">
-            {mentor.bio}
-          </Typography>
+          <Bio>
+            <Typography variant="body2" color="text.secondary">
+              {mentor.bio}
+            </Typography>
+          </Bio>
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -112,4 +114,9 @@ export default MentorCards;
 
 const ListItem = styled.li`
   margin-left: 25px;
+`;
+
+const Bio = styled.div`
+  white-space: pre-line;
+  vertical-align: bottom;
 `;
