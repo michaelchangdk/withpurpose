@@ -32,6 +32,8 @@ const ProfilePage = () => {
   const [newEmail, setNewEmail] = useState('');
   const [confirmNewEmail, setConfirmNewEmail] = useState('');
   const [error, setError] = useState("");
+  const [successEmail, setSuccessEmail] = useState("");
+  const [successPassword, setSuccessPassword] = useState("");
   const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
 
   const auth = getAuth();
@@ -95,6 +97,7 @@ const ProfilePage = () => {
   const resetPassword = () => {
     sendPasswordResetEmail(auth, currentEmail)
     .then(() => {
+      setSuccessPassword("An email will be sent within 24 hours to you to reset your password. Don't forget to check the spamfolder.")
       // give user confirmation that the email was sent, and suggest looking in spam too
     })
     .catch((error) => {
@@ -126,7 +129,7 @@ const ProfilePage = () => {
             })
             .commit()
             .then((data) => {
-              
+              setSuccessEmail('Your email was successfully changed.')
             })
       }).catch((error) => {
         
@@ -246,6 +249,12 @@ const ProfilePage = () => {
                 required={true}
                 onChange={(e) => setConfirmNewEmail(e.target.value)}
               />
+              {successEmail.length > 0 && (
+                <Alert severity="success">
+                  <AlertTitle>Success</AlertTitle>
+                  {successEmail}
+                </Alert>
+              )}
               {error.length > 0 && (
                 <Alert severity="warning">
                   <AlertTitle>Error</AlertTitle>
@@ -273,10 +282,15 @@ const ProfilePage = () => {
                 >
                 
                 </TextField>
+              {successPassword.length > 0 && (
+                <Alert severity="success">
+                  <AlertTitle>Success</AlertTitle>
+                  {successPassword}
+                </Alert>
+              )}
               <Button onClick={resetPassword}>
                 Click to recieve email to reset password
               </Button>
-              {/* Some sort of alarm to confirm that email has been sent */}
             </AccordionDetails>
           </Accordion>
         </Stack>
