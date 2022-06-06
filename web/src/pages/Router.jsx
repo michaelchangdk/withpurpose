@@ -105,6 +105,7 @@ const Router = () => {
             path="/profile/:user"
             element={loggedin ? <ProfilePage /> : <NoAccess />}
           />
+          <Route path="*" element={<NoAccess />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

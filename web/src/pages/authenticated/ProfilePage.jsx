@@ -108,15 +108,17 @@ const ProfilePage = () => {
 
   const resetPassword = () => {
     sendPasswordResetEmail(auth, currentEmail)
-    .then(() => {
-      setSuccessPassword("An email will be sent within 24 hours to you to reset your password. Don't forget to check the spamfolder.")
-      // give user confirmation that the email was sent, and suggest looking in spam too
-    })
-    .catch((error) => {
-      setError(error.message)
-      // ..
-    });
-  }
+      .then(() => {
+        setSuccessPassword(
+          "An email will be sent within 24 hours to you to reset your password. Don't forget to check the spamfolder."
+        );
+        // give user confirmation that the email was sent, and suggest looking in spam too
+      })
+      .catch((error) => {
+        setError(error.message);
+        // ..
+      });
+  };
 
   const updateEmailAddress = () => {
     if (newEmail !== confirmNewEmail) {
@@ -130,24 +132,26 @@ const ProfilePage = () => {
         auth.currentUser.email,
         password
       );
-      
-      reauthenticateWithCredential(auth.currentUser, credential)
-      .then(result => {
-        updateEmail(auth.currentUser, newEmail).then(() => {
-          client
-            .patch(userid)
-            .set({
-              email: newEmail
-            })
-            .commit()
-            .then((data) => {
-              setSuccessEmail('Your email was successfully changed.')
-            })
-            .catch((error) => {
-              // save error somewhere?
-            });
-        })
-    })
+
+      reauthenticateWithCredential(auth.currentUser, credential).then(
+        (result) => {
+          updateEmail(auth.currentUser, newEmail).then(() => {
+            client
+              .patch(userid)
+              .set({
+                email: newEmail,
+              })
+              .commit()
+              .then((data) => {
+                setSuccessEmail("Your email was successfully changed.");
+              })
+              .catch((error) => {
+                // save error somewhere?
+              });
+          });
+        }
+      );
+    }
   };
 
   return (
@@ -159,6 +163,7 @@ const ProfilePage = () => {
         minHeight: "100vh",
         height: "100%",
       }}
+      component="form"
     >
       {/* remove avatar from header and have it larger size and centered */}
       <HeaderAuth />
@@ -262,7 +267,7 @@ const ProfilePage = () => {
                   {error}
                 </Alert>
               )}
-              <Button onClick={updateEmailAddress}>Change email</Button>
+              <Button onClick={() => updateEmailAddress()}>Change email</Button>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -276,7 +281,7 @@ const ProfilePage = () => {
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
-                />
+              />
               {successPassword.length > 0 && (
                 <Alert severity="success">
                   <AlertTitle>Success</AlertTitle>
@@ -301,6 +306,5 @@ const ProfilePage = () => {
     </Box>
   );
 };
-}
 
 export default ProfilePage;
