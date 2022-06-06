@@ -46,37 +46,44 @@ const Homepage = () => {
                   YOUR STARTUP JOURNEY BEGINS HERE
                 </StyledHeader>
               </Header>
-              <div>
-                <Typography mb={2}>
-                  Have a startup idea? We have the tools needed to turn it into
-                  a reality.
-                </Typography>
-                <Typography mb={2}>
-                  {" "}
-                  Join the 6-weeks Startup School and build your startup
-                  together with other women who are based in the Nordics.
-                </Typography>
-              </div>
-              <Stack
-                direction="row"
-                gap={2}
-                sx={{ width: "90%", margin: "0 auto" }}
-                alignItems="center"
-              >
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  sx={{ width: "220px", fontSize: "16px", fontWeight: "700" }}
-                  onClick={() =>
-                    window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
-                  }
+              <CTADescription>
+                <DesktopHeader variant="h1" fontWeight={800} fontSize={50}>
+                  YOUR STARTUP JOURNEY BEGINS HERE
+                </DesktopHeader>
+                <div>
+                  <Typography mb={2}>
+                    Have a startup idea? We have the tools needed to turn it
+                    into a reality.
+                  </Typography>
+                  <Typography mb={2}>
+                    Join the 6-weeks Startup School and build your startup
+                    together with other women who are based in the Nordics.
+                  </Typography>
+                </div>
+                <Stack
+                  direction="row"
+                  gap={2}
+                  sx={{ width: "90%", margin: "0 auto" }}
+                  alignItems="center"
                 >
-                  Give it a try
-                </Button>
-                <Typography>
-                  Our startup school is free - <BoldText>forever.</BoldText>
-                </Typography>
-              </Stack>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    sx={{ width: "220px", fontSize: "16px", fontWeight: "700" }}
+                    onClick={() =>
+                      window.open(
+                        "https://forms.gle/ecz32R1vEStjzbWT9",
+                        "_blank"
+                      )
+                    }
+                  >
+                    Give it a try
+                  </Button>
+                  <Typography>
+                    Our startup school is free - <BoldText>forever.</BoldText>
+                  </Typography>
+                </Stack>
+              </CTADescription>
             </HeaderContainer>
             {/* STATISTICS ABOUT WOMEN IN TECH */}
             <section>
@@ -89,14 +96,16 @@ const Homepage = () => {
               >
                 Women in <PurpleText>Entrepreneurship</PurpleText>
               </Typography>
-              <Typography>
-                Women are largely underrepresented across the startup ecosystem
-                in the Nordics. Read our{" "}
-                <StyledLink onClick={() => navigate("/openletter")}>
-                  Open Letter
-                </StyledLink>{" "}
-                to understand why we are doing this.
-              </Typography>
+              <SectionDescription>
+                <Typography sx={{ textAlign: "center" }}>
+                  Women are largely underrepresented across the startup
+                  ecosystem in the Nordics. Read our{" "}
+                  <StyledLink onClick={() => navigate("/openletter")}>
+                    Open Letter
+                  </StyledLink>{" "}
+                  to understand why we are doing this.
+                </Typography>
+              </SectionDescription>
               <ThreeGrid>
                 <GridChild>
                   <OverlayParent>
@@ -148,12 +157,14 @@ const Homepage = () => {
               >
                 The Startup <PurpleText>School</PurpleText>
               </Typography>
-              <Typography>
-                We guide women through the early stages of starting a company.
-                From helping them select the right idea to work on, to building
-                an MVP to test with customers. All while joining a community of
-                women who are in the same startup stage.
-              </Typography>
+              <SectionDescription>
+                <Typography sx={{ textAlign: "center" }}>
+                  We guide women through the early stages of starting a company.
+                  From helping them select the right idea to work on, to
+                  building an MVP to test with customers. All while joining a
+                  community of women who are in the same startup stage.
+                </Typography>
+              </SectionDescription>
               <StepsContainer>
                 <DecorativeText>BEFORE</DecorativeText>
                 <Typography fontWeight={600} mb={1}>
@@ -177,18 +188,22 @@ const Homepage = () => {
                   Learn how to build a scalable business
                 </Typography>
                 <DecorativeText>5</DecorativeText>
-                <Typography fontWeight={600} mb={3}>
+                <Typography fontWeight={600} mb={1}>
                   Review and Pitch
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="info"
-                  sx={{ width: "220px", fontSize: "16px", fontWeight: "700" }}
-                  onClick={() => navigate("/startup-school")}
-                >
-                  Learn More
-                </Button>
               </StepsContainer>
+              <Button
+                variant="contained"
+                color="info"
+                sx={{
+                  width: "220px",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={() => navigate("/startup-school")}
+              >
+                Learn More
+              </Button>
             </section>
             {/* ALUMNI TESTIMONIALS */}
             <section>
@@ -313,9 +328,13 @@ const Homepage = () => {
             {/* CONTACT / SOCIALS */}
             {/* FOOTER */}
             <Footer>
-              <Typography>©{year} by With Purpose Ventures</Typography>
-              <Typography>Supported by Global Shapers Copenhagen</Typography>
-              <Typography>Copenhagen, Denmark</Typography>
+              <Typography fontSize={14}>
+                ©{year} by With Purpose Ventures
+              </Typography>
+              <Typography fontSize={14}>
+                Supported by Global Shapers Copenhagen
+              </Typography>
+              <Typography fontSize={14}>Copenhagen, Denmark</Typography>
             </Footer>
           </PageWrapper>
         </PageContainer>
@@ -346,15 +365,37 @@ const BoldText = styled.span`
   font-weight: 600;
 `;
 
+const SectionDescription = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
 // ALL FOR HEADER SECTION
 const HeaderContainer = styled.div`
   display: grid;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2vh;
+  }
 `;
 
 const Header = styled.header`
   position: relative;
   margin-top: 3vh;
   margin-bottom: 4vh;
+
+  @media (min-width: 768px) {
+    grid-column-start: 2;
+  }
+`;
+
+const CTADescription = styled.div`
+  @media (min-width: 768px) {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    align-self: center;
+  }
 `;
 
 const Portrait = styled.img`
@@ -379,19 +420,61 @@ const StyledHeader = styled(Typography)`
     bottom: -30px;
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     && {
-      /* color: blue; */
+      display: none;
     }
+  }
+`;
+
+const DesktopHeader = styled(Typography)`
+  && {
+    z-index: 2;
+    /* position: absolute; */
+    left: 0;
+    /* bottom: -30px; */
   }
 `;
 
 // FOR ANY SECTION WITH 3 ELEMENTS
 const ThreeGrid = styled.div`
+  display: grid;
   margin-top: 2vh;
+  gap: 3vh;
+  justify-items: center;
+  margin: 0 auto;
   /* position: relative; */
+  /* width: 100%; */
+
+  @media (min-width: 768px) {
+    max-width: calc(1200px + 6vh);
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
+const GridChild = styled.div`
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1.5vh auto;
+
+  /* @media (min-width: 768px) {
+    width: 60%;
+  } */
+`;
+
+const CirclePhoto = styled.img`
+  border-radius: 50%;
+  width: 60%;
+  display: block;
+  margin: 0 auto 1vh auto;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    max-width: 200px;
+  }
+`;
+
+// FOR STATISTICS SECTION
 const OverlayParent = styled.div`
   width: 40%;
   display: flex;
@@ -399,11 +482,6 @@ const OverlayParent = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-`;
-
-const GridChild = styled.div`
-  width: 80%;
-  margin: 0 auto 1.5vh auto;
 `;
 
 const InfoSquiggle = styled.img`
@@ -420,14 +498,6 @@ const StyledTextOverlay = styled(Typography)`
   }
 `;
 
-const CirclePhoto = styled.img`
-  border-radius: 50%;
-  width: 60%;
-  display: block;
-  margin: 0 auto 1vh auto;
-`;
-
-// FOR STATISTICS SECTION
 const StyledLink = styled.a`
   text-decoration: underline;
   cursor: pointer;
