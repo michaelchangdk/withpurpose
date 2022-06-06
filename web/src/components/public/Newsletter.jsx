@@ -15,8 +15,6 @@ const Newsletter = () => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
 
-  console.log(firstname, lastname, email);
-
   //   const emailPattern =
   //     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
@@ -31,7 +29,7 @@ const Newsletter = () => {
           >
             <InstagramIcon
               color="secondary"
-              sx={{ width: "60px", height: "60px" }}
+              sx={{ width: "50px", height: "50px" }}
             />
           </IconButton>
           <IconButton
@@ -42,7 +40,7 @@ const Newsletter = () => {
               )
             }
           >
-            <LinkedInIcon color="info" sx={{ width: "60px", height: "60px" }} />
+            <LinkedInIcon color="info" sx={{ width: "50px", height: "50px" }} />
           </IconButton>
         </Stack>
         <Typography variant="h4" textAlign="center">
@@ -84,6 +82,9 @@ const Newsletter = () => {
           color="secondary"
           size="large"
           sx={{ fontSize: "18px", fontWeight: "700" }}
+          onClick={() => {
+            console.log(firstname, lastname, email);
+          }}
         >
           Submit
         </Button>
