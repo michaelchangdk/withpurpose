@@ -16,6 +16,7 @@ import nsa from "../../assets/NSA1.webp";
 import wta1 from "../../assets/WTA1.webp";
 import wta2 from "../../assets/WTA2.webp";
 import quote from "../../assets/decorative/quote.png";
+import Newsletter from "../../components/public/Newsletter";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -192,18 +193,20 @@ const Homepage = () => {
                   Review and Pitch
                 </Typography>
               </StepsContainer>
-              <Button
-                variant="contained"
-                color="info"
-                sx={{
-                  width: "220px",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                }}
-                onClick={() => navigate("/startup-school")}
-              >
-                Learn More
-              </Button>
+              <Stack alignItems="center">
+                <Button
+                  variant="contained"
+                  color="info"
+                  sx={{
+                    width: "220px",
+                    fontSize: "16px",
+                    fontWeight: "700",
+                  }}
+                  onClick={() => navigate("/startup-school")}
+                >
+                  Learn More
+                </Button>
+              </Stack>
             </section>
             {/* ALUMNI TESTIMONIALS */}
             <section>
@@ -324,8 +327,8 @@ const Homepage = () => {
               >
                 Reach <PurpleText>out</PurpleText>
               </Typography>
+              <Newsletter />
             </section>
-            {/* CONTACT / SOCIALS */}
             {/* FOOTER */}
             <Footer>
               <Typography fontSize={14}>
@@ -351,6 +354,10 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6vh;
+
+  @media (min-width: 768px) {
+    padding: 0 60px;
+  }
 `;
 
 const PurpleText = styled.span`
@@ -375,7 +382,7 @@ const HeaderContainer = styled.div`
   display: grid;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1.3fr;
     gap: 2vh;
   }
 `;
@@ -428,21 +435,26 @@ const StyledHeader = styled(Typography)`
 `;
 
 const DesktopHeader = styled(Typography)`
-  && {
-    z-index: 2;
-    /* position: absolute; */
-    left: 0;
-    /* bottom: -30px; */
+  @media (max-width: 767px) {
+    && {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    && {
+      z-index: 2;
+      left: 0;
+    }
   }
 `;
 
 // FOR ANY SECTION WITH 3 ELEMENTS
 const ThreeGrid = styled.div`
   display: grid;
-  margin-top: 2vh;
   gap: 3vh;
   justify-items: center;
-  margin: 0 auto;
+  margin: 2vh auto 0 auto;
   /* position: relative; */
   /* width: 100%; */
 
@@ -511,7 +523,7 @@ const StyledSpan = styled.span`
 const StepsContainer = styled.div`
   width: 80%;
   text-align: center;
-  margin: 2vh auto 0 auto;
+  margin: 2vh auto 2vh auto;
 `;
 
 const DecorativeText = styled.h3`
