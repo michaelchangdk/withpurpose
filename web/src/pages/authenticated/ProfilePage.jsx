@@ -301,5 +301,6 @@ const ProfilePage = () => {
     </Box>
   );
 };
+}
 
 export default ProfilePage;
