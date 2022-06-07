@@ -68,7 +68,7 @@ const Homepage = () => {
                 <Stack
                   direction="row"
                   gap={2}
-                  sx={{ width: "90%", margin: "0 auto" }}
+                  sx={{ margin: "0 auto" }}
                   alignItems="center"
                 >
                   <Button
