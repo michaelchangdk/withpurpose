@@ -50,7 +50,13 @@ export default () =>
                       .child(S.documentTypeList("blogpost").title("Blog Post")),
                     S.listItem()
                       .title("Author")
-                      .child(S.documentTypeList("author").title("Author"))
+                      .child(S.documentTypeList("author").title("Author")),
+                    S.listItem()
+                    .title("Category")
+                    .child(S.documentTypeList("category").title("Category")),
+                    S.listItem()
+                      .title("Block content")
+                      .child(S.documentTypeList("blockContent").title("Block content"))
                   ]))
               // S.listItem()
               //   .title("Company Mentors")
@@ -228,6 +234,9 @@ export default () =>
             "landingpage",
             "homepage",
             "blogpost",
+            "author",
+            "category",
+            "blockContent",
             "user",
             "completed",
             "landingpageelements",
