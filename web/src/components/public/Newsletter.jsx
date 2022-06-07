@@ -79,7 +79,7 @@ const Newsletter = () => {
         />
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           size="large"
           sx={{ fontSize: "18px", fontWeight: "700" }}
           onClick={() => {
