@@ -22,10 +22,6 @@ const Contact = () => {
   const [lastname, setLastname] = useState("");
   const [startup, setStartup] = useState(false);
 
-  const handleChange = (e) => {
-    console.log(e.target.checked);
-  };
-
   return (
     <ThemeProvider theme={darkMode}>
       <Box
