@@ -423,6 +423,7 @@ const StyledHeader = styled(Typography)`
       align-self: flex-start;
       text-align: right;
       justify-self: flex-end;
+      margin-top: 20px;
     }
   }
 
@@ -436,13 +437,15 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 1100px) {
     && {
+      margin-top: 120px;
       width: 100%;
-      font-size: 80px;
+      font-size: 78px;
     }
   }
 
   @media (min-width: 1240px) {
     && {
+      margin-top: 160px;
       font-size: 90px;
     }
   }
