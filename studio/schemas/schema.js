@@ -14,6 +14,8 @@ import companyMentors from "./people/companymentors";
 import homepage from "./pages/public/homepage";
 import blogpost from "./pages/public/blogpost";
 import author from "./pages/public/blog/author";
+import blockContent from "./pages/public/blog/blockContent";
+import category from "./pages/public/blog/category";
 import completed from "./school/completed";
 import community from "./pages/members/community";
 import masterclasses from "./pages/members/masterclasses";
@@ -45,6 +47,8 @@ export default createSchema({
     homepage,
     blogpost,
     author,
+    blockContent,
+    category,
     completed,
     landingpageelements,
     community,
