@@ -1,13 +1,12 @@
 import React from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography, Button, Stack } from "@mui/material";
+import { Box, Typography, Button, Stack, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import rectangle from "../../assets/decorative/rectangle.webp";
 import purplesquiggle from "../../assets/decorative/scribble3.webp";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import bluesquiggle from "../../assets/decorative/scribble4.svg";
 import anda from "../../assets/anda.webp";
 import ioana from "../../assets/ioana.webp";
@@ -34,23 +33,28 @@ const Homepage = () => {
         }}
       >
         <PublicHeader />
-        <PageContainer>
+        <Container maxWidth="xl">
           <PageWrapper>
             <HeaderContainer>
+              {/* <DesktopHeader variant="h1" fontWeight={800} fontSize={50}>
+                YOUR STARTUP JOURNEY BEGINS HERE
+              </DesktopHeader> */}
+              <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
+                YOUR STARTUP JOURNEY BEGINS HERE
+              </StyledHeader>
+
               <Header>
                 <Portrait
                   src={rectangle}
                   alt="portrait of young female entrepreneur."
                 />
                 <Squiggle src={purplesquiggle} alt="purple squiggle." />
-                <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
+                {/* <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
                   YOUR STARTUP JOURNEY BEGINS HERE
-                </StyledHeader>
+                </StyledHeader> */}
               </Header>
+
               <CTADescription>
-                <DesktopHeader variant="h1" fontWeight={800} fontSize={50}>
-                  YOUR STARTUP JOURNEY BEGINS HERE
-                </DesktopHeader>
                 <div>
                   <Typography mb={2}>
                     Have a startup idea? We have the tools needed to turn it
@@ -86,6 +90,7 @@ const Homepage = () => {
                 </Stack>
               </CTADescription>
             </HeaderContainer>
+
             {/* STATISTICS ABOUT WOMEN IN TECH */}
             <section>
               <Typography
@@ -340,7 +345,7 @@ const Homepage = () => {
               <Typography fontSize={14}>Copenhagen, Denmark</Typography>
             </Footer>
           </PageWrapper>
-        </PageContainer>
+        </Container>
       </Box>
     </ThemeProvider>
   );
@@ -380,10 +385,66 @@ const SectionDescription = styled.div`
 // ALL FOR HEADER SECTION
 const HeaderContainer = styled.div`
   display: grid;
+  grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1vh;
+    margin-top: 4vh;
+  }
+
+  @media (min-width: 1100px) {
     grid-template-columns: 1fr 1.3fr;
     gap: 2vh;
+  }
+`;
+
+const StyledHeader = styled(Typography)`
+  && {
+    z-index: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    margin-bottom: 40px;
+    align-self: flex-end;
+    /* position: absolute; */
+    /* bottom: -30px; */
+    /* grid-column-start: 1;
+    grid-column-end: 2; */
+  }
+
+  @media (min-width: 768px) {
+    && {
+      margin-bottom: 0;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      align-self: flex-start;
+      text-align: right;
+      justify-self: flex-end;
+    }
+  }
+
+  @media (min-width: 900px) {
+    && {
+      font-size: 56px;
+      width: 90%;
+      margin-top: 80px;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    && {
+      width: 100%;
+      font-size: 80px;
+    }
+  }
+
+  @media (min-width: 1240px) {
+    && {
+      font-size: 90px;
+    }
   }
 `;
 
@@ -391,15 +452,50 @@ const Header = styled.header`
   position: relative;
   margin-top: 3vh;
   margin-bottom: 4vh;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  z-index: 1;
 
   @media (min-width: 768px) {
     grid-column-start: 2;
+    grid-column-end: 2;
+    margin-bottom: 0;
   }
+
+  /* @media (min-width: 768px) {
+    grid-column-start: 2;
+  } */
 `;
 
 const CTADescription = styled.div`
   @media (min-width: 768px) {
+    /* width: 100%; */
     grid-column-start: 1;
+    grid-columnn-end: 3;
+    grid-row-start: 1;
+    align-self: flex-end;
+    /* grid-row-start: 2;
+    grid-row-end: 2; */
+    /* align-self: center; */
+  }
+
+  @media (min-width: 840px) {
+    align-self: center;
+  }
+
+  @media (min-width: 900px) {
+    align-self: flex-end;
+  }
+
+  @media (min-width: 940px) {
+    align-self: center;
+    margin-top: 100px;
+  }
+
+  @media (min-width: 1100px) {
+    /* grid-row-start: 1; */
     grid-row-start: 1;
     align-self: center;
   }
@@ -408,46 +504,69 @@ const CTADescription = styled.div`
 const Portrait = styled.img`
   position: absolute;
   z-index: 1;
-  width: 80%;
+  max-width: 80%;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   right: 5%;
+  max-height: 65vh;
 `;
 
 const Squiggle = styled.img`
   width: 100%;
+  max-height: 65vh;
 `;
 
-const StyledHeader = styled(Typography)`
-  && {
-    z-index: 2;
-    position: absolute;
-    bottom: -30px;
-  }
+// const StyledHeader = styled(Typography)`
+//   && {
+//     z-index: 2;
+//     position: absolute;
+//     bottom: -30px;
+//   }
 
-  @media (min-width: 768px) {
-    && {
-      display: none;
-    }
-  }
-`;
+//   @media (min-width: 768px) {
+//     && {
+//       display: none;
+//     }
+//   }
 
-const DesktopHeader = styled(Typography)`
-  @media (max-width: 767px) {
-    && {
-      display: none;
-    }
-  }
+//   @media (min-width: 1100px) {
+//     && {
+//       display: none;
+//     }
+//   }
+// `;
 
-  @media (min-width: 768px) {
-    && {
-      z-index: 2;
-      left: 0;
-    }
-  }
-`;
+// const DesktopHeader = styled(Typography)`
+//   @media (max-width: 767px) {
+//     && {
+//       display: none;
+//     }
+//   }
+
+//   @media (min-width: 768px) {
+//     && {
+//       /* display: block; */
+//       /* position: absolute; */
+//       z-index: 2;
+//       grid-column-start: 1;
+//       grid-column-end: 3;
+//       position: absolute;
+//       /* top: 11vh; */
+//       /* left: 0; */
+//     }
+//   }
+
+//   @media (min-width: 1100px) {
+//     && {
+//       position: relative;
+//       grid-row-start: 1;
+//       /* z-index: 2; */
+//       /* left: 0; */
+//     }
+//   }
+// `;
 
 // FOR ANY SECTION WITH 3 ELEMENTS
 const ThreeGrid = styled.div`
