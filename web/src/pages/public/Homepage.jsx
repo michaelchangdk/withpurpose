@@ -446,7 +446,7 @@ const StyledHeader = styled(Typography)`
   @media (min-width: 1240px) {
     && {
       margin-top: 160px;
-      font-size: 90px;
+      font-size: 88px;
     }
   }
 `;
