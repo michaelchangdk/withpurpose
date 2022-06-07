@@ -16,10 +16,10 @@ import wta1 from "../../assets/WTA1.webp";
 import wta2 from "../../assets/WTA2.webp";
 import quote from "../../assets/decorative/quote.png";
 import Newsletter from "../../components/public/Newsletter";
+import PageFooter from "../../components/public/PageFooter";
 
 const Homepage = () => {
   const navigate = useNavigate();
-  const year = new Date().getFullYear();
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -334,16 +334,7 @@ const Homepage = () => {
               </Typography>
               <Newsletter />
             </section>
-            {/* FOOTER */}
-            <Footer>
-              <Typography fontSize={14}>
-                ©{year} by With Purpose Ventures
-              </Typography>
-              <Typography fontSize={14}>
-                Supported by Global Shapers Copenhagen
-              </Typography>
-              <Typography fontSize={14}>Copenhagen, Denmark</Typography>
-            </Footer>
+            <PageFooter />
           </PageWrapper>
         </Container>
       </Box>
@@ -662,12 +653,4 @@ const QuoteIcon = styled.img`
   height: 40px;
   display: block;
   margin: 0 auto;
-`;
-
-// Nordic Ecosystem Section
-
-// Footer
-const Footer = styled.footer`
-  text-align: center;
-  padding-bottom: 10px;
 `;

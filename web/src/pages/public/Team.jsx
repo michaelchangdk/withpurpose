@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { client } from "../../client";
@@ -8,6 +8,7 @@ import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import TeamCards from "../../components/public/TeamCards";
 import styled from "styled-components";
+import PageFooter from "../../components/public/PageFooter";
 
 const teamQuery = `*[_type == "teamMembers"] {city, fullName, linkedin, profilePhoto, quote, _id}`;
 
@@ -34,16 +35,19 @@ const Team = () => {
         }}
       >
         <PublicHeader />
-        <Typography variant="h3" textAlign="center">
-          Meet the Team
-        </Typography>
-        {loading && <LoadingIndicator />}
-        <CardContainer>
-          {!loading &&
-            team.map((member) => {
-              return <TeamCards key={member._id} member={member} />;
-            })}
-        </CardContainer>
+        <Container maxWidth="xl">
+          <Typography variant="h3" textAlign="center">
+            Meet the Team
+          </Typography>
+          {loading && <LoadingIndicator />}
+          <CardContainer>
+            {!loading &&
+              team.map((member) => {
+                return <TeamCards key={member._id} member={member} />;
+              })}
+          </CardContainer>
+          <PageFooter />
+        </Container>
       </Box>
       <ScrollToTop />
     </ThemeProvider>

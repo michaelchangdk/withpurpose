@@ -1,8 +1,9 @@
 import React from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
+import PageFooter from "../../components/public/PageFooter";
 
 const OpenLetter = () => {
   return (
@@ -17,7 +18,12 @@ const OpenLetter = () => {
         }}
       >
         <PublicHeader />
-        Open Letter
+        <Container maxWidth="xl">
+          <Typography variant="h3" textAlign="center">
+            Open Letter
+          </Typography>
+        </Container>
+        <PageFooter />
       </Box>
     </ThemeProvider>
   );

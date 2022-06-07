@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from "styled-components";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import AlumniCards from "../../components/AlumniCards";
 import { client } from "../../client";
+import PageFooter from "../../components/public/PageFooter";
 
 const AlumniPublic = () => {
   const [loading, setLoading] = useState(true);
@@ -37,17 +38,20 @@ const AlumniPublic = () => {
         }}
       >
         <PublicHeader />
-        <Typography variant="h3" textAlign="center">
-          Our Alumni
-        </Typography>
-        <CardContainer>
-          {loading && <LoadingIndicator />}
-          {!loading &&
-            alumni.map((student) => {
-              return <AlumniCards key={student._id} alumni={student} />;
-            })}
-          {/* PAGE INFORMATION */}
-        </CardContainer>
+        <Container maxWidth="xl">
+          <Typography variant="h3" textAlign="center">
+            Our Alumni
+          </Typography>
+          <CardContainer>
+            {loading && <LoadingIndicator />}
+            {!loading &&
+              alumni.map((student) => {
+                return <AlumniCards key={student._id} alumni={student} />;
+              })}
+            {/* PAGE INFORMATION */}
+          </CardContainer>
+          <PageFooter />
+        </Container>
       </Box>
     </ThemeProvider>
   );
