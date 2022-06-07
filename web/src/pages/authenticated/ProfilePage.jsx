@@ -31,7 +31,6 @@ import { client } from "../../client";
 import { Box } from "@mui/material";
 
 const ProfilePage = () => {
-  const [checked, setChecked] = useState(false);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -54,14 +53,20 @@ const ProfilePage = () => {
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   const toggleDarkMode = () => {
-    if (checked) {
-      setChecked(false);
+    if (darkMode) {
       dispatch(authenticated.actions.toggleDarkMode(false));
-      client.patch(userid).set({ darkMode: false }).commit();
-    } else if (!checked) {
-      setChecked(true);
+      client
+        .patch(userid)
+        .set({ darkMode: false })
+        .commit()
+        .then((res) => console.log(res));
+    } else if (!darkMode) {
       dispatch(authenticated.actions.toggleDarkMode(true));
-      client.patch(userid).set({ darkMode: true }).commit();
+      client
+        .patch(userid)
+        .set({ darkMode: true })
+        .commit()
+        .then((res) => console.log(res));
     }
   };
 
