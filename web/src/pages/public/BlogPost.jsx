@@ -38,6 +38,7 @@ const BlogPost = () => {
         <Stack sx={{ maxWidth: '80%', margin: '0 auto'}}>
           <PublicHeader />
           <PortableText
+            sx={{color: '#000', backGroundColor: 'white'}}
             value={currentPost?.body}
           />
         </Stack>

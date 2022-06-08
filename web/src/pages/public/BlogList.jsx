@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography, Input } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from 'styled-components/macro';
 
 import { client, urlFor } from "../../client";
 
-
-
+import PostCardLarge from "../../components/public/PostCardLarge";
 
 const BlogList = ({ navigation }) => {
   // const [loading, setLoading] = useState(true);
   const [blogposts, setBlogposts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration}`;
+    const blogpostQuery = `*[_type == "blogpost" && title match "*${searchTerm}*"] {_id, title, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
@@ -60,16 +60,12 @@ const BlogList = ({ navigation }) => {
 
   useEffect(() => {
     fetchBlogposts();
-  }, []);
+  }, [searchTerm]);
 
   const showBlogpost = (id) => {
     navigate(`/blog/${id}`);
 
   };
-
-  // if (currentPost) {
-  //   console.log(urlFor(currentPost.image?.asset._ref).url())
-  // }
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -86,32 +82,31 @@ const BlogList = ({ navigation }) => {
         <Stack sx={{ maxWidth: '80%', margin: '0 auto'}}>
         <H1 sx={{ textTransform: 'uppercase' }}>What we've been up to lately</H1>
           <PostListContainer>
-            <Button>all posts</Button>
-            <Container sx={{width: '100%'}}>
+            <PostNavBar>
+              <Button onClick={() => setSearchTerm("")}>all posts</Button>
+              <Input
+                placeholder="Search blogpost"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </PostNavBar>
+            
+            <div sx={{width: '100%'}}>
               {blogposts.map((blogpost) => {
                 return (
-                  <PostThumbnail key={blogpost._id} onClick={() => showBlogpost(blogpost._id)}>
-                    {/* {blogpost.image && <ThumbnailImage src={urlFor(blogpost.image.asset._ref).url()} alt={blogpost.image?.asset._ref}/>} */}
-                    <div>
-                      <ThumbnailImage url={urlFor(blogpost.image.asset._ref).url()}></ThumbnailImage>
-                    </div>
-                    <div>
-                      <TopRow>
-                        <Duration>{blogpost.duration}</Duration>
-                        <Ellipsis>
-                          ⋮
-                        </Ellipsis>
-                      </TopRow>
-                      <PostTitle>{blogpost.title}</PostTitle>
-                    </div>
-                  </PostThumbnail>  
+                  <StyledContainer disableGutters sx={{margin: '20px 0'}} 
+                    onClick={() => showBlogpost(blogpost._id)}
+                    key={blogpost._id}
+                  >
+                    <PostCardLarge
+                    url={urlFor(blogpost.image.asset._ref).url()}
+                    duration={blogpost.duration}
+                    title={blogpost.title}
+                    />
+                  </StyledContainer>
                 )
               })}
-              {/* <PortableText
-                value={currentPost?.body}
-                components={myPortableTextComponents}
-              /> */}
-            </Container>
+            </div>
           </PostListContainer>
         </Stack>
       </Box>
@@ -129,36 +124,9 @@ const H1 = styled(Typography)`
   }
 `;
 
-const PostTitle = styled(Typography)`
-  &&{
-    font-size: 2rem;
-    font-weight: 700;
-  }
-`;
-
-const Duration = styled(Typography)`
-  &&{
-    font-size: .725rem;
-    font-weight: 300;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-`;
-
-const Ellipsis = styled(Button)`
-  &&{
-    color: white;
-    font-size: 1rem;
-  }
-`;
-
-const TopRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-`;
+const StyledContainer = styled(Container)`
+  padding: 0;
+`
 
 const PostListContainer = styled(Container)`
   &&{
@@ -166,24 +134,9 @@ const PostListContainer = styled(Container)`
   }
 `;
 
-const PostThumbnail = styled(Container)`
-  &&{
-    padding: 1rem 0;
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-`;
-
-const ThumbnailImage = styled.div`
-  background-image: url('${props => props.url}');
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-  background-size: cover;
-`;
-
+const PostNavBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
 
 export default BlogList;
