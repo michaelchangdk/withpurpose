@@ -35,28 +35,28 @@ const BlogList = ({ navigation }) => {
   //   setCurrentPost(response[0]);
   // };
 
-  const myPortableTextComponents = {
-    types: {
-      image: ({value}) => <img src={urlFor(value.image?.asset._ref).url()} alt={value.image.asset._ref}/>,
-      callToAction: ({value, isInline}) =>
-        isInline ? (
-          <a href={value.url}>{value.text}</a>
-        ) : (
-          <div className="callToAction">{value.text}</div>
-        ),
-    },
+  // const myPortableTextComponents = {
+  //   types: {
+  //     image: ({value}) => <img src={urlFor(value.image?.asset._ref).url()} alt={value.image.asset._ref}/>,
+  //     callToAction: ({value, isInline}) =>
+  //       isInline ? (
+  //         <a href={value.url}>{value.text}</a>
+  //       ) : (
+  //         <div className="callToAction">{value.text}</div>
+  //       ),
+  //   },
   
-    marks: {
-      link: ({children, value}) => {
-        const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
-        return (
-          <a href={value.href} rel={rel}>
-            {children}
-          </a>
-        )
-      },
-    },
-  }
+  //   marks: {
+  //     link: ({children, value}) => {
+  //       const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
+  //       return (
+  //         <a href={value.href} rel={rel}>
+  //           {children}
+  //         </a>
+  //       )
+  //     },
+  //   },
+  // }
 
   useEffect(() => {
     fetchBlogposts();
@@ -65,7 +65,6 @@ const BlogList = ({ navigation }) => {
   const showBlogpost = (id) => {
     navigate(`/blog/${id}`);
 
-    // navigation.navigate('/blog/:id', { id: id});
   };
 
   // if (currentPost) {
