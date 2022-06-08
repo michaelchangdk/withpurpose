@@ -42,8 +42,8 @@ const AlumniPublic = () => {
           <Typography variant="h3" textAlign="center">
             Our Alumni
           </Typography>
+          {loading && <LoadingIndicator />}
           <CardContainer>
-            {loading && <LoadingIndicator />}
             {!loading &&
               alumni.map((student) => {
                 return <AlumniCards key={student._id} alumni={student} />;
