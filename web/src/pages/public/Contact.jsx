@@ -128,28 +128,27 @@ const Contact = () => {
                     label="A potential corporate partner"
                   />
                   <FormControlLabel control={<Checkbox />} label="Other" />
-                  {startup && (
-                    <TextField
-                      label="Name of your awesome startup"
-                      variant="outlined"
-                      required={true}
-                      fullWidth
-                      color="primary"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  )}
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Message"
-                    multiline
-                    rows={4}
-                    defaultValue="Type your message here..."
-                  />
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="I'd love to receive updates from time to time (but can opt-out at any time)"
-                  />
                 </FormGroup>
+                {startup && (
+                  <TextField
+                    label="Name of your awesome startup"
+                    variant="outlined"
+                    required={true}
+                    fullWidth
+                    color="primary"
+                  />
+                )}
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Message"
+                  multiline
+                  rows={4}
+                  defaultValue="Type your message here..."
+                />
+                <FormControlLabel
+                  control={<Checkbox defaultChecked />}
+                  label="I'd love to receive updates from time to time (but can opt-out at any time)"
+                />
                 <Button
                   variant="contained"
                   color="primary"
