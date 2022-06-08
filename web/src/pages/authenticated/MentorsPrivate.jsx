@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { client } from "../../client";
@@ -61,16 +60,17 @@ const MentorsPrivate = () => {
           <StyledTypo>{description}</StyledTypo>
         </DescriptionContainer>
       )}
-      <PageContainer>
+      <Container maxWidth="xl">
+        {" "}
         {loading && <LoadingIndicator />}
-
         <CardContainer>
           {!loading &&
             mentors.map((mentor) => {
               return <MentorCards key={mentor.fullName} mentor={mentor} />;
             })}
         </CardContainer>
-      </PageContainer>
+      </Container>
+
       <ScrollToTop />
     </Box>
   );
@@ -86,14 +86,14 @@ const CardContainer = styled.div`
   justify-content: center;
 
   @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
+    /* max-width: calc(750px + 3vh); */
     gap: 3vh;
     padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
+    /* max-width: calc(1125px + 3vh); */
     gap: 3vh;
     padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr 1fr;

@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import ModuleCards from "../../components/authenticated/ModuleCards";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
-import { Stack, Button, Box } from "@mui/material";
+import { Stack, Button, Box, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { useSelector } from "react-redux";
@@ -115,9 +114,9 @@ const WeekPage = () => {
             displaySubtitle={true}
           />
           <DescriptionContainer>
-            <p>{description}</p>
+            <StyledTypo>{description}</StyledTypo>
           </DescriptionContainer>
-          <PageContainer>
+          <Container maxWidth="xl">
             {loading && <p>Loading...</p>}
             <CardContainer>
               {!loading &&
@@ -165,7 +164,7 @@ const WeekPage = () => {
             </CardContainer>
 
             <ScrollToTop />
-          </PageContainer>
+          </Container>
         </>
       )}
     </Box>
@@ -196,5 +195,12 @@ const CardContainer = styled.div`
   @media (min-width: 768px) {
     gap: 3vh;
     padding: 3vh 0;
+  }
+`;
+
+const StyledTypo = styled(Typography)`
+  && {
+    font-size: 18px;
+    line-height: 30px;
   }
 `;

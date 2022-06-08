@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -54,7 +53,7 @@ const WeekOverview = () => {
         query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <PageContainer>
+      <Container maxWidth="xl">
         {loading && <LoadingIndicator />}
         <CardContainer>
           <Typography variant="h4" fontWeight={500}>
@@ -85,7 +84,7 @@ const WeekOverview = () => {
               />
             ))}
         </CardContainer>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
     </Box>
   );

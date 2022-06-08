@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
-import { List, Typography, ListSubheader, Fab } from "@mui/material";
+import { List, Typography, ListSubheader, Fab, Container } from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
@@ -35,7 +34,7 @@ const LessonList = ({
   };
 
   return (
-    <>
+    <Container maxWidth="xl">
       {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
@@ -59,7 +58,7 @@ const LessonList = ({
       {/* https://www.npmjs.com/package/react-player */}
       {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
       {videoUrl.length > 0 && (
-        <PageContainer>
+        <Container maxWidth="xl">
           <FrameDiv>
             <ReactPlayer
               url={videoUrl}
@@ -74,10 +73,10 @@ const LessonList = ({
           </Typography>
           <Typography fontSize={16}>{taskTitle}</Typography>
           <Typography variant="caption">{taskDuration}</Typography>
-        </PageContainer>
+        </Container>
       )}
       {taskDescription.length > 0 && (
-        <PageContainer>
+        <Container maxWidth="xl">
           <TaskItem>
             <p>{taskDescription}</p>
             <Fab
@@ -91,7 +90,7 @@ const LessonList = ({
               <MouseIcon sx={{ fontSize: 30 }} />
             </Fab>
           </TaskItem>
-        </PageContainer>
+        </Container>
       )}
       <List
         dense
@@ -119,7 +118,7 @@ const LessonList = ({
             );
           })}
       </List>
-    </>
+    </Container>
   );
 };
 

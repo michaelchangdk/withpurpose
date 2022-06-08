@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { client } from "../../client";
 import styled from "styled-components";
 import AlumniCards from "../../components/AlumniCards";
@@ -39,16 +38,17 @@ const AlumniPrivate = () => {
         query={`*[_type == "community"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <PageContainer>
+
+      <Container maxWidth="xl">
+        {loading && <LoadingIndicator />}
+
         <CardContainer>
-          {loading && <LoadingIndicator />}
           {!loading &&
             alumni.map((student) => {
               return <AlumniCards key={student._id} alumni={student} />;
             })}
-          {/* PAGE INFORMATION */}
         </CardContainer>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
     </Box>
   );

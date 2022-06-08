@@ -1,7 +1,6 @@
 import React from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 
 const MasterclassPage = () => {
@@ -19,7 +18,7 @@ const MasterclassPage = () => {
         query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
+      <Container maxWidth="xl"></Container>
       <ScrollToTop />
     </Box>
   );

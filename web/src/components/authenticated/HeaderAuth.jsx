@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, IconButton, MenuItem, Menu } from "@mui/material";
+import { Avatar, IconButton, MenuItem, Menu, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
@@ -81,92 +81,94 @@ const HeaderAuth = () => {
   };
 
   return (
-    <HeaderNav>
-      <IconButton
-        id="nav-button"
-        aria-controls={openNav ? "nav-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={openNav ? "true" : undefined}
-        onClick={openSiteNav}
-      >
-        <Logo src={logo} alt="logo navigation." />
-      </IconButton>
-      <Menu
-        id="nav-menu"
-        anchorEl={anchorElNav}
-        open={openNav}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "nav-button",
-        }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <MenuItem onClick={() => navigate(`/startup-school-elearning`)}>
-          Home
-        </MenuItem>
-        <MenuItem onClick={navigateSchool}>Startup School</MenuItem>
-        <MenuItem onClick={navigateMasterClass}>Masterclasses</MenuItem>
-        <MenuItem onClick={navigateMentor}>Mentors</MenuItem>
-        <MenuItem onClick={navigateCommunity}>Community</MenuItem>
-      </Menu>
-      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
-      <IconButton
-        id="basic-button"
-        aria-controls={openProfile ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={openProfile ? "true" : undefined}
-        onClick={openProfileNav}
-      >
-        {userAvatarUrl.length > 0 && (
-          <Avatar
-            src={userAvatarUrl}
-            alt={displayName}
-            sx={{ height: 48, width: 48 }}
-          />
-        )}
-        {userAvatarUrl.length === 0 && (
-          <Avatar
-            {...stringAvatar({ displayName })}
-            alt={displayName}
-            sx={{
-              bgcolor: "primary.main",
-              color: "primary.contrastText",
-              height: 48,
-              width: 48,
-            }}
-          />
-        )}
-      </IconButton>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={openProfile}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <MenuItem onClick={() => navigate(`/profile/${user}`)}>
-          Profile
-        </MenuItem>
-        <MenuItem onClick={logout}>Logout</MenuItem>
-      </Menu>
-    </HeaderNav>
+    <Container maxWidth="xl">
+      <HeaderNav>
+        <IconButton
+          id="nav-button"
+          aria-controls={openNav ? "nav-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={openNav ? "true" : undefined}
+          onClick={openSiteNav}
+        >
+          <Logo src={logo} alt="logo navigation." />
+        </IconButton>
+        <Menu
+          id="nav-menu"
+          anchorEl={anchorElNav}
+          open={openNav}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "nav-button",
+          }}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <MenuItem onClick={() => navigate(`/startup-school-elearning`)}>
+            Home
+          </MenuItem>
+          <MenuItem onClick={navigateSchool}>Startup School</MenuItem>
+          <MenuItem onClick={navigateMasterClass}>Masterclasses</MenuItem>
+          <MenuItem onClick={navigateMentor}>Mentors</MenuItem>
+          <MenuItem onClick={navigateCommunity}>Community</MenuItem>
+        </Menu>
+        <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
+        <IconButton
+          id="basic-button"
+          aria-controls={openProfile ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={openProfile ? "true" : undefined}
+          onClick={openProfileNav}
+        >
+          {userAvatarUrl.length > 0 && (
+            <Avatar
+              src={userAvatarUrl}
+              alt={displayName}
+              sx={{ height: 48, width: 48 }}
+            />
+          )}
+          {userAvatarUrl.length === 0 && (
+            <Avatar
+              {...stringAvatar({ displayName })}
+              alt={displayName}
+              sx={{
+                bgcolor: "primary.main",
+                color: "primary.contrastText",
+                height: 48,
+                width: 48,
+              }}
+            />
+          )}
+        </IconButton>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={openProfile}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <MenuItem onClick={() => navigate(`/profile/${user}`)}>
+            Profile
+          </MenuItem>
+          <MenuItem onClick={logout}>Logout</MenuItem>
+        </Menu>
+      </HeaderNav>
+    </Container>
   );
 };
 
@@ -179,7 +181,7 @@ const HeaderNav = styled.div`
   justify-content: space-between;
   /* margin: 5px 20px; */
   /* width: 92vw; */
-  width: calc(100vw - 32px);
+  /* width: calc(100vw - 32px); */
   margin: 0 auto 2vh auto;
   padding-top: 3vh;
   /* z-index: 2; */

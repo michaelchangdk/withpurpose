@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
-import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
@@ -36,9 +35,9 @@ const LandingPage = () => {
         type={"page"}
         displayName={true}
       />
-      <PageContainer>
+      <Container maxWidth="xl">
+        {loading && <LoadingIndicator />}
         <CardGrid>
-          {loading && <LoadingIndicator />}
           {!loading &&
             cards.map((card) => (
               <LandingCards
@@ -51,7 +50,7 @@ const LandingPage = () => {
               />
             ))}
         </CardGrid>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
     </Box>
   );

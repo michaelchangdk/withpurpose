@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { client } from "../../client";
 import { urlFor } from "../../client";
 import down from "../../assets/down.png";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
+import { Container } from "@mui/material";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ const LandingPageHero = ({ query, type, displayName }) => {
     <>
       <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
         <HeaderAuth />
-        <PageContainer>
+        <Container maxWidth="xl">
           <HeaderTitleWrapper>
             <HeaderTitle>
               {title}
@@ -59,7 +59,7 @@ const LandingPageHero = ({ query, type, displayName }) => {
               </HeaderInstruction>
             </Link>
           </ButtonWrapper>
-        </PageContainer>
+        </Container>
       </Header>
     </>
   );

@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
-import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Stack, Typography, Box, Button } from "@mui/material";
+import { Stack, Typography, Box, Button, Container } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
@@ -172,11 +171,11 @@ const ModulePage = () => {
       }}
     >
       <HeaderAuth />
+      {loading && <LoadingIndicator />}
       <CardContainer>
-        {loading && <LoadingIndicator />}
         {!loading && (
           <>
-            <PageContainer>
+            <Container maxWidth="xl">
               <Stack
                 direction="row"
                 alignItems="center"
@@ -196,15 +195,15 @@ const ModulePage = () => {
                   fontSize={14}
                 />
               </Stack>
-            </PageContainer>
+            </Container>
             {moduleDescription && (
               <DescriptionContainer>
-                <Typography>{moduleDescription}</Typography>
+                <StyledTypo>{moduleDescription}</StyledTypo>
               </DescriptionContainer>
             )}
 
             <LessonList key={lessons} lessons={lessons} />
-            <PageContainer>
+            <Container maxWidth="xl">
               <Stack
                 direction="row"
                 // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
@@ -264,7 +263,7 @@ const ModulePage = () => {
                   </Button>
                 )}
               </Stack>
-            </PageContainer>
+            </Container>
           </>
         )}
       </CardContainer>
@@ -297,5 +296,12 @@ const CardContainer = styled.div`
   @media (min-width: 768px) {
     gap: 3vh;
     padding: 3vh 0;
+  }
+`;
+
+const StyledTypo = styled(Typography)`
+  && {
+    font-size: 18px;
+    line-height: 30px;
   }
 `;
