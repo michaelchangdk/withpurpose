@@ -3,6 +3,7 @@ import PublicHeader from "../../components/public/PublicHeader";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
+import styled from 'styled-components/macro';
 
 import { client, urlFor } from "../../client";
 
@@ -17,7 +18,7 @@ const BlogList = () => {
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image}`;
+    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
@@ -76,32 +77,102 @@ const BlogList = () => {
         }}
       >
         <PublicHeader />
-        <Stack sx={{ maxWidth: 500, margin: '0 auto'}}>
-        <Typography sx={{ textTransform: 'uppercase' }}>What we've been up to lately</Typography>
-          <Container>
+        <Stack sx={{ maxWidth: '80%', margin: '0 auto'}}>
+        <H1 sx={{ textTransform: 'uppercase' }}>What we've been up to lately</H1>
+          <PostListContainer>
             <Button>all posts</Button>
-          </Container>
-          
-          <Container sx={{}}>
-            {blogposts.map((blogpost) => {
-              return (
-                <button key={blogpost._id} onClick={() => fetchPost(blogpost._id)}>
-                  <Typography>{blogpost.title}</Typography>
-                </button>  
-              )
-            })}
-            <PortableText
-              value={currentPost?.body}
-              components={myPortableTextComponents}
-            />
-          </Container>
-          
+            <Container sx={{width: '100%'}}>
+              {blogposts.map((blogpost) => {
+                return (
+                  <PostThumbnail key={blogpost._id} onClick={() => fetchPost(blogpost._id)}>
+                    {/* {blogpost.image && <ThumbnailImage src={urlFor(blogpost.image.asset._ref).url()} alt={blogpost.image?.asset._ref}/>} */}
+                    <div>
+                      <ThumbnailImage url={urlFor(blogpost.image.asset._ref).url()}></ThumbnailImage>
+                    </div>
+                    <div>
+                      <TopRow>
+                        <Duration>{blogpost.duration}</Duration>
+                        <Ellipsis>
+                          ⋮
+                        </Ellipsis>
+                      </TopRow>
+                      <PostTitle>{blogpost.title}</PostTitle>
+                    </div>
+                  </PostThumbnail>  
+                )
+              })}
+              <PortableText
+                value={currentPost?.body}
+                components={myPortableTextComponents}
+              />
+            </Container>
+          </PostListContainer>
         </Stack>
-        
-        
       </Box>
     </ThemeProvider>
   );
 };
+
+
+const H1 = styled(Typography)`
+  &&{
+    font-size: 4rem;
+    font-weight: 900;
+    font-style: italic;
+    text-align: center;
+  }
+`;
+
+const PostTitle = styled(Typography)`
+  &&{
+    font-size: 2rem;
+    font-weight: 700;
+  }
+`;
+
+const Duration = styled(Typography)`
+  &&{
+    font-size: .725rem;
+    font-weight: 300;
+  }
+`;
+
+const Ellipsis = styled(Button)`
+  &&{
+    color: white;
+    font-size: 1rem;
+  }
+`;
+
+const TopRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PostListContainer = styled(Container)`
+  &&{
+    margin: 0 auto;
+  }
+`;
+
+const PostThumbnail = styled(Container)`
+  &&{
+    padding: 1rem 0;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+`;
+
+const ThumbnailImage = styled.div`
+  background-image: url('${props => props.url}');
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background-size: cover;
+`;
+
 
 export default BlogList;
