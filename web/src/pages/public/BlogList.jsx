@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PublicHeader from "../../components/public/PublicHeader";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -7,13 +8,13 @@ import styled from 'styled-components/macro';
 
 import { client, urlFor } from "../../client";
 
-import {PortableText} from '@portabletext/react';
 
 
-const BlogList = () => {
+
+const BlogList = ({ navigation }) => {
   // const [loading, setLoading] = useState(true);
   const [blogposts, setBlogposts] = useState([]);
-  const [currentPost, setCurrentPost] = useState(null);
+  const navigate = useNavigate();
   
 
   const fetchBlogposts = async () => {
@@ -27,12 +28,12 @@ const BlogList = () => {
     // setLoading(false);
   };
 
-  const fetchPost = async (id) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${id}']`;
-    const fetch = await client.fetch(postQuery);
-    const response = await fetch;
-    setCurrentPost(response[0]);
-  };
+  // const fetchPost = async (id) => {
+  //   const postQuery = `*[_type == "blogpost" && _id == '${id}']`;
+  //   const fetch = await client.fetch(postQuery);
+  //   const response = await fetch;
+  //   setCurrentPost(response[0]);
+  // };
 
   const myPortableTextComponents = {
     types: {
@@ -61,9 +62,15 @@ const BlogList = () => {
     fetchBlogposts();
   }, []);
 
-  if (currentPost) {
-    console.log(urlFor(currentPost.image?.asset._ref).url())
-  }
+  const showBlogpost = (id) => {
+    navigate(`/blog/${id}`);
+
+    // navigation.navigate('/blog/:id', { id: id});
+  };
+
+  // if (currentPost) {
+  //   console.log(urlFor(currentPost.image?.asset._ref).url())
+  // }
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -84,7 +91,7 @@ const BlogList = () => {
             <Container sx={{width: '100%'}}>
               {blogposts.map((blogpost) => {
                 return (
-                  <PostThumbnail key={blogpost._id} onClick={() => fetchPost(blogpost._id)}>
+                  <PostThumbnail key={blogpost._id} onClick={() => showBlogpost(blogpost._id)}>
                     {/* {blogpost.image && <ThumbnailImage src={urlFor(blogpost.image.asset._ref).url()} alt={blogpost.image?.asset._ref}/>} */}
                     <div>
                       <ThumbnailImage url={urlFor(blogpost.image.asset._ref).url()}></ThumbnailImage>
@@ -101,10 +108,10 @@ const BlogList = () => {
                   </PostThumbnail>  
                 )
               })}
-              <PortableText
+              {/* <PortableText
                 value={currentPost?.body}
                 components={myPortableTextComponents}
-              />
+              /> */}
             </Container>
           </PostListContainer>
         </Stack>
