@@ -10,6 +10,8 @@ import {
   FormControlLabel,
   Checkbox,
   Stack,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
@@ -21,6 +23,61 @@ const Contact = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [startup, setStartup] = useState(false);
+  const [entrepreneur, setEntrepreneur] = useState(false);
+  const [mentor, setMentor] = useState(false);
+  const [volunteer, setVolunteer] = useState(false);
+  const [investor, setInvestor] = useState(false);
+  const [corporatepartner, setCorporatepartner] = useState(false);
+  const [other, setOther] = useState(false);
+  const [startupname, setStartupname] = useState("");
+  const [message, setMessage] = useState("");
+  const [newsletter, setNewsletter] = useState(true);
+  const [alert, setAlert] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const emailPattern =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  const submitForm = () => {
+    if (!email.match(emailPattern)) {
+      setAlert("Please enter a valid email address.");
+    } else if (firstname.length < 2 || lastname.length < 2) {
+      setAlert("Please enter a valid name.");
+    } else if (message.length < 10) {
+      setAlert("Please enter a message.");
+    } else {
+      setSuccess("Your message has been sent. Thank you!");
+      setAlert("");
+      console.log(
+        "firstname",
+        firstname,
+        "lastname",
+        lastname,
+        "email",
+        email,
+        "startup",
+        startup,
+        "entrepreneur",
+        entrepreneur,
+        "mentor",
+        mentor,
+        "volunteer",
+        volunteer,
+        "investor",
+        investor,
+        "corporatepartner",
+        corporatepartner,
+        "other",
+        other,
+        "startupname",
+        startupname,
+        "message",
+        message,
+        "newsletter",
+        newsletter
+      );
+    }
+  };
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -111,23 +168,49 @@ const Contact = () => {
                     label="An existing founder with my startup"
                   />
                   <FormControlLabel
-                    control={<Checkbox />}
+                    control={
+                      <Checkbox
+                        onChange={(e) => setEntrepreneur(e.target.checked)}
+                      />
+                    }
                     label="An entrepreneur (don't have a startup yet)"
                   />
-                  <FormControlLabel control={<Checkbox />} label="A mentor" />
                   <FormControlLabel
-                    control={<Checkbox />}
+                    control={
+                      <Checkbox onChange={(e) => setMentor(e.target.checked)} />
+                    }
+                    label="A mentor"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={(e) => setVolunteer(e.target.checked)}
+                      />
+                    }
                     label="A volunteer to help the initiative"
                   />
                   <FormControlLabel
-                    control={<Checkbox />}
-                    label="An invenstor"
+                    control={
+                      <Checkbox
+                        onChange={(e) => setInvestor(e.target.checked)}
+                      />
+                    }
+                    label="An investor"
                   />
                   <FormControlLabel
-                    control={<Checkbox />}
+                    control={
+                      <Checkbox
+                        onChange={(e) => setCorporatepartner(e.target.checked)}
+                      />
+                    }
                     label="A potential corporate partner"
                   />
-                  <FormControlLabel control={<Checkbox />} label="Other" />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={(e) => setOther(e.target.checked)} />
+                    }
+                    label="Other"
+                  />
                 </FormGroup>
                 {startup && (
                   <TextField
@@ -136,6 +219,7 @@ const Contact = () => {
                     required={true}
                     fullWidth
                     color="primary"
+                    onChange={(e) => setStartupname(e.target.value)}
                   />
                 )}
                 <TextField
@@ -144,11 +228,26 @@ const Contact = () => {
                   multiline
                   rows={4}
                   defaultValue="Type your message here..."
+                  onChange={(e) => setMessage(e.target.value)}
                 />
                 <FormControlLabel
-                  control={<Checkbox defaultChecked />}
+                  control={
+                    <Checkbox
+                      defaultChecked
+                      onChange={(e) => setNewsletter(e.target.checked)}
+                    />
+                  }
                   label="I'd love to receive updates from time to time (but can opt-out at any time)"
                 />
+                {alert.length > 0 && (
+                  <Alert severity="warning">
+                    <AlertTitle>Alert</AlertTitle>
+                    {alert}
+                  </Alert>
+                )}
+                {success.length > 0 && (
+                  <Alert severity="success">{success}</Alert>
+                )}
                 <Button
                   variant="contained"
                   color="primary"
@@ -159,9 +258,7 @@ const Contact = () => {
                     width: "220px",
                     margin: "0 auto",
                   }}
-                  onClick={() => {
-                    console.log(firstname, lastname, email);
-                  }}
+                  onClick={submitForm}
                 >
                   Submit
                 </Button>
