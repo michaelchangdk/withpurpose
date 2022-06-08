@@ -134,6 +134,10 @@ const Duration = styled(Typography)`
   &&{
     font-size: .725rem;
     font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 `;
 
@@ -147,6 +151,7 @@ const Ellipsis = styled(Button)`
 const TopRow = styled.div`
   display: flex;
   justify-content: space-between;
+  align-content: center;
 `;
 
 const PostListContainer = styled(Container)`
