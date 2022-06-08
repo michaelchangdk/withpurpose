@@ -36,24 +36,16 @@ const Homepage = () => {
         <Container maxWidth="xl">
           <PageWrapper>
             <HeaderContainer>
-              {/* <DesktopHeader variant="h1" fontWeight={800} fontSize={50}>
-                YOUR STARTUP JOURNEY BEGINS HERE
-              </DesktopHeader> */}
               <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
                 YOUR STARTUP JOURNEY BEGINS HERE
               </StyledHeader>
-
               <Header>
                 <Portrait
                   src={rectangle}
                   alt="portrait of young female entrepreneur."
                 />
                 <Squiggle src={purplesquiggle} alt="purple squiggle." />
-                {/* <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
-                  YOUR STARTUP JOURNEY BEGINS HERE
-                </StyledHeader> */}
               </Header>
-
               <CTADescription>
                 <div>
                   <Typography mb={2}>
@@ -400,10 +392,6 @@ const StyledHeader = styled(Typography)`
     grid-row-end: 1;
     margin-bottom: 40px;
     align-self: flex-end;
-    /* position: absolute; */
-    /* bottom: -30px; */
-    /* grid-column-start: 1;
-    grid-column-end: 2; */
   }
 
   @media (min-width: 768px) {
@@ -414,7 +402,8 @@ const StyledHeader = styled(Typography)`
       align-self: flex-start;
       text-align: right;
       justify-self: flex-end;
-      margin-top: 20px;
+      /* margin-top: 20px; */
+      margin-top: 50px;
     }
   }
 
@@ -428,7 +417,7 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 1100px) {
     && {
-      margin-top: 120px;
+      margin-top: 100px;
       width: 100%;
       font-size: 78px;
     }
@@ -436,7 +425,7 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 1240px) {
     && {
-      margin-top: 160px;
+      margin-top: 140px;
       font-size: 88px;
     }
   }
@@ -457,41 +446,20 @@ const Header = styled.header`
     grid-column-end: 2;
     margin-bottom: 0;
   }
-
-  /* @media (min-width: 768px) {
-    grid-column-start: 2;
-  } */
 `;
 
 const CTADescription = styled.div`
   @media (min-width: 768px) {
-    /* width: 100%; */
     grid-column-start: 1;
     grid-columnn-end: 3;
     grid-row-start: 1;
     align-self: flex-end;
-    /* grid-row-start: 2;
-    grid-row-end: 2; */
     /* align-self: center; */
   }
 
-  @media (min-width: 840px) {
-    align-self: center;
-  }
-
   @media (min-width: 900px) {
-    align-self: flex-end;
-  }
-
-  @media (min-width: 940px) {
     align-self: center;
-    margin-top: 100px;
-  }
-
-  @media (min-width: 1100px) {
-    /* grid-row-start: 1; */
-    grid-row-start: 1;
-    align-self: center;
+    margin-top: 90px;
   }
 `;
 
@@ -504,63 +472,13 @@ const Portrait = styled.img`
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   right: 5%;
-  max-height: 65vh;
+  height: 100%;
 `;
 
 const Squiggle = styled.img`
   width: 100%;
-  max-height: 65vh;
+  height: 100%;
 `;
-
-// const StyledHeader = styled(Typography)`
-//   && {
-//     z-index: 2;
-//     position: absolute;
-//     bottom: -30px;
-//   }
-
-//   @media (min-width: 768px) {
-//     && {
-//       display: none;
-//     }
-//   }
-
-//   @media (min-width: 1100px) {
-//     && {
-//       display: none;
-//     }
-//   }
-// `;
-
-// const DesktopHeader = styled(Typography)`
-//   @media (max-width: 767px) {
-//     && {
-//       display: none;
-//     }
-//   }
-
-//   @media (min-width: 768px) {
-//     && {
-//       /* display: block; */
-//       /* position: absolute; */
-//       z-index: 2;
-//       grid-column-start: 1;
-//       grid-column-end: 3;
-//       position: absolute;
-//       /* top: 11vh; */
-//       /* left: 0; */
-//     }
-//   }
-
-//   @media (min-width: 1100px) {
-//     && {
-//       position: relative;
-//       grid-row-start: 1;
-//       /* z-index: 2; */
-//       /* left: 0; */
-//     }
-//   }
-// `;
 
 // FOR ANY SECTION WITH 3 ELEMENTS
 const ThreeGrid = styled.div`
@@ -568,8 +486,6 @@ const ThreeGrid = styled.div`
   gap: 3vh;
   justify-items: center;
   margin: 2vh auto 0 auto;
-  /* position: relative; */
-  /* width: 100%; */
 
   @media (min-width: 768px) {
     max-width: calc(1200px + 6vh);
@@ -581,10 +497,6 @@ const GridChild = styled.div`
   width: 100%;
   max-width: 400px;
   margin: 0 auto 1.5vh auto;
-
-  /* @media (min-width: 768px) {
-    width: 60%;
-  } */
 `;
 
 const CirclePhoto = styled.img`
@@ -612,8 +524,6 @@ const OverlayParent = styled.div`
 const InfoSquiggle = styled.img`
   transform: rotate(180deg);
   width: 100%;
-  /* width: 40%; */
-  /* position: absolute; */
 `;
 
 const StyledTextOverlay = styled(Typography)`
