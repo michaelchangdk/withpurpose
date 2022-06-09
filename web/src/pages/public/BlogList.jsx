@@ -62,7 +62,7 @@ const BlogList = ({ navigation }) => {
   // }
 
   useEffect(() => {
-    fetchBlogposts();
+    fetchBlogposts(); // eslint-disable-next-line 
   }, [searchTerm]);
 
   const showBlogpost = (id) => {

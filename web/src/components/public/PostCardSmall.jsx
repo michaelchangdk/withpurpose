@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button } from '@mui/material';
+import { Typography } from '@mui/material';
 import styled from 'styled-components/macro';
 
 const PostCardLarge = ({title, url}) => {
