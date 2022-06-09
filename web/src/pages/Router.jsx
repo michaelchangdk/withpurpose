@@ -23,6 +23,7 @@ import ProfilePage from "./authenticated/ProfilePage";
 import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
+import BookingPage from "./authenticated/BookingPage";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -94,6 +95,10 @@ const Router = () => {
                 <NoAccess />
               )
             }
+          />
+          <Route
+            path="/book-a-mentor/:mentorid"
+            element={loggedin ? <BookingPage /> : <NoAccess />}
           />
           <Route
             path="/community"
