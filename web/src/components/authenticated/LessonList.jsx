@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { List, Typography, ListSubheader, Fab, Container } from "@mui/material";
+import {
+  List,
+  Typography,
+  ListSubheader,
+  Fab,
+  Container,
+  Paper,
+} from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
-// import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-import MouseIcon from "@mui/icons-material/Mouse";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+// import MouseIcon from "@mui/icons-material/Mouse";
 
 const LessonList = ({
   lessons,
@@ -76,9 +83,11 @@ const LessonList = ({
         </Container>
       )}
       {taskDescription.length > 0 && (
-        <Container maxWidth="xl">
+        <Paper
+          elevation={6}
+          sx={{ padding: "10px 20px", maxWidth: "lg", margin: "0 auto" }}
+        >
           <TaskItem>
-            <p>{taskDescription}</p>
             <Fab
               color="info"
               size="large"
@@ -86,17 +95,18 @@ const LessonList = ({
               rel="noreferrer"
               href={taskLink}
             >
-              {/* <ModeOutlinedIcon sx={{ fontSize: 30 }} /> */}
-              <MouseIcon sx={{ fontSize: 30 }} />
+              <ModeOutlinedIcon sx={{ fontSize: 30 }} />
+              {/* <MouseIcon sx={{ fontSize: 30 }} /> */}
             </Fab>
+            <p>{taskDescription}</p>
           </TaskItem>
-        </Container>
+        </Paper>
       )}
       <List
         dense
         sx={{
           width: "100%",
-          // maxWidth: 600,
+          maxWidth: "lg",
           bgcolor: "background.paper",
           mx: "auto",
         }}
@@ -139,7 +149,7 @@ const FrameDiv = styled.div`
 
 const TaskItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: max-content 1fr;
   gap: 16px;
   align-items: center;
 `;

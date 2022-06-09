@@ -30,7 +30,11 @@ const Router = () => {
   const access = useSelector((store) => store.authenticated.access);
   const darkModeTrue = useSelector((store) => store.authenticated.darkMode);
 
-  // HOW TO IMPLEMENT WEEKS ACCESS IN ROUTER?
+  // List of approved weeks - not sure how to implement week access using param
+  // const approvedWeekArr = Object.entries(access)
+  //   .filter(([key, val]) => key.includes("Week") && val === true)
+  //   .map((week) => week[0]);
+  // console.log(approvedWeekArr);
 
   return (
     <ThemeProvider theme={darkModeTrue ? darkMode : lightMode}>

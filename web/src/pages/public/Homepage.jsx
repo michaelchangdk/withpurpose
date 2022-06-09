@@ -17,6 +17,7 @@ import wta2 from "../../assets/WTA2.webp";
 import quote from "../../assets/decorative/quote.png";
 import Newsletter from "../../components/public/Newsletter";
 import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -302,7 +303,6 @@ const Homepage = () => {
             </section>
             {/* CTA */}
             <section>
-              {" "}
               <Typography
                 textAlign="center"
                 variant="h2"
@@ -330,6 +330,7 @@ const Homepage = () => {
           </PageWrapper>
         </Container>
       </Box>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };
@@ -345,6 +346,7 @@ const PageWrapper = styled.div`
 
   @media (min-width: 768px) {
     padding: 0 60px;
+    gap: max(50px, 10vh);
   }
 `;
 

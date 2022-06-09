@@ -37,7 +37,8 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
     <Card
       sx={{
         width: "100%",
-        maxWidth: 500,
+        maxWidth: "sm",
+        // maxWidth: "500px",
       }}
     >
       <CardActionArea onClick={clickCard}>
