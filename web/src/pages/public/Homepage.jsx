@@ -303,7 +303,6 @@ const Homepage = () => {
             </section>
             {/* CTA */}
             <section>
-              {" "}
               <Typography
                 textAlign="center"
                 variant="h2"

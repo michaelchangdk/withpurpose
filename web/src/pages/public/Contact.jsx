@@ -12,12 +12,15 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  IconButton,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
 import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
@@ -127,6 +130,34 @@ const Contact = () => {
                     clicking this link.
                   </StyledLink>
                 </Typography>
+                <Stack direction="row" justifyContent="center" gap={2}>
+                  <IconButton
+                    onClick={() =>
+                      window.open(
+                        "https://www.instagram.com/withpurposeorg/",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <InstagramIcon
+                      color="secondary"
+                      sx={{ width: "50px", height: "50px" }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={() =>
+                      window.open(
+                        "https://www.linkedin.com/company/builtwithpurpose",
+                        "_blank"
+                      )
+                    }
+                  >
+                    <LinkedInIcon
+                      color="info"
+                      sx={{ width: "50px", height: "50px" }}
+                    />
+                  </IconButton>
+                </Stack>
               </Stack>
             </TextContainer>
             <ContactForm>
