@@ -14,20 +14,28 @@ const MentorsPublic = () => {
   const [loading, setLoading] = useState(true);
   const [mentors, setMentors] = useState([]);
 
+  // Write a function that shuffles the array
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   const fetchMentors = async () => {
     setLoading(true);
     const mentorsQuery = `*[_type == "companyMentors"] {bio, company, fullName, profilePhoto, _id}`;
     const fetch = await client.fetch(mentorsQuery);
     const response = await fetch;
-    setMentors(response);
+    setMentors(shuffle(response));
     setLoading(false);
   };
 
   useEffect(() => {
     fetchMentors();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(mentors);
 
   return (
     <ThemeProvider theme={darkMode}>
