@@ -14,9 +14,9 @@ const HeaderAuth = () => {
   const dispatch = useDispatch();
   const openProfile = Boolean(anchorEl);
   const openNav = Boolean(anchorElNav);
-  const user = useSelector((store) => store.authenticated.uid);
   const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
+  const userslug = displayName.split(" ").join("").toLowerCase();
   const [openModal, setOpenModal] = useState(false);
   const access = useSelector((store) => store.authenticated.access);
 
@@ -162,7 +162,7 @@ const HeaderAuth = () => {
             horizontal: "right",
           }}
         >
-          <MenuItem onClick={() => navigate(`/profile/${user}`)}>
+          <MenuItem onClick={() => navigate(`/profile/${userslug}`)}>
             Profile
           </MenuItem>
           <MenuItem onClick={logout}>Logout</MenuItem>

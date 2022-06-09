@@ -212,6 +212,7 @@ const ProfilePage = () => {
               <TextField
                 label="First name"
                 variant="outlined"
+                autoComplete="First name"
                 fullWidth
                 required={true}
                 onChange={(e) => setFirstname(e.target.value)}
@@ -219,6 +220,7 @@ const ProfilePage = () => {
               <TextField
                 label="Last name"
                 variant="outlined"
+                autoComplete="Last name"
                 fullWidth
                 required={true}
                 onChange={(e) => setLastname(e.target.value)}
@@ -234,12 +236,14 @@ const ProfilePage = () => {
               <TextField
                 label="Current email address"
                 variant="outlined"
+                autoComplete="Current email address"
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
               />
               <TextField
                 label="Password"
+                autoComplete="current-password"
                 variant="outlined"
                 type="password"
                 required={true}
@@ -249,6 +253,7 @@ const ProfilePage = () => {
               <TextField
                 label="New email address"
                 variant="outlined"
+                autoComplete="New email address"
                 fullWidth
                 required={true}
                 onChange={(e) => setNewEmail(e.target.value)}
@@ -256,6 +261,7 @@ const ProfilePage = () => {
               <TextField
                 label="Confirm new email"
                 variant="outlined"
+                autoComplete="Confirm new email"
                 fullWidth
                 required={true}
                 onChange={(e) => setConfirmNewEmail(e.target.value)}
@@ -283,6 +289,7 @@ const ProfilePage = () => {
               <TextField
                 label="Email address"
                 variant="outlined"
+                autoComplete="Email address"
                 fullWidth
                 required={true}
                 onChange={(e) => setCurrentEmail(e.target.value)}
