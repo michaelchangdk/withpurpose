@@ -22,7 +22,7 @@ const NoAccess = () => {
         <Stack justifyContent="center" alignItems="center" pt={12} spacing={2}>
           <Logo src={logo} alt="With Purpose Logo." />
           <Typography variant="h1" fontSize={24} fontWeight={400}>
-            No access.
+            No access / Not found
           </Typography>
           <Typography variant="h2" fontSize={20} fontWeight={400}>
             Please click below to return home.
