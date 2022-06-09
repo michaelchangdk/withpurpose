@@ -45,7 +45,10 @@ const BlogList = ({ navigation }) => {
   //         <div className="callToAction">{value.text}</div>
   //       ),
   //   },
-  
+      // block: {
+      //   h2: LinkableHeader,
+      // },
+      
   //   marks: {
   //     link: ({children, value}) => {
   //       const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
