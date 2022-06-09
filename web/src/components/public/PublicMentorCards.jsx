@@ -4,8 +4,6 @@ import { urlFor } from "../../client";
 
 const PublicMentorCards = (props) => {
   const mentor = props.mentor;
-  console.log(mentor);
-
   const colorArray = ["primary.main", "secondary.main", "info.main"];
 
   const randomColor = () => {
