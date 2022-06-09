@@ -102,9 +102,9 @@ const BlogList = ({ navigation }) => {
                     key={blogpost._id}
                   >
                     <PostCardLarge
-                    url={urlFor(blogpost.image.asset._ref).url()}
-                    duration={blogpost.duration}
-                    title={blogpost.title}
+                      url={urlFor(blogpost.image.asset._ref).url()}
+                      duration={blogpost.duration}
+                      title={blogpost.title}
                     />
                   </StyledContainer>
                 )
