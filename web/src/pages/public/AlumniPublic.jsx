@@ -8,6 +8,7 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import AlumniCards from "../../components/AlumniCards";
 import { client } from "../../client";
 import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
 
 const AlumniPublic = () => {
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,7 @@ const AlumniPublic = () => {
           <PageFooter />
         </Container>
       </Box>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };

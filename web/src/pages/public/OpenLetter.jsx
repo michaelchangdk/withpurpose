@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
 
 const OpenLetter = () => {
   return (
@@ -25,6 +26,7 @@ const OpenLetter = () => {
         </Container>
         <PageFooter />
       </Box>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };

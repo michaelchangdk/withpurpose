@@ -14,8 +14,8 @@ const MentorsPrivate = () => {
 
   const fetchMentors = async () => {
     setLoading(true);
-    const alumniQuery = `*[_type == "studentMentors"] {fullName, bio, linkedin, profilePhoto, topics, _id}`;
-    const fetch = await client.fetch(alumniQuery);
+    const mentorsQuery = `*[_type == "studentMentors"] {fullName, bio, linkedin, profilePhoto, topics, _id}`;
+    const fetch = await client.fetch(mentorsQuery);
     const response = await fetch;
     setMentors(response);
     setLoading(false);
@@ -114,14 +114,13 @@ const DescriptionContainer = styled.div`
 `;
 
 const StyledTypo = styled(Typography)`
-  && {
-    font-size: 18px;
-    line-height: 30px;
-  }
+  /* && {
+} */
 
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     && {
-      /* color: blue; */
+      font-size: 18px;
+      line-height: 30px;
     }
   }
 `;

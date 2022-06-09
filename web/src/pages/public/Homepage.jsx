@@ -17,6 +17,7 @@ import wta2 from "../../assets/WTA2.webp";
 import quote from "../../assets/decorative/quote.png";
 import Newsletter from "../../components/public/Newsletter";
 import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -330,6 +331,7 @@ const Homepage = () => {
           </PageWrapper>
         </Container>
       </Box>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };

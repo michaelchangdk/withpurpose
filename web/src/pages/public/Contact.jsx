@@ -17,6 +17,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
 import styled from "styled-components";
+import ScrollToTop from "../ScrollToTop";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
@@ -268,6 +269,7 @@ const Contact = () => {
         </Container>
         <PageFooter />
       </Box>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };

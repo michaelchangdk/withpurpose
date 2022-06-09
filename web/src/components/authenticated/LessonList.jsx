@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { List, Typography, ListSubheader, Fab, Container } from "@mui/material";
+import {
+  List,
+  Typography,
+  ListSubheader,
+  Fab,
+  Container,
+  Paper,
+} from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
@@ -76,7 +83,7 @@ const LessonList = ({
         </Container>
       )}
       {taskDescription.length > 0 && (
-        <Container maxWidth="xl">
+        <Paper maxwidth="xl" elevation={6} sx={{ padding: "10px 20px" }}>
           <TaskItem>
             <p>{taskDescription}</p>
             <Fab
@@ -90,7 +97,7 @@ const LessonList = ({
               <MouseIcon sx={{ fontSize: 30 }} />
             </Fab>
           </TaskItem>
-        </Container>
+        </Paper>
       )}
       <List
         dense

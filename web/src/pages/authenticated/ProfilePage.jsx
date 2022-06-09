@@ -29,6 +29,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { client } from "../../client";
 import { Box } from "@mui/material";
+import ScrollToTop from "../ScrollToTop";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");
@@ -314,6 +315,7 @@ const ProfilePage = () => {
           label="Dark Mode?"
         />
       </FormGroup>
+      <ScrollToTop />
       {/* Button to log out ?*/}
     </Box>
   );
