@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 
@@ -20,10 +19,6 @@ const WeekOverview = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState(null);
   const [introURL, setIntroURL] = useState("");
-
-  const firstName = useSelector(
-    (store) => store.authenticated.displayName
-  ).split(" ")[0];
 
   useEffect(() => {
     client.fetch(weekQuery).then((response) => {
@@ -53,23 +48,20 @@ const WeekOverview = () => {
         query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         {loading && <LoadingIndicator />}
+        {introURL.length > 0 && (
+          <FrameDiv>
+            <ReactPlayer
+              url={introURL}
+              controls={true}
+              width="100%"
+              height="100%"
+              className="react-player"
+            />
+          </FrameDiv>
+        )}
         <CardContainer>
-          <Typography variant="h4" fontWeight={500}>
-            Welcome, {firstName}!
-          </Typography>
-          {introURL.length > 0 && (
-            <FrameDiv>
-              <ReactPlayer
-                url={introURL}
-                controls={true}
-                width="100%"
-                height="100%"
-                className="react-player"
-              />
-            </FrameDiv>
-          )}
           {!loading &&
             cards.map((week) => (
               <WeekCards
@@ -95,6 +87,7 @@ export default WeekOverview;
 const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
+  margin-top: 3vh;
 `;
 
 const CardContainer = styled.div`
@@ -102,10 +95,15 @@ const CardContainer = styled.div`
   gap: 2vh;
   padding: 2vh 0;
   margin: 0 auto;
-  max-width: 500px;
+  /* max-width: 500px; */
 
   @media (min-width: 768px) {
     gap: 3vh;
     padding: 3vh 0;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2vh;
   }
 `;

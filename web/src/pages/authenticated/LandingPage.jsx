@@ -65,10 +65,10 @@ const CardGrid = styled.div`
   gap: 2vh;
   padding: 2vh 0;
   margin: 0 auto;
-  max-width: 500px;
+  /* max-width: 500px; */
 
   @media (min-width: 768px) {
-    max-width: calc(1000px + 3vh);
+    max-width: calc(1200px + 3vh);
     /* grid-template-columns: 500px 500px; */
     grid-template-columns: 1fr 1fr;
     gap: 3vh;
