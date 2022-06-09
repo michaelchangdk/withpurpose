@@ -85,7 +85,6 @@ const LessonList = ({
       {taskDescription.length > 0 && (
         <Paper maxwidth="xl" elevation={6} sx={{ padding: "10px 20px" }}>
           <TaskItem>
-            <p>{taskDescription}</p>
             <Fab
               color="info"
               size="large"
@@ -96,6 +95,7 @@ const LessonList = ({
               {/* <ModeOutlinedIcon sx={{ fontSize: 30 }} /> */}
               <MouseIcon sx={{ fontSize: 30 }} />
             </Fab>
+            <p>{taskDescription}</p>
           </TaskItem>
         </Paper>
       )}
@@ -146,7 +146,7 @@ const FrameDiv = styled.div`
 
 const TaskItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: max-content 1fr;
   gap: 16px;
   align-items: center;
 `;

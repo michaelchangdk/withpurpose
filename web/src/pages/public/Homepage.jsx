@@ -346,6 +346,7 @@ const PageWrapper = styled.div`
 
   @media (min-width: 768px) {
     padding: 0 60px;
+    gap: max(50px, 10vh);
   }
 `;
 
