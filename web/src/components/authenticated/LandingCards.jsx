@@ -56,7 +56,7 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
           <Typography variant="body2" color="text.secondary">
             {headline}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" fontSize="15px">
             {description}
           </Typography>
         </CardContent>

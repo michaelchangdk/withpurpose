@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const MentorCards = ({ mentor }) => {
