@@ -38,9 +38,26 @@ export default () =>
                     .documentId("startupschoolinfo")
                 ),
               S.listItem()
-                .title("Blog posts")
-                .schemaType("blogpost")
-                .child(S.documentTypeList("blogpost").title("Blog Post")),
+                .title("Blog")
+                // .schemaType("blogpost")
+                // .child(S.documentTypeList("blogpost").title("Blog Post")),
+                .child(
+                  S.list()
+                  .title("Blog")
+                  .items([
+                    S.listItem()
+                      .title("Post")
+                      .child(S.documentTypeList("blogpost").title("Blog Post")),
+                    S.listItem()
+                      .title("Author")
+                      .child(S.documentTypeList("author").title("Author")),
+                    S.listItem()
+                    .title("Category")
+                    .child(S.documentTypeList("category").title("Category")),
+                    S.listItem()
+                      .title("Block content")
+                      .child(S.documentTypeList("blockContent").title("Block content"))
+                  ]))
               // S.listItem()
               //   .title("Company Mentors")
               //   .schemaType("companyMentors")
@@ -53,6 +70,7 @@ export default () =>
               //   .child(
               //     S.documentTypeList("studentMentors").title("Student Mentors")
               //   ),
+                  
             ])
         ),
 
@@ -216,6 +234,9 @@ export default () =>
             "landingpage",
             "homepage",
             "blogpost",
+            "author",
+            "category",
+            "blockContent",
             "user",
             "completed",
             "landingpageelements",
