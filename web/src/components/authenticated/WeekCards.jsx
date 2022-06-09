@@ -94,7 +94,7 @@ const WeekCards = ({
       sx={{
         // maxWidth: 345,
         // minHeight: 150,
-        height: 175,
+        // height: 175,
         padding: 2,
         mx: "auto",
         width: "100%",
