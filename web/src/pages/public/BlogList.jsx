@@ -10,7 +10,7 @@ import { client, urlFor } from "../../client";
 
 import PostCardLarge from "../../components/public/PostCardLarge";
 
-const BlogList = ({ navigation }) => {
+const BlogList = () => {
   // const [loading, setLoading] = useState(true);
   const [blogposts, setBlogposts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,46 +23,10 @@ const BlogList = ({ navigation }) => {
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
-    console.log(response);
-    // console.log(response[0])
-    // setLoading(false);
   };
 
-  // const fetchPost = async (id) => {
-  //   const postQuery = `*[_type == "blogpost" && _id == '${id}']`;
-  //   const fetch = await client.fetch(postQuery);
-  //   const response = await fetch;
-  //   setCurrentPost(response[0]);
-  // };
-
-  // const myPortableTextComponents = {
-  //   types: {
-  //     image: ({value}) => <img src={urlFor(value.image?.asset._ref).url()} alt={value.image.asset._ref}/>,
-  //     callToAction: ({value, isInline}) =>
-  //       isInline ? (
-  //         <a href={value.url}>{value.text}</a>
-  //       ) : (
-  //         <div className="callToAction">{value.text}</div>
-  //       ),
-  //   },
-      // block: {
-      //   h2: LinkableHeader,
-      // },
-      
-  //   marks: {
-  //     link: ({children, value}) => {
-  //       const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
-  //       return (
-  //         <a href={value.href} rel={rel}>
-  //           {children}
-  //         </a>
-  //       )
-  //     },
-  //   },
-  // }
-
   useEffect(() => {
-    fetchBlogposts();
+    fetchBlogposts(); // eslint-disable-next-line
   }, [searchTerm]);
 
   const showBlogpost = (id) => {

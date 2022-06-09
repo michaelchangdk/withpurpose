@@ -34,7 +34,7 @@ const BlogPost = () => {
   useEffect(() => {
     fetchPost(id);
     fetchBlogposts();
-  }, []);
+  }, [id]);
 
   const myPortableTextComponents = {
       types: {
