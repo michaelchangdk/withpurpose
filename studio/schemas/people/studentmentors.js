@@ -76,8 +76,8 @@ export default {
                 "Please fill in the start of the timeslot in the following format: e.g. 09.30, 17.00, etc",
             },
             {
-              name: "booking",
-              title: "Booking",
+              name: "bookingrequest",
+              title: "Booking Request",
               type: "array",
               description:
                 "This field is automatically filled in by the system.",

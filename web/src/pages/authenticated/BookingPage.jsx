@@ -25,6 +25,7 @@ import { client } from "../../client";
 import { useParams } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import format from "date-fns/format";
+import { useSelector } from "react-redux";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -33,17 +34,20 @@ const BookingPage = () => {
   const [mentor, setMentor] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
   const [availableDateTimes, setAvailableDateTimes] = useState([]);
-  const id = useParams().mentorid;
-  const selectedWeekday = value.toString().substring(0, 3);
+  // const id = useParams().mentorid;
+  const selectedWeekday = value ? value.toString().substring(0, 3) : null;
   const [weekdayAvailability, setWeekdayAvailability] = useState([]);
   const [selectedTime, setSelectedTime] = useState("");
   const [alert, setAlert] = useState("");
-  //   const [id, setId] = useState(useParams().mentorid);
+  const [id, setId] = useState(useParams().mentorid);
+  const [error, setError] = useState("");
+  const userid = useSelector((store) => store.authenticated.uid);
 
   const disableDates = (date) => {
     // // Example: Disables weekends and dates before the 15th
     //   return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
     if (availableDays === null) {
+      setError("No available dates.");
       return (
         date.getDay() === 0 ||
         date.getDay() === 1 ||
@@ -83,7 +87,9 @@ const BookingPage = () => {
 
   useEffect(() => {
     setWeekdayAvailability(
-      availableDateTimes.filter((day) => day.day === selectedWeekday)[0]
+      availableDateTimes
+        ? availableDateTimes.filter((day) => day.day === selectedWeekday)[0]
+        : null
     );
   }, [availableDateTimes, selectedWeekday]);
 
@@ -124,20 +130,40 @@ const BookingPage = () => {
     });
   }, [mentorQuery]);
 
-  // const setNewMentor = (e) => {
+  const setNewMentor = (e) => {
+    setMentor(mentors.filter((mentor) => mentor._id === e.target.value)[0]);
+    setId(e.target.value);
+  };
 
-  //   setAvailableDays(
-  //     response[0].availability
-  //       ? [...new Set(response[0].availability.map((day) => day.day))]
-  //       : null
-  //   );
-  //   setAvailableDateTimes(
-  //     response[0].availability ? response[0].availability : null
-  //   );
-  // }
+  console.log(mentor, availableDays, availableDateTimes);
 
   const confirmBooking = () => {
-    setAlert("Booking request sent!");
+    client
+      .patch(mentor._id)
+      .set({
+        availability: [
+          { day: selectedWeekday },
+          {
+            bookingrequest: [
+              {
+                student: userid,
+                datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
+              },
+            ],
+          },
+        ],
+      })
+      // .insert("after", "bookingrequest[-1]", [
+      //   {
+      //     student: userid,
+      //     datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
+      //   },
+      // ])
+      .commit({ autoGenerateArrayKeys: true })
+      .then((res) => {
+        console.log(res);
+        setAlert("Booking request sent!");
+      });
   };
 
   return (
@@ -183,11 +209,7 @@ const BookingPage = () => {
                 id="demo-simple-select"
                 value={mentor._id}
                 label="Mentor"
-                onChange={(e) =>
-                  setMentor(
-                    mentors.filter((mentor) => mentor._id === e.target.value)[0]
-                  )
-                }
+                onChange={setNewMentor}
               >
                 {mentors.map((mentor) => (
                   <MenuItem key={mentor._id} value={mentor._id}>
@@ -233,7 +255,10 @@ const BookingPage = () => {
                   />
                 </Stack>
               </LocalizationProvider>
-              <Typography>{format(value, "EEEE, d MMMM yyyy")}</Typography>
+              <Typography>
+                {value ? format(value, "EEEE, d MMMM yyyy") : ""}
+              </Typography>
+              {/* SOME ERROR BELOW WITH MAPPING OF TIMESLOTS */}
               <ButtonGroup orientation="vertical">
                 {weekdayAvailability &&
                   weekdayAvailability.timeslots.map((timeslot) => (
@@ -254,25 +279,32 @@ const BookingPage = () => {
           <Typography>With Purpose Mentorship</Typography>
           {selectedTime && (
             <>
-              <Typography>{`${format(
-                value,
-                "d MMMM yyyy"
-              )}, ${selectedTime}`}</Typography>
+              <Typography>
+                {value
+                  ? `${format(value, "d MMMM yyyy")}, ${selectedTime}`
+                  : ""}
+              </Typography>
               <Typography>{mentor.fullName.toUpperCase()}</Typography>
               <Typography>30 min</Typography>
               <Button onClick={confirmBooking}>Confirm booking request</Button>
             </>
           )}
           {alert.length > 0 && (
-            <>
-              <Alert severity="success">
-                <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on your
-                e-mail for a follow-up confirmation with a video conferencing
-                link.
-                {/* You can also find your
+            <Alert severity="success">
+              <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on your
+              e-mail for a follow-up confirmation with a video conferencing
+              link.
+              {/* You can also find your
                 booking request on your profile page. */}
-              </Alert>
-            </>
+            </Alert>
+          )}
+          {error.length > 0 && (
+            <Alert severity="warning">
+              <AlertTitle>{Error}</AlertTitle>Unfortunately there are no
+              available dates.
+              {/* You can also find your
+                booking request on your profile page. */}
+            </Alert>
           )}
         </Container>
       </Container>
