@@ -1,36 +1,56 @@
-import React from 'react';
-import { Typography, Button } from '@mui/material';
+import React, {useState} from 'react';
+import { Typography, Button, Link } from '@mui/material';
 import styled from 'styled-components/macro';
 
-const PostCardLarge = ({duration, title, url}) => {
-    return (
+import SharingModal from './SharingModal';
+
+const PostCardLarge = ({duration, title, url, id, showBlogpost}) => {
+  const [openModal, setOpenModal] = useState(false);
+
+  return (
         <PostThumbnail>
-            <div>
+          {/* <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} /> */}
+            <Link onClick={() => showBlogpost(id)}>
                 <ThumbnailImage url={url}></ThumbnailImage>
-            </div>
-            <div>
+            </Link>
+            <Grid>
                 <TopRow>
                     <Duration>{duration}</Duration>
-                    <Ellipsis>
+                    <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
+                    <Ellipsis onClick={() => setOpenModal(true)}>
                         ⋮
                     </Ellipsis>
+                     
                 </TopRow>
-                <PostTitle>{title}</PostTitle>
-            </div>
+                
+                  <PostTitle  onClick={() => showBlogpost(id)}>{title}</PostTitle>
+              
+                
+            </Grid>
         </PostThumbnail>  
     )
 };
 
+const Grid = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr 3fr;
+`
+
 const TopRow = styled.div`
+  z-index: 5;
   display: flex;
   justify-content: space-between;
   align-content: center;
 `;
 
-const PostTitle = styled(Typography)`
+const PostTitle = styled(Link)`
   &&{
     font-size: 2rem;
     font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
   }
 `;
 
@@ -69,6 +89,7 @@ const ThumbnailImage = styled.div`
   height: 100%;
   min-height: 200px;
   background-size: cover;
+  cursor: pointer;
 `;
 
 

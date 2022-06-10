@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  TwitterShareButton,
-  FacebookShareButton, 
-  LinkedinShareButton
-} from 'react-share';
+// import {
+//   TwitterShareButton,
+//   FacebookShareButton, 
+//   LinkedinShareButton
+// } from 'react-share';
 import PublicHeader from "../../components/public/PublicHeader";
 import { Box, Button, Container, Stack, Typography, Input } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -54,10 +54,10 @@ const BlogList = () => {
       >
         <PublicHeader />
         <Stack sx={{ maxWidth: '80%', margin: '0 auto'}}>
-        <H1 sx={{ textTransform: 'uppercase' }}>What we've been up to lately</H1>
+        <H1>What we've been up to lately</H1>
           <PostListContainer>
             <PostNavBar>
-              <Button onClick={() => setSearchTerm("")}>all posts</Button>
+              <Button sx={{color: "#fff"}} onClick={() => setSearchTerm("")}>all posts</Button>
               <Input
                 placeholder="Search blogpost"
                 value={searchTerm}
@@ -68,23 +68,17 @@ const BlogList = () => {
             <div sx={{width: '100%'}}>
               {blogposts.map((blogpost) => {
                 return (
-                  <div>
-                    <TwitterShareButton url={`https://withpurpose.netlify.app/blog/${blogpost._id}`}>twitter</TwitterShareButton>
-                    <FacebookShareButton url={`https://withpurpose.netlify.app/blog/${blogpost._id}`}>fb</FacebookShareButton>
-                    <LinkedinShareButton url={`https://withpurpose.netlify.app/blog/${blogpost._id}`}>linkedink</LinkedinShareButton>
-                    <StyledContainer disableGutters sx={{margin: '20px 0'}} 
-                      onClick={() => showBlogpost(blogpost._id)}
-                      key={blogpost._id}
-                    >
-                      
+                  <div key={blogpost._id}>
+                    <StyledContainer disableGutters sx={{margin: '20px 0'}} >
                       <PostCardLarge
                         url={urlFor(blogpost.image.asset._ref).url()}
                         duration={blogpost.duration}
                         title={blogpost.title}
+                        id={blogpost._id}
+                        showBlogpost={showBlogpost}
                       />
                   </StyledContainer>
                   </div>
-                  
                 )
               })}
             </div>
@@ -95,17 +89,18 @@ const BlogList = () => {
   );
 };
 
-
 const H1 = styled(Typography)`
   &&{
     font-size: 4rem;
     font-weight: 900;
     font-style: italic;
     text-align: center;
+    text-transform: uppercase;
   }
 `;
 
 const StyledContainer = styled(Container)`
+  z-index: -1;
   padding: 0;
 `
 

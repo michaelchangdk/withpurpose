@@ -101,7 +101,7 @@ const BlogPost = () => {
             <GridDiv>
             {recentPosts && recentPosts.map((post) => {
                 return (
-                  <Container disableGutters onClick={() => fetchPost(post._id)} style={{margin: "20px", border: "1px solid lightgray"}}>
+                  <Container key={post._id} disableGutters onClick={() => fetchPost(post._id)} style={{margin: "20px", border: "1px solid lightgray"}}>
                     <PostCardSmall 
                       url={urlFor(post.image.asset._ref).url()}
                       title={post.title}
