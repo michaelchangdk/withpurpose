@@ -45,41 +45,56 @@ export default {
               title: "Weekday",
               type: "string",
               description:
-                "Please fill in the weekday precisely as follows: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.",
+                "Please fill in the weekday precisely as follows: Mon, Tue, Wed, Thu, Fri, Sat, Sun.",
               validation: (Rule) =>
                 Rule.custom((name) => {
                   if (
-                    name === "Monday" ||
-                    name === "Tuesday" ||
-                    name === "Wednesday" ||
-                    name === "Thursday" ||
-                    name === "Friday" ||
-                    name === "Saturday" ||
-                    name === "Sunday"
+                    name === "Mon" ||
+                    name === "Tue" ||
+                    name === "Wed" ||
+                    name === "Thu" ||
+                    name === "Fri" ||
+                    name === "Sat" ||
+                    name === "Sun"
                   ) {
                     return true;
                   }
                 })
                   .error(
-                    "Fill in the weekday precisely (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)"
+                    "Fill in the weekday precisely (Mon, Tue, Wed, Thu, Fri, Sat, Sun)"
                   )
                   .warning(
-                    "Fill in the weekday precisely (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)"
+                    "Fill in the weekday precisely (Mon, Tue, Wed, Thu, Fri, Sat, Sun)"
                   ),
             },
             {
-              name: "startTime",
-              title: "Start Time",
-              type: "number",
+              name: "timeslots",
+              title: "Time slot",
+              type: "array",
+              of: [{ type: "string" }],
               description:
-                "Please fill in the start and end time of the availability using numbers in a 24 hour format with 0.5 to demarcate half-hours. E.g. 9.5 would be 09.30 A.M.",
+                "Please fill in the start of the timeslot in the following format: e.g. 09.30, 17.00, etc",
             },
             {
-              name: "endTime",
-              title: "End Time",
-              type: "number",
+              name: "booking",
+              title: "Booking",
+              type: "array",
               description:
-                "Please fill in the start and end time of the availability using numbers in a 24 hour format with 0.5 to demarcate half-hours. E.g. 9.5 would be 09.30 A.M.",
+                "This field is automatically filled in by the system.",
+              of: [
+                {
+                  type: "object",
+                  fields: [
+                    {
+                      name: "student",
+                      title: "Student",
+                      type: "reference",
+                      to: [{ type: "user" }],
+                    },
+                    { name: "datetime", title: "Datetime", type: "string" },
+                  ],
+                },
+              ],
             },
           ],
         },
