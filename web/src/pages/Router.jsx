@@ -70,6 +70,7 @@ const Router = () => {
           {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
           <Route
             path="/week/:week"
+            // path="/week/:week(Week0|Week1)/"
             element={loggedin ? <WeekPage /> : <NoAccess />}
           />
           <Route

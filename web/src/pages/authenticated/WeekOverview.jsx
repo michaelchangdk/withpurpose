@@ -52,13 +52,14 @@ const WeekOverview = () => {
         {loading && <LoadingIndicator />}
         {introURL.length > 0 && (
           <FrameDiv>
-            <ReactPlayer
+            <IFrame src={introURL} allowFullScreen frameBorder="0" />
+            {/* <ReactPlayer
               url={introURL}
               controls={true}
               width="100%"
               height="100%"
               className="react-player"
-            />
+            /> */}
           </FrameDiv>
         )}
         <CardContainer>
@@ -88,6 +89,14 @@ const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
   margin-top: 3vh;
+`;
+
+const IFrame = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const CardContainer = styled.div`
