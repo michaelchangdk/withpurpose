@@ -40,7 +40,6 @@ const BlogList = () => {
 
   const showBlogpost = (id) => {
     navigate(`/blog/${id}`);
-
   };
 
   return (

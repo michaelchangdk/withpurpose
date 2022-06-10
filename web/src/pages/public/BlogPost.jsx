@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {PortableText} from '@portabletext/react';
 import { Box, Stack, Typography, Button, Link } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -17,6 +17,7 @@ const BlogPost = () => {
   const [currentPost, setCurrentPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
     const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
@@ -114,7 +115,7 @@ const BlogPost = () => {
                   <Link 
                     key={post._id} 
                     disableGutters 
-                    onClick={() => fetchPost(post._id)} 
+                    onClick={() => navigate(`/blog/${post._id}`)} 
                     style={{
                       margin: "20px", 
                       border: "1px solid lightgray", 
