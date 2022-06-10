@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {PortableText} from '@portabletext/react';
-import { Box, Stack, Typography, Button, Container } from "@mui/material";
+import { Box, Stack, Typography, Button, Link } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import styled from 'styled-components/macro';
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
@@ -10,6 +10,7 @@ import { client, urlFor } from "../../client";
 import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from '../../components/public/SharingModal';
+import PageFooter from "../../components/public/PageFooter";
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -88,7 +89,13 @@ const BlogPost = () => {
             }}
           >
             
-            <div style={{margin: "20px", padding: "min(10%, 100px)", border: "1px solid lightgray"}}>
+            <div 
+              style={{
+                margin: "20px",
+                padding: "min(10%, 100px)", 
+                border: "1px solid lightgray"
+              }}
+            >
               <TopRow>
                 <Duration>{currentPost?.duration}</Duration>
                 <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
@@ -104,22 +111,30 @@ const BlogPost = () => {
             <GridDiv>
             {recentPosts && recentPosts.map((post) => {
                 return (
-                  <Container key={post._id} disableGutters onClick={() => fetchPost(post._id)} style={{margin: "20px", border: "1px solid lightgray"}}>
+                  <Link 
+                    key={post._id} 
+                    disableGutters 
+                    onClick={() => fetchPost(post._id)} 
+                    style={{
+                      margin: "20px", 
+                      border: "1px solid lightgray", 
+                      textDecoration: "none", 
+                      color: "hsl(0, 0%, 20%"
+                    }}
+                  >
                     <PostCardSmall 
                       url={urlFor(post.image.asset._ref).url()}
                       title={post.title}
                     />
-                  </Container>
+                  </Link>
                 )
-                
               })}
             </GridDiv>
-              
-              
-            
-
             </Box>
           </ThemeProvider>
+        </Stack>
+        <Stack sx={{margin: '3rem auto'}}>
+          <PageFooter/>
         </Stack>
       </Box>
     </ThemeProvider>

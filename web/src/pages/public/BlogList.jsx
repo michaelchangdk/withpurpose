@@ -14,6 +14,7 @@ import styled from 'styled-components/macro';
 import { client, urlFor } from "../../client";
 
 import PostCardLarge from "../../components/public/PostCardLarge";
+import PageFooter from "../../components/public/PageFooter";
 
 const BlogList = () => {
   // const [loading, setLoading] = useState(true);
@@ -87,6 +88,10 @@ const BlogList = () => {
             </div>
           </PostListContainer>
         </Stack>
+        <Stack  sx={{margin: '3rem auto'}}>
+          <PageFooter/>
+        </Stack>
+        
       </Box>
     </ThemeProvider>
   );
