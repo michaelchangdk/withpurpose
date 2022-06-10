@@ -17,6 +17,7 @@ import PostCardLarge from "../../components/public/PostCardLarge";
 
 const BlogList = () => {
   // const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   const [blogposts, setBlogposts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
@@ -76,6 +77,8 @@ const BlogList = () => {
                         title={blogpost.title}
                         id={blogpost._id}
                         showBlogpost={showBlogpost}
+                        openModal={openModal}
+                        setOpenModal={setOpenModal}
                       />
                   </StyledContainer>
                   </div>

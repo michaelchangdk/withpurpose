@@ -9,11 +9,13 @@ import { client, urlFor } from "../../client";
 
 import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
+import SharingModal from '../../components/public/SharingModal';
 
 const BlogPost = () => {
   const { id } = useParams();
   const [currentPost, setCurrentPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const fetchPost = async (postId) => {
     const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
@@ -89,7 +91,8 @@ const BlogPost = () => {
             <div style={{margin: "20px", padding: "min(10%, 100px)", border: "1px solid lightgray"}}>
               <TopRow>
                 <Duration>{currentPost?.duration}</Duration>
-                <Ellipsis>
+                <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
+                <Ellipsis onClick={() => setOpenModal(true)}>
                     ⋮
                 </Ellipsis>
               </TopRow>

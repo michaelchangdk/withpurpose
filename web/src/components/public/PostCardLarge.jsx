@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Typography, Button, Link } from '@mui/material';
 import styled from 'styled-components/macro';
 
 import SharingModal from './SharingModal';
 
-const PostCardLarge = ({duration, title, url, id, showBlogpost}) => {
-  const [openModal, setOpenModal] = useState(false);
+const PostCardLarge = ({duration, title, url, id, showBlogpost, openModal, setOpenModal}) => {
 
   return (
         <PostThumbnail>
-          {/* <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} /> */}
             <Link onClick={() => showBlogpost(id)}>
                 <ThumbnailImage url={url}></ThumbnailImage>
             </Link>
