@@ -93,20 +93,11 @@ const BookingPage = () => {
     );
   }, [availableDateTimes, selectedWeekday]);
 
-  //   Selected date and array of available dates and times
-  console.log(
-    "datetimevalue:",
-    value,
-    "availabledatetimes:",
-    availableDateTimes
-  );
-
   //   Fetch all mentors
-  const mentorsQuery = `*[_type == "studentMentors"] {availability, bio, fullName, profilePhoto, topics, _id}`;
+  const mentorsQuery = `*[_type == "studentMentors"] {availability, bio, fullName, profilePhoto, topics, _id, bookingrequest}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorsQuery).then((response) => {
-      console.log(response);
       setMentors(response);
       setLoading(false);
     });
@@ -133,32 +124,25 @@ const BookingPage = () => {
   const setNewMentor = (e) => {
     setMentor(mentors.filter((mentor) => mentor._id === e.target.value)[0]);
     setId(e.target.value);
+    setError("");
+    setAlert("");
   };
-
-  console.log(mentor, availableDays, availableDateTimes);
 
   const confirmBooking = () => {
     client
       .patch(mentor._id)
-      .set({
-        availability: [
-          { day: selectedWeekday },
-          {
-            bookingrequest: [
-              {
-                student: userid,
-                datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
-              },
-            ],
-          },
-        ],
+      .setIfMissing({
+        bookingrequest: [],
       })
-      // .insert("after", "bookingrequest[-1]", [
-      //   {
-      //     student: userid,
-      //     datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
-      //   },
-      // ])
+      .insert("after", "bookingrequest[-1]", [
+        {
+          student: {
+            _type: "reference",
+            _ref: userid,
+          },
+          datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
+        },
+      ])
       .commit({ autoGenerateArrayKeys: true })
       .then((res) => {
         console.log(res);
@@ -205,12 +189,7 @@ const BookingPage = () => {
           {!loading && (
             <FormControl fullWidth>
               <InputLabel>Select a mentor</InputLabel>
-              <Select
-                id="demo-simple-select"
-                value={mentor._id}
-                label="Mentor"
-                onChange={setNewMentor}
-              >
+              <Select value={id} label="Mentor" onChange={setNewMentor}>
                 {mentors.map((mentor) => (
                   <MenuItem key={mentor._id} value={mentor._id}>
                     {mentor.fullName}
@@ -300,10 +279,8 @@ const BookingPage = () => {
           )}
           {error.length > 0 && (
             <Alert severity="warning">
-              <AlertTitle>{Error}</AlertTitle>Unfortunately there are no
-              available dates.
-              {/* You can also find your
-                booking request on your profile page. */}
+              <AlertTitle>{error}</AlertTitle>Unfortunately there are no
+              available time slots for the selected mentor.
             </Alert>
           )}
         </Container>
