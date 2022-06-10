@@ -124,6 +124,18 @@ const BookingPage = () => {
     });
   }, [mentorQuery]);
 
+  // const setNewMentor = (e) => {
+
+  //   setAvailableDays(
+  //     response[0].availability
+  //       ? [...new Set(response[0].availability.map((day) => day.day))]
+  //       : null
+  //   );
+  //   setAvailableDateTimes(
+  //     response[0].availability ? response[0].availability : null
+  //   );
+  // }
+
   const confirmBooking = () => {
     setAlert("Booking request sent!");
   };
@@ -142,9 +154,7 @@ const BookingPage = () => {
         <HeaderAuth />
         {loading && <LoadingIndicator />}
         <Container maxWidth="sm">
-          <Typography>
-            With Purpose Mentorship Booking | {mentor.fullName}
-          </Typography>
+          <Typography>With Purpose Mentorship Booking</Typography>
           <Typography>
             Please note that you are only requesting a meeting in the mentors'
             available time slots. If your request is accepted, you will receive
@@ -168,7 +178,7 @@ const BookingPage = () => {
           {/* <Typography>{mentor.fullName}</Typography> */}
           {!loading && (
             <FormControl fullWidth>
-              <InputLabel>Select another mentor</InputLabel>
+              <InputLabel>Select a mentor</InputLabel>
               <Select
                 id="demo-simple-select"
                 value={mentor._id}
