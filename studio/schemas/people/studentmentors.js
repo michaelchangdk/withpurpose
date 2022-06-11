@@ -89,32 +89,10 @@ export default {
           type: "object",
           fields: [
             {
-<<<<<<< HEAD
-              name: "booking",
-              title: "Booking",
-              type: "array",
-              description:
-                "This field is automatically filled in by the system.",
-              of: [
-                {
-                  type: "object",
-                  fields: [
-                    {
-                      name: "student",
-                      title: "Student",
-                      type: "reference",
-                      to: [{ type: "user" }],
-                    },
-                    { name: "datetime", title: "Datetime", type: "string" },
-                  ],
-                },
-              ],
-=======
               name: "student",
               title: "Student",
               type: "reference",
               to: [{ type: "user" }],
->>>>>>> booking
             },
             { name: "datetime", title: "Datetime", type: "string" },
           ],
