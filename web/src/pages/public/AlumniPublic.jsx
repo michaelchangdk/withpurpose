@@ -83,7 +83,7 @@ const CardContainer = styled.div`
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
+    max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

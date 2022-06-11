@@ -196,7 +196,9 @@ const ModulePage = () => {
             </Container>
             {moduleDescription && (
               <DescriptionContainer>
-                <StyledTypo>{moduleDescription}</StyledTypo>
+                <DescriptionChild maxWidth="lg">
+                  <StyledTypo>{moduleDescription}</StyledTypo>
+                </DescriptionChild>
               </DescriptionContainer>
             )}
 
@@ -274,26 +276,34 @@ export default ModulePage;
 
 const DescriptionContainer = styled.div`
   background-color: #e93a7d;
+  /* background-color: #6356d7; */
+  /* background-color: #5491e3; */
   color: white;
-  padding: 48px;
+  padding: 48px 0;
   white-space: pre-line;
   vertical-align: bottom;
 
-  @media (min-width: 1100px) {
-    padding-left: 30vh;
-    padding-right: 30vh;
+  @media (min-width: 768px) {
+    padding: 48px 0;
+  }
+`;
+
+const DescriptionChild = styled(Container)`
+  && {
+    padding: 0 84px;
   }
 `;
 
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
+  padding-top: 16px;
+  padding-bottom: 40px;
   margin: 0 auto;
 
   @media (min-width: 768px) {
-    gap: 3vh;
-    padding: 3vh 0;
+    padding-top: 24px;
+    padding-bottom: 40px;
   }
 `;
 

@@ -58,19 +58,14 @@ export default LandingPage;
 
 const CardGrid = styled.div`
   display: grid;
-  /* justify-content: center;
-  align-items: center; */
-  gap: 2vh;
-  padding: 2vh 0;
-  margin: 0 auto;
-  /* max-width: 500px; */
+  gap: 32px;
+  justify-items: center;
+  padding-top: 16px;
+  padding-bottom: 40px;
 
   @media (min-width: 768px) {
-    max-width: calc(1200px + 3vh);
-    /* grid-template-columns: 500px 500px; */
     grid-template-columns: 1fr 1fr;
-    gap: 3vh;
-    padding: 3vh 0;
-    justify-items: center;
+    padding-top: 24px;
+    padding-bottom: 40px;
   }
 `;
