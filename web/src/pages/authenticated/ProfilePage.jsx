@@ -23,6 +23,7 @@ import {
   Stack,
   TextField,
   Typography,
+  Paper,
 } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -180,139 +181,151 @@ const ProfilePage = () => {
             alignItems="center"
             justifyContent="center"
           >
-            {userAvatarURL.length > 0 && (
-              <Avatar
-                src={userAvatarURL}
-                // src={urlFor(userAvatarURL._ref).url()}
-                alt={displayName}
-                sx={{ height: 100, width: 100 }}
-              />
-            )}
-            {userAvatarURL.length === 0 && (
-              <Avatar
-                {...stringAvatar({ displayName })}
-                alt={displayName}
-                sx={{
-                  bgcolor: "primary.main",
-                  color: "primary.contrastText",
-                  height: 100,
-                  width: 100,
-                  fontSize: 35,
-                }}
-              />
-            )}
-            <Typography sx={{ marginTop: "10px", fontSize: 25 }}>
-              {displayName}
-            </Typography>
+            <Paper elevation={6}>
+              {userAvatarURL.length > 0 && (
+                <Avatar
+                  src={userAvatarURL}
+                  // src={urlFor(userAvatarURL._ref).url()}
+                  alt={displayName}
+                  sx={{ height: 100, width: 100, margin: "16px auto 0 auto" }}
+                />
+              )}
+              {userAvatarURL.length === 0 && (
+                <Avatar
+                  {...stringAvatar({ displayName })}
+                  alt={displayName}
+                  sx={{
+                    bgcolor: "primary.main",
+                    color: "primary.contrastText",
+                    height: 100,
+                    width: 100,
+                    fontSize: 35,
+                    margin: "16px auto 0 auto",
+                  }}
+                />
+              )}
+              <Typography
+                sx={{ marginTop: "12px", fontSize: 25, textAlign: "center" }}
+              >
+                {displayName}
+              </Typography>
+              <FormGroup>
+                <FormControlLabel
+                  sx={{ margin: "12px auto" }}
+                  control={
+                    <Switch checked={darkMode} onChange={toggleDarkMode} />
+                  }
+                  label="Dark Mode?"
+                />
+              </FormGroup>
+              <Accordion elevation={6}>
+                <AccordionSummary>Change display name</AccordionSummary>
+                <AccordionDetails sx={{ display: "grid", gap: 1 }}>
+                  <TextField
+                    label="First name"
+                    variant="outlined"
+                    autoComplete="First name"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  ></TextField>
+                  <TextField
+                    label="Last name"
+                    variant="outlined"
+                    autoComplete="Last name"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setLastname(e.target.value)}
+                  ></TextField>
+                  <Button onClick={updateDisplayName}>
+                    Change display name
+                  </Button>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion elevation={6}>
+                <AccordionSummary>
+                  <Typography>Change email</Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ display: "grid", gap: 1 }}>
+                  <TextField
+                    label="Current email address"
+                    variant="outlined"
+                    autoComplete="Current email address"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setCurrentEmail(e.target.value)}
+                  />
+                  <TextField
+                    label="Password"
+                    autoComplete="current-password"
+                    variant="outlined"
+                    type="password"
+                    required={true}
+                    fullWidth
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <TextField
+                    label="New email address"
+                    variant="outlined"
+                    autoComplete="New email address"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                  />
+                  <TextField
+                    label="Confirm new email"
+                    variant="outlined"
+                    autoComplete="Confirm new email"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setConfirmNewEmail(e.target.value)}
+                  />
+                  {successEmail.length > 0 && (
+                    <Alert severity="success">
+                      <AlertTitle>Success</AlertTitle>
+                      {successEmail}
+                    </Alert>
+                  )}
+                  {error.length > 0 && (
+                    <Alert severity="warning">
+                      <AlertTitle>Error</AlertTitle>
+                      {error}
+                    </Alert>
+                  )}
+                  <Button onClick={() => updateEmailAddress()}>
+                    Change email
+                  </Button>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion elevation={6}>
+                <AccordionSummary>
+                  <Typography>Reset password</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TextField
+                    label="Email address"
+                    variant="outlined"
+                    autoComplete="Email address"
+                    fullWidth
+                    required={true}
+                    onChange={(e) => setCurrentEmail(e.target.value)}
+                  />
+                  {successPassword.length > 0 && (
+                    <Alert severity="success">
+                      <AlertTitle>Success</AlertTitle>
+                      {successPassword}
+                    </Alert>
+                  )}
+                  <Button onClick={resetPassword}>
+                    Click to recieve email to reset password
+                  </Button>
+                </AccordionDetails>
+              </Accordion>
+            </Paper>
           </Box>
-          <Accordion>
-            <AccordionSummary>Change display name</AccordionSummary>
-            <AccordionDetails sx={{ display: "grid", gap: 1 }}>
-              <TextField
-                label="First name"
-                variant="outlined"
-                autoComplete="First name"
-                fullWidth
-                required={true}
-                onChange={(e) => setFirstname(e.target.value)}
-              ></TextField>
-              <TextField
-                label="Last name"
-                variant="outlined"
-                autoComplete="Last name"
-                fullWidth
-                required={true}
-                onChange={(e) => setLastname(e.target.value)}
-              ></TextField>
-              <Button onClick={updateDisplayName}>Change display name</Button>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary>
-              <Typography>Change email</Typography>
-            </AccordionSummary>
-            <AccordionDetails sx={{ display: "grid", gap: 1 }}>
-              <TextField
-                label="Current email address"
-                variant="outlined"
-                autoComplete="Current email address"
-                fullWidth
-                required={true}
-                onChange={(e) => setCurrentEmail(e.target.value)}
-              />
-              <TextField
-                label="Password"
-                autoComplete="current-password"
-                variant="outlined"
-                type="password"
-                required={true}
-                fullWidth
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <TextField
-                label="New email address"
-                variant="outlined"
-                autoComplete="New email address"
-                fullWidth
-                required={true}
-                onChange={(e) => setNewEmail(e.target.value)}
-              />
-              <TextField
-                label="Confirm new email"
-                variant="outlined"
-                autoComplete="Confirm new email"
-                fullWidth
-                required={true}
-                onChange={(e) => setConfirmNewEmail(e.target.value)}
-              />
-              {successEmail.length > 0 && (
-                <Alert severity="success">
-                  <AlertTitle>Success</AlertTitle>
-                  {successEmail}
-                </Alert>
-              )}
-              {error.length > 0 && (
-                <Alert severity="warning">
-                  <AlertTitle>Error</AlertTitle>
-                  {error}
-                </Alert>
-              )}
-              <Button onClick={() => updateEmailAddress()}>Change email</Button>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary>
-              <Typography>Reset password</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <TextField
-                label="Email address"
-                variant="outlined"
-                autoComplete="Email address"
-                fullWidth
-                required={true}
-                onChange={(e) => setCurrentEmail(e.target.value)}
-              />
-              {successPassword.length > 0 && (
-                <Alert severity="success">
-                  <AlertTitle>Success</AlertTitle>
-                  {successPassword}
-                </Alert>
-              )}
-              <Button onClick={resetPassword}>
-                Click to recieve email to reset password
-              </Button>
-            </AccordionDetails>
-          </Accordion>
         </Stack>
       </Container>
-      <FormGroup>
-        <FormControlLabel
-          sx={{ margin: "10px auto" }}
-          control={<Switch checked={darkMode} onChange={toggleDarkMode} />}
-          label="Dark Mode?"
-        />
-      </FormGroup>
+
       <ScrollToTop />
       {/* Button to log out ?*/}
     </BackgroundBox>
