@@ -14,6 +14,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import AlarmIcon from "@mui/icons-material/Alarm";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
@@ -182,105 +183,120 @@ const BookingPage = () => {
       )}
       <Container maxWidth="lg">
         {loading && <LoadingIndicator />}
-        <Container maxWidth="sm">
-          {!loading && (
-            <FormControl fullWidth>
-              <InputLabel>Select a mentor</InputLabel>
-              <Select value={id} label="Mentor" onChange={setNewMentor}>
-                {mentors.map((mentor) => (
-                  <MenuItem key={mentor._id} value={mentor._id}>
-                    {mentor.fullName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-          {!loading && (
-            <>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Stack spacing={3}>
-                  <MobileDatePicker
-                    label="Select date"
-                    inputFormat="dd/MM/yyyy"
-                    value={value}
-                    onChange={(newValue) => setValue(newValue)}
-                    // Adding calendar icon to end of input field
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <EventIcon />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    )}
-                    disablePast={true}
-                    // Below disables dates past the EOY
-                    // maxDate={new Date(new Date().getFullYear(), 11, 31)}
-
-                    // Array that disables year and month picking from toolbar
-                    views={["day"]}
-                    shouldDisableDate={disableDates}
-                    // For hiding pen icon for switching to typing mode
-                    sx={{
-                      "& .MuiPickersToolbar-penIconButton": { display: "none" },
-                    }}
-                  />
-                </Stack>
-              </LocalizationProvider>
-              <Typography>
-                {value ? format(value, "EEEE, d MMMM yyyy") : ""}
-              </Typography>
-              {/* SOME ERROR BELOW WITH MAPPING OF TIMESLOTS */}
-              <ButtonGroup orientation="vertical">
-                {weekdayAvailability &&
-                  weekdayAvailability.timeslots.map((timeslot) => (
-                    <Button
-                      key={timeslot}
-                      size="large"
-                      onClick={(e) => setSelectedTime(e.target.value)}
-                      value={timeslot}
-                    >
-                      {timeslot}
-                    </Button>
+        <PageGrid>
+          <GridChild>
+            {!loading && (
+              <FormControl fullWidth>
+                <InputLabel>Select a mentor</InputLabel>
+                <Select value={id} label="Mentor" onChange={setNewMentor}>
+                  {mentors.map((mentor) => (
+                    <MenuItem key={mentor._id} value={mentor._id}>
+                      {mentor.fullName}
+                    </MenuItem>
                   ))}
-              </ButtonGroup>
-            </>
-          )}
-          <Typography>Booking Summary</Typography>
-          <Divider />
-          <Typography>With Purpose Mentorship</Typography>
-          {selectedTime && (
-            <>
-              <Typography>
-                {value
-                  ? `${format(value, "d MMMM yyyy")}, ${selectedTime}`
-                  : ""}
-              </Typography>
-              <Typography>{mentor.fullName.toUpperCase()}</Typography>
-              <Typography>30 min</Typography>
-              <Button onClick={confirmBooking}>Confirm booking request</Button>
-            </>
-          )}
-          {alert.length > 0 && (
-            <Alert severity="success">
-              <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on your
-              e-mail for a follow-up confirmation with a video conferencing
-              link.
-              {/* You can also find your
+                </Select>
+              </FormControl>
+            )}
+            {!loading && (
+              <>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack spacing={3}>
+                    <MobileDatePicker
+                      label="Select date"
+                      inputFormat="dd/MM/yyyy"
+                      value={value}
+                      onChange={(newValue) => setValue(newValue)}
+                      // Adding calendar icon to end of input field
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <EventIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+                      )}
+                      disablePast={true}
+                      // Below disables dates past the EOY
+                      // maxDate={new Date(new Date().getFullYear(), 11, 31)}
+
+                      // Array that disables year and month picking from toolbar
+                      views={["day"]}
+                      shouldDisableDate={disableDates}
+                      // For hiding pen icon for switching to typing mode
+                      sx={{
+                        "& .MuiPickersToolbar-penIconButton": {
+                          display: "none",
+                        },
+                      }}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+                <Typography>
+                  {value ? format(value, "EEEE, d MMMM yyyy") : ""}
+                </Typography>
+                {/* SOME ERROR BELOW WITH MAPPING OF TIMESLOTS */}
+                <ButtonGroup orientation="vertical">
+                  {weekdayAvailability &&
+                    weekdayAvailability.timeslots.map((timeslot) => (
+                      <Button
+                        key={timeslot}
+                        size="large"
+                        onClick={(e) => setSelectedTime(e.target.value)}
+                        value={timeslot}
+                        startIcon={<AlarmIcon />}
+                      >
+                        {timeslot}
+                      </Button>
+                    ))}
+                </ButtonGroup>
+                {error.length > 0 && (
+                  <Alert severity="warning">
+                    <AlertTitle>{error}</AlertTitle>Unfortunately there are no
+                    available time slots for the selected mentor.
+                  </Alert>
+                )}
+              </>
+            )}
+          </GridChild>
+          {selectedTime.length > 0 && (
+            <GridChild>
+              <div>
+                <Typography>Booking Summary</Typography>
+                <Typography>With Purpose Mentorship</Typography>
+                <Divider />
+              </div>
+              {selectedTime && (
+                <>
+                  <div>
+                    <Typography>
+                      {value
+                        ? `${format(value, "d MMMM yyyy")}, ${selectedTime}`
+                        : ""}
+                    </Typography>
+                    <Typography>{mentor.fullName.toUpperCase()}</Typography>
+                    <Typography>30 min</Typography>
+                  </div>
+                  {alert.length > 0 && (
+                    <Alert severity="success">
+                      <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on
+                      your e-mail for a follow-up confirmation with a video
+                      conferencing link.
+                      {/* You can also find your
                 booking request on your profile page. */}
-            </Alert>
+                    </Alert>
+                  )}
+                  <Button variant="contained" onClick={confirmBooking}>
+                    Confirm booking request
+                  </Button>
+                </>
+              )}
+            </GridChild>
           )}
-          {error.length > 0 && (
-            <Alert severity="warning">
-              <AlertTitle>{error}</AlertTitle>Unfortunately there are no
-              available time slots for the selected mentor.
-            </Alert>
-          )}
-        </Container>
+        </PageGrid>
       </Container>
     </BackgroundBox>
   );
@@ -318,4 +334,27 @@ const StyledTypo = styled(Typography)`
       line-height: 30px;
     }
   }
+`;
+
+const PageGrid = styled.div`
+  display: grid;
+  gap: 32px;
+  margin: 0 auto;
+  justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const GridChild = styled.div`
+  max-width: 500px;
+  width: 100%;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;

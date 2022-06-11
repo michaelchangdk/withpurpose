@@ -32,6 +32,9 @@ import { client } from "../../client";
 import { Box } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// import splotch from "../../assets/decorative/splotch.png";
+// import styled from "styled-components";
+// import { useEffect } from "react";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");
@@ -49,7 +52,6 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
   const darkMode = useSelector((store) => store.authenticated.darkMode);
-
   const displayName = useSelector((store) => store.authenticated.displayName);
 
   const emailPattern =
@@ -162,6 +164,17 @@ const ProfilePage = () => {
     }
   };
 
+  // Fetch bookings - bidirectional fetch is somewhere in this project!!!
+  // useEffect(() => {
+  //   client
+  //     .fetch(
+  //       `*[_type == "user" && _id == "${userid}"]{
+  //     "booking": *[_type == "studentMentors" && student references(_id)]
+  //   }`
+  //     )
+  //     .then((res) => console.log(res));
+  // }, []);
+
   return (
     <BackgroundBox
       sx={{
@@ -172,6 +185,7 @@ const ProfilePage = () => {
     >
       {/* remove avatar from header and have it larger size and centered */}
       <HeaderAuth />
+      {/* <PinkSplotch src={splotch} alt="splotch" /> */}
       {/* Profile Page */}
       <Container maxWidth="xs">
         <Stack spacing={2} mt={12}>
@@ -180,6 +194,7 @@ const ProfilePage = () => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
+            gap="32px"
           >
             <Paper elevation={6}>
               {userAvatarURL.length > 0 && (
@@ -322,6 +337,13 @@ const ProfilePage = () => {
                 </AccordionDetails>
               </Accordion>
             </Paper>
+            <Paper elevation={6} sx={{ width: "100%" }}>
+              <Typography
+                sx={{ margin: "12px 0", fontSize: 25, textAlign: "center" }}
+              >
+                Booking Requests
+              </Typography>
+            </Paper>
           </Box>
         </Stack>
       </Container>
@@ -333,3 +355,11 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+// const PinkSplotch = styled.img`
+//   position: absolute;
+//   top: 100px;
+//   right: 0;
+//   transform: scaleX(-1);
+//   z-index: 0;
+// `;
