@@ -43,7 +43,7 @@ const BlogPost = () => {
   const myPortableTextComponents = {
       types: {
         image: ({value}) => <InlineImg src={urlFor(value.asset._ref).url()} alt={value.asset._ref}/>,
-        callToAction: ({value, inInline}) =>
+        callToAction: ({value, isInline}) =>
           isInline ? (
             <a href={value.url}>{value.text}</a>
           ) : (
