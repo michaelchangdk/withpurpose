@@ -34,7 +34,8 @@ const Homepage = () => {
           <PageWrapper>
             <HeaderContainer>
               <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
-                YOUR STARTUP JOURNEY BEGINS HERE
+                YOUR STARTUP JOURNEY <br />
+                BEGINS HERE
               </StyledHeader>
               <Header>
                 <Portrait
@@ -54,16 +55,16 @@ const Homepage = () => {
                     together with other women who are based in the Nordics.
                   </Typography>
                 </div>
-                <Stack
-                  direction="row"
-                  gap={2}
-                  sx={{ margin: "0 auto" }}
-                  alignItems="center"
-                >
+                <CTAChild>
                   <Button
                     color="secondary"
                     variant="contained"
-                    sx={{ width: "220px", fontSize: "16px", fontWeight: "700" }}
+                    sx={{
+                      width: "220px",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      margin: "0 auto",
+                    }}
                     onClick={() =>
                       window.open(
                         "https://forms.gle/ecz32R1vEStjzbWT9",
@@ -71,12 +72,12 @@ const Homepage = () => {
                       )
                     }
                   >
-                    Give it a try
+                    Register
                   </Button>
                   <Typography>
                     Our startup school is free - <BoldText>forever.</BoldText>
                   </Typography>
-                </Stack>
+                </CTAChild>
               </CTADescription>
             </HeaderContainer>
 
@@ -372,10 +373,9 @@ const HeaderContainer = styled.div`
   grid-template-columns: 1fr;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1vh;
-    /* margin-top: 4vh; */
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    min-height: 300px;
   }
 
   @media (min-width: 1100px) {
@@ -397,20 +397,19 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 768px) {
     && {
-      margin-bottom: 0;
       grid-column-start: 1;
       grid-column-end: 3;
       align-self: flex-start;
       text-align: right;
       justify-self: flex-end;
-      margin-top: 50px;
+      margin-top: 5%;
+      font-size: 52px;
     }
   }
 
   @media (min-width: 900px) {
     && {
-      font-size: 56px;
-      width: 90%;
+      font-size: 60px;
       margin-top: 80px;
     }
   }
@@ -419,16 +418,16 @@ const StyledHeader = styled(Typography)`
     && {
       margin-top: 100px;
       width: 100%;
-      font-size: 78px;
+      font-size: 80px;
     }
   }
 
-  @media (min-width: 1240px) {
+  /* @media (min-width: 1240px) {
     && {
       margin-top: 140px;
       font-size: 88px;
     }
-  }
+  } */
 `;
 
 const Header = styled.header`
@@ -451,13 +450,29 @@ const CTADescription = styled.div`
     grid-column-start: 1;
     grid-columnn-end: 3;
     grid-row-start: 1;
-    align-self: flex-end;
-    /* align-self: center; */
+    grid-row-end: 2;
+    align-self: center;
+    margin-top: 24%;
   }
 
   @media (min-width: 900px) {
     align-self: center;
     margin-top: 90px;
+  }
+`;
+
+const CTAChild = styled.div`
+  /* display: flex;
+  flex-direction: row; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0 auto;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
   }
 `;
 
