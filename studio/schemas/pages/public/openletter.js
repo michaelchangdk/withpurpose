@@ -9,9 +9,19 @@ export default {
       type: "string",
     },
     {
+      name: "slug",
+      title: "Slug",
+      type: "string"
+    },
+    {
       name: "headline",
       title: "Headline",
       type: "string",
     },
+    {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent'
+    }
   ],
 };

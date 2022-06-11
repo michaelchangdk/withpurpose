@@ -42,7 +42,7 @@ const BlogPost = () => {
 
   const myPortableTextComponents = {
       types: {
-        image: ({value}) => <img src={urlFor(value.image?.asset._ref).url()} alt={value.image.asset._ref}/>,
+        image: ({value}) => <InlineImg src={urlFor(value.asset._ref).url()} alt={value.asset._ref}/>,
         callToAction: ({value, isInline}) =>
           isInline ? (
             <a href={value.url}>{value.text}</a>
@@ -114,7 +114,6 @@ const BlogPost = () => {
                 return (
                   <Link 
                     key={post._id} 
-                    disableGutters 
                     onClick={() => navigate(`/blog/${post._id}`)} 
                     style={{
                       margin: "20px", 
@@ -141,6 +140,10 @@ const BlogPost = () => {
     </ThemeProvider>
     );
 };
+
+const InlineImg = styled.img`
+  width: 100%;
+`
 
 const GridDiv = styled.div`
   display: grid;
