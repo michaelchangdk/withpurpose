@@ -44,6 +44,7 @@ const MentorCards = ({ mentor }) => {
             justifyContent="space-between"
             alignItems="center"
             bottom={0}
+            sx={{ minHeight: "65px" }}
           >
             <Typography variant="h5" component="div">
               {mentor.fullName}
@@ -52,18 +53,19 @@ const MentorCards = ({ mentor }) => {
               <LinkedInIcon color="info" fontSize="large" />
             </IconButton>
           </Stack>
-          {/* <Typography variant="body2" color="text.secondary">
-            {mentor.bio}
-          </Typography> */}
+          <Button
+            variant="contained"
+            sx={{ margin: "0 auto" }}
+            onClick={() => navigate(`/book-a-mentor/${mentor._id}`)}
+          >
+            Book now
+          </Button>
         </Stack>
       </CardContent>
       <Accordion
         elevation={1}
         sx={{
           boxShadow: "none",
-          //   borderTop: "none",
-          //   border: 0,
-          //   borderColor: "secondary.main",
         }}
       >
         <AccordionSummary
@@ -110,13 +112,6 @@ const MentorCards = ({ mentor }) => {
           </ul>
         </AccordionDetails>
       </Accordion>
-      <Button
-        variant="contained"
-        sx={{ margin: "0 auto" }}
-        onClick={() => navigate(`/book-a-mentor/${mentor._id}`)}
-      >
-        Book now
-      </Button>
     </Card>
   );
 };
