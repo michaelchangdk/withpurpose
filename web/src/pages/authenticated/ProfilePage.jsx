@@ -32,7 +32,6 @@ import { client } from "../../client";
 import { Box } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
-// import splotch from "../../assets/decorative/splotch.png";
 // import styled from "styled-components";
 // import { useEffect } from "react";
 
@@ -347,7 +346,6 @@ const ProfilePage = () => {
           </Box>
         </Stack>
       </Container>
-
       <ScrollToTop />
       {/* Button to log out ?*/}
     </BackgroundBox>
@@ -355,11 +353,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-// const PinkSplotch = styled.img`
-//   position: absolute;
-//   top: 100px;
-//   right: 0;
-//   transform: scaleX(-1);
-//   z-index: 0;
-// `;
