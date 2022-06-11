@@ -55,7 +55,9 @@ const MentorsPrivate = () => {
 
       {description && (
         <DescriptionContainer>
-          <StyledTypo>{description}</StyledTypo>
+          <DescriptionChild>
+            <StyledTypo>{description}</StyledTypo>
+          </DescriptionChild>
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
@@ -98,12 +100,18 @@ const DescriptionContainer = styled.div`
   background-color: #6356d7;
   /* background-color: #5491e3; */
   color: white;
-  padding: 48px;
+  padding: 48px 0;
   white-space: pre-line;
   vertical-align: bottom;
 
   @media (min-width: 768px) {
-    padding: 48px 30%;
+    padding: 48px 0;
+  }
+`;
+
+const DescriptionChild = styled(Container)`
+  && {
+    padding: 0 84px;
   }
 `;
 

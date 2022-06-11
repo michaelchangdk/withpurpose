@@ -83,10 +83,7 @@ const LessonList = ({
         </Container>
       )}
       {taskDescription.length > 0 && (
-        <Paper
-          elevation={6}
-          sx={{ padding: "10px 20px", maxWidth: "lg", margin: "0 auto" }}
-        >
+        <StyledPaper elevation={6} sx={{ maxWidth: "lg" }}>
           <TaskItem>
             <Fab
               color="info"
@@ -100,7 +97,7 @@ const LessonList = ({
             </Fab>
             <p>{taskDescription}</p>
           </TaskItem>
-        </Paper>
+        </StyledPaper>
       )}
       <List
         dense
@@ -137,15 +134,16 @@ export default LessonList;
 const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
-// const IFrame = styled.iframe`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-// `;
+const StyledPaper = styled(Paper)`
+  && {
+    padding: 12px 24px;
+    margin: 0 auto;
+  }
+`;
 
 const TaskItem = styled.div`
   display: grid;

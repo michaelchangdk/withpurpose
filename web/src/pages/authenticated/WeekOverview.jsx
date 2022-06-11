@@ -86,7 +86,13 @@ export default WeekOverview;
 const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
-  margin-top: 3vh;
+  margin-top: 16px;
+  border-radius: 4px;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    margin-top: 24px;
+  }
 `;
 
 const IFrame = styled.iframe`
@@ -99,18 +105,14 @@ const IFrame = styled.iframe`
 
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
-  margin: 0 auto;
-  /* max-width: 500px; */
+  gap: 32px;
+  justify-items: center;
+  padding-top: 16px;
+  padding-bottom: 40px;
 
   @media (min-width: 768px) {
-    gap: 3vh;
-    padding: 3vh 0;
-  }
-
-  @media (min-width: 1100px) {
     grid-template-columns: 1fr 1fr;
-    gap: 2vh;
+    padding-top: 24px;
+    padding-bottom: 40px;
   }
 `;
