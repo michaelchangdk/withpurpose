@@ -35,6 +35,15 @@ const WeekPage = () => {
     }
   };
 
+  // const useQuery = () => {
+  //   const { search } = useLocation();
+  //   return React.useMemo(() => new URLSearchParams(search), [search]);
+  // };
+
+  // let query = useQuery();
+
+  // console.log(query.get("week"));
+
   const fetchModuleRefs = async () => {
     setLoading(true);
     const weekQuery = `*[_type == "week" && name == "${week}"] {description, module, order}`;

@@ -70,7 +70,6 @@ const MentorsPrivate = () => {
             })}
         </CardContainer>
       </Container>
-
       <ScrollToTop />
     </Box>
   );

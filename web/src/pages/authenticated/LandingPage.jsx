@@ -10,11 +10,11 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState(null);
-  const query =
+  const cardsQuery =
     '*[_type == "landingpageelements"] {order, title, headline, description, linkTo, coverImage}';
 
   useEffect(() => {
-    client.fetch(query).then((response) => {
+    client.fetch(cardsQuery).then((response) => {
       setCards(response.sort((a, b) => a.order - b.order));
       setLoading(false);
     });

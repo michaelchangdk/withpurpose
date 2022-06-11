@@ -9,16 +9,20 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Button,
 } from "@mui/material";
 import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import styled from "styled-components/macro";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 const MentorCards = ({ mentor }) => {
   const openLinkedin = () => {
     window.open(mentor.linkedin, "_blank");
   };
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -106,6 +110,13 @@ const MentorCards = ({ mentor }) => {
           </ul>
         </AccordionDetails>
       </Accordion>
+      <Button
+        variant="contained"
+        sx={{ margin: "0 auto" }}
+        onClick={() => navigate(`/book-a-mentor/${mentor._id}`)}
+      >
+        Book now
+      </Button>
     </Card>
   );
 };

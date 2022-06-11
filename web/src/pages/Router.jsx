@@ -23,6 +23,7 @@ import ProfilePage from "./authenticated/ProfilePage";
 import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
+import BookingPage from "./authenticated/BookingPage";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -69,6 +70,7 @@ const Router = () => {
           {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
           <Route
             path="/week/:week"
+            // path="/week/:week(Week0|Week1)/"
             element={loggedin ? <WeekPage /> : <NoAccess />}
           />
           <Route
@@ -94,6 +96,10 @@ const Router = () => {
                 <NoAccess />
               )
             }
+          />
+          <Route
+            path="/book-a-mentor/:mentorid"
+            element={loggedin ? <BookingPage /> : <NoAccess />}
           />
           <Route
             path="/community"
