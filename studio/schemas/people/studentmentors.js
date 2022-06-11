@@ -75,7 +75,21 @@ export default {
               description:
                 "Please fill in the start of the timeslot in the following format: e.g. 09.30, 17.00, etc",
             },
+          ],
+        },
+      ],
+    },
+    {
+      name: "bookingrequest",
+      title: "Booking Request",
+      type: "array",
+      description: "This field is automatically filled in by the system.",
+      of: [
+        {
+          type: "object",
+          fields: [
             {
+<<<<<<< HEAD
               name: "booking",
               title: "Booking",
               type: "array",
@@ -95,7 +109,14 @@ export default {
                   ],
                 },
               ],
+=======
+              name: "student",
+              title: "Student",
+              type: "reference",
+              to: [{ type: "user" }],
+>>>>>>> booking
             },
+            { name: "datetime", title: "Datetime", type: "string" },
           ],
         },
       ],
