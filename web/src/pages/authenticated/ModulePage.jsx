@@ -274,14 +274,15 @@ export default ModulePage;
 
 const DescriptionContainer = styled.div`
   background-color: #e93a7d;
+  /* background-color: #6356d7; */
+  /* background-color: #5491e3; */
   color: white;
   padding: 48px;
   white-space: pre-line;
   vertical-align: bottom;
 
-  @media (min-width: 1100px) {
-    padding-left: 30vh;
-    padding-right: 30vh;
+  @media (min-width: 768px) {
+    padding: 48px 30%;
   }
 `;
 
