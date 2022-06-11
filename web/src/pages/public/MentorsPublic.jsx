@@ -89,13 +89,11 @@ const CardContainer = styled.div`
   margin-bottom: 40px;
 
   @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
     grid-template-columns: 1fr 1fr;
     margin-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

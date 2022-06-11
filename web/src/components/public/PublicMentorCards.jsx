@@ -15,7 +15,6 @@ const PublicMentorCards = (props) => {
     <Card
       sx={{
         width: "100%",
-        maxWidth: 375,
         height: "100%",
         bgcolor: randomColor(),
       }}
