@@ -17,7 +17,6 @@ import {
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
 import { client } from "../../client";
@@ -25,7 +24,8 @@ import { useParams } from "react-router-dom";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import format from "date-fns/format";
 import { useSelector } from "react-redux";
-
+import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import styled from "styled-components";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const BookingPage = () => {
@@ -43,6 +43,14 @@ const BookingPage = () => {
   const [id, setId] = useState(useParams().mentorid);
   const [error, setError] = useState("");
   const userid = useSelector((store) => store.authenticated.uid);
+  const [description, setDescription] = useState("");
+
+  // Fetch page
+  useEffect(() => {
+    client
+      .fetch(`*[_type == "booking"] {description}`)
+      .then((res) => setDescription(res[0].description));
+  }, []);
 
   const disableDates = (date) => {
     // // Example: Disables weekends and dates before the 15th
@@ -161,32 +169,20 @@ const BookingPage = () => {
         height: "100%",
       }}
     >
+      <LandingPageHero
+        query={`*[_type == "booking"] {heroImage, title, subtitle}`}
+        type={"page"}
+      />
+      {!loading && description && (
+        <DescriptionContainer>
+          <DescriptionChild>
+            <StyledTypo>{description}</StyledTypo>
+          </DescriptionChild>
+        </DescriptionContainer>
+      )}
       <Container maxWidth="lg">
-        <HeaderAuth />
         {loading && <LoadingIndicator />}
         <Container maxWidth="sm">
-          <Typography>With Purpose Mentorship Booking</Typography>
-          <Typography>
-            Please note that you are only requesting a meeting in the mentors'
-            available time slots. If your request is accepted, you will receive
-            a follow-up email with a video conferencing link.
-          </Typography>
-          <Typography>
-            By default, we go with the first-come, first-served principle but to
-            ensure that everyone in the cohort receives an equal chance for a
-            personal mentorship session, we will also consider if you have
-            previously received a mentor session or if you have requested
-            multiple mentor sessions.
-          </Typography>
-          <Typography>
-            We will try our best to ensure everyone is happy and receives one
-            mentorship session at minimum.
-          </Typography>
-          <Typography>
-            Check out their availability and book the date and time that works
-            for you.
-          </Typography>
-          {/* <Typography>{mentor.fullName}</Typography> */}
           {!loading && (
             <FormControl fullWidth>
               <InputLabel>Select a mentor</InputLabel>
@@ -291,3 +287,35 @@ const BookingPage = () => {
 };
 
 export default BookingPage;
+
+const DescriptionContainer = styled.div`
+  /* background-color: #e93a7d; */
+  background-color: #6356d7;
+  /* background-color: #5491e3; */
+  color: white;
+  padding: 48px 0;
+  white-space: pre-line;
+  vertical-align: bottom;
+
+  @media (min-width: 768px) {
+    padding: 48px 0;
+  }
+`;
+
+const DescriptionChild = styled(Container)`
+  && {
+    padding: 0 84px;
+  }
+`;
+
+const StyledTypo = styled(Typography)`
+  /* && {
+} */
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+`;

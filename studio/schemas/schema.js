@@ -23,6 +23,7 @@ import mentors from "./pages/members/mentors";
 import startupschool from "./pages/members/startupschool";
 import openletter from "./pages/public/openletter";
 import startupschoolinfo from "./pages/public/startupschoolinfo";
+import booking from "./pages/members/booking";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -57,6 +58,7 @@ export default createSchema({
     startupschool,
     openletter,
     startupschoolinfo,
+    booking,
     /* Your types here! */
   ]),
 });
