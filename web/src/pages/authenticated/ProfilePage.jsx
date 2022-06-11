@@ -30,6 +30,7 @@ import Switch from "@mui/material/Switch";
 import { client } from "../../client";
 import { Box } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");
@@ -161,13 +162,10 @@ const ProfilePage = () => {
   };
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
       component="form"
     >
@@ -317,7 +315,7 @@ const ProfilePage = () => {
       </FormGroup>
       <ScrollToTop />
       {/* Button to log out ?*/}
-    </Box>
+    </BackgroundBox>
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
 import {
-  Box,
   Container,
   Typography,
   TextField,
@@ -21,6 +20,8 @@ import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
@@ -85,20 +86,17 @@ const Contact = () => {
 
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
+      <BackgroundBox
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
-          width: "100%",
-          minHeight: "100vh",
-          height: "100%",
         }}
       >
         <PublicHeader />
-        <Container maxWidth="xl">
-          <Typography variant="h3" textAlign="center">
+        <Container maxWidth="lg">
+          <PageTitle variant="h3" textAlign="center">
             Contact us
-          </Typography>
+          </PageTitle>
           <GridContainer>
             <TextContainer>
               <Stack gap={2}>
@@ -161,7 +159,7 @@ const Contact = () => {
               </Stack>
             </TextContainer>
             <ContactForm>
-              <Stack gap={1}>
+              <Stack gap={2}>
                 <TextField
                   label="First Name"
                   variant="outlined"
@@ -283,7 +281,6 @@ const Contact = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  size="large"
                   sx={{
                     fontSize: "18px",
                     fontWeight: "700",
@@ -299,7 +296,7 @@ const Contact = () => {
           </GridContainer>
         </Container>
         <PageFooter />
-      </Box>
+      </BackgroundBox>
       <ScrollToTop />
     </ThemeProvider>
   );
@@ -307,20 +304,29 @@ const Contact = () => {
 
 export default Contact;
 
+const PageTitle = styled(Typography)`
+  && {
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      margin-bottom: 60px;
+    }
+  }
+`;
+
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
-  gap: 3vh;
-  margin-top: 3vh;
+  gap: 40px;
+  margin-bottom: 40px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    gap: 3vh;
-  }
-
-  @media (min-width: 1100px) {
-    gap: 6vh;
+    gap: 60px;
+    margin-bottom: 60px;
   }
 `;
 

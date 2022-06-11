@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -21,13 +22,10 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
@@ -35,7 +33,7 @@ const LandingPage = () => {
         type={"page"}
         displayName={true}
       />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         {loading && <LoadingIndicator />}
         <CardGrid>
           {!loading &&
@@ -52,7 +50,7 @@ const LandingPage = () => {
         </CardGrid>
       </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 

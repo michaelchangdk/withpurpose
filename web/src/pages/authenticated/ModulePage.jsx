@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
-import { Stack, Typography, Box, Button, Container } from "@mui/material";
+import { Stack, Typography, Button, Container } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
@@ -11,6 +11,7 @@ import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -161,13 +162,10 @@ const ModulePage = () => {
   };
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <HeaderAuth />
@@ -175,7 +173,7 @@ const ModulePage = () => {
       <CardContainer>
         {!loading && (
           <>
-            <Container maxWidth="xl">
+            <Container maxWidth="lg">
               <Stack
                 direction="row"
                 alignItems="center"
@@ -203,7 +201,7 @@ const ModulePage = () => {
             )}
 
             <LessonList key={lessons} lessons={lessons} />
-            <Container maxWidth="xl">
+            <Container maxWidth="lg">
               <Stack
                 direction="row"
                 // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
@@ -268,7 +266,7 @@ const ModulePage = () => {
         )}
       </CardContainer>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 

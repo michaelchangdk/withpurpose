@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import ModuleCards from "../../components/authenticated/ModuleCards";
 import styled from "styled-components";
-import { Stack, Button, Box, Container, Typography } from "@mui/material";
+import { Stack, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { useSelector } from "react-redux";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
@@ -105,13 +106,10 @@ const WeekPage = () => {
   };
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       {loading && <LoadingIndicator />}
@@ -125,7 +123,7 @@ const WeekPage = () => {
           <DescriptionContainer>
             <StyledTypo>{description}</StyledTypo>
           </DescriptionContainer>
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             {loading && <p>Loading...</p>}
             <CardContainer>
               {!loading &&
@@ -176,7 +174,7 @@ const WeekPage = () => {
           </Container>
         </>
       )}
-    </Box>
+    </BackgroundBox>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
@@ -8,7 +8,9 @@ import ScrollToTop from "../ScrollToTop";
 import { client } from "../../client";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import PublicMentorCards from "../../components/public/PublicMentorCards";
-import styled from "styled-components";
+import styled from "styled-components/macro";
+
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const MentorsPublic = () => {
   const [loading, setLoading] = useState(true);
@@ -39,20 +41,17 @@ const MentorsPublic = () => {
 
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
+      <BackgroundBox
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
-          width: "100%",
-          minHeight: "100vh",
-          height: "100%",
         }}
       >
         <PublicHeader />
-        <Container maxWidth="xl">
-          <Typography variant="h3" textAlign="center">
+        <Container maxWidth="lg">
+          <PageTitle variant="h3" textAlign="center">
             Mentors
-          </Typography>
+          </PageTitle>
           {loading && <LoadingIndicator />}
           <CardContainer>
             {!loading &&
@@ -62,7 +61,7 @@ const MentorsPublic = () => {
           </CardContainer>
           <PageFooter />
         </Container>
-      </Box>
+      </BackgroundBox>
       <ScrollToTop />
     </ThemeProvider>
   );
@@ -70,24 +69,33 @@ const MentorsPublic = () => {
 
 export default MentorsPublic;
 
+const PageTitle = styled(Typography)`
+  && {
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      margin-bottom: 60px;
+    }
+  }
+`;
+
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
   margin: 0 auto;
   justify-content: center;
+  margin-bottom: 40px;
 
   @media (min-width: 768px) {
     max-width: calc(750px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
     max-width: calc(1125px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

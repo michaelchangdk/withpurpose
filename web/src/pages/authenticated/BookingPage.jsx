@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Box,
   Stack,
   TextField,
   Container,
@@ -20,6 +19,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
 import { client } from "../../client";
 import { useParams } from "react-router-dom";
+
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -120,7 +121,7 @@ const BookingPage = () => {
   console.log(weekdayAvailability);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
@@ -129,7 +130,7 @@ const BookingPage = () => {
         height: "100%",
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <HeaderAuth />
 
         <Container maxWidth="sm">
@@ -204,7 +205,7 @@ const BookingPage = () => {
           )} */}
         </Container>
       </Container>
-    </Box>
+    </BackgroundBox>
   );
 };
 

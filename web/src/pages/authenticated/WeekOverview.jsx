@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { client } from "../../client";
 import WeekCards from "../../components/authenticated/WeekCards";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Container } from "@mui/material";
-import ReactPlayer from "react-player";
+import { Container } from "@mui/material";
+// // import ReactPlayer from "react-player";
 import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 // For setting the week cards
 const weekQuery =
@@ -35,13 +36,10 @@ const WeekOverview = () => {
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
@@ -79,7 +77,7 @@ const WeekOverview = () => {
         </CardContainer>
       </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 

@@ -1,10 +1,10 @@
 import React from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography, Button, Stack, Container } from "@mui/material";
+import { Typography, Button, Stack, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import rectangle from "../../assets/decorative/rectangle.webp";
 import purplesquiggle from "../../assets/decorative/scribble3.webp";
 import bluesquiggle from "../../assets/decorative/scribble4.svg";
@@ -19,22 +19,18 @@ import Newsletter from "../../components/public/Newsletter";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
 
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
+
 const Homepage = () => {
   const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
-        sx={{
-          bgcolor: "background.default",
-          color: "text.primary",
-          width: "100vw",
-          minHeight: "100vh",
-          height: "100%",
-        }}
+      <BackgroundBox
+        sx={{ bgcolor: "background.default", color: "text.primary" }}
       >
         <PublicHeader />
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <PageWrapper>
             <HeaderContainer>
               <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
@@ -85,13 +81,12 @@ const Homepage = () => {
             </HeaderContainer>
 
             {/* STATISTICS ABOUT WOMEN IN TECH */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
                 fontWeight={700}
                 fontSize={44}
-                mb={2}
               >
                 Women in <PurpleText>Entrepreneurship</PurpleText>
               </Typography>
@@ -144,15 +139,14 @@ const Homepage = () => {
                   </Typography>
                 </GridChild>
               </ThreeGrid>
-            </section>
+            </Section>
             {/* STARTUP SCHOOL 5 STEPS W LEARN MORE BUTTON */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
                 fontWeight={700}
                 fontSize={44}
-                mb={2}
               >
                 The Startup <PurpleText>School</PurpleText>
               </Typography>
@@ -165,31 +159,37 @@ const Homepage = () => {
                 </Typography>
               </SectionDescription>
               <StepsContainer>
-                <DecorativeText>BEFORE</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
-                  Select the Right Idea to Work On & Develop a Vision for Your
-                  Startup
-                </Typography>
-                <DecorativeText>1</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
-                  Translate your Startup Vision Into a Business Model
-                </Typography>
+                <div>
+                  <DecorativeText>BEFORE</DecorativeText>
+                  <Typography fontWeight={600}>
+                    Select the Right Idea to Work On & Develop a Vision for Your
+                    Startup
+                  </Typography>
+                </div>
+                <div>
+                  <DecorativeText>1</DecorativeText>
+                  <Typography fontWeight={600}>
+                    Translate your Startup Vision Into a Business Model
+                  </Typography>
+                </div>
                 <DecorativeText>2</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
+                <Typography fontWeight={600}>
                   Validate the Potential of your Startup Idea
                 </Typography>
-                <DecorativeText>3</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
-                  Build the First Possible Solution (MVP)
-                </Typography>
+                <div>
+                  <DecorativeText>3</DecorativeText>
+                  <Typography fontWeight={600}>
+                    Build the First Possible Solution (MVP)
+                  </Typography>
+                </div>
                 <DecorativeText>4</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
+                <Typography fontWeight={600}>
                   Learn how to build a scalable business
                 </Typography>
-                <DecorativeText>5</DecorativeText>
-                <Typography fontWeight={600} mb={1}>
-                  Review and Pitch
-                </Typography>
+                <div>
+                  <DecorativeText>5</DecorativeText>
+                  <Typography fontWeight={600}>Review and Pitch</Typography>
+                </div>
               </StepsContainer>
               <Stack alignItems="center">
                 <Button
@@ -205,9 +205,9 @@ const Homepage = () => {
                   Learn More
                 </Button>
               </Stack>
-            </section>
+            </Section>
             {/* ALUMNI TESTIMONIALS */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
@@ -256,80 +256,74 @@ const Homepage = () => {
                   </Typography>
                 </GridChild>
               </ThreeGrid>
-            </section>
+            </Section>
             {/* AWARDS SECTION */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
                 fontWeight={800}
                 fontSize={44}
-                mb={2}
               >
                 Part of <PurpleText>The Nordic Ecosystem</PurpleText>
-                <ThreeGrid>
-                  <GridChild>
-                    <CirclePhoto
-                      src={nsa}
-                      alt="Nordic Startup Awards Nominee"
-                    />
-                    <Typography>
-                      <BoldText>Best Accelerator/Incubator Program</BoldText> in
-                      Denmark for the 2021 Nordic Startup Awards
-                    </Typography>
-                  </GridChild>
-                  <GridChild>
-                    <CirclePhoto
-                      src={wta1}
-                      alt="Nordic Women in Tech Awards Nominee"
-                    />
-                    <Typography>
-                      <BoldText>Initiative of the Year</BoldText> in Denmark for
-                      the 2021 Nordic Women in Tech Awards
-                    </Typography>
-                  </GridChild>
-                  <GridChild>
-                    <CirclePhoto
-                      src={wta2}
-                      alt="Nordic Women in Tech Role Model Award"
-                    />
-                    <Typography>
-                      The team behind With Purpose{" "}
-                      <BoldText>were named Role Models of 2021</BoldText>
-                    </Typography>
-                  </GridChild>
-                </ThreeGrid>
               </Typography>
-            </section>
+              <ThreeGrid>
+                <GridChild>
+                  <CirclePhoto src={nsa} alt="Nordic Startup Awards Nominee" />
+                  <Typography textAlign="center">
+                    <BoldText>Best Accelerator/Incubator Program</BoldText> in
+                    Denmark for the 2021 Nordic Startup Awards
+                  </Typography>
+                </GridChild>
+                <GridChild>
+                  <CirclePhoto
+                    src={wta1}
+                    alt="Nordic Women in Tech Awards Nominee"
+                  />
+                  <Typography textAlign="center">
+                    <BoldText>Initiative of the Year</BoldText> in Denmark for
+                    the 2021 Nordic Women in Tech Awards
+                  </Typography>
+                </GridChild>
+                <GridChild>
+                  <CirclePhoto
+                    src={wta2}
+                    alt="Nordic Women in Tech Role Model Award"
+                  />
+                  <Typography textAlign="center">
+                    The team behind With Purpose{" "}
+                    <BoldText>were named Role Models of 2021</BoldText>
+                  </Typography>
+                </GridChild>
+              </ThreeGrid>
+            </Section>
             {/* CTA */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
                 fontWeight={700}
                 fontSize={44}
-                mb={2}
               >
                 Sign up <PurpleText>now</PurpleText>
               </Typography>
-            </section>
+            </Section>
             {/* NEWSLETTER / REACH OUT */}
-            <section>
+            <Section>
               <Typography
                 textAlign="center"
                 variant="h2"
                 fontWeight={700}
                 fontSize={44}
-                mb={2}
               >
                 Reach <PurpleText>out</PurpleText>
               </Typography>
               <Newsletter />
-            </section>
+            </Section>
             <PageFooter />
           </PageWrapper>
         </Container>
-      </Box>
+      </BackgroundBox>
       <ScrollToTop />
     </ThemeProvider>
   );
@@ -338,15 +332,14 @@ const Homepage = () => {
 export default Homepage;
 
 // STYLED ACROSS ENTIRE PAGE
-
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6vh;
+  gap: 100px;
 
   @media (min-width: 768px) {
     padding: 0 60px;
-    gap: max(50px, 10vh);
+    gap: 160px;
   }
 `;
 
@@ -360,6 +353,12 @@ const BlueText = styled.span`
 
 const BoldText = styled.span`
   font-weight: 600;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 const SectionDescription = styled.div`
@@ -376,7 +375,7 @@ const HeaderContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 1vh;
-    margin-top: 4vh;
+    /* margin-top: 4vh; */
   }
 
   @media (min-width: 1100px) {
@@ -404,7 +403,6 @@ const StyledHeader = styled(Typography)`
       align-self: flex-start;
       text-align: right;
       justify-self: flex-end;
-      /* margin-top: 20px; */
       margin-top: 50px;
     }
   }
@@ -435,8 +433,6 @@ const StyledHeader = styled(Typography)`
 
 const Header = styled.header`
   position: relative;
-  margin-top: 3vh;
-  margin-bottom: 4vh;
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start: 1;
@@ -485,9 +481,9 @@ const Squiggle = styled.img`
 // FOR ANY SECTION WITH 3 ELEMENTS
 const ThreeGrid = styled.div`
   display: grid;
-  gap: 3vh;
+  gap: 32px;
   justify-items: center;
-  margin: 2vh auto 0 auto;
+  margin: 0 auto;
 
   @media (min-width: 768px) {
     max-width: calc(1200px + 6vh);
@@ -498,14 +494,17 @@ const ThreeGrid = styled.div`
 const GridChild = styled.div`
   width: 100%;
   max-width: 400px;
-  margin: 0 auto 1.5vh auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const CirclePhoto = styled.img`
   border-radius: 50%;
   width: 60%;
   display: block;
-  margin: 0 auto 1vh auto;
+  margin: 0 auto;
 
   @media (min-width: 768px) {
     width: 100%;
@@ -548,7 +547,10 @@ const StyledSpan = styled.span`
 const StepsContainer = styled.div`
   width: 80%;
   text-align: center;
-  margin: 2vh auto 2vh auto;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const DecorativeText = styled.h3`

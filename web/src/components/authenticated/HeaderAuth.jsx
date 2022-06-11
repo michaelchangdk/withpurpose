@@ -81,7 +81,7 @@ const HeaderAuth = () => {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg">
       <HeaderNav>
         <IconButton
           id="nav-button"

@@ -30,7 +30,7 @@ const LandingPageHero = ({ query, type, displayName }) => {
     <>
       <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
         <HeaderAuth />
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <HeaderTitleWrapper>
             <HeaderTitle>
               {title}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Typography, Container } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { client } from "../../client";
 import MentorCards from "../../components/authenticated/MentorCards";
 import styled from "styled-components";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const MentorsPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -36,13 +37,10 @@ const MentorsPrivate = () => {
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
@@ -60,7 +58,7 @@ const MentorsPrivate = () => {
           <StyledTypo>{description}</StyledTypo>
         </DescriptionContainer>
       )}
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         {" "}
         {loading && <LoadingIndicator />}
         <CardContainer>
@@ -71,7 +69,7 @@ const MentorsPrivate = () => {
         </CardContainer>
       </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 

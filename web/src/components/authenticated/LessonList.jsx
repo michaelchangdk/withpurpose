@@ -65,7 +65,7 @@ const LessonList = ({
       {/* https://www.npmjs.com/package/react-player */}
       {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
       {videoUrl.length > 0 && (
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <FrameDiv>
             <ReactPlayer
               url={videoUrl}

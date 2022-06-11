@@ -1,34 +1,45 @@
 import React from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import styled from "styled-components";
 
 const OpenLetter = () => {
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
+      <BackgroundBox
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
-          width: "100%",
-          minHeight: "100vh",
-          height: "100%",
         }}
       >
         <PublicHeader />
-        <Container maxWidth="xl">
-          <Typography variant="h3" textAlign="center">
+        <Container maxWidth="lg">
+          <PageTitle variant="h3" textAlign="center">
             Open Letter
-          </Typography>
+          </PageTitle>
         </Container>
         <PageFooter />
-      </Box>
+      </BackgroundBox>
       <ScrollToTop />
     </ThemeProvider>
   );
 };
 
 export default OpenLetter;
+
+const PageTitle = styled(Typography)`
+  && {
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      margin-bottom: 60px;
+    }
+  }
+`;
