@@ -190,6 +190,7 @@ const Logo = styled.img`
 
 const StyledAppBar = styled(AppBar)`
   && {
+    padding-top: 8px;
     margin-bottom: 40px;
   }
 
