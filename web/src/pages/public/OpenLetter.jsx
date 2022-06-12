@@ -36,6 +36,7 @@ const OpenLetter = () => {
         ),
     },
     block: {
+      normal: ({children}) => <Typography sx={{lineHeight: "1.6"}}>{children}</Typography>,
       blockquote: ({children}) => <blockquote style={{fontSize: '18px'}}>{children}</blockquote>,
       sideblock: ({children}) => {
         return (
@@ -50,7 +51,7 @@ const OpenLetter = () => {
       link: ({children, value}) => {
         const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
         return (
-          <a href={value.href} rel={rel} style={{color: "text.primary", textDecoration: "underline"}}>
+          <a href={value.href} rel={rel} style={{color: "#fff", textDecoration: "underline"}}>
             {children}
           </a>
         )
@@ -71,14 +72,17 @@ const OpenLetter = () => {
         }}
       >
         <PublicHeader />
-        <Container maxWidth="lg">
-          <Typography variant="h3" textAlign="center">
-            Open Letter
-          </Typography>
-          <PortableText
-                value={openLetter?.body}
-                components={myPortableTextComponents}
-              />
+        <Container maxWidth="lg" sx={{mb: "32px"}}>
+          <PageHeader variant="h2" component="h1" textAlign="center">
+            Open letter
+          </PageHeader>
+          <Container maxWidth="sm">
+            <PortableText
+              sx={{lineHeight: 2}}
+              value={openLetter?.body}
+              components={myPortableTextComponents}
+            />
+          </Container>
         </Container>
         <PageFooter />
       </Box>
@@ -90,7 +94,7 @@ const OpenLetter = () => {
 const StyledAsideTypography = styled(Typography)`
   &&{
     color: hotpink;
-    width: 50%;
+    width: 80%;
     left: 100px;
     font-size: 24px;
     line-height: 1.1;
@@ -105,5 +109,19 @@ const StyledAside = styled.aside`
   margin: 32px auto;
 `
 
+
+const PageHeader = styled(Typography)`
+  && {
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+  @media (min-width: 768px) {
+    && {
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 32px auto;
+    }
+  }
+`;
 
 export default OpenLetter;
