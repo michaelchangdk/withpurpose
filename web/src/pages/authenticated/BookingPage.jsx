@@ -265,14 +265,18 @@ const BookingPage = () => {
           {selectedTime.length > 0 && (
             <GridChild>
               <div>
-                <Typography>Booking Summary</Typography>
-                <Typography>With Purpose Mentorship</Typography>
+                <Typography variant="h5" fontWeight={400}>
+                  Booking Summary
+                </Typography>
+                <Typography variant="subtitle">
+                  With Purpose Mentorship
+                </Typography>
                 <Divider />
               </div>
               {selectedTime && (
                 <>
                   <div>
-                    <Typography>
+                    <Typography fontWeight={500}>
                       {value
                         ? `${format(value, "d MMMM yyyy")}, ${selectedTime}`
                         : ""}
