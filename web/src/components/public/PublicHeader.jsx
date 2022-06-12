@@ -37,8 +37,8 @@ const PublicHeader = () => {
   };
 
   return (
-    <AppBar position="static" color="transparent" elevation={0}>
-      <Container maxWidth="xl">
+    <StyledAppBar position="static" color="transparent" elevation={0}>
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Button onClick={() => navigate("/")}>
             <Logo src={LogoText} alt="logo" />
@@ -176,7 +176,7 @@ const PublicHeader = () => {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppBar>
   );
 };
 
@@ -186,4 +186,17 @@ const Logo = styled.img`
   width: 230px;
   height: auto;
   /* margin: 2vh; */
+`;
+
+const StyledAppBar = styled(AppBar)`
+  && {
+    padding-top: 8px;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      margin-bottom: 60px;
+    }
+  }
 `;

@@ -13,10 +13,10 @@ const PostCardLarge = ({title, url}) => {
 
 const PostTitle = styled(Typography)`
   &&{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     padding: 1rem;
-    height: 100%;
+    line-height: 1.2rem;
   }
 `;
 
@@ -24,17 +24,14 @@ const PostThumbnail = styled.div`
   padding: 0;
   margin: 0 auto;
   width: 100%;
-  display: grid;
-  grid-template-rows: 3fr 1fr;
   height: 250px;
 `;
 
 const ThumbnailImage = styled.div`
   background-image: url('${props => props.url}');
-  width: 100%;
-  background-size: contain;
+  height: 60%;
+  background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
 `;
 
 export default PostCardLarge;

@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../../client";
 import LandingCards from "../../components/authenticated/LandingCards";
-import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import styled from "styled-components";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState(null);
-  const query =
+  const cardsQuery =
     '*[_type == "landingpageelements"] {order, title, headline, description, linkTo, coverImage}';
 
   useEffect(() => {
-    client.fetch(query).then((response) => {
+    client.fetch(cardsQuery).then((response) => {
       setCards(response.sort((a, b) => a.order - b.order));
       setLoading(false);
     });
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
@@ -36,9 +33,9 @@ const LandingPage = () => {
         type={"page"}
         displayName={true}
       />
-      <PageContainer>
+      <Container maxWidth="lg">
+        {loading && <LoadingIndicator />}
         <CardGrid>
-          {loading && <LoadingIndicator />}
           {!loading &&
             cards.map((card) => (
               <LandingCards
@@ -51,9 +48,9 @@ const LandingPage = () => {
               />
             ))}
         </CardGrid>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 
@@ -61,19 +58,14 @@ export default LandingPage;
 
 const CardGrid = styled.div`
   display: grid;
-  /* justify-content: center;
-  align-items: center; */
-  gap: 2vh;
-  padding: 2vh 0;
-  margin: 0 auto;
-  max-width: 500px;
+  gap: 32px;
+  justify-items: center;
+  padding-top: 16px;
+  padding-bottom: 40px;
 
   @media (min-width: 768px) {
-    max-width: calc(1000px + 3vh);
-    /* grid-template-columns: 500px 500px; */
     grid-template-columns: 1fr 1fr;
-    gap: 3vh;
-    padding: 3vh 0;
-    justify-items: center;
+    padding-top: 24px;
+    padding-bottom: 40px;
   }
 `;

@@ -36,7 +36,7 @@ const AlumniCards = ({ alumni }) => {
           bottom={0}
         >
           <div>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" fontWeight={400}>
               {alumni.fullName}
             </Typography>
             <Typography variant="body2" color="text.secondary">

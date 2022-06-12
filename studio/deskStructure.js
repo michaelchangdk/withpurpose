@@ -43,21 +43,30 @@ export default () =>
                 // .child(S.documentTypeList("blogpost").title("Blog Post")),
                 .child(
                   S.list()
-                  .title("Blog")
-                  .items([
-                    S.listItem()
-                      .title("Post")
-                      .child(S.documentTypeList("blogpost").title("Blog Post")),
-                    S.listItem()
-                      .title("Author")
-                      .child(S.documentTypeList("author").title("Author")),
-                    S.listItem()
-                    .title("Category")
-                    .child(S.documentTypeList("category").title("Category")),
-                    S.listItem()
-                      .title("Block content")
-                      .child(S.documentTypeList("blockContent").title("Block content"))
-                  ]))
+                    .title("Blog")
+                    .items([
+                      S.listItem()
+                        .title("Post")
+                        .child(
+                          S.documentTypeList("blogpost").title("Blog Post")
+                        ),
+                      S.listItem()
+                        .title("Author")
+                        .child(S.documentTypeList("author").title("Author")),
+                      S.listItem()
+                        .title("Category")
+                        .child(
+                          S.documentTypeList("category").title("Category")
+                        ),
+                      S.listItem()
+                        .title("Block content")
+                        .child(
+                          S.documentTypeList("blockContent").title(
+                            "Block content"
+                          )
+                        ),
+                    ])
+                ),
               // S.listItem()
               //   .title("Company Mentors")
               //   .schemaType("companyMentors")
@@ -70,7 +79,6 @@ export default () =>
               //   .child(
               //     S.documentTypeList("studentMentors").title("Student Mentors")
               //   ),
-                  
             ])
         ),
 
@@ -155,6 +163,9 @@ export default () =>
                 .child(
                   S.editor().schemaType("community").documentId("community")
                 ),
+              S.listItem()
+                .title("Booking")
+                .child(S.editor().schemaType("booking").documentId("booking")),
               // S.listItem()
               //   .title("Landing page elements")
               //   .schemaType("landingpageelements")
@@ -248,6 +259,7 @@ export default () =>
             "community",
             "openletter",
             "startupschoolinfo",
+            "booking",
           ].includes(listItem.getId())
       ),
     ]);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { client } from "../../client";
@@ -8,6 +8,8 @@ import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import TeamCards from "../../components/public/TeamCards";
 import styled from "styled-components";
+import PageFooter from "../../components/public/PageFooter";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const teamQuery = `*[_type == "teamMembers"] {city, fullName, linkedin, profilePhoto, quote, _id}`;
 
@@ -24,27 +26,27 @@ const Team = () => {
 
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
+      <BackgroundBox
         sx={{
           bgcolor: "background.default",
           color: "text.primary",
-          width: "100%",
-          minHeight: "100vh",
-          height: "100%",
         }}
       >
         <PublicHeader />
-        <Typography variant="h3" textAlign="center">
-          Meet the Team
-        </Typography>
-        {loading && <LoadingIndicator />}
-        <CardContainer>
-          {!loading &&
-            team.map((member) => {
-              return <TeamCards key={member._id} member={member} />;
-            })}
-        </CardContainer>
-      </Box>
+        <Container maxWidth="lg">
+          <PageHeader variant="h2" component="h1" textAlign="center">
+            Meet the Team
+          </PageHeader>
+          {loading && <LoadingIndicator />}
+          <CardContainer>
+            {!loading &&
+              team.map((member) => {
+                return <TeamCards key={member._id} member={member} />;
+              })}
+          </CardContainer>
+          <PageFooter />
+        </Container>
+      </BackgroundBox>
       <ScrollToTop />
     </ThemeProvider>
   );
@@ -52,24 +54,36 @@ const Team = () => {
 
 export default Team;
 
-const CardContainer = styled.div`
-  display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
-  margin: 0 auto;
-  justify-content: center;
+const PageHeader = styled(Typography)`
+  && {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
 
   @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
+    && {
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
+    }
+  }
+`;
+
+const CardContainer = styled.div`
+  display: grid;
+  gap: 32px;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 40px;
+
+  @media (min-width: 768px) {
+    max-width: 782px;
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
+    max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

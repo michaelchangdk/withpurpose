@@ -30,7 +30,7 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography variant="h6" component="h2">
+          <Typography variant="h5" component="h2" fontWeight={400}>
             This content is currently not available.
           </Typography>
           <Typography sx={{ mt: 2 }}>

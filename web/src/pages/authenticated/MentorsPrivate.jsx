@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box, Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { client } from "../../client";
 import MentorCards from "../../components/authenticated/MentorCards";
 import styled from "styled-components";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const MentorsPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ const MentorsPrivate = () => {
 
   const fetchMentors = async () => {
     setLoading(true);
-    const alumniQuery = `*[_type == "studentMentors"] {fullName, bio, linkedin, profilePhoto, topics, _id}`;
-    const fetch = await client.fetch(alumniQuery);
+    const mentorsQuery = `*[_type == "studentMentors"] {fullName, bio, linkedin, profilePhoto, topics, _id}`;
+    const fetch = await client.fetch(mentorsQuery);
     const response = await fetch;
     setMentors(response);
     setLoading(false);
@@ -37,13 +37,10 @@ const MentorsPrivate = () => {
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
@@ -58,21 +55,23 @@ const MentorsPrivate = () => {
 
       {description && (
         <DescriptionContainer>
-          <StyledTypo>{description}</StyledTypo>
+          <DescriptionChild>
+            <StyledTypo>{description}</StyledTypo>
+          </DescriptionChild>
         </DescriptionContainer>
       )}
-      <PageContainer>
+      <Container maxWidth="lg">
+        {" "}
         {loading && <LoadingIndicator />}
-
         <CardContainer>
           {!loading &&
             mentors.map((mentor) => {
               return <MentorCards key={mentor.fullName} mentor={mentor} />;
             })}
         </CardContainer>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 
@@ -80,48 +79,50 @@ export default MentorsPrivate;
 
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
   margin: 0 auto;
   justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
 
   @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 `;
 
 const DescriptionContainer = styled.div`
-  background-color: #e93a7d;
+  /* background-color: #e93a7d; */
+  background-color: #6356d7;
+  /* background-color: #5491e3; */
   color: white;
-  padding: 48px;
+  padding: 48px 0;
   white-space: pre-line;
   vertical-align: bottom;
 
-  @media (min-width: 1100px) {
-    padding-left: 30vh;
-    padding-right: 30vh;
+  @media (min-width: 768px) {
+    padding: 48px 0;
+  }
+`;
+
+const DescriptionChild = styled(Container)`
+  && {
+    padding: 0 84px;
   }
 `;
 
 const StyledTypo = styled(Typography)`
-  && {
-    font-size: 18px;
-    line-height: 30px;
-  }
+  /* && {
+  } */
 
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     && {
-      /* color: blue; */
+      font-size: 18px;
+      line-height: 1.6;
     }
   }
 `;

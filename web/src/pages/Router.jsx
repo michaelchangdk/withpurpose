@@ -23,6 +23,7 @@ import ProfilePage from "./authenticated/ProfilePage";
 import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
+import BookingPage from "./authenticated/BookingPage";
 
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
@@ -30,7 +31,11 @@ const Router = () => {
   const access = useSelector((store) => store.authenticated.access);
   const darkModeTrue = useSelector((store) => store.authenticated.darkMode);
 
-  // HOW TO IMPLEMENT WEEKS ACCESS IN ROUTER?
+  // List of approved weeks - not sure how to implement week access using param
+  // const approvedWeekArr = Object.entries(access)
+  //   .filter(([key, val]) => key.includes("Week") && val === true)
+  //   .map((week) => week[0]);
+  // console.log(approvedWeekArr);
 
   return (
     <ThemeProvider theme={darkModeTrue ? darkMode : lightMode}>
@@ -65,6 +70,7 @@ const Router = () => {
           {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
           <Route
             path="/week/:week"
+            // path="/week/:week(Week0|Week1)/"
             element={loggedin ? <WeekPage /> : <NoAccess />}
           />
           <Route
@@ -90,6 +96,10 @@ const Router = () => {
                 <NoAccess />
               )
             }
+          />
+          <Route
+            path="/book-a-mentor/:mentorid"
+            element={loggedin ? <BookingPage /> : <NoAccess />}
           />
           <Route
             path="/community"

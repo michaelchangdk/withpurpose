@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Box, Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from "styled-components";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import AlumniCards from "../../components/AlumniCards";
 import { client } from "../../client";
+import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
+
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const AlumniPublic = () => {
   const [loading, setLoading] = useState(true);
@@ -27,52 +31,62 @@ const AlumniPublic = () => {
 
   return (
     <ThemeProvider theme={darkMode}>
-      <Box
-        sx={{
-          bgcolor: "background.default",
-          color: "text.primary",
-          width: "100%",
-          minHeight: "100vh",
-          height: "100%",
-        }}
+      <BackgroundBox
+        sx={{ bgcolor: "background.default", color: "text.primary" }}
       >
         <PublicHeader />
-        <Typography variant="h3" textAlign="center">
-          Our Alumni
-        </Typography>
-        <CardContainer>
+        <Container maxWidth="lg">
+          <PageHeader variant="h2" component="h1" textAlign="center">
+            Our Alumni
+          </PageHeader>
           {loading && <LoadingIndicator />}
-          {!loading &&
-            alumni.map((student) => {
-              return <AlumniCards key={student._id} alumni={student} />;
-            })}
-          {/* PAGE INFORMATION */}
-        </CardContainer>
-      </Box>
+          <CardContainer>
+            {!loading &&
+              alumni.map((student) => {
+                return <AlumniCards key={student._id} alumni={student} />;
+              })}
+            {/* PAGE INFORMATION */}
+          </CardContainer>
+          <PageFooter />
+        </Container>
+      </BackgroundBox>
+      <ScrollToTop />
     </ThemeProvider>
   );
 };
 
 export default AlumniPublic;
 
+const PageHeader = styled(Typography)`
+  && {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
+    }
+  }
+`;
+
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
   margin: 0 auto;
   justify-content: center;
+  margin-bottom: 40px;
 
   @media (min-width: 768px) {
     max-width: calc(750px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr;
+    margin-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
+    max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

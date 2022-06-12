@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { client } from "../../client";
 import styled from "styled-components";
 import AlumniCards from "../../components/AlumniCards";
 import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const AlumniPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -26,31 +26,29 @@ const AlumniPrivate = () => {
   }, []);
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <LandingPageHero
         query={`*[_type == "community"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <PageContainer>
+
+      <Container maxWidth="lg">
+        {loading && <LoadingIndicator />}
+
         <CardContainer>
-          {loading && <LoadingIndicator />}
           {!loading &&
             alumni.map((student) => {
               return <AlumniCards key={student._id} alumni={student} />;
             })}
-          {/* PAGE INFORMATION */}
         </CardContainer>
-      </PageContainer>
+      </Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 
@@ -58,22 +56,20 @@ export default AlumniPrivate;
 
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
   margin: 0 auto;
   justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
 
   @media (min-width: 768px) {
     max-width: calc(750px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
     grid-template-columns: 1fr 1fr;
+    padding-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
-    max-width: calc(1125px + 3vh);
-    gap: 3vh;
-    padding: 3vh 0;
+    max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

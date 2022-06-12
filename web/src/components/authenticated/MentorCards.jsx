@@ -9,16 +9,20 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Button,
 } from "@mui/material";
 import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 const MentorCards = ({ mentor }) => {
   const openLinkedin = () => {
     window.open(mentor.linkedin, "_blank");
   };
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -40,26 +44,28 @@ const MentorCards = ({ mentor }) => {
             justifyContent="space-between"
             alignItems="center"
             bottom={0}
+            sx={{ minHeight: "65px" }}
           >
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" fontWeight={400}>
               {mentor.fullName}
             </Typography>
             <IconButton onClick={openLinkedin}>
               <LinkedInIcon color="info" fontSize="large" />
             </IconButton>
           </Stack>
-          {/* <Typography variant="body2" color="text.secondary">
-            {mentor.bio}
-          </Typography> */}
+          <Button
+            variant="contained"
+            sx={{ margin: "0 auto" }}
+            onClick={() => navigate(`/book-a-mentor/${mentor._id}`)}
+          >
+            Book now
+          </Button>
         </Stack>
       </CardContent>
       <Accordion
         elevation={1}
         sx={{
           boxShadow: "none",
-          //   borderTop: "none",
-          //   border: 0,
-          //   borderColor: "secondary.main",
         }}
       >
         <AccordionSummary
@@ -70,7 +76,7 @@ const MentorCards = ({ mentor }) => {
         </AccordionSummary>
         <AccordionDetails>
           <Bio>
-            <Typography variant="body2" color="text.secondary">
+            <Typography color="text.secondary" fontSize={14} lineHeight={1.6}>
               {mentor.bio}
             </Typography>
           </Bio>
@@ -98,7 +104,12 @@ const MentorCards = ({ mentor }) => {
           <ul>
             {mentor.topics.map((topic) => {
               return (
-                <Typography variant="body2" color="text.secondary" key={topic}>
+                <Typography
+                  color="text.secondary"
+                  fontSize={14}
+                  lineHeight={1.6}
+                  key={topic}
+                >
                   <ListItem>{topic}</ListItem>
                 </Typography>
               );

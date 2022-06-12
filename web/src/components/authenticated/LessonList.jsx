@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import styled from "styled-components";
-import { List, Typography, ListSubheader, Fab } from "@mui/material";
+import {
+  List,
+  Typography,
+  ListSubheader,
+  Fab,
+  Container,
+  Paper,
+} from "@mui/material";
 import LessonItem from "./LessonItem";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
-// import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-import MouseIcon from "@mui/icons-material/Mouse";
+import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+// import MouseIcon from "@mui/icons-material/Mouse";
 
 const LessonList = ({
   lessons,
@@ -35,7 +41,7 @@ const LessonList = ({
   };
 
   return (
-    <>
+    <Container maxWidth="xl">
       {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
@@ -59,7 +65,7 @@ const LessonList = ({
       {/* https://www.npmjs.com/package/react-player */}
       {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
       {videoUrl.length > 0 && (
-        <PageContainer>
+        <Container maxWidth="lg">
           <FrameDiv>
             <ReactPlayer
               url={videoUrl}
@@ -74,12 +80,11 @@ const LessonList = ({
           </Typography>
           <Typography fontSize={16}>{taskTitle}</Typography>
           <Typography variant="caption">{taskDuration}</Typography>
-        </PageContainer>
+        </Container>
       )}
       {taskDescription.length > 0 && (
-        <PageContainer>
+        <StyledPaper elevation={6} sx={{ maxWidth: "lg" }}>
           <TaskItem>
-            <p>{taskDescription}</p>
             <Fab
               color="info"
               size="large"
@@ -87,17 +92,18 @@ const LessonList = ({
               rel="noreferrer"
               href={taskLink}
             >
-              {/* <ModeOutlinedIcon sx={{ fontSize: 30 }} /> */}
-              <MouseIcon sx={{ fontSize: 30 }} />
+              <ModeOutlinedIcon sx={{ fontSize: 30 }} />
+              {/* <MouseIcon sx={{ fontSize: 30 }} /> */}
             </Fab>
+            <p>{taskDescription}</p>
           </TaskItem>
-        </PageContainer>
+        </StyledPaper>
       )}
       <List
         dense
         sx={{
           width: "100%",
-          // maxWidth: 600,
+          maxWidth: "lg",
           bgcolor: "background.paper",
           mx: "auto",
         }}
@@ -119,7 +125,7 @@ const LessonList = ({
             );
           })}
       </List>
-    </>
+    </Container>
   );
 };
 
@@ -128,19 +134,20 @@ export default LessonList;
 const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
-// const IFrame = styled.iframe`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-// `;
+const StyledPaper = styled(Paper)`
+  && {
+    padding: 12px 24px;
+    margin: 0 auto;
+  }
+`;
 
 const TaskItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: max-content 1fr;
   gap: 16px;
   align-items: center;
 `;

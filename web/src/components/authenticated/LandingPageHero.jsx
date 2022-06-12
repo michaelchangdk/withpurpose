@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { client } from "../../client";
 import { urlFor } from "../../client";
 import down from "../../assets/down.png";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
+import { Container, Typography } from "@mui/material";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);
@@ -30,13 +30,17 @@ const LandingPageHero = ({ query, type, displayName }) => {
     <>
       <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
         <HeaderAuth />
-        <PageContainer>
+        <Container maxWidth="lg">
           <HeaderTitleWrapper>
-            <HeaderTitle>
+            <HeaderTitle variant="h2" component="h1">
               {title}
               {displayName && ` ${nameArray[0]}`}
             </HeaderTitle>
-            {!!subtitle && <HeaderSubtitle>{subtitle}</HeaderSubtitle>}
+            {!!subtitle && (
+              <HeaderSubtitle variant="h4" component="h2" fontWeight={500}>
+                {subtitle}
+              </HeaderSubtitle>
+            )}
           </HeaderTitleWrapper>
           <ButtonWrapper>
             <Link
@@ -50,16 +54,20 @@ const LandingPageHero = ({ query, type, displayName }) => {
             >
               <HeaderInstruction id="test1">
                 {type === "page" && (
-                  <HeaderSubtitle>Scroll for more</HeaderSubtitle>
+                  <HeaderSubtitle variant="h4" component="h3" fontWeight={400}>
+                    Scroll for more
+                  </HeaderSubtitle>
                 )}
                 {type === "week" && (
-                  <HeaderSubtitle>Scroll to the course</HeaderSubtitle>
+                  <HeaderSubtitle variant="h4" component="h3" fontWeight={400}>
+                    Scroll to the course
+                  </HeaderSubtitle>
                 )}
                 <HeaderIcon src={down} alt="Down arrow." />
               </HeaderInstruction>
             </Link>
           </ButtonWrapper>
-        </PageContainer>
+        </Container>
       </Header>
     </>
   );
@@ -75,7 +83,7 @@ const Header = styled.header`
   background-size: cover;
   background-position-x: center;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     height: 30vh;
     min-height: 300px;
     background-position-y: center;
@@ -83,7 +91,7 @@ const Header = styled.header`
 `;
 
 const ButtonWrapper = styled.div`
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
@@ -93,22 +101,33 @@ const HeaderTitleWrapper = styled.div`
   flex-direction: column;
   padding-top: 20vh;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 768px) {
     padding-top: 1vh;
   }
 `;
 
-const HeaderTitle = styled.h1`
-  color: white;
-  font-size: 64px;
-  padding-bottom: 10px;
+const HeaderTitle = styled(Typography)`
+  && {
+    color: white;
+    font-size: 68px;
+    padding-bottom: 12px;
+    line-height: 1.2;
+  }
 `;
 
-const HeaderSubtitle = styled.h2`
-  color: white;
-  font-size: 20px;
-  font-weight: 300;
+const HeaderSubtitle = styled(Typography)`
+  && {
+    color: white;
+    font-size: 24px;
+  }
 `;
+
+// const HeaderSubtitle = styled.h2`
+//   font-family: "Nunito", sans-serif;
+//   color: white;
+//   font-size: 20px;
+//   font-weight: 400;
+// `;
 
 const HeaderInstruction = styled.div`
   display: flex;

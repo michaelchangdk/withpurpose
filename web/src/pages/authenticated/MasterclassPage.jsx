@@ -1,12 +1,12 @@
 import React from "react";
-import { PageContainer } from "../../styledcomponents/globalstyles";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const MasterclassPage = () => {
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
@@ -19,9 +19,9 @@ const MasterclassPage = () => {
         query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <PageContainer>{/* PAGE INFORMATION */}</PageContainer>
+      <Container maxWidth="lg"></Container>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 

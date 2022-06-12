@@ -1,10 +1,11 @@
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Typography, Box, Stack } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
+import styled from "styled-components";
 
 const LoadingIndicator = () => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Wrapper>
       <Stack
         justifyContent="center"
         alignItems="center"
@@ -12,12 +13,16 @@ const LoadingIndicator = () => {
         gap={2}
       >
         <CircularProgress color="primary" />
-        <Typography variant="h6" sx={{ textAlign: "center" }}>
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           Loading...
         </Typography>
       </Stack>
-    </Box>
+    </Wrapper>
   );
 };
 
 export default LoadingIndicator;
+
+const Wrapper = styled.div`
+  margin: 3vh auto 0 auto;
+`;

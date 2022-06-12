@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { client } from "../../client";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
-import { PageContainer } from "../../styledcomponents/globalstyles";
-import { Stack, Typography, Box, Button } from "@mui/material";
+import { Stack, Typography, Button, Container } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
 import LoadingIndicator from "../../components/LoadingIndicator";
@@ -12,6 +11,7 @@ import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -162,21 +162,18 @@ const ModulePage = () => {
   };
 
   return (
-    <Box
+    <BackgroundBox
       sx={{
         bgcolor: "background.default",
         color: "text.primary",
-        width: "100%",
-        minHeight: "100vh",
-        height: "100%",
       }}
     >
       <HeaderAuth />
+      {loading && <LoadingIndicator />}
       <CardContainer>
-        {loading && <LoadingIndicator />}
         {!loading && (
           <>
-            <PageContainer>
+            <Container maxWidth="lg">
               <Stack
                 direction="row"
                 alignItems="center"
@@ -196,15 +193,17 @@ const ModulePage = () => {
                   fontSize={14}
                 />
               </Stack>
-            </PageContainer>
+            </Container>
             {moduleDescription && (
               <DescriptionContainer>
-                <Typography>{moduleDescription}</Typography>
+                <DescriptionChild maxWidth="lg">
+                  <StyledTypo>{moduleDescription}</StyledTypo>
+                </DescriptionChild>
               </DescriptionContainer>
             )}
 
             <LessonList key={lessons} lessons={lessons} />
-            <PageContainer>
+            <Container maxWidth="lg">
               <Stack
                 direction="row"
                 // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
@@ -264,12 +263,12 @@ const ModulePage = () => {
                   </Button>
                 )}
               </Stack>
-            </PageContainer>
+            </Container>
           </>
         )}
       </CardContainer>
       <ScrollToTop />
-    </Box>
+    </BackgroundBox>
   );
 };
 
@@ -277,25 +276,45 @@ export default ModulePage;
 
 const DescriptionContainer = styled.div`
   background-color: #e93a7d;
+  /* background-color: #6356d7; */
+  /* background-color: #5491e3; */
   color: white;
-  padding: 48px;
+  padding: 48px 0;
   white-space: pre-line;
   vertical-align: bottom;
 
-  @media (min-width: 1100px) {
-    padding-left: 30vh;
-    padding-right: 30vh;
+  @media (min-width: 768px) {
+    padding: 48px 0;
+  }
+`;
+
+const DescriptionChild = styled(Container)`
+  && {
+    padding: 0 84px;
   }
 `;
 
 const CardContainer = styled.div`
   display: grid;
-  gap: 2vh;
-  padding: 2vh 0;
+  gap: 32px;
+  padding-top: 16px;
+  padding-bottom: 40px;
   margin: 0 auto;
 
   @media (min-width: 768px) {
-    gap: 3vh;
-    padding: 3vh 0;
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+`;
+
+const StyledTypo = styled(Typography)`
+  /* && {
+  } */
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 18px;
+      line-height: 1.6;
+    }
   }
 `;

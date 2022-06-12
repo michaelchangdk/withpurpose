@@ -94,21 +94,22 @@ const WeekCards = ({
       sx={{
         // maxWidth: 345,
         // minHeight: 150,
-        height: 175,
+        // height: 175,
         padding: 2,
         mx: "auto",
         width: "100%",
-        maxWidth: 500,
+        maxWidth: "sm",
+        minHeight: "186px",
       }}
     >
       {/* Is height necessary below? */}
-      <Stack sx={{ height: "100%", justifyContent: "space-between" }}>
+      <Stack sx={{ height: "100%", justifyContent: "space-between" }} gap={1}>
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Typography variant="caption">
+          <Typography variant="caption" fontSize="14px">
             {title} | {keyword}
           </Typography>
           <ProgressCircle
@@ -118,7 +119,7 @@ const WeekCards = ({
             fontSize={10}
           />
         </Stack>
-        <Typography variant="body1" fontWeight={500}>
+        <Typography variant="body1" fontWeight={500} fontSize="16px">
           {shortDescription}
         </Typography>
         <Typography variant="body2" fontWeight={300} fontSize={14}>
