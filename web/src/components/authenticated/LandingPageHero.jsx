@@ -109,7 +109,7 @@ const HeaderTitleWrapper = styled.div`
 const HeaderTitle = styled(Typography)`
   && {
     color: white;
-    font-size: 68px;
+    font-size: 64px;
     padding-bottom: 12px;
     line-height: 1.2;
   }
