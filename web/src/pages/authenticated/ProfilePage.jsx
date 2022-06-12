@@ -357,7 +357,7 @@ const ProfilePage = () => {
                   <List>
                     {bookingRequests.length > 0 &&
                       bookingRequests.map((booking) => (
-                        <ListItem key={booking.bookingrequest[0].key}>
+                        <ListItem key={booking.bookingrequest[0]._key}>
                           <ListItemAvatar>
                             <ScheduleIcon sx={{ fontSize: "32px" }} />
                           </ListItemAvatar>

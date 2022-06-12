@@ -33,7 +33,7 @@ const Homepage = () => {
         <Container maxWidth="lg">
           <PageWrapper>
             <HeaderContainer>
-              <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
+              <StyledHeader variant="h1">
                 YOUR STARTUP JOURNEY <br />
                 BEGINS HERE
               </StyledHeader>
@@ -60,11 +60,12 @@ const Homepage = () => {
                     color="secondary"
                     variant="contained"
                     sx={{
-                      width: "220px",
+                      width: "160px",
                       fontSize: "16px",
                       fontWeight: "700",
                       margin: "0 auto",
                     }}
+                    size="large"
                     onClick={() =>
                       window.open(
                         "https://forms.gle/ecz32R1vEStjzbWT9",
@@ -83,12 +84,7 @@ const Homepage = () => {
 
             {/* STATISTICS ABOUT WOMEN IN TECH */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <Typography textAlign="center" variant="h2" fontSize={44}>
                 Women in <PurpleText>Entrepreneurship</PurpleText>
               </Typography>
               <SectionDescription>
@@ -143,12 +139,7 @@ const Homepage = () => {
             </Section>
             {/* STARTUP SCHOOL 5 STEPS W LEARN MORE BUTTON */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <Typography textAlign="center" variant="h2" fontSize={44}>
                 The Startup <PurpleText>School</PurpleText>
               </Typography>
               <SectionDescription>
@@ -260,12 +251,7 @@ const Homepage = () => {
             </Section>
             {/* AWARDS SECTION */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={800}
-                fontSize={44}
-              >
+              <Typography textAlign="center" variant="h2" fontSize={44}>
                 Part of <PurpleText>The Nordic Ecosystem</PurpleText>
               </Typography>
               <ThreeGrid>
@@ -300,23 +286,13 @@ const Homepage = () => {
             </Section>
             {/* CTA */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <Typography textAlign="center" variant="h2" fontSize={44}>
                 Sign up <PurpleText>now</PurpleText>
               </Typography>
             </Section>
             {/* NEWSLETTER / REACH OUT */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <Typography textAlign="center" variant="h2" fontSize={44}>
                 Reach <PurpleText>out</PurpleText>
               </Typography>
               <Newsletter />
@@ -371,16 +347,11 @@ const SectionDescription = styled.div`
 const HeaderContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
+  gap: 16px;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    min-height: 300px;
-  }
-
-  @media (min-width: 1100px) {
     grid-template-columns: 1fr 1.3fr;
-    gap: 2vh;
+    min-height: 300px;
   }
 `;
 
@@ -393,6 +364,7 @@ const StyledHeader = styled(Typography)`
     grid-row-end: 1;
     margin-bottom: 40px;
     align-self: flex-end;
+    font-size: 52px;
   }
 
   @media (min-width: 768px) {
@@ -409,25 +381,17 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 900px) {
     && {
-      font-size: 60px;
+      font-size: 68px;
       margin-top: 80px;
     }
   }
 
   @media (min-width: 1100px) {
     && {
-      margin-top: 100px;
-      width: 100%;
+      margin-top: 124px;
       font-size: 80px;
     }
   }
-
-  /* @media (min-width: 1240px) {
-    && {
-      margin-top: 140px;
-      font-size: 88px;
-    }
-  } */
 `;
 
 const Header = styled.header`
@@ -466,7 +430,7 @@ const CTAChild = styled.div`
   flex-direction: row; */
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 16px;
   margin: 0 auto;
   align-items: center;
 
