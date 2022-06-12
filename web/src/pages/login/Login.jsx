@@ -200,7 +200,7 @@ const Login = () => {
         <Typography
           variant="h6"
           fontSize={24}
-          fontWeight={500}
+          fontWeight={400}
           textAlign="center"
           component="h1"
         >

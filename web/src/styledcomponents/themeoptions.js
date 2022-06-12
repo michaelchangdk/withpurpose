@@ -24,35 +24,35 @@ export const lightMode = createTheme({
     },
   },
   typography: {
-    // h1: {
-    //   fontFamily: "Kanit, sans-serif",
-    //   fontWeight: 700,
-    //   lineHeight: 0.9,
-    // },
+    h1: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 800,
+      lineHeight: 0.9,
+    },
     h2: {
-      fontFamily: "Kanit, sans-serif",
+      fontFamily: "Montserrat, sans-serif",
       fontWeight: 600,
       lineHeight: 1,
     },
     h3: {
-      fontFamily: "Kanit, sans-serif",
+      fontFamily: "Montserrat, sans-serif",
       fontWeight: 500,
     },
     h4: {
-      fontFamily: "Mukta, sans-serif",
+      fontFamily: "Nunito, sans-serif",
       fontWeight: 400,
     },
     h5: {
-      fontFamily: "Mukta, sans-serif",
+      fontFamily: "Nunito, sans-serif",
       fontWeight: 300,
     },
-    // h6: {
-    //   fontFamily: "Roboto, sans-serif",
-    //   fontSize: "6rem",
-    //   fontWeight: 700,
-    //   lineHeight1: 1.167,
-    //   letterSpacing: "-0.01562em",
-    // },
+    h6: {
+      fontFamily: "Roboto, sans-serif",
+      fontSize: "6rem",
+      fontWeight: 700,
+      lineHeight1: 1.167,
+      letterSpacing: "-0.01562em",
+    },
   },
 });
 
@@ -78,25 +78,25 @@ export const darkMode = createTheme({
   },
   typography: {
     h1: {
-      fontFamily: "Kanit, sans-serif",
-      fontWeight: 700,
-      lineHeight: 0.9,
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 800,
+      lineHeight: 1,
     },
     h2: {
-      fontFamily: "Kanit, sans-serif",
-      fontWeight: 600,
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 700,
       lineHeight: 1,
     },
     h3: {
-      fontFamily: "Kanit, sans-serif",
+      fontFamily: "Montserrat, sans-serif",
       fontWeight: 500,
     },
     h4: {
-      fontFamily: "Mukta, sans-serif",
+      fontFamily: "Nunito, sans-serif",
       fontWeight: 400,
     },
     h5: {
-      fontFamily: "Mukta, sans-serif",
+      fontFamily: "Nunito, sans-serif",
       fontWeight: 300,
     },
     h6: {

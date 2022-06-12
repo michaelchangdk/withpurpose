@@ -309,12 +309,12 @@ const CardContainer = styled.div`
 
 const StyledTypo = styled(Typography)`
   /* && {
-} */
+  } */
 
   @media (min-width: 768px) {
     && {
       font-size: 18px;
-      line-height: 30px;
+      line-height: 1.6;
     }
   }
 `;

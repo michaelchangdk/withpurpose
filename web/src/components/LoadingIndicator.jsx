@@ -13,7 +13,7 @@ const LoadingIndicator = () => {
         gap={2}
       >
         <CircularProgress color="primary" />
-        <Typography variant="h6" sx={{ textAlign: "center" }}>
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           Loading...
         </Typography>
       </Stack>

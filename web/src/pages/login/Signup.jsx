@@ -222,10 +222,11 @@ const Signup = () => {
           <Logo src={logo} alt="With Purpose Logo." />
         </IconButton>
         <Typography
-          variant="h1"
+          variant="h6"
           fontSize={24}
           fontWeight={400}
           textAlign="center"
+          component="h1"
         >
           Sign up
         </Typography>

@@ -19,9 +19,12 @@ const StartupSchool = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageTitle variant="h3" textAlign="center">
+          <PageHeader variant="h2" component="h1" textAlign="center">
+            Startup School
+          </PageHeader>
+          <PageSubtitle variant="h3" component="h2" textAlign="center">
             Registrations for the Startup School are now open!
-          </PageTitle>
+          </PageSubtitle>
         </Container>
         <PageFooter />
       </BackgroundBox>
@@ -32,14 +35,33 @@ const StartupSchool = () => {
 
 export default StartupSchool;
 
-const PageTitle = styled(Typography)`
+const PageHeader = styled(Typography)`
   && {
-    margin-bottom: 40px;
+    font-size: 40px;
+    margin-bottom: 24px;
   }
 
   @media (min-width: 768px) {
     && {
-      margin-bottom: 60px;
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 32px auto;
+    }
+  }
+`;
+
+const PageSubtitle = styled(Typography)`
+  && {
+    font-size: 28px;
+    margin-bottom: 40px;
+    padding: 0 60px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 36px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
     }
   }
 `;

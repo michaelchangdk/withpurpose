@@ -94,13 +94,18 @@ const Contact = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageTitle variant="h3" textAlign="center">
+          <PageTitle variant="h2" component="h1" textAlign="center">
             Contact us
           </PageTitle>
           <GridContainer>
             <TextContainer>
               <Stack gap={2}>
-                <Typography>
+                <Typography
+                  variant="h5"
+                  component="body1"
+                  fontWeight={400}
+                  lineHeight={1.2}
+                >
                   Ready to make an impact? Contact us to learn how we can start
                   working together.
                 </Typography>
@@ -187,7 +192,15 @@ const Contact = () => {
                   color="primary"
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <Typography>I'm interested to join as *</Typography>
+                <Typography
+                  variant="h5"
+                  component="body1"
+                  fontWeight={500}
+                  lineHeight={1}
+                  fontSize={20}
+                >
+                  I'm interested to join as *
+                </Typography>
                 <FormGroup>
                   <FormControlLabel
                     control={

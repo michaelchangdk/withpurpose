@@ -49,9 +49,9 @@ const MentorsPublic = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageTitle variant="h3" textAlign="center">
+          <PageHeader variant="h2" component="h1" textAlign="center">
             Mentors
-          </PageTitle>
+          </PageHeader>
           {loading && <LoadingIndicator />}
           <CardContainer>
             {!loading &&
@@ -69,14 +69,17 @@ const MentorsPublic = () => {
 
 export default MentorsPublic;
 
-const PageTitle = styled(Typography)`
+const PageHeader = styled(Typography)`
   && {
+    font-size: 40px;
     margin-bottom: 40px;
   }
 
   @media (min-width: 768px) {
     && {
-      margin-bottom: 60px;
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
     }
   }
 `;
@@ -89,11 +92,13 @@ const CardContainer = styled.div`
   margin-bottom: 40px;
 
   @media (min-width: 768px) {
+    max-width: 782px;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 60px;
   }
 
   @media (min-width: 1100px) {
+    max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
   }
 `;

@@ -36,9 +36,9 @@ const AlumniPublic = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageTitle variant="h3" textAlign="center">
+          <PageHeader variant="h2" component="h1" textAlign="center">
             Our Alumni
-          </PageTitle>
+          </PageHeader>
           {loading && <LoadingIndicator />}
           <CardContainer>
             {!loading &&
@@ -57,14 +57,17 @@ const AlumniPublic = () => {
 
 export default AlumniPublic;
 
-const PageTitle = styled(Typography)`
+const PageHeader = styled(Typography)`
   && {
+    font-size: 40px;
     margin-bottom: 40px;
   }
 
   @media (min-width: 768px) {
     && {
-      margin-bottom: 60px;
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
     }
   }
 `;

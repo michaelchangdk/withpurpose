@@ -20,7 +20,7 @@ const TeamCards = ({ member }) => {
         width: "100%",
         maxWidth: 375,
         height: "100%",
-        bgcolor: "primary.main",
+        bgcolor: "info.main",
       }}
     >
       <CardMedia
@@ -38,7 +38,7 @@ const TeamCards = ({ member }) => {
           mb={2}
         >
           <div>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" fontWeight={400}>
               {member.fullName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -46,7 +46,7 @@ const TeamCards = ({ member }) => {
             </Typography>
           </div>
           <IconButton onClick={openLinkedin}>
-            <LinkedInIcon color="secondary" fontSize="large" />
+            <LinkedInIcon color="primary.contrast" fontSize="large" />
           </IconButton>
         </Stack>
         <Typography>{member.quote}</Typography>

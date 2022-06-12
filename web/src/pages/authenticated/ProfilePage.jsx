@@ -223,7 +223,8 @@ const ProfilePage = () => {
                 />
               )}
               <Typography
-                sx={{ marginTop: "12px", fontSize: 25, textAlign: "center" }}
+                sx={{ marginTop: "12px", fontSize: 26, textAlign: "center" }}
+                variant="h4"
               >
                 {displayName}
               </Typography>
@@ -347,15 +348,16 @@ const ProfilePage = () => {
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography
                     sx={{
-                      fontSize: 25,
+                      fontSize: 26,
                     }}
+                    variant="h4"
                   >
                     Booking Requests
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {bookingRequests.length > 0 &&
+                    {bookingRequests.length > 0 ? (
                       bookingRequests.map((booking) => (
                         <ListItem key={booking.bookingrequest[0]._key}>
                           <ListItemAvatar>
@@ -366,7 +368,15 @@ const ProfilePage = () => {
                             secondary={booking.bookingrequest[0].datetime}
                           />
                         </ListItem>
-                      ))}
+                      ))
+                    ) : (
+                      <ListItem>
+                        <ListItemAvatar>
+                          <ScheduleIcon sx={{ fontSize: "32px" }} />
+                        </ListItemAvatar>
+                        <ListItemText primary="No booking requests" />
+                      </ListItem>
+                    )}
                   </List>
                 </AccordionDetails>
               </Accordion>
