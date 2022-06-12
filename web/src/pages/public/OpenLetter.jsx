@@ -6,10 +6,9 @@ import { darkMode } from "../../styledcomponents/themeoptions";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { PortableText } from "@portabletext/react";
 import { client } from "../../client";
-import styled from "styled-components/macro";
 
 
 const OpenLetter = () => {
