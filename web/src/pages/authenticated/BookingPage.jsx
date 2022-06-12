@@ -265,14 +265,18 @@ const BookingPage = () => {
           {selectedTime.length > 0 && (
             <GridChild>
               <div>
-                <Typography>Booking Summary</Typography>
-                <Typography>With Purpose Mentorship</Typography>
+                <Typography variant="h5" fontWeight={400}>
+                  Booking Summary
+                </Typography>
+                <Typography variant="subtitle">
+                  With Purpose Mentorship
+                </Typography>
                 <Divider />
               </div>
               {selectedTime && (
                 <>
                   <div>
-                    <Typography>
+                    <Typography fontWeight={500}>
                       {value
                         ? `${format(value, "d MMMM yyyy")}, ${selectedTime}`
                         : ""}
@@ -326,12 +330,12 @@ const DescriptionChild = styled(Container)`
 
 const StyledTypo = styled(Typography)`
   /* && {
-} */
+  } */
 
   @media (min-width: 768px) {
     && {
       font-size: 18px;
-      line-height: 30px;
+      line-height: 1.6;
     }
   }
 `;

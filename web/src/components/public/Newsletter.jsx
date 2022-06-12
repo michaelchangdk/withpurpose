@@ -51,7 +51,7 @@ const Newsletter = () => {
               />
             </IconButton>
           </Stack>
-          <Typography variant="h4" textAlign="center">
+          <Typography variant="h4" fontSize={28} textAlign="center">
             With Purpose Newsletter
           </Typography>
           <Typography textAlign="center">

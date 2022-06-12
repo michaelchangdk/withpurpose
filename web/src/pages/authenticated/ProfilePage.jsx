@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import {
   EmailAuthProvider,
@@ -24,6 +24,10 @@ import {
   TextField,
   Typography,
   Paper,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
 } from "@mui/material";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -32,9 +36,10 @@ import { client } from "../../client";
 import { Box } from "@mui/material";
 import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
-// import splotch from "../../assets/decorative/splotch.png";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 // import styled from "styled-components";
 // import { useEffect } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");
@@ -47,6 +52,7 @@ const ProfilePage = () => {
   const [successEmail, setSuccessEmail] = useState("");
   const [successPassword, setSuccessPassword] = useState("");
   const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
+  const [bookingRequests, setBookingRequests] = useState([]);
 
   const auth = getAuth();
   const dispatch = useDispatch();
@@ -164,16 +170,13 @@ const ProfilePage = () => {
     }
   };
 
-  // Fetch bookings - bidirectional fetch is somewhere in this project!!!
-  // useEffect(() => {
-  //   client
-  //     .fetch(
-  //       `*[_type == "user" && _id == "${userid}"]{
-  //     "booking": *[_type == "studentMentors" && student references(_id)]
-  //   }`
-  //     )
-  //     .then((res) => console.log(res));
-  // }, []);
+  // Fetch booking requests
+  const bookingQuery = `*[_type == "user" && _id == "${userid}"] {"booking": *[_type == "studentMentors" && references(^._id)]{fullName, bookingrequest}} `;
+  useEffect(() => {
+    client.fetch(bookingQuery).then((res) => {
+      setBookingRequests(res[0].booking);
+    });
+  }, [bookingQuery]);
 
   return (
     <BackgroundBox
@@ -220,7 +223,8 @@ const ProfilePage = () => {
                 />
               )}
               <Typography
-                sx={{ marginTop: "12px", fontSize: 25, textAlign: "center" }}
+                sx={{ marginTop: "12px", fontSize: 26, textAlign: "center" }}
+                variant="h4"
               >
                 {displayName}
               </Typography>
@@ -234,7 +238,9 @@ const ProfilePage = () => {
                 />
               </FormGroup>
               <Accordion elevation={6}>
-                <AccordionSummary>Change display name</AccordionSummary>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  Change display name
+                </AccordionSummary>
                 <AccordionDetails sx={{ display: "grid", gap: 1 }}>
                   <TextField
                     label="First name"
@@ -258,7 +264,7 @@ const ProfilePage = () => {
                 </AccordionDetails>
               </Accordion>
               <Accordion elevation={6}>
-                <AccordionSummary>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Change email</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ display: "grid", gap: 1 }}>
@@ -313,7 +319,7 @@ const ProfilePage = () => {
                 </AccordionDetails>
               </Accordion>
               <Accordion elevation={6}>
-                <AccordionSummary>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Reset password</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -338,16 +344,46 @@ const ProfilePage = () => {
               </Accordion>
             </Paper>
             <Paper elevation={6} sx={{ width: "100%" }}>
-              <Typography
-                sx={{ margin: "12px 0", fontSize: 25, textAlign: "center" }}
-              >
-                Booking Requests
-              </Typography>
+              <Accordion elevation={6}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography
+                    sx={{
+                      fontSize: 26,
+                    }}
+                    variant="h4"
+                  >
+                    Booking Requests
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <List>
+                    {bookingRequests.length > 0 ? (
+                      bookingRequests.map((booking) => (
+                        <ListItem key={booking.bookingrequest[0]._key}>
+                          <ListItemAvatar>
+                            <ScheduleIcon sx={{ fontSize: "32px" }} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={booking.fullName}
+                            secondary={booking.bookingrequest[0].datetime}
+                          />
+                        </ListItem>
+                      ))
+                    ) : (
+                      <ListItem>
+                        <ListItemAvatar>
+                          <ScheduleIcon sx={{ fontSize: "32px" }} />
+                        </ListItemAvatar>
+                        <ListItemText primary="No booking requests" />
+                      </ListItem>
+                    )}
+                  </List>
+                </AccordionDetails>
+              </Accordion>
             </Paper>
           </Box>
         </Stack>
       </Container>
-
       <ScrollToTop />
       {/* Button to log out ?*/}
     </BackgroundBox>
@@ -355,11 +391,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-// const PinkSplotch = styled.img`
-//   position: absolute;
-//   top: 100px;
-//   right: 0;
-//   transform: scaleX(-1);
-//   z-index: 0;
-// `;

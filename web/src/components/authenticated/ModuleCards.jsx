@@ -57,7 +57,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Typography variant="caption" fontSize="14px">
+          <Typography variant="h4" fontWeight={400} fontSize="16px">
             {type}
           </Typography>
           <ProgressCircle
@@ -67,16 +67,23 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
             fontSize={10}
           />
         </Stack>
-        <Typography variant="body1" fontWeight={500} fontSize="16px">
+        <Typography variant="body1" fontWeight={500} fontSize="18px">
           {name}
         </Typography>
         <Stack direction="row" alignItems="center" gap={1}>
           {(type === "Course videos" || type === "Live session") && (
-            <OndemandVideoIcon />
+            <OndemandVideoIcon fontSize="large" />
           )}
-          {type === "Exercises" && <ModeOutlinedIcon />}
-          {type === "Optional resources" && <PlaylistAddOutlinedIcon />}
-          <Typography variant="body2" fontWeight={300} fontSize={14}>
+          {type === "Exercises" && <ModeOutlinedIcon fontSize="large" />}
+          {type === "Optional resources" && (
+            <PlaylistAddOutlinedIcon fontSize="large" />
+          )}
+          <Typography
+            variant="subtitle"
+            color="text.secondary"
+            fontWeight={400}
+            fontSize={14}
+          >
             {type} | {duration}
           </Typography>
         </Stack>

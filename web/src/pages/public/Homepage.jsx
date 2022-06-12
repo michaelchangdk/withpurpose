@@ -33,7 +33,7 @@ const Homepage = () => {
         <Container maxWidth="lg">
           <PageWrapper>
             <HeaderContainer>
-              <StyledHeader variant="h1" fontWeight={800} fontSize={50}>
+              <StyledHeader variant="h1">
                 YOUR STARTUP JOURNEY <br />
                 BEGINS HERE
               </StyledHeader>
@@ -60,11 +60,12 @@ const Homepage = () => {
                     color="secondary"
                     variant="contained"
                     sx={{
-                      width: "220px",
+                      width: "160px",
                       fontSize: "16px",
                       fontWeight: "700",
                       margin: "0 auto",
                     }}
+                    size="large"
                     onClick={() =>
                       window.open(
                         "https://forms.gle/ecz32R1vEStjzbWT9",
@@ -83,14 +84,9 @@ const Homepage = () => {
 
             {/* STATISTICS ABOUT WOMEN IN TECH */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 Women in <PurpleText>Entrepreneurship</PurpleText>
-              </Typography>
+              </SectionHeader>
               <SectionDescription>
                 <Typography sx={{ textAlign: "center" }}>
                   Women are largely underrepresented across the startup
@@ -104,7 +100,12 @@ const Homepage = () => {
               <ThreeGrid>
                 <GridChild>
                   <OverlayParent>
-                    <StyledTextOverlay variant="h2" fontWeight={700}>
+                    <StyledTextOverlay
+                      variant="h1"
+                      component="h3"
+                      fontWeight={700}
+                      fontSize={52}
+                    >
                       25%
                     </StyledTextOverlay>
                     <InfoSquiggle src={bluesquiggle} />
@@ -116,7 +117,12 @@ const Homepage = () => {
                 </GridChild>
                 <GridChild>
                   <OverlayParent>
-                    <StyledTextOverlay variant="h2" fontWeight={700}>
+                    <StyledTextOverlay
+                      variant="h1"
+                      component="h3"
+                      fontWeight={700}
+                      fontSize={52}
+                    >
                       2%
                     </StyledTextOverlay>
                     <InfoSquiggle src={bluesquiggle} />
@@ -129,7 +135,12 @@ const Homepage = () => {
                 </GridChild>
                 <GridChild>
                   <OverlayParent>
-                    <StyledTextOverlay variant="h2" fontWeight={700}>
+                    <StyledTextOverlay
+                      variant="h1"
+                      component="h3"
+                      fontWeight={700}
+                      fontSize={52}
+                    >
                       <StyledSpan>by</StyledSpan> 2023
                     </StyledTextOverlay>
                     <InfoSquiggle src={bluesquiggle} />
@@ -143,14 +154,9 @@ const Homepage = () => {
             </Section>
             {/* STARTUP SCHOOL 5 STEPS W LEARN MORE BUTTON */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 The Startup <PurpleText>School</PurpleText>
-              </Typography>
+              </SectionHeader>
               <SectionDescription>
                 <Typography sx={{ textAlign: "center" }}>
                   We guide women through the early stages of starting a company.
@@ -209,19 +215,14 @@ const Homepage = () => {
             </Section>
             {/* ALUMNI TESTIMONIALS */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 Our <PurpleText>Alumni</PurpleText>
-              </Typography>
+              </SectionHeader>
               <ThreeGrid>
                 <GridChild>
                   <CirclePhoto src={anda} alt="Anda-Maria Mihu" />
                   <QuoteIcon src={quote} alt="quote icon." />
-                  <Typography variant="h3" fontSize={30} align="center">
+                  <Typography variant="h4" fontSize={32} align="center">
                     <BlueText>Anda-Maria Mihu</BlueText>
                   </Typography>
                   <Typography align="center" sx={{ fontStyle: "italic" }}>
@@ -233,7 +234,7 @@ const Homepage = () => {
                 <GridChild>
                   <CirclePhoto src={ioana} alt="Iona Gheorge" />
                   <QuoteIcon src={quote} alt="quote icon." />
-                  <Typography variant="h3" fontSize={30} align="center">
+                  <Typography variant="h4" fontSize={32} align="center">
                     <BlueText>Ioana Gheorghe</BlueText>
                   </Typography>
                   <Typography align="center" sx={{ fontStyle: "italic" }}>
@@ -246,7 +247,7 @@ const Homepage = () => {
                 <GridChild>
                   <CirclePhoto src={sharuna} alt="Sharuna Rehman" />
                   <QuoteIcon src={quote} alt="quote icon." />
-                  <Typography variant="h3" fontSize={30} align="center">
+                  <Typography variant="h4" fontSize={32} align="center">
                     <BlueText>Sharuna Rehman</BlueText>
                   </Typography>
                   <Typography align="center" sx={{ fontStyle: "italic" }}>
@@ -260,14 +261,9 @@ const Homepage = () => {
             </Section>
             {/* AWARDS SECTION */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={800}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 Part of <PurpleText>The Nordic Ecosystem</PurpleText>
-              </Typography>
+              </SectionHeader>
               <ThreeGrid>
                 <GridChild>
                   <CirclePhoto src={nsa} alt="Nordic Startup Awards Nominee" />
@@ -300,25 +296,15 @@ const Homepage = () => {
             </Section>
             {/* CTA */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 Sign up <PurpleText>now</PurpleText>
-              </Typography>
+              </SectionHeader>
             </Section>
             {/* NEWSLETTER / REACH OUT */}
             <Section>
-              <Typography
-                textAlign="center"
-                variant="h2"
-                fontWeight={700}
-                fontSize={44}
-              >
+              <SectionHeader textAlign="center" variant="h2">
                 Reach <PurpleText>out</PurpleText>
-              </Typography>
+              </SectionHeader>
               <Newsletter />
             </Section>
             <PageFooter />
@@ -362,6 +348,18 @@ const Section = styled.section`
   gap: 16px;
 `;
 
+const SectionHeader = styled(Typography)`
+  && {
+    font-size: 36px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 44px;
+    }
+  }
+`;
+
 const SectionDescription = styled.div`
   max-width: 600px;
   margin: 0 auto;
@@ -371,16 +369,11 @@ const SectionDescription = styled.div`
 const HeaderContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
+  gap: 16px;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    min-height: 300px;
-  }
-
-  @media (min-width: 1100px) {
     grid-template-columns: 1fr 1.3fr;
-    gap: 2vh;
+    min-height: 300px;
   }
 `;
 
@@ -393,6 +386,7 @@ const StyledHeader = styled(Typography)`
     grid-row-end: 1;
     margin-bottom: 40px;
     align-self: flex-end;
+    font-size: 52px;
   }
 
   @media (min-width: 768px) {
@@ -403,7 +397,6 @@ const StyledHeader = styled(Typography)`
       text-align: right;
       justify-self: flex-end;
       margin-top: 5%;
-      font-size: 52px;
     }
   }
 
@@ -416,18 +409,17 @@ const StyledHeader = styled(Typography)`
 
   @media (min-width: 1100px) {
     && {
-      margin-top: 100px;
-      width: 100%;
-      font-size: 80px;
+      margin-top: 124px;
+      font-size: 68px;
     }
   }
 
-  /* @media (min-width: 1240px) {
+  @media (min-width: 1200px) {
     && {
-      margin-top: 140px;
-      font-size: 88px;
+      margin-top: 124px;
+      font-size: 72px;
     }
-  } */
+  }
 `;
 
 const Header = styled.header`
@@ -466,7 +458,7 @@ const CTAChild = styled.div`
   flex-direction: row; */
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 16px;
   margin: 0 auto;
   align-items: center;
 
@@ -569,11 +561,10 @@ const StepsContainer = styled.div`
 `;
 
 const DecorativeText = styled.h3`
-  /* font-family: "Bungee Shade", cursive; */
   font-family: "Tourney", cursive;
   color: white;
   text-shadow: -2px 2px #6355d7;
-  font-size: 44px;
+  font-size: 36px;
 `;
 
 // Alumni Section

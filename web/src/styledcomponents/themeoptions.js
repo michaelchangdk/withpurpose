@@ -23,6 +23,37 @@ export const lightMode = createTheme({
       main: "#5491e3",
     },
   },
+  typography: {
+    h1: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 800,
+      lineHeight: 0.9,
+    },
+    h2: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 600,
+      lineHeight: 1,
+    },
+    h3: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 500,
+    },
+    h4: {
+      fontFamily: "Nunito, sans-serif",
+      fontWeight: 400,
+    },
+    h5: {
+      fontFamily: "Nunito, sans-serif",
+      fontWeight: 300,
+    },
+    h6: {
+      fontFamily: "Roboto, sans-serif",
+      fontSize: "6rem",
+      fontWeight: 700,
+      lineHeight1: 1.167,
+      letterSpacing: "-0.01562em",
+    },
+  },
 });
 
 export const darkMode = createTheme({
@@ -43,6 +74,37 @@ export const darkMode = createTheme({
     },
     info: {
       main: "#5491e3",
+    },
+  },
+  typography: {
+    h1: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 800,
+      lineHeight: 1,
+    },
+    h2: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 700,
+      lineHeight: 1,
+    },
+    h3: {
+      fontFamily: "Montserrat, sans-serif",
+      fontWeight: 500,
+    },
+    h4: {
+      fontFamily: "Nunito, sans-serif",
+      fontWeight: 400,
+    },
+    h5: {
+      fontFamily: "Nunito, sans-serif",
+      fontWeight: 300,
+    },
+    h6: {
+      fontFamily: "Roboto, sans-serif",
+      fontSize: "6rem",
+      fontWeight: 700,
+      lineHeight1: 1.167,
+      letterSpacing: "-0.01562em",
     },
   },
 });

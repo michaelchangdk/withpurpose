@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import {
+  CardMedia,
+  CardContent,
+  Typography,
+  Card,
+  CardActionArea,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import NoAccessModal from "./NoAccessModal";
@@ -42,23 +45,42 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
       }}
     >
       <CardActionArea onClick={clickCard}>
-        <AspectRatioBox>
-          <AspectRatioChild
-            backgroundimage={urlFor(coverImageURL).url()}
-            xposition={coverImage.crop.top}
-            yposition={coverImage.hotspot.y}
-          ></AspectRatioChild>
-        </AspectRatioBox>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardMedia sx={{ alignSelf: "start" }}>
+          <AspectRatioBox>
+            <AspectRatioChild
+              backgroundimage={urlFor(coverImageURL).url()}
+              xposition={coverImage.crop.top}
+              yposition={coverImage.hotspot.y}
+            ></AspectRatioChild>
+          </AspectRatioBox>
+        </CardMedia>
+      </CardActionArea>
+      <CardActionArea
+        onClick={clickCard}
+        sx={{ height: "100%", display: "grid" }}
+      >
+        <CardContent sx={{ alignSelf: "start", height: "100%" }}>
+          {/* <Stack justifyContent="space-around" sx={{ height: "100%" }}> */}
+          <Typography
+            gutterBottom
+            variant="h5"
+            fontWeight={400}
+            component="div"
+          >
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            fontWeight={500}
+            mb={0.5}
+          >
             {headline}
           </Typography>
-          <Typography variant="body2" color="text.secondary" fontSize="15px">
+          <Typography variant="body1" color="text.secondary">
             {description}
           </Typography>
+          {/* </Stack> */}
         </CardContent>
       </CardActionArea>
       <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />

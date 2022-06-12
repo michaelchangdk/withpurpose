@@ -46,7 +46,7 @@ const MentorCards = ({ mentor }) => {
             bottom={0}
             sx={{ minHeight: "65px" }}
           >
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" fontWeight={400}>
               {mentor.fullName}
             </Typography>
             <IconButton onClick={openLinkedin}>
@@ -76,7 +76,7 @@ const MentorCards = ({ mentor }) => {
         </AccordionSummary>
         <AccordionDetails>
           <Bio>
-            <Typography variant="body2" color="text.secondary">
+            <Typography color="text.secondary" fontSize={14} lineHeight={1.6}>
               {mentor.bio}
             </Typography>
           </Bio>
@@ -104,7 +104,12 @@ const MentorCards = ({ mentor }) => {
           <ul>
             {mentor.topics.map((topic) => {
               return (
-                <Typography variant="body2" color="text.secondary" key={topic}>
+                <Typography
+                  color="text.secondary"
+                  fontSize={14}
+                  lineHeight={1.6}
+                  key={topic}
+                >
                   <ListItem>{topic}</ListItem>
                 </Typography>
               );
