@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PublicHeader from "../../components/public/PublicHeader";
-import { Button, Container, Stack, Input } from "@mui/material";
+import { Button, Container, Stack, Input, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from "styled-components/macro";
@@ -11,7 +11,7 @@ import { client, urlFor } from "../../client";
 import PostCardLarge from "../../components/public/PostCardLarge";
 import PageFooter from "../../components/public/PageFooter";
 import { BackgroundBox, FlexSpaceBetween, Grid1Col } from "../../styledcomponents/globalstyles";
-import { H1 } from "../../styledcomponents/typography";
+
 
 const BlogList = () => {
   // const [loading, setLoading] = useState(true);
@@ -44,8 +44,10 @@ const BlogList = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <Stack sx={{ maxWidth: "80%", margin: "0 auto" }}>
-            <H1>What we've been up to lately</H1>
+          <Stack maxWidth="md" sx={{margin: "0 auto"}}>
+          <PageHeader variant="h2" component="h1" textAlign="center">
+            What we've been up to lately
+          </PageHeader>
             <PostListContainer>
               <FlexSpaceBetween>
                 <Button
@@ -89,6 +91,19 @@ const BlogList = () => {
   );
 };
 
+const PageHeader = styled(Typography)`
+  && {
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+  @media (min-width: 768px) {
+    && {
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
+    }
+  }
+`;
 
 
 const PostListContainer = styled(Container)`

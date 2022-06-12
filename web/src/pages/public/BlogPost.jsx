@@ -54,8 +54,8 @@ const BlogPost = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Stack sx={{margin: "0 auto" }}>
             <PublicHeader />
+            <Stack maxWidth="md" sx={{margin: "0 auto" }}>
             <ThemeProvider theme={lightMode}>
               <BackgroundBox
                 sx={{
@@ -107,7 +107,7 @@ const BlogPost = () => {
                 </ThreeGrid>
               </BackgroundBox>
             </ThemeProvider>
-          </Stack>
+            </Stack>
           <Stack sx={{ margin: "3rem auto" }}>
             <PageFooter />
           </Stack>
