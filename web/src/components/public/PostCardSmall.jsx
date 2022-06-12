@@ -1,37 +1,57 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Card, CardActionArea, CardContent } from '@mui/material';
 import styled from 'styled-components/macro';
 
-const PostCardLarge = ({title, url}) => {
+const PostCardSmall = ({title, url}) => {
     return (
-        <PostThumbnail>
-            <ThumbnailImage url={url}></ThumbnailImage>
-            <PostTitle>{title}</PostTitle>
-        </PostThumbnail>  
+      <Card
+      sx={{
+        width: "100%",
+        maxWidth: "sm"
+      }}
+    >
+      <CardActionArea
+        sx={{ height: "100%", display: "grid" }}
+      >
+        <AspectRatioBox>
+          <AspectRatioChild
+            backgroundimage={url}
+          ></AspectRatioChild>
+        </AspectRatioBox>
+        <CardContent sx={{ alignSelf: "start", height: "100%" }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            fontWeight={400}
+            component="div"
+          >
+            {title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
     )
 };
 
-const PostTitle = styled(Typography)`
-  &&{
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding: 1rem;
-    line-height: 1.2rem;
-  }
+const AspectRatioBox = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+  align-self: start;
 `;
 
-const PostThumbnail = styled.div`
-  padding: 0;
-  margin: 0 auto;
+const AspectRatioChild = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 250px;
-`;
-
-const ThumbnailImage = styled.div`
-  background-image: url('${props => props.url}');
-  height: 60%;
-  background-size: cover;
+  height: 100%;
+  background-image: url(${(props) => props.backgroundimage});
+  background-position-x: ${(props) => props.xposition * 100}%;
+  background-position-y: ${(props) => props.yposition * 100}%;
   background-repeat: no-repeat;
+  background-size: cover;
 `;
 
-export default PostCardLarge;
+export default PostCardSmall;

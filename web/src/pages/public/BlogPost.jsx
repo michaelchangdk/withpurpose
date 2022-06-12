@@ -93,7 +93,6 @@ const BlogPost = () => {
                           onClick={() => navigate(`/blog/${post._id}`)}
                           style={{
                             margin: 32,
-                            border: "1px solid lightgray",
                             textDecoration: "none",
                             color: "hsl(0, 0%, 20%)",
                           }}
