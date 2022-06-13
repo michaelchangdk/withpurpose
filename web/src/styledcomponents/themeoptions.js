@@ -3,6 +3,9 @@ import { createTheme } from "@mui/material/styles";
 export const lightMode = createTheme({
   palette: {
     mode: "light",
+    background: {
+      default: "#f6f4f4",
+    },
     primary: {
       main: "#6356D7",
       contrastText: "white",

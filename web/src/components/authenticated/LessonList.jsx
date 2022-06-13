@@ -41,7 +41,7 @@ const LessonList = ({
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg">
       {/* {videoUrl.length > 0 && (
           <div>
             <FrameDiv>
@@ -65,7 +65,7 @@ const LessonList = ({
       {/* https://www.npmjs.com/package/react-player */}
       {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
       {videoUrl.length > 0 && (
-        <Container maxWidth="lg">
+        <div style={{ marginBottom: "32px" }}>
           <FrameDiv>
             <ReactPlayer
               url={videoUrl}
@@ -75,15 +75,15 @@ const LessonList = ({
               className="react-player"
             />
           </FrameDiv>
-          <Typography variant="caption" fontSize={13}>
+          <Typography variant="caption" fontSize={14}>
             Now playing:
           </Typography>
           <Typography fontSize={16}>{taskTitle}</Typography>
           <Typography variant="caption">{taskDuration}</Typography>
-        </Container>
+        </div>
       )}
       {taskDescription.length > 0 && (
-        <StyledPaper elevation={6} sx={{ maxWidth: "lg" }}>
+        <StyledPaper elevation={4} sx={{ maxWidth: "lg" }}>
           <TaskItem>
             <Fab
               color="info"
@@ -106,9 +106,14 @@ const LessonList = ({
           maxWidth: "lg",
           bgcolor: "background.paper",
           mx: "auto",
+          borderRadius: "4px",
         }}
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+            sx={{ borderRadius: "4px" }}
+          >
             Content
           </ListSubheader>
         }
@@ -141,7 +146,7 @@ const FrameDiv = styled.div`
 const StyledPaper = styled(Paper)`
   && {
     padding: 12px 24px;
-    margin: 0 auto;
+    margin: 0 auto 32px auto;
   }
 `;
 

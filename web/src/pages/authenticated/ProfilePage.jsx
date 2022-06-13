@@ -199,7 +199,7 @@ const ProfilePage = () => {
             justifyContent="center"
             gap="32px"
           >
-            <Paper elevation={6}>
+            <Paper elevation={2}>
               {userAvatarURL.length > 0 && (
                 <Avatar
                   src={userAvatarURL}
@@ -237,7 +237,7 @@ const ProfilePage = () => {
                   label="Dark Mode?"
                 />
               </FormGroup>
-              <Accordion elevation={6}>
+              <Accordion elevation={2}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   Change display name
                 </AccordionSummary>
@@ -263,7 +263,7 @@ const ProfilePage = () => {
                   </Button>
                 </AccordionDetails>
               </Accordion>
-              <Accordion elevation={6}>
+              <Accordion elevation={2}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Change email</Typography>
                 </AccordionSummary>
@@ -318,7 +318,7 @@ const ProfilePage = () => {
                   </Button>
                 </AccordionDetails>
               </Accordion>
-              <Accordion elevation={6}>
+              <Accordion elevation={2}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography>Reset password</Typography>
                 </AccordionSummary>
@@ -343,8 +343,8 @@ const ProfilePage = () => {
                 </AccordionDetails>
               </Accordion>
             </Paper>
-            <Paper elevation={6} sx={{ width: "100%" }}>
-              <Accordion elevation={6}>
+            <Paper elevation={2} sx={{ width: "100%" }}>
+              <Accordion elevation={2}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                   <Typography
                     sx={{

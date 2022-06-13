@@ -28,6 +28,8 @@ import { useSelector } from "react-redux";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import styled from "styled-components";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import { useNavigate } from "react-router-dom";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -45,6 +47,7 @@ const BookingPage = () => {
   const [error, setError] = useState("");
   const userid = useSelector((store) => store.authenticated.uid);
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   // Fetch page
   useEffect(() => {
@@ -182,6 +185,14 @@ const BookingPage = () => {
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackRoundedIcon />}
+          onClick={() => navigate("/book-a-mentor")}
+          sx={{ margin: "20px 0" }}
+        >
+          Back
+        </Button>
         {loading && <LoadingIndicator />}
         <PageGrid>
           <GridChild>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { PortableText } from "@portabletext/react";
-import { Stack, Link, Container } from "@mui/material";
+import { Stack, Link, Container, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 import { client, urlFor } from "../../client";
@@ -20,6 +20,7 @@ import {
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
 import styled from "styled-components";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 import myPortableTextComponents from "../../services/myPortableTextComponents";
 
@@ -60,6 +61,14 @@ const BlogPost = () => {
       >
         <BlogPostContainer maxWidth="lg">
           <PublicHeader />
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackRoundedIcon />}
+            onClick={() => navigate("/blog")}
+            sx={{ marginBottom: "20px" }}
+          >
+            Back
+          </Button>
           <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
             <ThemeProvider theme={lightMode}>
               <BackgroundBox
@@ -67,6 +76,7 @@ const BlogPost = () => {
                   bgcolor: "background.default",
                   color: "text.primary",
                   lineHeight: "25px",
+                  borderRadius: "4px",
                 }}
               >
                 <div

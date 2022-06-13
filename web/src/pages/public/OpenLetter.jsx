@@ -10,26 +10,25 @@ import styled from "styled-components/macro";
 import { PortableText } from "@portabletext/react";
 import { client } from "../../client";
 
-
 const OpenLetter = () => {
-  const [ openLetter, setOpenLetter ] = useState(null);
+  const [openLetter, setOpenLetter] = useState(null);
 
   const fetchOpenLetter = async () => {
     const letterQuery = `*[_type == "openletter"]`;
     const fetch = await client.fetch(letterQuery);
     const response = await fetch;
     setOpenLetter(response[0]);
-    console.log(response[0])
+    console.log(response[0]);
   };
 
   useEffect(() => {
     fetchOpenLetter();
-  }, [])
+  }, []);
 
   const myPortableTextComponents = {
     types: {
       // image: ({value}) => <InlineImg src={urlFor(value.asset._ref).url()} alt={value.asset._ref}/>,
-      callToAction: ({value, isInline}) =>
+      callToAction: ({ value, isInline }) =>
         isInline ? (
           <a href={value.url}>{value.text}</a>
         ) : (
@@ -37,29 +36,38 @@ const OpenLetter = () => {
         ),
     },
     block: {
-      normal: ({children}) => <Typography sx={{lineHeight: "1.6"}}>{children}</Typography>,
-      blockquote: ({children}) => <blockquote style={{fontSize: '18px'}}>{children}</blockquote>,
-      sideblock: ({children}) => {
+      normal: ({ children }) => (
+        <Typography sx={{ lineHeight: "1.6" }}>{children}</Typography>
+      ),
+      blockquote: ({ children }) => (
+        <blockquote style={{ fontSize: "18px" }}>{children}</blockquote>
+      ),
+      sideblock: ({ children }) => {
         return (
           <StyledAside>
             <StyledAsideTypography>{children}</StyledAsideTypography>
           </StyledAside>
-        )
-      }
-    },
-      
-    marks: {
-      link: ({children, value}) => {
-        const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
-        return (
-          <a href={value.href} rel={rel} style={{color: "#fff", textDecoration: "underline"}}>
-            {children}
-          </a>
-        )
+        );
       },
     },
-  }
 
+    marks: {
+      link: ({ children, value }) => {
+        const rel = !value.href.startsWith("/")
+          ? "noreferrer noopener"
+          : undefined;
+        return (
+          <a
+            href={value.href}
+            rel={rel}
+            style={{ color: "#fff", textDecoration: "underline" }}
+          >
+            {children}
+          </a>
+        );
+      },
+    },
+  };
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -70,13 +78,13 @@ const OpenLetter = () => {
         }}
       >
         <PublicHeader />
-        <Container maxWidth="lg" sx={{mb: "32px"}}>
+        <Container maxWidth="lg" sx={{ mb: "32px" }}>
           <PageHeader variant="h2" component="h1" textAlign="center">
-            Open letter
+            Open Letter
           </PageHeader>
           <Container maxWidth="sm">
             <PortableText
-              sx={{lineHeight: 2}}
+              sx={{ lineHeight: 2 }}
               value={openLetter?.body}
               components={myPortableTextComponents}
             />
@@ -90,13 +98,13 @@ const OpenLetter = () => {
 };
 
 const StyledAsideTypography = styled(Typography)`
-  &&{
+  && {
     color: hotpink;
     width: 80%;
     left: 100px;
     font-size: 24px;
     line-height: 1.1;
-    position: absolute:
+    position: absolute;
   }
 `;
 
@@ -105,8 +113,7 @@ const StyledAside = styled.aside`
   justify-content: center;
   position: relative;
   margin: 32px auto;
-`
-
+`;
 
 const PageHeader = styled(Typography)`
   && {
