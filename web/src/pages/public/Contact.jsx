@@ -100,12 +100,7 @@ const Contact = () => {
           <GridContainer>
             <TextContainer>
               <Stack gap={2}>
-                <Typography
-                  variant="h5"
-                  component="body1"
-                  fontWeight={400}
-                  lineHeight={1.2}
-                >
+                <Typography variant="h5" fontWeight={400} lineHeight={1.2}>
                   Ready to make an impact? Contact us to learn how we can start
                   working together.
                 </Typography>
@@ -194,7 +189,6 @@ const Contact = () => {
                 />
                 <Typography
                   variant="h5"
-                  component="body1"
                   fontWeight={500}
                   lineHeight={1}
                   fontSize={20}

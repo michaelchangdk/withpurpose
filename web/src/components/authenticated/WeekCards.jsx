@@ -104,30 +104,50 @@ const WeekCards = ({
     >
       {/* Is height necessary below? */}
       <Stack sx={{ height: "100%", justifyContent: "space-between" }} gap={1}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Typography variant="caption" fontSize="14px">
-            {title} | {keyword}
+        <div>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            mb={2}
+          >
+            <Typography
+              variant="h4"
+              fontWeight={400}
+              fontSize="16px"
+              sx={{ justifySelf: "flex-start" }}
+            >
+              {title} | {keyword}
+            </Typography>
+            <ProgressCircle
+              value={progress}
+              circleSize={30}
+              iconSize={30}
+              fontSize={10}
+            />
+          </Stack>
+          <Typography variant="body1" fontWeight={500} fontSize="18px">
+            {shortDescription}
           </Typography>
-          <ProgressCircle
-            value={progress}
-            circleSize={30}
-            iconSize={30}
-            fontSize={10}
-          />
-        </Stack>
-        <Typography variant="body1" fontWeight={500} fontSize="16px">
-          {shortDescription}
-        </Typography>
-        <Typography variant="body2" fontWeight={300} fontSize={14}>
-          {liveSessionTitle}
-        </Typography>
-        <Typography variant="body2" fontWeight={300} fontSize={12}>
-          {liveSessionDate}
-        </Typography>
+        </div>
+        <div>
+          <Typography
+            variant="subtitle"
+            color="text.secondary"
+            fontWeight={400}
+            fontSize={14}
+          >
+            {liveSessionTitle}
+          </Typography>
+          <Typography
+            variant="subtitle2"
+            color="text.secondary"
+            fontWeight={400}
+            fontSize={14}
+          >
+            {liveSessionDate}
+          </Typography>
+        </div>
         {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
         <Stack direction="column" alignItems="flex-start">
           <Button
