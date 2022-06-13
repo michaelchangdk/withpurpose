@@ -10,8 +10,11 @@ import { client, urlFor } from "../../client";
 
 import PostCardLarge from "../../components/public/PostCardLarge";
 import PageFooter from "../../components/public/PageFooter";
-import { BackgroundBox, FlexSpaceBetween, Grid1Col } from "../../styledcomponents/globalstyles";
-
+import {
+  BackgroundBox,
+  FlexSpaceBetween,
+  Grid1Col,
+} from "../../styledcomponents/globalstyles";
 
 const BlogList = () => {
   // const [loading, setLoading] = useState(true);
@@ -44,10 +47,10 @@ const BlogList = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <Stack maxWidth="md" sx={{margin: "0 auto"}}>
-          <PageHeader variant="h2" component="h1" textAlign="center">
-            What we've been up to lately
-          </PageHeader>
+          <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
+            <PageHeader variant="h2" component="h1" textAlign="center">
+              What we've been up to lately
+            </PageHeader>
             <PostListContainer>
               <FlexSpaceBetween>
                 <Button
@@ -82,9 +85,7 @@ const BlogList = () => {
               </Grid1Col>
             </PostListContainer>
           </Stack>
-          <Stack sx={{ margin: "3rem auto" }}>
-            <PageFooter />
-          </Stack>
+          <PageFooter />
         </Container>
       </BackgroundBox>
     </ThemeProvider>
@@ -105,10 +106,9 @@ const PageHeader = styled(Typography)`
   }
 `;
 
-
 const PostListContainer = styled(Container)`
   && {
-    margin: 0 auto;
+    margin: 0 auto 40px auto;
   }
 `;
 
