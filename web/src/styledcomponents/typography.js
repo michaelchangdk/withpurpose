@@ -23,3 +23,18 @@ export const H1 = styled(Typography)`
     margin-bottom: 32px;
     }
 `;
+
+export const PageHeader = styled(Typography)`
+  && {
+    font-size: 32px;
+    text-transform: uppercase;
+    line-height: .9;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 48px;
+      margin: 0 auto;
+    }
+  }
+`;

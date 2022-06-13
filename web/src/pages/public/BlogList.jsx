@@ -82,9 +82,7 @@ const BlogList = () => {
               </Grid1Col>
             </PostListContainer>
           </Stack>
-          <Stack sx={{ margin: "3rem auto" }}>
-            <PageFooter />
-          </Stack>
+          <PageFooter />
         </Container>
       </BackgroundBox>
     </ThemeProvider>

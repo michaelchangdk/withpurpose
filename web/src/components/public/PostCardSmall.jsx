@@ -24,6 +24,7 @@ const PostCardSmall = ({title, url}) => {
             variant="h5"
             fontWeight={400}
             component="div"
+            lineHeight={1}
           >
             {title}
           </Typography>

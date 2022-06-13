@@ -1,8 +1,11 @@
 import React from 'react';
-import { Typography, Button, Link } from '@mui/material';
+import { Typography, Link } from '@mui/material';
 import styled from 'styled-components/macro';
 
 import SharingModal from './SharingModal';
+
+import { Ellipsis } from '../../styledcomponents/buttons';
+
 
 const PostCardLarge = ({duration, title, url, id, showBlogpost, openModal, setOpenModal}) => {
 
@@ -15,15 +18,11 @@ const PostCardLarge = ({duration, title, url, id, showBlogpost, openModal, setOp
                 <TopRow>
                     <Duration>{duration}</Duration>
                     <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
-                    <Ellipsis onClick={() => setOpenModal(true)}>
+                    <Ellipsis sx={{color: "text.primary"}} onClick={() => setOpenModal(true)}>
                         ⋮
                     </Ellipsis>
-                     
                 </TopRow>
-                
-                  <PostTitle  onClick={() => showBlogpost(id)}>{title}</PostTitle>
-              
-                
+                <PostTitle onClick={() => showBlogpost(id)}>{title}</PostTitle>
             </Grid>
         </PostThumbnail>  
     )
@@ -63,14 +62,14 @@ const Duration = styled(Typography)`
   }
 `;
 
-const Ellipsis = styled(Button)`
-  &&{
-    color: white;
-    font-size: 1rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-`;
+// const Ellipsis = styled(Button)`
+//   &&{
+//     color: white;
+//     font-size: 1rem;
+//     display: flex;
+//     justify-content: flex-end;
+//   }
+// `;
 
 const PostThumbnail = styled.div`
   padding: 0;

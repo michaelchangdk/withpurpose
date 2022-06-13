@@ -1,5 +1,5 @@
 import { ImgW100 } from "../styledcomponents/images";
-import { H1 } from "../styledcomponents/typography";
+import { PageHeader } from "../styledcomponents/typography";
 import { urlFor } from "../client";
 
 const myPortableTextComponents = {
@@ -21,7 +21,7 @@ const myPortableTextComponents = {
       blockquote: ({ children }) => (
         <blockquote style={{ fontSize: "18px" }}>{children}</blockquote>
       ),
-      h1: ({children}) => <H1>{children}</H1>
+      h1: ({children}) => <PageHeader>{children}</PageHeader>
     },
 
     marks: {

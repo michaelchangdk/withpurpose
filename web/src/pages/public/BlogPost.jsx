@@ -67,7 +67,7 @@ const BlogPost = () => {
                 <div
                   style={{
                     margin: "20px",
-                    padding: "min(10%, 100px)"
+                    padding: "min(10%, 50px)"
                   }}
                 >
                   <FlexSpaceBetween>
@@ -77,7 +77,7 @@ const BlogPost = () => {
                       setOpenModal={setOpenModal}
                       id={id}
                     />
-                    <Ellipsis onClick={() => setOpenModal(true)}>⋮</Ellipsis>
+                    <Ellipsis sx={{color: "text.primary"}} onClick={() => setOpenModal(true)}>⋮</Ellipsis>
                   </FlexSpaceBetween>
                   <PortableText
                     value={currentPost?.body}
@@ -108,9 +108,7 @@ const BlogPost = () => {
               </BackgroundBox>
             </ThemeProvider>
             </Stack>
-          <Stack sx={{ margin: "3rem auto" }}>
-            <PageFooter />
-          </Stack>
+          <PageFooter />
         </Container>
         <ScrollToTop />
       </BackgroundBox>
