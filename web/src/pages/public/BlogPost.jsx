@@ -12,9 +12,14 @@ import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
 
-import { BackgroundBox, ThreeGrid, FlexSpaceBetween } from "../../styledcomponents/globalstyles";
+import {
+  BackgroundBox,
+  ThreeGrid,
+  FlexSpaceBetween,
+} from "../../styledcomponents/globalstyles";
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
+import styled from "styled-components";
 
 import myPortableTextComponents from "../../services/myPortableTextComponents";
 
@@ -53,9 +58,9 @@ const BlogPost = () => {
           color: "text.primary",
         }}
       >
-        <Container maxWidth="lg">
-            <PublicHeader />
-            <Stack maxWidth="md" sx={{margin: "0 auto" }}>
+        <BlogPostContainer maxWidth="lg">
+          <PublicHeader />
+          <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
             <ThemeProvider theme={lightMode}>
               <BackgroundBox
                 sx={{
@@ -67,7 +72,7 @@ const BlogPost = () => {
                 <div
                   style={{
                     margin: "20px",
-                    padding: "min(10%, 50px)"
+                    padding: "min(10%, 50px)",
                   }}
                 >
                   <FlexSpaceBetween>
@@ -77,7 +82,12 @@ const BlogPost = () => {
                       setOpenModal={setOpenModal}
                       id={id}
                     />
-                    <Ellipsis sx={{color: "text.primary"}} onClick={() => setOpenModal(true)}>⋮</Ellipsis>
+                    <Ellipsis
+                      sx={{ color: "text.primary" }}
+                      onClick={() => setOpenModal(true)}
+                    >
+                      ⋮
+                    </Ellipsis>
                   </FlexSpaceBetween>
                   <PortableText
                     value={currentPost?.body}
@@ -107,9 +117,9 @@ const BlogPost = () => {
                 </ThreeGrid>
               </BackgroundBox>
             </ThemeProvider>
-            </Stack>
-          <PageFooter />
-        </Container>
+          </Stack>
+        </BlogPostContainer>
+        <PageFooter />
         <ScrollToTop />
       </BackgroundBox>
     </ThemeProvider>
@@ -117,3 +127,9 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
+const BlogPostContainer = styled(Container)`
+  && {
+    margin: 0 auto 40px auto;
+  }
+`;
