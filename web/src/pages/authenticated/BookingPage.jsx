@@ -30,6 +30,7 @@ import styled from "styled-components";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "../ScrollToTop";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -107,11 +108,11 @@ const BookingPage = () => {
   }, [availableDateTimes, selectedWeekday]);
 
   //   Fetch all mentors
-  const mentorsQuery = `*[_type == "studentMentors"] {availability, bio, fullName, profilePhoto, topics, _id, bookingrequest}`;
+  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, bio, fullName, profilePhoto, topics, _id, bookingrequest}}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorsQuery).then((response) => {
-      setMentors(response);
+      setMentors(response[0].studentmentors);
       setLoading(false);
     });
   }, [mentorsQuery]);
@@ -313,6 +314,7 @@ const BookingPage = () => {
           )}
         </PageGrid>
       </Container>
+      <ScrollToTop />
     </BackgroundBox>
   );
 };

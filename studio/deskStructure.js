@@ -58,13 +58,13 @@ export default () =>
                         .child(
                           S.documentTypeList("category").title("Category")
                         ),
-                      S.listItem()
-                        .title("Block content")
-                        .child(
-                          S.documentTypeList("blockContent").title(
-                            "Block content"
-                          )
-                        ),
+                      // S.listItem()
+                      //   .title("Block content")
+                      //   .child(
+                      //     S.documentTypeList("blockContent").title(
+                      //       "Block content"
+                      //     )
+                      //   ),
                     ])
                 ),
               // S.listItem()

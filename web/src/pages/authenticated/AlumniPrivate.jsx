@@ -14,10 +14,10 @@ const AlumniPrivate = () => {
 
   const fetchAlumni = async () => {
     setLoading(true);
-    const alumniQuery = `*[_type == "alumni"] {city, class, fullName, linkedin, profilePhoto, _id}`;
+    const alumniQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto}}`;
     const fetch = await client.fetch(alumniQuery);
     const response = await fetch;
-    setAlumni(response);
+    setAlumni(response[0].alumni);
     setLoading(false);
   };
 

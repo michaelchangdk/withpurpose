@@ -22,16 +22,18 @@ export default {
         hotspot: true,
       },
     },
-    // {
-    //   name: "alumni",
-    //   title: "Alumni",
-    //   type: "array",
-    //   of: [
-    //     {
-    //       type: "reference",
-    //       to: [{ type: "alumni" }],
-    //     },
-    //   ],
-    // },
+    {
+      name: "alumni",
+      title: "Alumni",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "alumni" }],
+        },
+      ],
+      description:
+        "Select the alumni you wish to show on the logged-in portion of the site",
+    },
   ],
 };

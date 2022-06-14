@@ -45,7 +45,7 @@ const Login = () => {
           )
           .then((res) => {
             console.log(res);
-            if (res === []) {
+            if (res === [] || res.length === 0) {
               const doc = {
                 _id: result.user.uid,
                 _type: "user",
@@ -88,7 +88,8 @@ const Login = () => {
                 );
               });
               navigate("/");
-            } else {
+            } else if (res.length > 0) {
+              console.log(res);
               if (!!res[0].completed) {
                 res[0].completed.forEach((lesson) =>
                   dispatch(authenticated.actions.addCompletedLesson(lesson))

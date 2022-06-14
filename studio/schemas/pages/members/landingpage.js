@@ -32,6 +32,8 @@ export default {
           to: [{ type: "landingpageelements" }],
         },
       ],
+      description:
+        "These are the landing page cards that redirect users to the appropriate page",
     },
   ],
 };

@@ -15,10 +15,10 @@ const MentorsPrivate = () => {
 
   const fetchMentors = async () => {
     setLoading(true);
-    const mentorsQuery = `*[_type == "studentMentors"] {fullName, bio, linkedin, profilePhoto, topics, _id}`;
+    const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
     const fetch = await client.fetch(mentorsQuery);
     const response = await fetch;
-    setMentors(response);
+    setMentors(response[0].studentmentors);
     setLoading(false);
   };
 

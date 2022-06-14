@@ -10,9 +10,9 @@ export default {
       type: "string",
     },
     {
-      name: "introVideo",
-      title: "Introduction Video",
-      type: "url",
+      name: "subtitle",
+      title: "Subtitle",
+      type: "string",
     },
     {
       name: "heroImage",
@@ -21,6 +21,11 @@ export default {
       options: {
         hotspot: true,
       },
+    },
+    {
+      name: "introVideo",
+      title: "Introduction Video",
+      type: "url",
     },
   ],
 };

@@ -34,10 +34,11 @@ export default {
       },
     },
     {
-      name: "linkTo",
-      title: "Link to",
-      type: "string",
-      description: "Please don't edit.",
+      name: "slug",
+      title: "Site slug",
+      type: "slug",
+      description: "Not for editing.",
+      readOnly: true,
     },
   ],
 };

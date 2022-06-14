@@ -198,6 +198,7 @@ const ProfilePage = () => {
             alignItems="center"
             justifyContent="center"
             gap="32px"
+            marginBottom="32px"
           >
             <Paper elevation={2}>
               {userAvatarURL.length > 0 && (

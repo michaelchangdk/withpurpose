@@ -12,7 +12,7 @@ import alumni from "./people/alumni";
 import studentMentors from "./people/studentmentors";
 import companyMentors from "./people/companymentors";
 import homepage from "./pages/public/homepage";
-import blogpost from "./pages/public/blogpost";
+import blogpost from "./pages/public/blog/blogpost";
 import author from "./pages/public/blog/author";
 import blockContent from "./pages/public/blog/blockContent";
 import category from "./pages/public/blog/category";

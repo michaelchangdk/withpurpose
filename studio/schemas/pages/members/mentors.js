@@ -15,11 +15,6 @@ export default {
       type: "string",
     },
     {
-      name: "headline",
-      title: "Headline",
-      type: "string",
-    },
-    {
       name: "description",
       title: "Description",
       type: "text",
@@ -32,16 +27,18 @@ export default {
         hotspot: true,
       },
     },
-    // {
-    //   name: "studentmentors",
-    //   title: "Student Mentors",
-    //   type: "array",
-    //   of: [
-    //     {
-    //       type: "reference",
-    //       to: [{ type: "studentMentors" }],
-    //     },
-    //   ],
-    // },
+    {
+      name: "studentmentors",
+      title: "Student Mentors",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "studentMentors" }],
+        },
+      ],
+      description:
+        "Add student mentors to this array to allow students to book meetings with them.",
+    },
   ],
 };
