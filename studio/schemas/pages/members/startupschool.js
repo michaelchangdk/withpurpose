@@ -27,5 +27,16 @@ export default {
       title: "Introduction Video",
       type: "url",
     },
+    {
+      name: "weeks",
+      title: "Startup School Weeks",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "week" }],
+        },
+      ],
+    },
   ],
 };

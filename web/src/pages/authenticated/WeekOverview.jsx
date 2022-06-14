@@ -9,12 +9,8 @@ import ScrollToTop from "../ScrollToTop";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
-// For setting the week cards
-const weekQuery =
-  '*[_type == "week"] {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}';
-
 // For fetching the page information
-const pageQuery = `*[_type == "startupschool"] {introVideo}`;
+const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
 
 const WeekOverview = () => {
   const [loading, setLoading] = useState(true);
@@ -22,16 +18,10 @@ const WeekOverview = () => {
   const [introURL, setIntroURL] = useState("");
 
   useEffect(() => {
-    client.fetch(weekQuery).then((response) => {
-      let published = response.filter((a) => !a._id.includes("draft"));
-      setCards(published.sort((a, b) => a.order - b.order));
-      setLoading(false);
-    });
-  }, []);
-
-  useEffect(() => {
     client.fetch(pageQuery).then((response) => {
       setIntroURL(response[0].introVideo);
+      setCards(response[0].weeks.filter((a) => !a._id.includes("draft")));
+      setLoading(false);
     });
   }, []);
 

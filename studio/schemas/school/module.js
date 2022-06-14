@@ -35,19 +35,14 @@ export default {
       type: "string",
       description:
         "Fill in precisely: Live session, Course videos, Exercises, Optional resources",
-      validation: (Rule) =>
-        Rule.custom((name) => {
-          if (
-            name === "Live session" ||
-            name === "Course videos" ||
-            name === "Exercises" ||
-            name === "Optional resources"
-          ) {
-            return true;
-          }
-        })
-          .error("Fill in precisely one of the listed options.")
-          .warning("Fill in precisely one of the listed options."),
+      options: {
+        list: [
+          "Live session",
+          "Course videos",
+          "Exercises",
+          "Optional resources",
+        ],
+      },
     },
     {
       name: "description",

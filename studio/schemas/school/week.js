@@ -5,10 +5,10 @@ export default {
   fields: [
     {
       name: "name",
-      title: "Week Name",
+      title: "Week Slug",
       type: "string",
       description:
-        "E.g. Week0, Week1, Week2-3, etc. This is for ordering the weeks correctly in the site",
+        "E.g. Week0, Week1, Week2-3, etc. This is for ordering the weeks correctly in the site and used for navigation, please do not change this.",
     },
     {
       name: "title",

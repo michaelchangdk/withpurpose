@@ -20,15 +20,11 @@ const ModulePage = () => {
   const [moduleName, setModuleName] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
   const [moduleType, setModuleType] = useState("");
-  let lessonQueries = [];
+  const [lessons, setLessons] = useState([]);
 
   // For loading and progress states
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-
-  // For setting lessons
-  let lessonsArray = [];
-  const [lessons, setLessons] = useState([]);
 
   const userid = useSelector((store) => store.authenticated.uid);
 
@@ -47,16 +43,13 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && title == "${module}"]`;
+    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, order, title, type, _id, description}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
-    lessonQueries = response[0].lesson.map(
-      (lesson) =>
-        `*[_type == "lesson" && _id == "${lesson._ref}"] {name, duration, isLink, isVideo, isPDF, order, otherUrl, taskDescription, title, file, videoUrl, "pdfUrl": file.asset->url, _id}`
-    );
+    setLessons(response[0].lesson);
     setLoading(false);
   };
 
@@ -78,12 +71,6 @@ const ModulePage = () => {
       .map((modules) => modules.title)
       .filter((modules) => modules.includes(module.split("M")[0]))
       .sort((a, b) => a[3] - b[3]);
-    // console.log(
-    //   response
-    //     .map((module) => module.title)
-    //     .filter((module) => module.includes(moduleTitle.split("M")[0]))
-    //     .sort((a, b) => a[3] - b[3])
-    // );
     setModuleArray(filteredSortedModules);
     setLoading(false);
   };
@@ -91,22 +78,6 @@ const ModulePage = () => {
   useEffect(() => {
     setModuleIndex(moduleArray.indexOf(module));
   }, [moduleArray, module, moduleIndex]);
-
-  // For fetching lessons - waits for module fetch
-  const fetchLessons = async () => {
-    setLoading(true);
-    await Promise.all(
-      lessonQueries.map((query) =>
-        client.fetch(query).then((res) => {
-          lessonsArray.push(res[0]);
-        })
-      )
-    ).then(() => {
-      lessonsArray.sort((a, b) => a.order - b.order);
-      setLessons(lessonsArray);
-    });
-    setLoading(false);
-  };
 
   // For fetching completed lessons by user
   const fetchCompletedLessons = async () => {
@@ -140,7 +111,6 @@ const ModulePage = () => {
     await fetchModule();
     await fetchModules();
     await fetchWeek();
-    await fetchLessons();
     await fetchCompletedLessons();
   };
 

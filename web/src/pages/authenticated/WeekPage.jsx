@@ -17,10 +17,8 @@ const WeekPage = () => {
   const [weekOrder, setWeekOrder] = useState();
   const [allWeeks, setAllWeeks] = useState([]);
   const { week } = useParams();
-  let modulesArray = [];
   const [modules, setModules] = useState([]);
   const navigate = useNavigate();
-  let moduleQueries = [];
   const weekAccess = Object.entries(
     useSelector((store) => store.authenticated.access)
   ).filter(([key, val]) => key.includes("Week"));
@@ -36,46 +34,19 @@ const WeekPage = () => {
     }
   };
 
-  // const useQuery = () => {
-  //   const { search } = useLocation();
-  //   return React.useMemo(() => new URLSearchParams(search), [search]);
-  // };
-
-  // let query = useQuery();
-
-  // console.log(query.get("week"));
-
-  const fetchModuleRefs = async () => {
+  const fetchPage = async () => {
     setLoading(true);
-    const weekQuery = `*[_type == "week" && name == "${week}"] {description, module, order}`;
+    const weekQuery = `*[_type == "week" && name == "${week}"] {description, module[]->, order}`;
     const fetch = await client.fetch(weekQuery);
     const response = await fetch;
     setDescription(response[0].description);
     setWeekOrder(response[0].order);
     setAccess(response[0].order);
-    moduleQueries = response[0].module.map(
-      (module) => `*[_type == "module" && _id == "${module._ref}"]`
-    );
+    setModules(response[0].module);
     setLoading(false);
   };
 
-  const fetchModules = async () => {
-    setLoading(true);
-    await Promise.all(
-      moduleQueries.map((query) =>
-        client.fetch(query).then((res) => {
-          modulesArray.push(res[0]);
-        })
-      )
-    ).then(() => {
-      modulesArray.sort((a, b) => a.order - b.order);
-      setModules(modulesArray);
-      setLoading(false);
-    });
-    setLoading(false);
-  };
-
-  const fetchWeeks = async () => {
+  const fetchNavigation = async () => {
     setLoading(true);
     const weeksQuery = `*[_type == "week"] {name, order}`;
     const fetch = await client.fetch(weeksQuery);
@@ -85,9 +56,8 @@ const WeekPage = () => {
   };
 
   const fetchAll = async () => {
-    await fetchModuleRefs();
-    await fetchModules();
-    await fetchWeeks();
+    await fetchPage();
+    await fetchNavigation();
   };
 
   useEffect(() => {
