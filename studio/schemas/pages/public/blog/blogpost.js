@@ -18,6 +18,12 @@ export default {
       }
     },
     {
+      name: "excerpt",
+      title: "Excerpt",
+      type: "string",
+      validation: Rule => Rule.max(100).warning(`An excerpt shouldn't be more than 100 characters.`)
+    },
+    {
       name: "author",
       title: "Author",
       type: "reference",
