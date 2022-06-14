@@ -86,7 +86,7 @@ const BlogPost = () => {
                   }}
                 >
                   <FlexSpaceBetween>
-                    <Duration>{currentPost?.duration}</Duration>
+                    <Duration>{currentPost?.duration} read</Duration>
                     <SharingModal
                       openModal={openModal}
                       setOpenModal={setOpenModal}
@@ -115,6 +115,8 @@ const BlogPost = () => {
                             margin: 32,
                             textDecoration: "none",
                             color: "hsl(0, 0%, 20%)",
+                            display: "flex",
+                            justifyContent: "center"
                           }}
                         >
                           <PostCardSmall

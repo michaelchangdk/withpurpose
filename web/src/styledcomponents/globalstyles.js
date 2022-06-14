@@ -49,5 +49,6 @@ const Flexbox = styled.div`
 export const FlexSpaceBetween = styled(Flexbox)`
   &&{
     justify-content: space-between;
+    margin-bottom: 32px;
   }
 `;

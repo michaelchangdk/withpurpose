@@ -1,58 +1,73 @@
 import React from 'react';
-import { Typography, Link } from '@mui/material';
+import { Typography, Link, Card, CardContent, CardMedia, CardActions, Button } from '@mui/material';
 import styled from 'styled-components/macro';
 
 import SharingModal from './SharingModal';
 
-import { Ellipsis } from '../../styledcomponents/buttons';
+
+const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
 
 
-const PostCardLarge = ({duration, title, url, id, showBlogpost, openModal, setOpenModal}) => {
+
 
   return (
-        <PostThumbnail>
-            <Link onClick={() => showBlogpost(id)}>
-                <ThumbnailImage url={url}></ThumbnailImage>
-            </Link>
-            <Grid>
-                <TopRow>
-                    <Duration>{duration}</Duration>
-                    <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
-                    <Ellipsis sx={{color: "text.primary"}} onClick={() => setOpenModal(true)}>
-                        ⋮
-                    </Ellipsis>
-                </TopRow>
-                <PostTitle onClick={() => showBlogpost(id)}>{title}</PostTitle>
-            </Grid>
-        </PostThumbnail>  
-    )
+
+    <StyledCard>
+      <Link onClick={() => showBlogpost(id)}>
+        <CardMedia
+          component="img"
+          height="100%"
+          max-height="10px"
+          alt={title}
+          image={url}  
+        />
+      </Link>
+      <div>
+        <StyledCardActions>
+          <Duration>{duration}</Duration>
+          <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
+          <Button sx={{color: "text.primary"}} size="small" onClick={() => setOpenModal(true)}>Share</Button>
+        </StyledCardActions>
+        <Link onClick={() => showBlogpost(id)} sx={{color: "text.primary", textDecoration: "none"}}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" sx={{lineHeight: 1}}>
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {excerpt}...
+            </Typography>
+          </CardContent>
+        </Link>
+      </div>
+    </StyledCard>
+  )
 };
 
-const Grid = styled.div`
-  display: grid;
-  height: 100%;
-  grid-template-rows: 1fr 3fr;
-`
-
-const TopRow = styled.div`
-  z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
+const StyledCardActions = styled(CardActions)`
+  &&{
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
-const PostTitle = styled(Link)`
+const StyledCard = styled(Card)`
   &&{
-    font-size: 2rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: #fff;
-    cursor: pointer;
+    max-width: 345px;
+    display: grid;
+    margin: 0 auto;
+
+    @media (min-width: 768px) {
+      max-width: 100%;
+      grid-template-columns: 1fr 1fr;
+    }
   }
+
+ 
 `;
 
 const Duration = styled(Typography)`
   &&{
+    padding: 0 8px;
     font-size: .725rem;
     font-weight: 300;
     display: flex;
@@ -61,33 +76,5 @@ const Duration = styled(Typography)`
     align-items: flex-start;
   }
 `;
-
-// const Ellipsis = styled(Button)`
-//   &&{
-//     color: white;
-//     font-size: 1rem;
-//     display: flex;
-//     justify-content: flex-end;
-//   }
-// `;
-
-const PostThumbnail = styled.div`
-  padding: 0;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-`;
-
-const ThumbnailImage = styled.div`
-  background-image: url('${props => props.url}');
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-  background-size: cover;
-  cursor: pointer;
-`;
-
 
 export default PostCardLarge;

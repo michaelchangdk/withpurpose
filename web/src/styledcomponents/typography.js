@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 
 export const Duration = styled(Typography)`
   && {
+    padding: 0 4px;
     font-size: 1rem;
     font-weight: 300;
     display: flex;

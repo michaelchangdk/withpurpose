@@ -25,7 +25,7 @@ const BlogList = () => {
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost" && title match "*${searchTerm}*"] {_id, title, image, duration}`;
+    const blogpostQuery = `*[_type == "blogpost" && title match "*${searchTerm}*"] {_id, title, excerpt, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
@@ -69,17 +69,19 @@ const BlogList = () => {
               <Grid1Col>
                 {blogposts.map((blogpost) => {
                   return (
-                    <div key={blogpost._id}>
+                    
                       <PostCardLarge
+                        key={blogpost._id}
                         url={urlFor(blogpost.image.asset._ref).url()}
                         duration={blogpost.duration}
                         title={blogpost.title}
                         id={blogpost._id}
+                        excerpt={blogpost.excerpt}
                         showBlogpost={showBlogpost}
                         openModal={openModal}
                         setOpenModal={setOpenModal}
                       />
-                    </div>
+                    
                   );
                 })}
               </Grid1Col>
