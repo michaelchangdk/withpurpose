@@ -6,12 +6,7 @@ import SharingModal from './SharingModal';
 
 
 const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
-
-
-
-
   return (
-
     <StyledCard>
       <Link onClick={() => showBlogpost(id)}>
         <CardMedia
