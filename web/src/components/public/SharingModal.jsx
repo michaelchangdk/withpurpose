@@ -1,15 +1,15 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import { Container } from "@mui/material";
 import {
-    TwitterShareButton,
-    FacebookShareButton, 
-    LinkedinShareButton,
-    TwitterIcon,
-    FacebookIcon,
-    LinkedinIcon
-  } from 'react-share';
-import Modal from "@mui/material/Modal";
+  TwitterShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterIcon,
+  FacebookIcon,
+  LinkedinIcon,
+} from "react-share";
+
+// MUI Imports
+import { Box, Container, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -38,12 +38,28 @@ const SharingModal = ({ openModal, setOpenModal, id, excerpt }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            <Container sx={{display: "flex", justifyContent: "space-evenly"}}>
-                <TwitterShareButton url={`https://withpurpose.netlify.app/blog/${id}`}>{<TwitterIcon size={32} round/>}</TwitterShareButton>
-                <FacebookShareButton hashtag="tags" quote={excerpt} url={`https://withpurpose.netlify.app/blog/${id}`}>{<FacebookIcon size={32} round />}</FacebookShareButton>
-                <LinkedinShareButton source="https://withpurpose.netlify.app" title="Title" summary={excerpt} url={`https://withpurpose.netlify.app/blog/${id}`}>{<LinkedinIcon size={32} round />}</LinkedinShareButton>
-            </Container>
-            
+          <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
+            <TwitterShareButton
+              url={`https://withpurpose.netlify.app/blog/${id}`}
+            >
+              {<TwitterIcon size={32} round />}
+            </TwitterShareButton>
+            <FacebookShareButton
+              hashtag="tags"
+              quote={excerpt}
+              url={`https://withpurpose.netlify.app/blog/${id}`}
+            >
+              {<FacebookIcon size={32} round />}
+            </FacebookShareButton>
+            <LinkedinShareButton
+              source="https://withpurpose.netlify.app"
+              title="Title"
+              summary={excerpt}
+              url={`https://withpurpose.netlify.app/blog/${id}`}
+            >
+              {<LinkedinIcon size={32} round />}
+            </LinkedinShareButton>
+          </Container>
         </Box>
       </Modal>
     </div>

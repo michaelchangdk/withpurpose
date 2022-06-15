@@ -1,17 +1,30 @@
-import React from 'react';
-import { Typography, Link, Card, CardContent, CardMedia, CardActions, Button } from '@mui/material';
-import styled from 'styled-components/macro';
+import React from "react";
+// MUI imports
+import {
+  Typography,
+  Link,
+  Card,
+  CardContent,
+  CardMedia,
+  CardActions,
+  Button,
+} from "@mui/material";
+// Component imports
+import SharingModal from "./SharingModal";
+// Styling Imports
+import styled from "styled-components/macro";
 
-import SharingModal from './SharingModal';
-
-
-const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
-
-
-
-
+const PostCardLarge = ({
+  duration,
+  title,
+  url,
+  id,
+  excerpt,
+  showBlogpost,
+  openModal,
+  setOpenModal,
+}) => {
   return (
-
     <StyledCard>
       <Link onClick={() => showBlogpost(id)}>
         <CardMedia
@@ -19,18 +32,36 @@ const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openMod
           height="100%"
           max-height="10px"
           alt={title}
-          image={url}  
+          image={url}
         />
       </Link>
       <div>
         <StyledCardActions>
           <Duration>{duration}</Duration>
-          <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
-          <Button sx={{color: "text.primary"}} size="small" onClick={() => setOpenModal(true)}>Share</Button>
+          <SharingModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            id={id}
+          />
+          <Button
+            sx={{ color: "text.primary" }}
+            size="small"
+            onClick={() => setOpenModal(true)}
+          >
+            Share
+          </Button>
         </StyledCardActions>
-        <Link onClick={() => showBlogpost(id)} sx={{color: "text.primary", textDecoration: "none"}}>
+        <Link
+          onClick={() => showBlogpost(id)}
+          sx={{ color: "text.primary", textDecoration: "none" }}
+        >
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div" sx={{lineHeight: 1}}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ lineHeight: 1 }}
+            >
               {title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -40,18 +71,18 @@ const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openMod
         </Link>
       </div>
     </StyledCard>
-  )
+  );
 };
 
 const StyledCardActions = styled(CardActions)`
-  &&{
+  && {
     display: flex;
     justify-content: space-between;
   }
 `;
 
 const StyledCard = styled(Card)`
-  &&{
+  && {
     max-width: 345px;
     display: grid;
     margin: 0 auto;
@@ -61,14 +92,12 @@ const StyledCard = styled(Card)`
       grid-template-columns: 1fr 1fr;
     }
   }
-
- 
 `;
 
 const Duration = styled(Typography)`
-  &&{
+  && {
     padding: 0 8px;
-    font-size: .725rem;
+    font-size: 0.725rem;
     font-weight: 300;
     display: flex;
     flex-direction: column;

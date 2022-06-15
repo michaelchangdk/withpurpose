@@ -34,8 +34,8 @@ const BlogList = () => {
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
-    setLoading(false);
     console.log(response);
+    setLoading(false);
   };
 
   useEffect(() => {

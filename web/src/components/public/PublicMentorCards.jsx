@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Stack, Typography, CardMedia, CardContent } from "@mui/material";
 import { urlFor } from "../../client";
+import { Card, Stack, Typography, CardMedia, CardContent } from "@mui/material";
 
 const PublicMentorCards = (props) => {
   const mentor = props.mentor;

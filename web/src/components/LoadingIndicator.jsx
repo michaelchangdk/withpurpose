@@ -9,7 +9,7 @@ const LoadingIndicator = () => {
       <Stack
         justifyContent="center"
         alignItems="center"
-        sx={{ margin: "0 auto" }}
+        // sx={{ margin: "0 auto" }}
         gap={2}
       >
         <CircularProgress color="primary" />
@@ -24,5 +24,5 @@ const LoadingIndicator = () => {
 export default LoadingIndicator;
 
 const Wrapper = styled.div`
-  margin: 3vh auto 0 auto;
+  margin: 24px auto;
 `;

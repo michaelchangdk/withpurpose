@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// MUI Imports
 import AppBar from "@mui/material/AppBar";
 import {
   Box,
@@ -10,28 +13,29 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
-import styled from "styled-components";
 import MenuIcon from "@mui/icons-material/Menu";
+// Styling Imports
+import styled from "styled-components/macro";
+// Asset Imports
 import LogoText from "../../assets/logo_text.webp";
-import { useNavigate } from "react-router-dom";
 
 const PublicHeader = () => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElNavAbout, setAnchorElNavAbout] = useState(null);
 
+  // This is for the hamburger menu when it is condensed into one
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
+  // This is for the about menu when the menu is expanded
   const handleOpenAboutMenu = (event) => {
     setAnchorElNavAbout(event.currentTarget);
   };
-
   const handleCloseAboutMenu = () => {
     setAnchorElNavAbout(null);
   };
@@ -43,6 +47,7 @@ const PublicHeader = () => {
           <Button onClick={() => navigate("/")}>
             <Logo src={LogoText} alt="logo" />
           </Button>
+          {/* This is the menu visible on mobile */}
           <Box
             sx={{
               flexGrow: 1,
@@ -78,11 +83,6 @@ const PublicHeader = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {/* {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))} */}
               <MenuItem onClick={() => navigate("/openletter")}>
                 <Typography textAlign="center">Open Letter</Typography>
               </MenuItem>
@@ -109,6 +109,7 @@ const PublicHeader = () => {
               </MenuItem>
             </Menu>
           </Box>
+          {/* This is the menu visible on tablet/desktop */}
           <Box
             sx={{
               flexGrow: 1,
@@ -116,15 +117,6 @@ const PublicHeader = () => {
               justifyContent: "flex-end",
             }}
           >
-            {/* {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))} */}
             <Button
               onClick={() => navigate("/openletter")}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -185,7 +177,6 @@ export default PublicHeader;
 const Logo = styled.img`
   width: 230px;
   height: auto;
-  /* margin: 2vh; */
 `;
 
 const StyledAppBar = styled(AppBar)`

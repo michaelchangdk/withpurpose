@@ -1,22 +1,20 @@
-import React from 'react';
-import { Typography, Card, CardActionArea, CardContent } from '@mui/material';
-import styled from 'styled-components/macro';
+import React from "react";
+// MUI Imports
+import { Typography, Card, CardActionArea, CardContent } from "@mui/material";
+// Styling Imports
+import styled from "styled-components/macro";
 
-const PostCardSmall = ({title, url}) => {
-    return (
-      <Card
+const PostCardSmall = ({ title, url }) => {
+  return (
+    <Card
       sx={{
         width: "100%",
-        maxWidth: "sm"
+        maxWidth: "sm",
       }}
     >
-      <CardActionArea
-        sx={{ height: "100%", display: "grid" }}
-      >
+      <CardActionArea sx={{ height: "100%", display: "grid" }}>
         <AspectRatioBox>
-          <AspectRatioChild
-            backgroundimage={url}
-          ></AspectRatioChild>
+          <AspectRatioChild backgroundimage={url}></AspectRatioChild>
         </AspectRatioBox>
         <CardContent sx={{ alignSelf: "start", height: "100%" }}>
           <Typography
@@ -31,7 +29,7 @@ const PostCardSmall = ({title, url}) => {
         </CardContent>
       </CardActionArea>
     </Card>
-    )
+  );
 };
 
 const AspectRatioBox = styled.div`
