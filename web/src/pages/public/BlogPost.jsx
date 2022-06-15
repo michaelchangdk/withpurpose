@@ -32,7 +32,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${postId}'] {excerpt}`;
+    const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
