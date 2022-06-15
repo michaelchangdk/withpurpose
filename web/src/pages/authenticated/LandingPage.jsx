@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../../client";
-import LandingCards from "../../components/authenticated/LandingCards";
+
+// MUI Imports
 import { Container } from "@mui/material";
+// Component Imports
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import styled from "styled-components";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LandingCards from "../../components/authenticated/LandingCards";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const LandingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -48,6 +53,7 @@ const LandingPage = () => {
               />
             ))}
         </CardGrid>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>
@@ -60,12 +66,8 @@ const CardGrid = styled.div`
   display: grid;
   gap: 32px;
   justify-items: center;
-  padding-top: 16px;
-  padding-bottom: 40px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
-    padding-top: 24px;
-    padding-bottom: 40px;
   }
 `;

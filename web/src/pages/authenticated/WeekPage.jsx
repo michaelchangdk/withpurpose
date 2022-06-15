@@ -7,9 +7,10 @@ import { Stack, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { useSelector } from "react-redux";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
@@ -143,6 +144,7 @@ const WeekPage = () => {
             </CardContainer>
 
             <ScrollToTop />
+            <PageFooter />
           </Container>
         </>
       )}

@@ -34,12 +34,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { client } from "../../client";
 import { Box } from "@mui/material";
-import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 // import styled from "styled-components";
 // import { useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ScrollToTop from "../../components/global/ScrollToTop";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");

@@ -6,10 +6,10 @@ import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import TeamCards from "../../components/public/TeamCards";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { PageTitle } from "../../styledcomponents/typography";

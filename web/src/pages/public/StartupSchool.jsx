@@ -5,8 +5,8 @@ import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";

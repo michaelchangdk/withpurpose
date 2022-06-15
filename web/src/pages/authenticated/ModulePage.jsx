@@ -6,12 +6,14 @@ import LessonList from "../../components/authenticated/LessonList";
 import { Stack, Typography, Button, Container } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import { authenticated } from "../../reducers/authenticated";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import ScrollToTop from "../ScrollToTop";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
+
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -236,6 +238,7 @@ const ModulePage = () => {
             </Container>
           </>
         )}
+        <PageFooter />
       </CardContainer>
       <ScrollToTop />
     </BackgroundBox>

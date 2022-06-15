@@ -20,4 +20,9 @@ export default PageFooter;
 const Footer = styled.footer`
   text-align: center;
   padding-bottom: 10px;
+  padding-top: 40px;
+
+  @media (min-width: 768px) {
+    padding-top: 60px;
+  }
 `;

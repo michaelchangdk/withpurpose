@@ -5,9 +5,11 @@ import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { Container } from "@mui/material";
 // // import ReactPlayer from "react-player";
 import styled from "styled-components";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
+
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 
 // For fetching the page information
 const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
@@ -65,6 +67,7 @@ const WeekOverview = () => {
               />
             ))}
         </CardContainer>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>

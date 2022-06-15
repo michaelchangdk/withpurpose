@@ -19,8 +19,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components";
 import { darkMode } from "../../styledcomponents/themeoptions";
@@ -318,32 +318,31 @@ export default Contact;
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  gap: 40px;
-  margin-bottom: 40px;
+  /* grid-template-rows: auto auto; */
+  gap: 32px;
+  justify-items: center;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     gap: 60px;
-    margin-bottom: 60px;
   }
 `;
 
 const TextContainer = styled.div`
   max-width: 500px;
-  justify-self: center;
+  /* justify-self: center; */
 
   @media (min-width: 768px) {
-    justify-self: flex-end;
+    /* justify-self: flex-end; */
   }
 `;
 
 const ContactForm = styled.div`
   max-width: 500px;
-  justify-self: center;
+  /* justify-self: center; */
 
   @media (min-width: 768px) {
-    justify-self: flex-start;
+    /* justify-self: flex-start; */
   }
 `;
 

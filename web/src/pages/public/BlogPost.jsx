@@ -5,17 +5,16 @@ import { PortableText } from "@portabletext/react";
 import myPortableTextComponents from "../../services/myPortableTextComponents";
 
 // MUI Imports
-import { Stack, Link, Container, Button } from "@mui/material";
+import { Link, Container, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
-import styled from "styled-components";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 import {
   BackgroundBox,
@@ -60,17 +59,19 @@ const BlogPost = () => {
           color: "text.primary",
         }}
       >
-        <BlogPostContainer maxWidth="lg">
+        <Container maxWidth="lg">
           <PublicHeader />
-          <Button
-            variant="contained"
-            startIcon={<ArrowBackRoundedIcon />}
-            onClick={() => navigate("/blog")}
-            sx={{ marginBottom: "20px" }}
-          >
-            Back
-          </Button>
-          <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
+          <Container maxWidth="lg">
+            <Button
+              variant="contained"
+              startIcon={<ArrowBackRoundedIcon />}
+              onClick={() => navigate("/blog")}
+              sx={{ marginBottom: "20px" }}
+            >
+              Back
+            </Button>
+          </Container>
+          <Container maxWidth="md" sx={{ margin: "0 auto" }}>
             <ThemeProvider theme={lightMode}>
               <BackgroundBox
                 sx={{
@@ -131,8 +132,8 @@ const BlogPost = () => {
                 </ThreeGrid>
               </BackgroundBox>
             </ThemeProvider>
-          </Stack>
-        </BlogPostContainer>
+          </Container>
+        </Container>
         <PageFooter />
         <ScrollToTop />
       </BackgroundBox>
@@ -141,9 +142,3 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
-
-const BlogPostContainer = styled(Container)`
-  && {
-    margin: 0 auto 40px auto;
-  }
-`;

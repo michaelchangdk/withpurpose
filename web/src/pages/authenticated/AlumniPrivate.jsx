@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Container } from "@mui/material";
 import { client } from "../../client";
-import styled from "styled-components";
+
+// MUI Imports
+import { Container } from "@mui/material";
+// Component Imports
+import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import AlumniCards from "../../components/AlumniCards";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import {
+  CardContainer,
+  BackgroundBox,
+} from "../../styledcomponents/containers";
 
 const AlumniPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -46,6 +53,7 @@ const AlumniPrivate = () => {
               return <AlumniCards key={student._id} alumni={student} />;
             })}
         </CardContainer>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>
@@ -53,23 +61,3 @@ const AlumniPrivate = () => {
 };
 
 export default AlumniPrivate;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  margin: 0 auto;
-  justify-content: center;
-  padding-top: 32px;
-  padding-bottom: 40px;
-
-  @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
-    grid-template-columns: 1fr 1fr;
-    padding-bottom: 60px;
-  }
-
-  @media (min-width: 1100px) {
-    max-width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-`;

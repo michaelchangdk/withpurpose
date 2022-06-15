@@ -22,7 +22,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
 import { client } from "../../client";
 import { useParams } from "react-router-dom";
-import LoadingIndicator from "../../components/LoadingIndicator";
 import format from "date-fns/format";
 import { useSelector } from "react-redux";
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
@@ -30,7 +29,10 @@ import styled from "styled-components";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import { useNavigate } from "react-router-dom";
-import ScrollToTop from "../ScrollToTop";
+
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -313,6 +315,7 @@ const BookingPage = () => {
             </GridChild>
           )}
         </PageGrid>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>

@@ -82,6 +82,7 @@ const Header = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
+  margin-bottom: 32px;
 
   @media (min-width: 768px) {
     height: 30vh;

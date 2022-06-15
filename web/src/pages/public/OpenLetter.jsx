@@ -7,8 +7,8 @@ import { Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components/macro";
 import { darkMode } from "../../styledcomponents/themeoptions";
@@ -82,7 +82,7 @@ const OpenLetter = () => {
         }}
       >
         <PublicHeader />
-        <Container maxWidth="lg" sx={{ mb: "32px" }}>
+        <Container maxWidth="lg">
           <PageTitle variant="h2" component="h1">
             Open Letter
           </PageTitle>
