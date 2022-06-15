@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
+
+// MUI Imports
 import styled from "styled-components";
 import {
   List,
@@ -8,11 +12,9 @@ import {
   Container,
   Paper,
 } from "@mui/material";
-import LessonItem from "./LessonItem";
-import { useSelector } from "react-redux";
-import ReactPlayer from "react-player";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-// import MouseIcon from "@mui/icons-material/Mouse";
+// Component Imports
+import LessonItem from "./LessonItem";
 
 const LessonList = ({
   lessons,

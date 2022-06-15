@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import { client } from "../../client";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+
+// Firebase Auth Imports
 import {
   EmailAuthProvider,
   getAuth,
@@ -8,9 +12,8 @@ import {
   sendPasswordResetEmail,
   reauthenticateWithCredential,
 } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { authenticated } from "../../reducers/authenticated";
-// import { urlFor } from "../../client";
+
+// MUI Imports
 import {
   Accordion,
   AccordionDetails,
@@ -19,6 +22,7 @@ import {
   AlertTitle,
   Avatar,
   Button,
+  Box,
   Container,
   Stack,
   TextField,
@@ -28,18 +32,17 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import { client } from "../../client";
-import { Box } from "@mui/material";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ScheduleIcon from "@mui/icons-material/Schedule";
-// import styled from "styled-components";
-// import { useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// Component Imports
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const ProfilePage = () => {
   const [firstname, setFirstname] = useState("");

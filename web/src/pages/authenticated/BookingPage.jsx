@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { client } from "../../client";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import format from "date-fns/format";
+
+// MUI Imports
 import {
   Stack,
   TextField,
@@ -14,25 +20,22 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import AlarmIcon from "@mui/icons-material/Alarm";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// MUI Imports for booking
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import AlarmIcon from "@mui/icons-material/Alarm";
 import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
-import { client } from "../../client";
-import { useParams } from "react-router-dom";
-import format from "date-fns/format";
-import { useSelector } from "react-redux";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { useNavigate } from "react-router-dom";
-
+// Component Imports
+import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -41,7 +44,6 @@ const BookingPage = () => {
   const [mentor, setMentor] = useState([]);
   const [availableDays, setAvailableDays] = useState([]);
   const [availableDateTimes, setAvailableDateTimes] = useState([]);
-  // const id = useParams().mentorid;
   const selectedWeekday = value ? value.toString().substring(0, 3) : null;
   const [weekdayAvailability, setWeekdayAvailability] = useState([]);
   const [selectedTime, setSelectedTime] = useState("");
@@ -59,6 +61,7 @@ const BookingPage = () => {
       .then((res) => setDescription(res[0].description));
   }, []);
 
+  // Function for disabling dates
   const disableDates = (date) => {
     // // Example: Disables weekends and dates before the 15th
     //   return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
@@ -101,6 +104,7 @@ const BookingPage = () => {
     return eval(disabledDays);
   };
 
+  // useEffect for setting weekday availability when selecting new mentors
   useEffect(() => {
     setWeekdayAvailability(
       availableDateTimes
@@ -109,8 +113,8 @@ const BookingPage = () => {
     );
   }, [availableDateTimes, selectedWeekday]);
 
-  //   Fetch all mentors
-  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, bio, fullName, profilePhoto, topics, _id, bookingrequest}}`;
+  // Fetch all mentors for dropdown selection
+  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, fullName, _id, bookingrequest}}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorsQuery).then((response) => {
@@ -119,8 +123,8 @@ const BookingPage = () => {
     });
   }, [mentorsQuery]);
 
-  //   Fetch mentor by id
-  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}"] {availability, bio, fullName, profilePhoto, topics, _id}`;
+  // Fetch mentor by id for individual booking
+  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}"] {availability, fullName, _id}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorQuery).then((response) => {
@@ -137,6 +141,7 @@ const BookingPage = () => {
     });
   }, [mentorQuery]);
 
+  // Selecting a new mentor and resetting any errors
   const setNewMentor = (e) => {
     setMentor(mentors.filter((mentor) => mentor._id === e.target.value)[0]);
     setId(e.target.value);
@@ -144,6 +149,7 @@ const BookingPage = () => {
     setAlert("");
   };
 
+  // Formula for confirming a booking and patching to Sanity
   const confirmBooking = () => {
     client
       .patch(mentor._id)

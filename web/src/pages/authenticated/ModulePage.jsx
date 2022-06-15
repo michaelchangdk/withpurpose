@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { client } from "../../client";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+
+// MUI Imports
+import { Stack, Typography, Button, Container } from "@mui/material";
+// Component Imports
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
-import { Stack, Typography, Button, Container } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
-import { authenticated } from "../../reducers/authenticated";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
-
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries

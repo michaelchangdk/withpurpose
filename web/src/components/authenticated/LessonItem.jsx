@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { client } from "../../client";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+
+// MUI Imports
 import {
   ListItem,
   Checkbox,
@@ -13,9 +18,6 @@ import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflin
 import CloudCircleIcon from "@mui/icons-material/CloudCircle";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { client } from "../../client";
-import { useSelector, useDispatch } from "react-redux";
-import { authenticated } from "../../reducers/authenticated";
 
 const LessonItem = ({ lesson, clickTask, userid }) => {
   const dispatch = useDispatch();

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { client } from "../../client";
+
+// MUI Imports
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { Typography, Container } from "@mui/material";
-import { client } from "../../client";
+// Component Imports
 import MentorCards from "../../components/authenticated/MentorCards";
-import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
-
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const MentorsPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -49,12 +52,6 @@ const MentorsPrivate = () => {
         query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      {/* {description && (
-        <DescriptionContainer>
-          <Typography>{description}</Typography>
-        </DescriptionContainer>
-      )} */}
-
       {description && (
         <DescriptionContainer>
           <DescriptionChild>
@@ -63,7 +60,6 @@ const MentorsPrivate = () => {
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
-        {" "}
         {loading && <LoadingIndicator />}
         <CardContainer>
           {!loading &&

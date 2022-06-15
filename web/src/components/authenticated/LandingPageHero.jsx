@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
-import styled from "styled-components";
-import { client } from "../../client";
-import { urlFor } from "../../client";
-import down from "../../assets/down.png";
+import { client, urlFor } from "../../client";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
+
+// MUI Imports
 import { Container, Typography } from "@mui/material";
+// Component Imports
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
+// Styling Imports
+import styled from "styled-components/macro";
+// Asset Imports
+import down from "../../assets/down.png";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const [loading, setLoading] = useState(true);

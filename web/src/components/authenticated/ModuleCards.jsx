@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Stack, Typography, Button } from "@mui/material";
-import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
+
+// MUI Imports
+import { Card, Stack, Typography, Button } from "@mui/material";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+// Component Imports
+import ProgressCircle from "./ProgressCircle";
 
 const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);

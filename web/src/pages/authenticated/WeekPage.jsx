@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { client } from "../../client";
-import ModuleCards from "../../components/authenticated/ModuleCards";
-import styled from "styled-components";
-import { Stack, Button, Container, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+
+// MUI Imports
+import { Stack, Button, Container, Typography } from "@mui/material";
+// Component Imports
+import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import ModuleCards from "../../components/authenticated/ModuleCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");

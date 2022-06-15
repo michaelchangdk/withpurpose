@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Card, Stack, Typography, Button } from "@mui/material";
-import ProgressCircle from "./ProgressCircle";
-import { useSelector } from "react-redux";
-import NoAccessModal from "./NoAccessModal";
 import { client } from "../../client";
-// import StartRoundedIcon from "@mui/icons-material/StartRounded";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// MUI Imports
+import { Card, Stack, Typography, Button } from "@mui/material";
+// Component Imports
+import ProgressCircle from "./ProgressCircle";
+import NoAccessModal from "./NoAccessModal";
 
 const WeekCards = ({
   name,
