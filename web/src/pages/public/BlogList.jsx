@@ -1,34 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PublicHeader from "../../components/public/PublicHeader";
-import { Button, Container, Stack, Input, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
-import styled from "styled-components/macro";
-
 import { client, urlFor } from "../../client";
 
+// MUI Imports
+import { Button, Container, Stack, Input } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+// Component Imports
+import PublicHeader from "../../components/public/PublicHeader";
+import LoadingIndicator from "../../components/LoadingIndicator";
 import PostCardLarge from "../../components/public/PostCardLarge";
 import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { darkMode } from "../../styledcomponents/themeoptions";
 import {
   BackgroundBox,
   FlexSpaceBetween,
   Grid1Col,
 } from "../../styledcomponents/globalstyles";
+import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
 
 const BlogList = () => {
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [blogposts, setBlogposts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const fetchBlogposts = async () => {
-    // setLoading(true);
+    setLoading(true);
     const blogpostQuery = `*[_type == "blogpost" && title match "*${searchTerm}*"] {_id, title, excerpt, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
+    setLoading(false);
     console.log(response);
   };
 
@@ -48,9 +54,12 @@ const BlogList = () => {
         <PublicHeader />
         <Container maxWidth="lg">
           <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
-            <PageHeader variant="h2" component="h1" textAlign="center">
+            <PageTitle component="h1" variant="h2">
+              With Purpose Blog
+            </PageTitle>
+            <PageSubtitle variant="h2" component="h2">
               What we've been up to lately
-            </PageHeader>
+            </PageSubtitle>
             <PostListContainer>
               <FlexSpaceBetween>
                 <Button
@@ -65,11 +74,12 @@ const BlogList = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </FlexSpaceBetween>
+              {loading && <LoadingIndicator />}
 
               <Grid1Col>
-                {blogposts.map((blogpost) => {
-                  return (
-                    
+                {!loading &&
+                  blogposts.map((blogpost) => {
+                    return (
                       <PostCardLarge
                         key={blogpost._id}
                         url={urlFor(blogpost.image.asset._ref).url()}
@@ -81,32 +91,18 @@ const BlogList = () => {
                         openModal={openModal}
                         setOpenModal={setOpenModal}
                       />
-                    
-                  );
-                })}
+                    );
+                  })}
               </Grid1Col>
             </PostListContainer>
           </Stack>
           <PageFooter />
         </Container>
+        <ScrollToTop />
       </BackgroundBox>
     </ThemeProvider>
   );
 };
-
-const PageHeader = styled(Typography)`
-  && {
-    font-size: 40px;
-    margin-bottom: 40px;
-  }
-  @media (min-width: 768px) {
-    && {
-      font-size: 60px;
-      padding: 0 60px;
-      margin: 0 auto 60px auto;
-    }
-  }
-`;
 
 const PostListContainer = styled(Container)`
   && {

@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
-import PublicHeader from "../../components/public/PublicHeader";
+import { client } from "../../client";
+import { PortableText } from "@portabletext/react";
+
+// MUI Imports
 import { Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
+// Component Imports
+import PublicHeader from "../../components/public/PublicHeader";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// Styling Imports
 import styled from "styled-components/macro";
-import { PortableText } from "@portabletext/react";
-import { client } from "../../client";
+import { darkMode } from "../../styledcomponents/themeoptions";
+import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import { PageTitle } from "../../styledcomponents/typography";
 
 const OpenLetter = () => {
   const [openLetter, setOpenLetter] = useState(null);
 
   const fetchOpenLetter = async () => {
-    const letterQuery = `*[_type == "openletter"]`;
+    const letterQuery = `*[_type == "openletter"] {headline, slug, title, body}`;
     const fetch = await client.fetch(letterQuery);
     const response = await fetch;
     setOpenLetter(response[0]);
-    console.log(response[0]);
   };
 
   useEffect(() => {
@@ -79,9 +83,9 @@ const OpenLetter = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg" sx={{ mb: "32px" }}>
-          <PageHeader variant="h2" component="h1" textAlign="center">
+          <PageTitle variant="h2" component="h1">
             Open Letter
-          </PageHeader>
+          </PageTitle>
           <Container maxWidth="sm">
             <PortableText
               sx={{ lineHeight: 2 }}
@@ -97,6 +101,8 @@ const OpenLetter = () => {
   );
 };
 
+export default OpenLetter;
+
 const StyledAsideTypography = styled(Typography)`
   && {
     color: hotpink;
@@ -104,7 +110,6 @@ const StyledAsideTypography = styled(Typography)`
     left: 100px;
     font-size: 24px;
     line-height: 1.1;
-    position: absolute;
   }
 `;
 
@@ -114,31 +119,3 @@ const StyledAside = styled.aside`
   position: relative;
   margin: 32px auto;
 `;
-
-const PageHeader = styled(Typography)`
-  && {
-    font-size: 40px;
-    margin-bottom: 24px;
-  }
-  @media (min-width: 768px) {
-    && {
-      font-size: 60px;
-      padding: 0 60px;
-      margin: 0 auto 32px auto;
-    }
-  }
-`;
-
-export default OpenLetter;
-
-// const PageTitle = styled(Typography)`
-//   && {
-//     margin-bottom: 40px;
-//   }
-
-//   @media (min-width: 768px) {
-//     && {
-//       margin-bottom: 60px;
-//     }
-//   }
-// `;

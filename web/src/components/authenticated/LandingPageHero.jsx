@@ -122,13 +122,6 @@ const HeaderSubtitle = styled(Typography)`
   }
 `;
 
-// const HeaderSubtitle = styled.h2`
-//   font-family: "Nunito", sans-serif;
-//   color: white;
-//   font-size: 20px;
-//   font-weight: 400;
-// `;
-
 const HeaderInstruction = styled.div`
   display: flex;
   flex-direction: column;

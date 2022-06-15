@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
-import PublicHeader from "../../components/public/PublicHeader";
-import { Container, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
 import { client } from "../../client";
+
+// MUI Imports
+import { Container } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+// Component Imports
+import PublicHeader from "../../components/public/PublicHeader";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import PublicMentorCards from "../../components/public/PublicMentorCards";
-import styled from "styled-components/macro";
-
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
+// Styling Imports
+import { darkMode } from "../../styledcomponents/themeoptions";
+import { PageTitle } from "../../styledcomponents/typography";
+import {
+  CardContainer,
+  BackgroundBox,
+} from "../../styledcomponents/containers";
 
 const MentorsPublic = () => {
   const [loading, setLoading] = useState(true);
   const [mentors, setMentors] = useState([]);
 
-  // Write a function that shuffles the array
+  // Write a function that shuffles an array
   const shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -49,9 +55,9 @@ const MentorsPublic = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageHeader variant="h2" component="h1" textAlign="center">
+          <PageTitle variant="h2" component="h1">
             Mentors
-          </PageHeader>
+          </PageTitle>
           {loading && <LoadingIndicator />}
           <CardContainer>
             {!loading &&
@@ -68,37 +74,3 @@ const MentorsPublic = () => {
 };
 
 export default MentorsPublic;
-
-const PageHeader = styled(Typography)`
-  && {
-    font-size: 40px;
-    margin-bottom: 40px;
-  }
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 60px;
-      padding: 0 60px;
-      margin: 0 auto 60px auto;
-    }
-  }
-`;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  margin: 0 auto;
-  justify-content: center;
-  margin-bottom: 40px;
-
-  @media (min-width: 768px) {
-    max-width: 782px;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 60px;
-  }
-
-  @media (min-width: 1100px) {
-    max-width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-`;

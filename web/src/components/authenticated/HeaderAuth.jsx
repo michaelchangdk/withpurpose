@@ -179,17 +179,8 @@ const HeaderNav = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* margin: 5px 20px; */
-  /* width: 92vw; */
-  /* width: calc(100vw - 32px); */
   margin: 0 auto 2vh auto;
   padding-top: 3vh;
-  /* z-index: 2; */
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  right: 0; */
-  /* bottom: 0; */
 `;
 
 const Logo = styled.img`

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import PublicHeader from "../../components/public/PublicHeader";
+
+// MUI Imports
 import {
   Container,
   Typography,
@@ -14,14 +15,17 @@ import {
   IconButton,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
-import PageFooter from "../../components/public/PageFooter";
-import styled from "styled-components";
-import ScrollToTop from "../ScrollToTop";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// Component Imports
+import PublicHeader from "../../components/public/PublicHeader";
+import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
+// Styling Imports
+import styled from "styled-components";
+import { darkMode } from "../../styledcomponents/themeoptions";
+import { PageTitle } from "../../styledcomponents/typography";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const Contact = () => {
   const [email, setEmail] = useState("");
@@ -94,7 +98,7 @@ const Contact = () => {
       >
         <PublicHeader />
         <Container maxWidth="lg">
-          <PageTitle variant="h2" component="h1" textAlign="center">
+          <PageTitle variant="h2" component="h1">
             Contact us
           </PageTitle>
           <GridContainer>
@@ -310,18 +314,6 @@ const Contact = () => {
 };
 
 export default Contact;
-
-const PageTitle = styled(Typography)`
-  && {
-    margin-bottom: 40px;
-  }
-
-  @media (min-width: 768px) {
-    && {
-      margin-bottom: 60px;
-    }
-  }
-`;
 
 const GridContainer = styled.div`
   display: grid;

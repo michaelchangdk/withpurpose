@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { client, urlFor } from "../../client";
 import { PortableText } from "@portabletext/react";
+import myPortableTextComponents from "../../services/myPortableTextComponents";
+
+// MUI Imports
 import { Stack, Link, Container, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
-import { client, urlFor } from "../../client";
-
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+// Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
-
+// Styling Imports
+import styled from "styled-components";
+import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 import {
   BackgroundBox,
   ThreeGrid,
@@ -19,10 +24,6 @@ import {
 } from "../../styledcomponents/globalstyles";
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
-import styled from "styled-components";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-
-import myPortableTextComponents from "../../services/myPortableTextComponents";
 
 const BlogPost = () => {
   const { id } = useParams();
@@ -117,7 +118,7 @@ const BlogPost = () => {
                             textDecoration: "none",
                             color: "hsl(0, 0%, 20%)",
                             display: "flex",
-                            justifyContent: "center"
+                            justifyContent: "center",
                           }}
                         >
                           <PostCardSmall

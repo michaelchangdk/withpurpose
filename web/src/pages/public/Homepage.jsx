@@ -1,10 +1,19 @@
 import React from "react";
-import PublicHeader from "../../components/public/PublicHeader";
+import { useNavigate } from "react-router-dom";
+
+// MUI Imports
 import { Typography, Button, Stack, Container } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
-import { useNavigate } from "react-router-dom";
+// Component Imports
+import PublicHeader from "../../components/public/PublicHeader";
+import Newsletter from "../../components/public/Newsletter";
+import PageFooter from "../../components/public/PageFooter";
+import ScrollToTop from "../ScrollToTop";
+// Styling Imports
 import styled from "styled-components/macro";
+import { darkMode } from "../../styledcomponents/themeoptions";
+import { BackgroundBox } from "../../styledcomponents/containers";
+// Asset Imports
 import rectangle from "../../assets/decorative/rectangle.webp";
 import purplesquiggle from "../../assets/decorative/scribble3.webp";
 import bluesquiggle from "../../assets/decorative/scribble4.svg";
@@ -15,11 +24,6 @@ import nsa from "../../assets/NSA1.webp";
 import wta1 from "../../assets/WTA1.webp";
 import wta2 from "../../assets/WTA2.webp";
 import quote from "../../assets/decorative/quote.png";
-import Newsletter from "../../components/public/Newsletter";
-import PageFooter from "../../components/public/PageFooter";
-import ScrollToTop from "../ScrollToTop";
-
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
 
 const Homepage = () => {
   const navigate = useNavigate();

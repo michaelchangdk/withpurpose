@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Page Imports
 import Homepage from "./public/Homepage";
 import OpenLetter from "./public/OpenLetter";
 import StartupSchool from "./public/StartupSchool";
@@ -20,18 +22,21 @@ import MasterClass from "./authenticated/MasterclassPage";
 import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
+import BookingPage from "./authenticated/BookingPage";
 import NoAccess from "./login/NoAccess";
+// MUI Theme Provider and Theme options Import
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
-import BookingPage from "./authenticated/BookingPage";
 
 const Router = () => {
-  const loggedin = useSelector((store) => store.authenticated.loggedin);
   console.log(useSelector((store) => store.authenticated));
+
+  // Checks if user is logged in, has access to pages, and if they have set darkmode as their theme
+  const loggedin = useSelector((store) => store.authenticated.loggedin);
   const access = useSelector((store) => store.authenticated.access);
   const darkModeTrue = useSelector((store) => store.authenticated.darkMode);
 
-  // List of approved weeks - not sure how to implement week access using param
+  // List of approved weeks - how to implement week access using params? Perhaps better to implement using useEffect on week and module pages
   // const approvedWeekArr = Object.entries(access)
   //   .filter(([key, val]) => key.includes("Week") && val === true)
   //   .map((week) => week[0]);
@@ -52,7 +57,6 @@ const Router = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* NEED USER below */}
           <Route
             path="/startup-school-elearning"
             element={loggedin ? <LandingPage /> : <NoAccess />}
@@ -67,10 +71,8 @@ const Router = () => {
               )
             }
           />
-          {/* HOW TO NAVIGATE BETWEEN WEEK/WEEK? & MODULES */}
           <Route
             path="/week/:week"
-            // path="/week/:week(Week0|Week1)/"
             element={loggedin ? <WeekPage /> : <NoAccess />}
           />
           <Route

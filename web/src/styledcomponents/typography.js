@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 import { Typography } from "@mui/material";
 
+// Blog
 export const Duration = styled(Typography)`
   && {
     padding: 0 4px;
@@ -13,29 +14,50 @@ export const Duration = styled(Typography)`
   }
 `;
 
-export const H1 = styled(Typography)`
-    && {
-    font-size: 4rem;
-    font-weight: 900;
-    font-style: italic;
-    text-align: center;
-    text-transform: uppercase;
-    line-height: .9;
-    margin-bottom: 32px;
-    }
-`;
-
 export const PageHeader = styled(Typography)`
   && {
     font-size: 32px;
     text-transform: uppercase;
-    line-height: .9;
+    line-height: 0.9;
   }
 
   @media (min-width: 768px) {
     && {
       font-size: 48px;
       margin: 0 auto;
+    }
+  }
+`;
+
+// Public Pages
+export const PageTitle = styled(Typography)`
+  && {
+    font-size: 40px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    && {
+      font-size: 60px;
+      padding: 0 60px;
+      margin: 0 auto 32px auto;
+    }
+  }
+`;
+
+export const PageSubtitle = styled(Typography)`
+  && {
+    font-size: 28px;
+    margin-bottom: 40px;
+    padding: 0 60px;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 36px;
+      padding: 0 60px;
+      margin: 0 auto 60px auto;
     }
   }
 `;
