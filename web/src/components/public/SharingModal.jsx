@@ -25,7 +25,7 @@ const style = {
   borderRadius: 2,
 };
 
-const SharingModal = ({ openModal, setOpenModal, id }) => {
+const SharingModal = ({ openModal, setOpenModal, id, excerpt }) => {
   const handleClose = () => setOpenModal(false);
 
   return (
@@ -40,8 +40,8 @@ const SharingModal = ({ openModal, setOpenModal, id }) => {
         <Box sx={style}>
             <Container sx={{display: "flex", justifyContent: "space-evenly"}}>
                 <TwitterShareButton url={`https://withpurpose.netlify.app/blog/${id}`}>{<TwitterIcon size={32} round/>}</TwitterShareButton>
-                <FacebookShareButton url={`https://withpurpose.netlify.app/blog/${id}`}>{<FacebookIcon size={32} round />}</FacebookShareButton>
-                <LinkedinShareButton url={`https://withpurpose.netlify.app/blog/${id}`}>{<LinkedinIcon size={32} round />}</LinkedinShareButton>
+                <FacebookShareButton hashtag="tags" quote={excerpt} url={`https://withpurpose.netlify.app/blog/${id}`}>{<FacebookIcon size={32} round />}</FacebookShareButton>
+                <LinkedinShareButton source="https://withpurpose.netlify.app" title="Title" summary={excerpt} url={`https://withpurpose.netlify.app/blog/${id}`}>{<LinkedinIcon size={32} round />}</LinkedinShareButton>
             </Container>
             
         </Box>

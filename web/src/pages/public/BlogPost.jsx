@@ -32,7 +32,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
+    const postQuery = `*[_type == "blogpost" && _id == '${postId}'] {excerpt}`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
@@ -91,6 +91,7 @@ const BlogPost = () => {
                       openModal={openModal}
                       setOpenModal={setOpenModal}
                       id={id}
+                      excerpt={currentPost?.excerpt}
                     />
                     <Ellipsis
                       sx={{ color: "text.primary" }}
