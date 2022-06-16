@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -11,26 +10,16 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import {
-  CardContainer,
+  ThreeCardGrid,
   BackgroundBox,
 } from "../../styledcomponents/containers";
+// Function Import
+import { FetchCardPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPrivate = () => {
-  const [loading, setLoading] = useState(true);
-  const [alumni, setAlumni] = useState([]);
-
-  const fetchAlumni = async () => {
-    setLoading(true);
-    const alumniQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto}}`;
-    const fetch = await client.fetch(alumniQuery);
-    const response = await fetch;
-    setAlumni(response[0].alumni);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchAlumni();
-  }, []);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -47,12 +36,12 @@ const AlumniPrivate = () => {
       <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
 
-        <CardContainer>
+        <ThreeCardGrid>
           {!loading &&
-            alumni.map((student) => {
+            response[0].alumni.map((student) => {
               return <AlumniCards key={student._id} alumni={student} />;
             })}
-        </CardContainer>
+        </ThreeCardGrid>
         <PageFooter />
       </Container>
       <ScrollToTop />

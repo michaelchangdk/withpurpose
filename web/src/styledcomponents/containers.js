@@ -10,9 +10,20 @@ export const BackgroundBox = styled(Box)`
   }
 `;
 
-// Public Pages
-// 1, 2, 3 column container - used in Team, Alumni, and Company Mentors
-export const CardContainer = styled.div`
+// Two Grid for WeekOverview and LandingPage components
+export const TwoCardGrid = styled.div`
+  display: grid;
+  justify-items: center;
+  gap: 32px;
+  padding-top: 32px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+// Three Grid - used in Team, Alumni, and Company Mentors
+export const ThreeCardGrid = styled.div`
   display: grid;
   gap: 32px;
   margin: 0 auto;
@@ -76,7 +87,7 @@ export const DescriptionTypography = styled(Typography)`
   }
 `;
 
-// Divs for Video Embeds
+// Divs for Video Embeds - Startup School Page & LessonList component
 export const FrameDiv = styled.div`
   position: relative;
   padding-top: 56.25%;

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { ThemeProvider } from "@mui/material/styles";
@@ -14,26 +13,16 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { PageTitle } from "../../styledcomponents/typography";
 import {
-  CardContainer,
+  ThreeCardGrid,
   BackgroundBox,
 } from "../../styledcomponents/containers";
+// Function Import
+import { FetchCardPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPublic = () => {
-  const [loading, setLoading] = useState(true);
-  const [alumni, setAlumni] = useState([]);
-
-  const fetchAlumni = async () => {
-    setLoading(true);
-    const alumniQuery = `*[_type == "alumni"] {city, class, fullName, linkedin, profilePhoto, _id}`;
-    const fetch = await client.fetch(alumniQuery);
-    const response = await fetch;
-    setAlumni(response);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchAlumni();
-  }, []);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -46,13 +35,13 @@ const AlumniPublic = () => {
             Our Alumni
           </PageTitle>
           {loading && <LoadingIndicator />}
-          <CardContainer>
+          <ThreeCardGrid>
             {!loading &&
-              alumni.map((student) => {
+              response[0].alumni.map((student) => {
                 return <AlumniCards key={student._id} alumni={student} />;
               })}
             {/* PAGE INFORMATION */}
-          </CardContainer>
+          </ThreeCardGrid>
           <PageFooter />
         </Container>
       </BackgroundBox>

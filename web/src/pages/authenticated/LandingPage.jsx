@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -10,21 +9,15 @@ import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
-import styled from "styled-components/macro";
-import { BackgroundBox } from "../../styledcomponents/containers";
+import { BackgroundBox, TwoCardGrid } from "../../styledcomponents/containers";
+// Functions Import
+import { FetchLandingPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery =
+  '*[_type == "landingpage"] {landingpageelements[]-> {title, headline, description, slug, coverImage}}';
 
 const LandingPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-  const cardsQuery =
-    '*[_type == "landingpageelements"] {order, title, headline, description, slug, coverImage}';
-
-  useEffect(() => {
-    client.fetch(cardsQuery).then((response) => {
-      setCards(response.sort((a, b) => a.order - b.order));
-      setLoading(false);
-    });
-  }, []);
+  const [loading, cards] = FetchLandingPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -38,9 +31,9 @@ const LandingPage = () => {
         type={"page"}
         displayName={true}
       />
-      <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
+      <Container maxWidth="lg">
         {loading && <LoadingIndicator />}
-        <CardGrid>
+        <TwoCardGrid>
           {!loading &&
             cards.map((card) => (
               <LandingCards
@@ -52,7 +45,7 @@ const LandingPage = () => {
                 coverImage={card.coverImage}
               />
             ))}
-        </CardGrid>
+        </TwoCardGrid>
         <PageFooter />
       </Container>
       <ScrollToTop />
@@ -61,13 +54,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-const CardGrid = styled.div`
-  display: grid;
-  gap: 32px;
-  justify-items: center;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-`;

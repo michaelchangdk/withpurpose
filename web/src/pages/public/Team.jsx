@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -14,22 +13,16 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { PageTitle } from "../../styledcomponents/typography";
 import {
-  CardContainer,
+  ThreeCardGrid,
   BackgroundBox,
 } from "../../styledcomponents/containers";
-
-const teamQuery = `*[_type == "teamMembers"] {city, fullName, linkedin, profilePhoto, quote, _id}`;
+// Function Import
+import { FetchCardPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "teamMembers"] {city, fullName, linkedin, profilePhoto, quote, _id}`;
 
 const Team = () => {
-  const [loading, setLoading] = useState(true);
-  const [team, setTeam] = useState([]);
-
-  useEffect(() => {
-    client.fetch(teamQuery).then((response) => {
-      setTeam(response);
-    });
-    setLoading(false);
-  }, []);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -45,12 +38,12 @@ const Team = () => {
             Meet the Team
           </PageTitle>
           {loading && <LoadingIndicator />}
-          <CardContainer>
+          <ThreeCardGrid>
             {!loading &&
-              team.map((member) => {
+              response.map((member) => {
                 return <TeamCards key={member._id} member={member} />;
               })}
-          </CardContainer>
+          </ThreeCardGrid>
           <PageFooter />
         </Container>
       </BackgroundBox>

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -14,36 +13,16 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { PageTitle } from "../../styledcomponents/typography";
 import {
-  CardContainer,
+  ThreeCardGrid,
   BackgroundBox,
 } from "../../styledcomponents/containers";
+// Functions Import
+import { FetchCardPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "companyMentors"] {bio, company, fullName, profilePhoto, _id}`;
 
 const MentorsPublic = () => {
-  const [loading, setLoading] = useState(true);
-  const [mentors, setMentors] = useState([]);
-
-  // Write a function that shuffles an array
-  const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
-  const fetchMentors = async () => {
-    setLoading(true);
-    const mentorsQuery = `*[_type == "companyMentors"] {bio, company, fullName, profilePhoto, _id}`;
-    const fetch = await client.fetch(mentorsQuery);
-    const response = await fetch;
-    setMentors(shuffle(response));
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchMentors();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -59,12 +38,12 @@ const MentorsPublic = () => {
             Mentors
           </PageTitle>
           {loading && <LoadingIndicator />}
-          <CardContainer>
+          <ThreeCardGrid>
             {!loading &&
-              mentors.map((mentor) => {
+              response.map((mentor) => {
                 return <PublicMentorCards key={mentor._id} mentor={mentor} />;
               })}
-          </CardContainer>
+          </ThreeCardGrid>
           <PageFooter />
         </Container>
       </BackgroundBox>

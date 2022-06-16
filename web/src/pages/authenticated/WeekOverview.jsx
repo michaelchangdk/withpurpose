@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 import ReactPlayer from "react-player";
 
 // MUI Imports
@@ -11,24 +10,18 @@ import WeekCards from "../../components/authenticated/WeekCards";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
-import styled from "styled-components/macro";
-import { BackgroundBox, FrameDiv } from "../../styledcomponents/containers";
-
-// For fetching the page information
+import {
+  BackgroundBox,
+  FrameDiv,
+  TwoCardGrid,
+} from "../../styledcomponents/containers";
+// Function Imports
+import { FetchWeekOverviewPage } from "../../services/clientFunctions";
+// Query Declaration
 const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
 
 const WeekOverview = () => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-  const [introURL, setIntroURL] = useState("");
-
-  useEffect(() => {
-    client.fetch(pageQuery).then((response) => {
-      setIntroURL(response[0].introVideo);
-      setCards(response[0].weeks.filter((a) => !a._id.includes("draft")));
-      setLoading(false);
-    });
-  }, []);
+  const [loading, cards, introURL] = FetchWeekOverviewPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -54,7 +47,7 @@ const WeekOverview = () => {
             />
           </FrameDiv>
         )}
-        <CardContainer>
+        <TwoCardGrid>
           {!loading &&
             cards.map((week) => (
               <WeekCards
@@ -68,7 +61,7 @@ const WeekOverview = () => {
                 module={week.module}
               />
             ))}
-        </CardContainer>
+        </TwoCardGrid>
         <PageFooter />
       </Container>
       <ScrollToTop />
@@ -77,14 +70,3 @@ const WeekOverview = () => {
 };
 
 export default WeekOverview;
-
-const CardContainer = styled.div`
-  display: grid;
-  justify-items: center;
-  gap: 32px;
-  padding-top: 32px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-`;
