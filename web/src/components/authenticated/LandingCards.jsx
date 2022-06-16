@@ -59,11 +59,6 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
             ></AspectRatioChild>
           </AspectRatioBox>
         </CardMedia>
-      </CardActionArea>
-      <CardActionArea
-        onClick={clickCard}
-        sx={{ height: "100%", display: "grid" }}
-      >
         <CardContent sx={{ alignSelf: "start", height: "100%" }}>
           <Typography
             gutterBottom

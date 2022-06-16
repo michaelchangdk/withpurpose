@@ -12,12 +12,12 @@ import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
-import styled from "styled-components/macro";
 import {
   BackgroundBox,
   DescriptionContainer,
   DescriptionChild,
   DescriptionTypography,
+  OneCardGrid,
 } from "../../styledcomponents/containers";
 
 const WeekPage = () => {
@@ -106,7 +106,7 @@ const WeekPage = () => {
           </DescriptionContainer>
           <Container maxWidth="lg">
             {loading && <p>Loading...</p>}
-            <CardContainer>
+            <OneCardGrid>
               {!loading &&
                 modules.map((module) => (
                   <ModuleCards
@@ -149,7 +149,7 @@ const WeekPage = () => {
                   </Button>
                 )}
               </Stack>
-            </CardContainer>
+            </OneCardGrid>
             <ScrollToTop />
             <PageFooter />
           </Container>
@@ -160,10 +160,3 @@ const WeekPage = () => {
 };
 
 export default WeekPage;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  padding-top: 32px;
-  margin: 0 auto;
-`;

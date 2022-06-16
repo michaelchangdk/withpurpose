@@ -11,13 +11,13 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { BackgroundBox, TwoCardGrid } from "../../styledcomponents/containers";
 // Functions Import
-import { FetchLandingPage } from "../../services/clientFunctions";
+import { FetchCardPage } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery =
   '*[_type == "landingpage"] {landingpageelements[]-> {title, headline, description, slug, coverImage}}';
 
 const LandingPage = () => {
-  const [loading, cards] = FetchLandingPage(pageQuery);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -35,7 +35,7 @@ const LandingPage = () => {
         {loading && <LoadingIndicator />}
         <TwoCardGrid>
           {!loading &&
-            cards.map((card) => (
+            response[0].landingpageelements.map((card) => (
               <LandingCards
                 key={card.order}
                 title={card.title}

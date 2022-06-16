@@ -14,12 +14,12 @@ import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
-import styled from "styled-components";
 import {
   BackgroundBox,
   DescriptionContainer,
   DescriptionChild,
   DescriptionTypography,
+  OneCardGrid,
 } from "../../styledcomponents/containers";
 
 const ModulePage = () => {
@@ -149,7 +149,7 @@ const ModulePage = () => {
     >
       <HeaderAuth />
       {loading && <LoadingIndicator />}
-      <CardContainer>
+      <OneCardGrid>
         {!loading && (
           <>
             <Container maxWidth="lg">
@@ -247,7 +247,7 @@ const ModulePage = () => {
             </Container>
           </>
         )}
-      </CardContainer>
+      </OneCardGrid>
       <PageFooter />
       <ScrollToTop />
     </BackgroundBox>
@@ -255,10 +255,3 @@ const ModulePage = () => {
 };
 
 export default ModulePage;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  padding-top: 32px;
-  margin: 0 auto;
-`;

@@ -50,7 +50,23 @@ export const uncheckLesson = (userid, completedLesson) => {
     .then(() => {});
 };
 
-// Mentors - Private Fetch Function
+// Card Page Fetch - Alumni Public & Private, Team, Mentors Public, Landing Page Private,
+export const FetchCardPage = (pageQuery) => {
+  const [loading, setLoading] = useState(true);
+  const [response, setResponse] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    client.fetch(pageQuery).then((response) => {
+      setResponse(response);
+      setLoading(false);
+    });
+  }, [pageQuery]);
+
+  return [loading, response];
+};
+
+// Mentors Private Fetch Function
 export const FetchMentors = () => {
   const [loading, setLoading] = useState(true);
   const [mentors, setMentors] = useState([]);
@@ -82,20 +98,22 @@ export const FetchMentors = () => {
   return [loading, mentors, description];
 };
 
-// Card Page Fetch - Alumni Public & Private, Team, Mentors Public
-export const FetchCardPage = (pageQuery) => {
+// Week Overview Fetch
+export const FetchWeekOverviewPage = (pageQuery) => {
   const [loading, setLoading] = useState(true);
-  const [response, setResponse] = useState([]);
+  const [cards, setCards] = useState(null);
+  const [introURL, setIntroURL] = useState("");
 
   useEffect(() => {
     setLoading(true);
     client.fetch(pageQuery).then((response) => {
-      setResponse(response);
+      setIntroURL(response[0].introVideo);
+      setCards(response[0].weeks.filter((a) => !a._id.includes("draft")));
       setLoading(false);
     });
   }, [pageQuery]);
 
-  return [loading, response];
+  return [loading, cards, introURL];
 };
 
 // Profile Page Functions
@@ -128,38 +146,4 @@ export const FetchBookingRequests = (userid) => {
   }, [bookingQuery]);
 
   return [bookingRequests];
-};
-
-// Landing Page Fetch
-export const FetchLandingPage = (pageQuery) => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-
-  useEffect(() => {
-    setLoading(true);
-    client.fetch(pageQuery).then((response) => {
-      setCards(response[0].landingpageelements);
-      setLoading(false);
-    });
-  }, [pageQuery]);
-
-  return [loading, cards];
-};
-
-// Week Overview Fetch
-export const FetchWeekOverviewPage = (pageQuery) => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-  const [introURL, setIntroURL] = useState("");
-
-  useEffect(() => {
-    setLoading(true);
-    client.fetch(pageQuery).then((response) => {
-      setIntroURL(response[0].introVideo);
-      setCards(response[0].weeks.filter((a) => !a._id.includes("draft")));
-      setLoading(false);
-    });
-  }, [pageQuery]);
-
-  return [loading, cards, introURL];
 };

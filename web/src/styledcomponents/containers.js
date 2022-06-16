@@ -10,6 +10,14 @@ export const BackgroundBox = styled(Box)`
   }
 `;
 
+// One Column Grid - ModulePage and WeekPage
+export const OneCardGrid = styled.div`
+  display: grid;
+  gap: 32px;
+  padding-top: 32px;
+  margin: 0 auto;
+`;
+
 // Two Grid for WeekOverview and LandingPage components
 export const TwoCardGrid = styled.div`
   display: grid;
@@ -37,6 +45,25 @@ export const ThreeCardGrid = styled.div`
   @media (min-width: 1100px) {
     max-width: 100%;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+`;
+
+// Four Card Grid - used in Mentors Private
+export const FourCardGrid = styled.div`
+  display: grid;
+  gap: 32px;
+  margin: 0 auto;
+  justify-content: center;
+  padding-top: 32px;
+  padding-bottom: 40px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 60px;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 `;
 
