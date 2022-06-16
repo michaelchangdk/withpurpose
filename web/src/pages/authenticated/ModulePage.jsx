@@ -15,7 +15,12 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/containers";
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionChild,
+  DescriptionTypography,
+} from "../../styledcomponents/containers";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -169,9 +174,11 @@ const ModulePage = () => {
               </Stack>
             </Container>
             {moduleDescription && (
-              <DescriptionContainer>
+              <DescriptionContainer backgroundcolor="#e93a7d">
                 <DescriptionChild maxWidth="lg">
-                  <StyledTypo>{moduleDescription}</StyledTypo>
+                  <DescriptionTypography>
+                    {moduleDescription}
+                  </DescriptionTypography>
                 </DescriptionChild>
               </DescriptionContainer>
             )}
@@ -249,41 +256,9 @@ const ModulePage = () => {
 
 export default ModulePage;
 
-const DescriptionContainer = styled.div`
-  background-color: #e93a7d;
-  /* background-color: #6356d7; */
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
 const CardContainer = styled.div`
   display: grid;
   gap: 32px;
   padding-top: 32px;
   margin: 0 auto;
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
 `;

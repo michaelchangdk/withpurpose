@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { Box } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 
 // All Pages
 export const BackgroundBox = styled(Box)`
@@ -29,7 +29,7 @@ export const CardContainer = styled.div`
   }
 `;
 
-// Aspect Ratio Containers
+// Aspect Ratio Containers - used for landingpagecard images
 export const AspectRatioBox = styled.div`
   height: 0;
   overflow: hidden;
@@ -48,4 +48,30 @@ export const AspectRatioChild = styled.div`
   background-position-y: ${(props) => props.yposition * 100}%;
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+// Colored Description Containers
+export const DescriptionContainer = styled.div`
+  background-color: ${(props) => props.backgroundcolor};
+  color: white;
+  white-space: pre-line;
+  vertical-align: bottom;
+`;
+
+export const DescriptionChild = styled(Container)`
+  && {
+    padding: 48px 84px;
+  }
+`;
+
+export const DescriptionTypography = styled(Typography)`
+  /* && {
+  } */
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
 `;

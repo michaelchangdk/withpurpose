@@ -6,7 +6,6 @@ import format from "date-fns/format";
 
 // MUI Imports
 import {
-  Stack,
   TextField,
   Container,
   Typography,
@@ -35,7 +34,12 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components/macro";
-import { BackgroundBox } from "../../styledcomponents/containers";
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionChild,
+  DescriptionTypography,
+} from "../../styledcomponents/containers";
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -187,21 +191,23 @@ const BookingPage = () => {
         type={"page"}
       />
       {!loading && description && (
-        <DescriptionContainer>
+        <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
-            <StyledTypo>{description}</StyledTypo>
+            <DescriptionTypography>{description}</DescriptionTypography>
           </DescriptionChild>
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
-        <Button
-          variant="contained"
-          startIcon={<ArrowBackRoundedIcon />}
-          onClick={() => navigate("/book-a-mentor")}
-          sx={{ margin: "32px 0" }}
-        >
-          Back
-        </Button>
+        <div style={{ maxWidth: "1032px", margin: "0 auto" }}>
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackRoundedIcon />}
+            onClick={() => navigate("/book-a-mentor")}
+            sx={{ margin: "32px 0" }}
+          >
+            Back
+          </Button>
+        </div>
         {loading && <LoadingIndicator />}
         <PageGrid>
           <GridChild>
@@ -220,40 +226,38 @@ const BookingPage = () => {
             {!loading && (
               <>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <Stack spacing={3}>
-                    <MobileDatePicker
-                      label="Select date"
-                      inputFormat="dd/MM/yyyy"
-                      value={value}
-                      onChange={(newValue) => setValue(newValue)}
-                      // Adding calendar icon to end of input field
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <EventIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                      )}
-                      disablePast={true}
-                      // Below disables dates past the EOY
-                      // maxDate={new Date(new Date().getFullYear(), 11, 31)}
+                  <MobileDatePicker
+                    label="Select date"
+                    inputFormat="dd/MM/yyyy"
+                    value={value}
+                    onChange={(newValue) => setValue(newValue)}
+                    // Adding calendar icon to end of input field
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EventIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    )}
+                    disablePast={true}
+                    // Below disables dates past the EOY
+                    // maxDate={new Date(new Date().getFullYear(), 11, 31)}
 
-                      // Array that disables year and month picking from toolbar
-                      views={["day"]}
-                      shouldDisableDate={disableDates}
-                      // For hiding pen icon for switching to typing mode
-                      sx={{
-                        "& .MuiPickersToolbar-penIconButton": {
-                          display: "none",
-                        },
-                      }}
-                    />
-                  </Stack>
+                    // Array that disables year and month picking from toolbar
+                    views={["day"]}
+                    shouldDisableDate={disableDates}
+                    // For hiding pen icon for switching to typing mode
+                    sx={{
+                      "& .MuiPickersToolbar-penIconButton": {
+                        display: "none",
+                      },
+                    }}
+                  />
                 </LocalizationProvider>
                 <Typography>
                   {value ? format(value, "EEEE, d MMMM yyyy") : ""}
@@ -334,34 +338,6 @@ const BookingPage = () => {
 
 export default BookingPage;
 
-const DescriptionContainer = styled.div`
-  /* background-color: #e93a7d; */
-  background-color: #6356d7;
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
-`;
-
 const PageGrid = styled.div`
   display: grid;
   gap: 32px;
@@ -382,5 +358,5 @@ const GridChild = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 `;

@@ -3,7 +3,7 @@ import { client } from "../../client";
 
 // MUI Imports
 import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Typography, Container } from "@mui/material";
+import { Container } from "@mui/material";
 // Component Imports
 import MentorCards from "../../components/authenticated/MentorCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
@@ -11,7 +11,12 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components/macro";
-import { BackgroundBox } from "../../styledcomponents/containers";
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionTypography,
+  DescriptionChild,
+} from "../../styledcomponents/containers";
 
 const MentorsPrivate = () => {
   const [loading, setLoading] = useState(true);
@@ -53,9 +58,9 @@ const MentorsPrivate = () => {
         type={"page"}
       />
       {description && (
-        <DescriptionContainer>
+        <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
-            <StyledTypo>{description}</StyledTypo>
+            <DescriptionTypography>{description}</DescriptionTypography>
           </DescriptionChild>
         </DescriptionContainer>
       )}
@@ -91,37 +96,5 @@ const CardContainer = styled.div`
 
   @media (min-width: 1100px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-`;
-
-const DescriptionContainer = styled.div`
-  /* background-color: #e93a7d; */
-  background-color: #6356d7;
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
   }
 `;
