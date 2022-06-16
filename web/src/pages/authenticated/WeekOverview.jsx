@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { client } from "../../client";
-// import ReactPlayer from "react-player";
+import ReactPlayer from "react-player";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -12,7 +12,7 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import styled from "styled-components/macro";
-import { BackgroundBox } from "../../styledcomponents/containers";
+import { BackgroundBox, FrameDiv } from "../../styledcomponents/containers";
 
 // For fetching the page information
 const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
@@ -45,14 +45,13 @@ const WeekOverview = () => {
         {loading && <LoadingIndicator />}
         {introURL.length > 0 && (
           <FrameDiv>
-            <IFrame src={introURL} allowFullScreen frameBorder="0" />
-            {/* <ReactPlayer
+            <ReactPlayer
               url={introURL}
               controls={true}
               width="100%"
               height="100%"
               className="react-player"
-            /> */}
+            />
           </FrameDiv>
         )}
         <CardContainer>
@@ -78,21 +77,6 @@ const WeekOverview = () => {
 };
 
 export default WeekOverview;
-
-const FrameDiv = styled.div`
-  position: relative;
-  padding-top: 56.25%;
-  border-radius: 4px;
-  overflow: hidden;
-`;
-
-const IFrame = styled.iframe`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
 
 const CardContainer = styled.div`
   display: grid;

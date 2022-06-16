@@ -15,6 +15,8 @@ import {
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 // Component Imports
 import LessonItem from "./LessonItem";
+// Styling Imports
+import { FrameDiv } from "../../styledcomponents/containers";
 
 const LessonList = ({
   lessons,
@@ -120,13 +122,6 @@ const LessonList = ({
 };
 
 export default LessonList;
-
-const FrameDiv = styled.div`
-  position: relative;
-  padding-top: 56.25%;
-  border-radius: 4px;
-  overflow: hidden;
-`;
 
 const StyledPaper = styled(Paper)`
   && {

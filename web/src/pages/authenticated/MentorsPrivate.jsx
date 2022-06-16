@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 
 // MUI Imports
 import { Container } from "@mui/material";
@@ -17,34 +16,11 @@ import {
   DescriptionTypography,
   DescriptionChild,
 } from "../../styledcomponents/containers";
+// Function Imports
+import { FetchMentors } from "../../services/clientFunctions";
 
 const MentorsPrivate = () => {
-  const [loading, setLoading] = useState(true);
-  const [mentors, setMentors] = useState([]);
-  const [description, setDescription] = useState();
-
-  const fetchMentors = async () => {
-    setLoading(true);
-    const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
-    const fetch = await client.fetch(mentorsQuery);
-    const response = await fetch;
-    setMentors(response[0].studentmentors);
-    setLoading(false);
-  };
-
-  const fetchPage = async () => {
-    setLoading(true);
-    const pageQuery = `*[_type == "mentors"] {headline, description}`;
-    const fetch = await client.fetch(pageQuery);
-    const response = await fetch;
-    setDescription(response[0].description);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchMentors();
-    fetchPage();
-  }, []);
+  const [loading, mentors, description] = FetchMentors();
 
   return (
     <BackgroundBox

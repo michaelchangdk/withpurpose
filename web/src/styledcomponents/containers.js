@@ -75,3 +75,11 @@ export const DescriptionTypography = styled(Typography)`
     }
   }
 `;
+
+// Divs for Video Embeds
+export const FrameDiv = styled.div`
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 4px;
+  overflow: hidden;
+`;

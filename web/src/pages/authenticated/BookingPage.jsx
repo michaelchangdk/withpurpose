@@ -40,13 +40,16 @@ import {
   DescriptionChild,
   DescriptionTypography,
 } from "../../styledcomponents/containers";
+// Function Imports
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(new Date());
   const [mentors, setMentors] = useState([]);
   const [mentor, setMentor] = useState([]);
+
   const [availableDays, setAvailableDays] = useState([]);
+
   const [availableDateTimes, setAvailableDateTimes] = useState([]);
   const selectedWeekday = value ? value.toString().substring(0, 3) : null;
   const [weekdayAvailability, setWeekdayAvailability] = useState([]);
@@ -312,9 +315,8 @@ const BookingPage = () => {
                     <Alert severity="success">
                       <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on
                       your e-mail for a follow-up confirmation with a video
-                      conferencing link.
-                      {/* You can also find your
-                booking request on your profile page. */}
+                      conferencing link. You can also find your booking request
+                      on your profile page.
                     </Alert>
                   )}
                   <Button

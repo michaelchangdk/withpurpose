@@ -11,6 +11,8 @@ import NoAccessModal from "./NoAccessModal";
 import logo from "../../assets/BWP_logotype.svg";
 // Asset Imports
 import styled from "styled-components/macro";
+// Function Imports
+import { stringAvatar } from "../../helpers/functions";
 
 const HeaderAuth = () => {
   const navigate = useNavigate();
@@ -26,13 +28,6 @@ const HeaderAuth = () => {
   const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
   const userslug = displayName.split(" ").join("").toLowerCase();
-  const stringAvatar = () => {
-    return {
-      children: `${displayName.split(" ")[0][0]}${
-        displayName.split(" ")[1][0]
-      }`,
-    };
-  };
 
   const openSiteNav = (event) => {
     setAnchorELNav(event.currentTarget);
