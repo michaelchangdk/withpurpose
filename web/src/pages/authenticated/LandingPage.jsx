@@ -4,7 +4,7 @@ import { client } from "../../client";
 // MUI Imports
 import { Container } from "@mui/material";
 // Component Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import LandingCards from "../../components/authenticated/LandingCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
@@ -33,7 +33,7 @@ const LandingPage = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "landingpage"] {heroImage, title, subtitle}`}
         type={"page"}
         displayName={true}

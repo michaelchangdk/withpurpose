@@ -24,5 +24,6 @@ const LoadingIndicator = () => {
 export default LoadingIndicator;
 
 const Wrapper = styled.div`
-  margin: 24px auto;
+  padding: 24px 0;
+  margin: 0 auto;
 `;

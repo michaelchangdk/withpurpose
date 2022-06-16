@@ -25,6 +25,7 @@ const LessonList = ({
   const [taskLink, setTaskLink] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
+
   const userid = useSelector((store) => store.authenticated.uid);
 
   // FOR LOADING LESSON
@@ -44,24 +45,6 @@ const LessonList = ({
 
   return (
     <Container maxWidth="lg">
-      {/* {videoUrl.length > 0 && (
-          <div>
-            <FrameDiv>
-              <IFrame
-                title="video"
-                src={videoUrl}
-                allowFullScreen
-                frameBorder="0"
-              />
-            </FrameDiv>
-            <Typography variant="caption" fontSize={13}>
-              Now playing:
-            </Typography>
-            <Typography fontSize={16}>{taskTitle}</Typography>
-            <Typography variant="caption">{taskDuration}</Typography>
-          </div>
-        )} */}
-
       {/* Using React Player - take note of className below */}
       {/* We can find ref hooks to automatically check it when the video is done playing */}
       {/* https://www.npmjs.com/package/react-player */}
@@ -121,7 +104,7 @@ const LessonList = ({
         }
       >
         {lessons &&
-          lessons.map((lesson, index) => {
+          lessons.map((lesson) => {
             return (
               <LessonItem
                 key={lesson.title}

@@ -1,34 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { client, urlFor } from "../../client";
+import React from "react";
+import { urlFor } from "../../client";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
 
 // MUI Imports
 import { Container, Typography } from "@mui/material";
 // Component Imports
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import HeaderAuth from "./HeaderAuth";
 // Styling Imports
 import styled from "styled-components/macro";
 // Asset Imports
 import down from "../../assets/down.png";
+// Function Imports
+import { SetHeader } from "../../services/clientFunctions";
 
 const LandingPageHero = ({ query, type, displayName }) => {
-  const [loading, setLoading] = useState(true);
-  const [heroRef, setHeroRef] = useState("");
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const nameArray = useSelector(
+  const firstName = useSelector(
     (store) => store.authenticated.displayName
-  ).split(" ");
-
-  useEffect(() => {
-    client.fetch(query).then((response) => {
-      setHeroRef(response[0].heroImage.asset._ref);
-      setTitle(response[0].title);
-      setSubtitle(response[0].subtitle);
-      setLoading(false);
-    });
-  }, [query]);
+  ).split(" ")[0];
+  const [loading, heroRef, title, subtitle] = SetHeader(query);
 
   return (
     <>
@@ -38,7 +28,7 @@ const LandingPageHero = ({ query, type, displayName }) => {
           <HeaderTitleWrapper>
             <HeaderTitle variant="h2" component="h1">
               {title}
-              {displayName && ` ${nameArray[0]}`}
+              {displayName && ` ${firstName}`}
             </HeaderTitle>
             {!!subtitle && (
               <HeaderSubtitle variant="h4" component="h2" fontWeight={500}>
@@ -86,18 +76,11 @@ const Header = styled.header`
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
-  /* margin-bottom: 32px; */
 
   @media (min-width: 768px) {
     height: 30vh;
     min-height: 300px;
     background-position-y: center;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  @media (min-width: 768px) {
-    display: none;
   }
 `;
 
@@ -127,6 +110,17 @@ const HeaderSubtitle = styled(Typography)`
   }
 `;
 
+const HeaderIcon = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const ButtonWrapper = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
 const HeaderInstruction = styled.div`
   display: flex;
   flex-direction: column;
@@ -137,9 +131,4 @@ const HeaderInstruction = styled.div`
   bottom: 0;
   margin-bottom: 2vh;
   gap: 1vh;
-`;
-
-const HeaderIcon = styled.img`
-  width: 20px;
-  height: 20px;
 `;

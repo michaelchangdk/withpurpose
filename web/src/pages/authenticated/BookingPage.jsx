@@ -28,7 +28,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 // Component Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
@@ -186,7 +186,7 @@ const BookingPage = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "booking"] {heroImage, title, subtitle}`}
         type={"page"}
       />

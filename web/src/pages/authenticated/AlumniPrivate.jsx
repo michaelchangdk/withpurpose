@@ -4,7 +4,7 @@ import { client } from "../../client";
 // MUI Imports
 import { Container } from "@mui/material";
 // Component Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import AlumniCards from "../../components/AlumniCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
@@ -39,7 +39,7 @@ const AlumniPrivate = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "community"] {heroImage, title, subtitle}`}
         type={"page"}
       />

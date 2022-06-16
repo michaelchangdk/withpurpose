@@ -50,7 +50,7 @@ export const AspectRatioChild = styled.div`
   background-size: cover;
 `;
 
-// Colored Description Containers
+// Colored Description Containers - used in Mentorpage, Mentorbooking, WeekPage, and ModulePage
 export const DescriptionContainer = styled.div`
   background-color: ${(props) => props.backgroundcolor};
   color: white;

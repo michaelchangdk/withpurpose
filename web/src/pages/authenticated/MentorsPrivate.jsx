@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { client } from "../../client";
 
 // MUI Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
 import { Container } from "@mui/material";
 // Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import MentorCards from "../../components/authenticated/MentorCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
@@ -53,7 +53,7 @@ const MentorsPrivate = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
         type={"page"}
       />

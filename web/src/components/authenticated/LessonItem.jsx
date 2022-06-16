@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { client } from "../../client";
 import { useSelector, useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
 
@@ -18,14 +17,13 @@ import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflin
 import CloudCircleIcon from "@mui/icons-material/CloudCircle";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+// Function Imports
+import { checkLesson, uncheckLesson } from "../../services/clientFunctions";
 
 const LessonItem = ({ lesson, clickTask, userid }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
-
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
-
   const completedLesson = useSelector((store) =>
     store.authenticated.completedLessons.filter(
       (a) => a.lessonRef === lesson._id
@@ -36,58 +34,12 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     if (completedLesson.length > 0) {
       setChecked(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const checkItem = (lesson) => {
-    setLoading(true);
-    client
-      .patch(userid)
-      .setIfMissing({
-        completed: [],
-      })
-      .insert("after", "completed[-1]", [
-        {
-          lessonRef: lesson._id,
-          lessonTitle: lesson.title,
-          userId: userid,
-          completed: true,
-        },
-      ])
-      .commit({ autoGenerateArrayKeys: true })
-      .then(() => {
-        // dispatch(
-        //   authenticated.actions.addCompletedLesson({
-        //     _key: lesson._id,
-        //     lessonRef: lesson._id,
-        //     lessonTitle: lesson.title,
-        //     userId: userid,
-        //     completed: true,
-        //   })
-        // );
-      });
-    setLoading(false);
-  };
-
-  const unCheckItem = (completedLesson) => {
-    setLoading(true);
-    const deleteQuery = [
-      `completed[lessonRef=="${completedLesson[0].lessonRef}"]`,
-    ];
-    client
-      .patch(userid)
-      .unset(deleteQuery)
-      .commit()
-      .then(() => {
-        // dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
-      });
-    setLoading(false);
-  };
+  }, [completedLesson.length]);
 
   const handleToggle = () => {
     if (!checked) {
       setChecked(true);
-      checkItem(lesson);
+      checkLesson(userid, lesson);
       dispatch(
         authenticated.actions.addCompletedLesson({
           _key: lesson._id,
@@ -100,7 +52,7 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     }
     if (checked) {
       setChecked(false);
-      unCheckItem(completedLesson);
+      uncheckLesson(userid, completedLesson);
       dispatch(authenticated.actions.removeCompletedLesson(completedLesson));
     }
   };
@@ -130,7 +82,6 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
               <CheckBoxOutlineBlankIcon color="success" />
             )
           }
-          disabled={loading}
           color="success"
         />
       }

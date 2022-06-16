@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // MUI Imports
 import { Stack, Button, Container } from "@mui/material";
 // Component Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import ModuleCards from "../../components/authenticated/ModuleCards";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
@@ -94,7 +94,7 @@ const WeekPage = () => {
       {loading && <LoadingIndicator />}
       {!loading && (
         <>
-          <LandingPageHero
+          <HeroHeader
             query={`*[_type == "week" && name == "${week}"]`}
             type={"week"}
             displaySubtitle={true}

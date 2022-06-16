@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { client } from "../../client";
-import WeekCards from "../../components/authenticated/WeekCards";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Container } from "@mui/material";
-// // import ReactPlayer from "react-player";
-import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// import ReactPlayer from "react-player";
 
+// MUI Imports
+import { Container } from "@mui/material";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import LoadingIndicator from "../../components/global/LoadingIndicator";
+import WeekCards from "../../components/authenticated/WeekCards";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 // For fetching the page information
 const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
@@ -34,7 +37,7 @@ const WeekOverview = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
         type={"page"}
       />

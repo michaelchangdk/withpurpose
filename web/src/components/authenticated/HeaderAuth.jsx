@@ -26,8 +26,6 @@ const HeaderAuth = () => {
   const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
   const userslug = displayName.split(" ").join("").toLowerCase();
-
-  // Creates a string avatar if there
   const stringAvatar = () => {
     return {
       children: `${displayName.split(" ")[0][0]}${
@@ -127,7 +125,7 @@ const HeaderAuth = () => {
         </Menu>
         <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
         <IconButton
-          id="basic-button"
+          id="profile-nav-button"
           aria-controls={openProfile ? "basic-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={openProfile ? "true" : undefined}
@@ -142,7 +140,7 @@ const HeaderAuth = () => {
           )}
           {userAvatarUrl.length === 0 && (
             <Avatar
-              {...stringAvatar({ displayName })}
+              {...stringAvatar(displayName)}
               alt={displayName}
               sx={{
                 bgcolor: "primary.main",
@@ -187,8 +185,8 @@ const HeaderNav = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto 28px auto;
-  padding-top: 32px;
+  margin: 0 auto;
+  padding: 32px 0;
 `;
 
 const Logo = styled.img`

@@ -3,7 +3,7 @@ import React from "react";
 // MUI Imports
 import { Container } from "@mui/material";
 // Component Imports
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
@@ -20,7 +20,7 @@ const MasterclassPage = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero
+      <HeroHeader
         query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
         type={"page"}
       />
