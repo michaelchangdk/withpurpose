@@ -24,7 +24,7 @@ import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
 import BookingPage from "./authenticated/BookingPage";
-
+import {Helmet} from "react-helmet";
 const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   console.log(useSelector((store) => store.authenticated));
@@ -38,9 +38,15 @@ const Router = () => {
   // console.log(approvedWeekArr);
 
   return (
+
     <ThemeProvider theme={darkModeTrue ? darkMode : lightMode}>
       <BrowserRouter>
+        <Helmet>
+        <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
+    </title>
+      </Helmet>
         <Routes>
+          
           <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />
           <Route path="/openletter" element={<OpenLetter />} />
           <Route path="/startup-school" element={<StartupSchool />} />

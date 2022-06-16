@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
+import {Helmet} from 'react-helmet';
 import {
     TwitterShareButton,
     FacebookShareButton, 
@@ -31,6 +32,12 @@ const SharingModal = ({ openModal, setOpenModal, id, excerpt }) => {
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      {openModal && <Helmet>
+        <meta charSet="utf-8" />
+        <title>{id}</title>
+        <meta name="title" description="idk" />
+        <link rel="canonical" href={`https://withpurpose.netlify.app/blog/${id}`} />
+      </Helmet>}
       <Modal
         open={openModal}
         onClose={handleClose}

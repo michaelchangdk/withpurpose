@@ -1,12 +1,22 @@
 import React from 'react';
 import { Typography, Link, Card, CardContent, CardMedia, CardActions, Button } from '@mui/material';
+// import {Helmet} from "react-helmet";
 import styled from 'styled-components/macro';
 
 import SharingModal from './SharingModal';
 
 
 const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
+
   return (
+    <div>
+      {/* {openModal && <Helmet>
+        <meta charSet="utf-8" />
+        <title>{title}</title>
+        <meta name={title} description="idk" />
+        <link rel="canonical" href={`https://withpurpose.netlify.app/blog/${id}`} />
+      </Helmet>} */}
+      
     <StyledCard>
       <Link onClick={() => showBlogpost(id)}>
         <CardMedia
@@ -35,6 +45,8 @@ const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openMod
         </Link>
       </div>
     </StyledCard>
+    </div>
+    
   )
 };
 

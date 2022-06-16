@@ -5,6 +5,7 @@ import { Button, Container, Stack, Input, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from "styled-components/macro";
+import {Helmet} from 'react-helmet';
 
 import { client, urlFor } from "../../client";
 
@@ -41,10 +42,19 @@ const BlogList = () => {
   };
 
   return (
-    <ThemeProvider theme={darkMode}>
+    <div>
+<Helmet>
+          <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
+          </title>
+        </Helmet>
+        <ThemeProvider theme={darkMode}>
       <BackgroundBox
         sx={{ bgcolor: "background.default", color: "text.primary" }}
       >
+        {/* <Helmet>
+          <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
+          </title>
+        </Helmet> */}
         <PublicHeader />
         <Container maxWidth="lg">
           <Stack maxWidth="md" sx={{ margin: "0 auto" }}>
@@ -69,7 +79,6 @@ const BlogList = () => {
               <Grid1Col>
                 {blogposts.map((blogpost) => {
                   return (
-                    
                       <PostCardLarge
                         key={blogpost._id}
                         url={urlFor(blogpost.image.asset._ref).url()}
@@ -91,6 +100,8 @@ const BlogList = () => {
         </Container>
       </BackgroundBox>
     </ThemeProvider>
+    </div>
+    
   );
 };
 
