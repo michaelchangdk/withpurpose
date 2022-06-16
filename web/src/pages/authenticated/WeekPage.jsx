@@ -180,14 +180,8 @@ const DescriptionChild = styled(Container)`
 const CardContainer = styled.div`
   display: grid;
   gap: 32px;
-  padding-top: 16px;
-  padding-bottom: 40px;
+  padding-top: 32px;
   margin: 0 auto;
-
-  @media (min-width: 768px) {
-    padding-top: 24px;
-    padding-bottom: 40px;
-  }
 `;
 
 const StyledTypo = styled(Typography)`

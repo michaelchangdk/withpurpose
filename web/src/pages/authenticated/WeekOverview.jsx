@@ -38,7 +38,7 @@ const WeekOverview = () => {
         query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
         {introURL.length > 0 && (
           <FrameDiv>

@@ -44,7 +44,7 @@ const AlumniPrivate = () => {
         type={"page"}
       />
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
 
         <CardContainer>

@@ -198,7 +198,7 @@ const BookingPage = () => {
           variant="contained"
           startIcon={<ArrowBackRoundedIcon />}
           onClick={() => navigate("/book-a-mentor")}
-          sx={{ margin: "20px 0" }}
+          sx={{ margin: "32px 0" }}
         >
           Back
         </Button>
@@ -313,7 +313,11 @@ const BookingPage = () => {
                 booking request on your profile page. */}
                     </Alert>
                   )}
-                  <Button variant="contained" onClick={confirmBooking}>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    onClick={confirmBooking}
+                  >
                     Confirm booking request
                   </Button>
                 </>
@@ -321,8 +325,8 @@ const BookingPage = () => {
             </GridChild>
           )}
         </PageGrid>
-        <PageFooter />
       </Container>
+      <PageFooter />
       <ScrollToTop />
     </BackgroundBox>
   );
@@ -338,10 +342,6 @@ const DescriptionContainer = styled.div`
   padding: 48px 0;
   white-space: pre-line;
   vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
 `;
 
 const DescriptionChild = styled(Container)`
@@ -368,8 +368,9 @@ const PageGrid = styled.div`
   margin: 0 auto;
   justify-content: center;
   padding-top: 32px;
-  padding-bottom: 40px;
   grid-template-columns: 1fr;
+  justify-items: center;
+  max-width: 1032px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -379,7 +380,6 @@ const PageGrid = styled.div`
 const GridChild = styled.div`
   max-width: 500px;
   width: 100%;
-  justify-self: center;
   display: flex;
   flex-direction: column;
   gap: 12px;

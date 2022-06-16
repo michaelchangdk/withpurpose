@@ -38,7 +38,7 @@ const LandingPage = () => {
         type={"page"}
         displayName={true}
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
         <CardGrid>
           {!loading &&
