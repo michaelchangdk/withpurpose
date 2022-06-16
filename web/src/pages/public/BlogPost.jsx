@@ -7,10 +7,12 @@ import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 import { client, urlFor } from "../../client";
 
 import PublicHeader from "../../components/public/PublicHeader";
-import PostCardSmall from "../../components/public/PostCardSmall";
+// import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
+
+import PostCardLarge from "../../components/public/PostCardLarge";
 
 import {
   BackgroundBox,
@@ -19,7 +21,7 @@ import {
 } from "../../styledcomponents/globalstyles";
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 import myPortableTextComponents from "../../services/myPortableTextComponents";
@@ -32,7 +34,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${postId}'] {excerpt}`;
+    const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
@@ -40,7 +42,7 @@ const BlogPost = () => {
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image}`;
+    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));
@@ -113,17 +115,24 @@ const BlogPost = () => {
                           key={post._id}
                           onClick={() => navigate(`/blog/${post._id}`)}
                           style={{
-                            margin: 32,
+                            margin: 16,
                             textDecoration: "none",
                             color: "hsl(0, 0%, 20%)",
                             display: "flex",
                             justifyContent: "center"
                           }}
                         >
-                          <PostCardSmall
+                          {/* <PostCardSmall
                             url={urlFor(post.image.asset._ref).url()}
                             title={post.title}
-                          />
+                          /> */}
+                          <PostCardLarge 
+                            duration={post.duration}
+                            title={post.title}
+                            url={urlFor(post.image.asset._ref).url()}
+                            id={post._id}
+                            excerpt={post.excerpt}
+                            />
                         </Link>
                       );
                     })}

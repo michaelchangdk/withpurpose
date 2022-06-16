@@ -26,7 +26,6 @@ export const Grid1Col = styled(Grid)`
 
 export const ThreeGrid = styled(Grid)`
   &&{
-    gap: 32px;
     margin: 0 auto;
 
     @media (min-width: 768px) {

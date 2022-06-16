@@ -1,28 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Link, Card, CardContent, CardMedia, CardActions, Button } from '@mui/material';
 import styled from 'styled-components/macro';
 
 import SharingModal from './SharingModal';
+// , showBlogpost, openModal, setOpenModal
 
+const PostCardLarge = ({duration, title, url, id, excerpt}) => {
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
-const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
-
-
-
+  const showBlogpost = (id) => {
+    navigate(`/blog/${id}`);
+  };
 
   return (
-
     <StyledCard>
-      <Link onClick={() => showBlogpost(id)}>
+      <Link sx={{maxHeight: "300px", maxWidth: "300px"}} onClick={() => showBlogpost(id)}>
         <CardMedia
           component="img"
+          width="100%"
           height="100%"
-          max-height="10px"
           alt={title}
-          image={url}  
+          image={url}
         />
       </Link>
-      <div>
+      <div style={{maxWidth: "50%"}}>
         <StyledCardActions>
           <Duration>{duration}</Duration>
           <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
@@ -53,12 +56,14 @@ const StyledCardActions = styled(CardActions)`
 const StyledCard = styled(Card)`
   &&{
     max-width: 345px;
-    display: grid;
+    display: flex;
     margin: 0 auto;
+
+    flex-wrap: wrap;
 
     @media (min-width: 768px) {
       max-width: 100%;
-      grid-template-columns: 1fr 1fr;
+      flex-wrap: no-wrap;
     }
   }
 
