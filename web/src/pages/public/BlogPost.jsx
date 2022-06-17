@@ -107,7 +107,7 @@ const BlogPost = () => {
         >
           <Container maxWidth="lg">
             <PublicHeader />
-            <Container maxWidth="lg">
+            <Container maxWidth="md" sx={{ margin: "0 auto" }}>
               <Button
                 variant="contained"
                 startIcon={<ArrowBackRoundedIcon />}
