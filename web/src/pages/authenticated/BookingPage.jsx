@@ -169,6 +169,7 @@ const BookingPage = () => {
             _type: "reference",
             _ref: userid,
           },
+          mentor: mentor.fullName,
           datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
         },
       ])

@@ -22,7 +22,6 @@ import { FetchResponse } from "../../services/clientFunctions";
 const pageQuery = `*[_type == "mentors"] {description, _id, studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
 
 const MentorsPrivate = () => {
-  // const [loading, mentors, description] = FetchMentors();
   const [loading, response] = FetchResponse(pageQuery);
 
   return (

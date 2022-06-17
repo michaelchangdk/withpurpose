@@ -10,10 +10,12 @@ export const checkLesson = (userid, lesson) => {
     })
     .insert("after", "completed[-1]", [
       {
-        lessonRef: lesson._id,
-        lessonTitle: lesson.title,
+        lessonRef: {
+          _type: "reference",
+          _ref: lesson._id,
+        },
+        lessonReference: lesson._id,
         userId: userid,
-        completed: true,
       },
     ])
     .commit({ autoGenerateArrayKeys: true })
@@ -22,7 +24,7 @@ export const checkLesson = (userid, lesson) => {
 
 export const uncheckLesson = (userid, completedLesson) => {
   const deleteQuery = [
-    `completed[lessonRef=="${completedLesson[0].lessonRef}"]`,
+    `completed[lessonReference=="${completedLesson[0].lessonRef}"]`,
   ];
   client
     .patch(userid)

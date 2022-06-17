@@ -8,7 +8,7 @@ export default {
       title: "Module Title",
       type: "string",
       description:
-        "Name the week after these conventions: W#M#, e.g. W0M1 for Week 0 Module 1. This is to keep the modules in the correct order.",
+        "Name the week after these conventions: W#M#, e.g. W0M1 for Week 0 Module 1. Modules for masterclasses should follow the M#M# convention, e.g. M1M2 for Masterclass Module 1. These names should be unique since they are used as the URL for the module.",
     },
     {
       name: "name",

@@ -75,6 +75,11 @@ export default {
               type: "reference",
               to: [{ type: "user" }],
             },
+            {
+              name: "mentor",
+              title: "Mentor",
+              type: "string",
+            },
             { name: "datetime", title: "Datetime", type: "string" },
           ],
         },

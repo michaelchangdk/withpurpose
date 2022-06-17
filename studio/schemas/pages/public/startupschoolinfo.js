@@ -14,8 +14,94 @@ export default {
       type: "string",
     },
     {
-      name: "body",
-      title: "Body",
+      name: "intro",
+      title: "Introduction",
+      type: "blockContent",
+    },
+    {
+      name: "expectations",
+      title: "What to expect",
+      type: "blockContent",
+    },
+    {
+      name: "threeColumns",
+      title: "When, Where, How",
+      type: "array",
+      description: "Please limit these to 3 items",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "blockOne",
+      title: "Block one for next paragraph section",
+      description: "Limit this to two items",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "image", title: "Image / Icon", type: "image" },
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "paragraphOne",
+      title: "Paragraph Section One",
+      type: "blockContent",
+    },
+    {
+      name: "blockTwo",
+      title: "Block two for paragraph section",
+      description: "Limit this to two items",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "image", title: "Image / Icon", type: "image" },
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "paragraphTwo",
+      title: "Paragraph Section Two",
       type: "blockContent",
     },
   ],

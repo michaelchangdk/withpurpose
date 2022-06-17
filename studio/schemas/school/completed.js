@@ -5,23 +5,19 @@ export default {
   fields: [
     {
       name: "lessonRef",
-      title: "Lesson Ref",
-      type: "string",
+      title: "Lesson Title",
+      type: "reference",
+      to: [{ type: "lesson" }],
     },
     {
-      name: "lessonTitle",
-      title: "Lesson Title",
+      name: "lessonReference",
+      title: "Lesson Reference",
       type: "string",
     },
     {
       name: "userId",
       title: "UserId",
       type: "string",
-    },
-    {
-      name: "completed",
-      title: "Complete?",
-      type: "boolean",
     },
   ],
 };

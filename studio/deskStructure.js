@@ -70,13 +70,6 @@ export default () =>
                         .child(
                           S.documentTypeList("category").title("Category")
                         ),
-                      // S.listItem()
-                      //   .title("Block content")
-                      //   .child(
-                      //     S.documentTypeList("blockContent").title(
-                      //       "Block content"
-                      //     )
-                      //   ),
                     ])
                 ),
             ])
@@ -94,31 +87,21 @@ export default () =>
               // Add the first list item
               S.listItem()
                 .title("Alumni")
-                // This automatically gives it properties from the project type
                 .schemaType("alumni")
-                // When you open this list item, list out the documents
-                // of the type “project"
                 .child(S.documentTypeList("alumni").title("Alumni")),
-              // Add a second list item
               S.listItem()
                 .title("Team")
                 .schemaType("teamMembers")
-                // When you open this list item, list out the documents
-                // of the type category"
                 .child(S.documentTypeList("teamMembers").title("Team")),
               S.listItem()
                 .title("Company Mentors")
                 .schemaType("companyMentors")
-                // When you open this list item, list out the documents
-                // of the type category"
                 .child(
                   S.documentTypeList("companyMentors").title("Company Mentors")
                 ),
               S.listItem()
                 .title("Student Mentors")
                 .schemaType("studentMentors")
-                // When you open this list item, list out the documents
-                // of the type category"
                 .child(
                   S.documentTypeList("studentMentors").title("Student Mentors")
                 ),
@@ -166,59 +149,28 @@ export default () =>
               S.listItem()
                 .title("Booking")
                 .child(S.editor().schemaType("booking").documentId("booking")),
-              // S.listItem()
-              //   .title("Landing page elements")
-              //   .schemaType("landingpageelements")
-              //   .child(
-              //     S.documentTypeList("landingpageelements").title(
-              //       "landingpageelements"
-              //     )
-              //   ),
-              // S.listItem()
-              //   .title("Company Mentors")
-              //   .schemaType("companyMentors")
-              //   .child(
-              //     S.documentTypeList("companyMentors").title("Company Mentors")
-              //   ),
-              // S.listItem()
-              //   .title("Student Mentors")
-              //   .schemaType("studentMentors")
-              //   .child(
-              //     S.documentTypeList("studentMentors").title("Student Mentors")
-              //   ),
             ])
         ),
 
       // Make a new list item
       S.listItem()
-        // Give it a title
         .title("School")
         .icon(schoolIcon)
         .child(
-          // Make a list in the second pane called Portfolio
           S.list()
             .title("School")
             .items([
-              // Add the first list item
               S.listItem()
                 .title("Weeks")
-                // This automatically gives it properties from the project type
                 .schemaType("week")
-                // When you open this list item, list out the documents
-                // of the type “project"
                 .child(S.documentTypeList("week").title("Weeks")),
-              // Add a second list item
               S.listItem()
                 .title("Modules")
                 .schemaType("module")
-                // When you open this list item, list out the documents
-                // of the type category"
                 .child(S.documentTypeList("module").title("Modules")),
               S.listItem()
                 .title("Lesson")
                 .schemaType("lesson")
-                // When you open this list item, list out the documents
-                // of the type category"
                 .child(S.documentTypeList("lesson").title("Lessons")),
             ])
         ),
