@@ -17,14 +17,9 @@ export default () =>
           S.list()
             .title("Public Pages")
             .items([
-              // Add the first list item
               // S.listItem()
               //   .title("Public Home Page")
-              //   .schemaType("homepage")
-              //   .child(S.documentTypeList("homepage").title("Home")),
-              S.listItem()
-                .title("Public Home Page")
-                .child(S.editor().schemaType("homepage").documentId("Home")),
+              //   .child(S.editor().schemaType("homepage").documentId("Home")),
               S.listItem()
                 .title("Open Letter")
                 .child(

@@ -13,5 +13,10 @@ export default {
       title: "Subtitle",
       type: "string",
     },
+    {
+      name: "body",
+      title: "Body",
+      type: "blockContent",
+    },
   ],
 };

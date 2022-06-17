@@ -16,11 +16,6 @@ export default {
       description: "Option to add a subtitle to the page.",
     },
     {
-      name: "slug",
-      title: "Slug",
-      type: "string",
-    },
-    {
       name: "body",
       title: "Body",
       type: "blockContent",
