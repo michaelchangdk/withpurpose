@@ -27,7 +27,7 @@ import NoAccess from "./login/NoAccess";
 // MUI Theme Provider and Theme options Import
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
-
+import { Helmet } from "react-helmet";
 const Router = () => {
   console.log(useSelector((store) => store.authenticated));
 
@@ -45,6 +45,11 @@ const Router = () => {
   return (
     <ThemeProvider theme={darkModeTrue ? darkMode : lightMode}>
       <BrowserRouter>
+        <Helmet>
+          <title>
+            With Purpose - Accelerating Women Entrepreneurs in the Nordics
+          </title>
+        </Helmet>
         <Routes>
           <Route path="/" element={loggedin ? <LandingPage /> : <Homepage />} />
           <Route path="/openletter" element={<OpenLetter />} />

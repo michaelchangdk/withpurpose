@@ -1,4 +1,7 @@
 import React from "react";
+// import {Helmet} from "react-helmet";
+// import SharingModal from "./SharingModal";
+
 // MUI imports
 import {
   Typography,
@@ -9,8 +12,6 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
-// Component imports
-import SharingModal from "./SharingModal";
 // Styling Imports
 import styled from "styled-components/macro";
 
@@ -22,55 +23,59 @@ const PostCardLarge = ({
   excerpt,
   showBlogpost,
   openModal,
-  setOpenModal,
+  handleOpenModal,
 }) => {
   return (
-    <StyledCard>
-      <Link onClick={() => showBlogpost(id)}>
-        <CardMedia
-          component="img"
-          height="100%"
-          max-height="10px"
-          alt={title}
-          image={url}
-        />
-      </Link>
-      <div>
-        <StyledCardActions>
-          <Duration>{duration}</Duration>
-          <SharingModal
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            id={id}
+    <div>
+      {/* {openModal && <Helmet>
+        <meta charSet="utf-8" />
+        <title>{title}</title>
+        <meta name={title} description="idk" />
+        <link rel="canonical" href={`https://withpurpose.netlify.app/blog/${id}`} />
+      </Helmet>} */}
+
+      <StyledCard>
+        <Link onClick={() => showBlogpost(id)}>
+          <CardMedia
+            component="img"
+            height="100%"
+            max-height="10px"
+            alt={title}
+            image={url}
           />
-          <Button
-            sx={{ color: "text.primary" }}
-            size="small"
-            onClick={() => setOpenModal(true)}
-          >
-            Share
-          </Button>
-        </StyledCardActions>
-        <Link
-          onClick={() => showBlogpost(id)}
-          sx={{ color: "text.primary", textDecoration: "none" }}
-        >
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              sx={{ lineHeight: 1 }}
-            >
-              {title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {excerpt}...
-            </Typography>
-          </CardContent>
         </Link>
-      </div>
-    </StyledCard>
+        <div>
+          <StyledCardActions>
+            <Duration>{duration}</Duration>
+            <Button
+              sx={{ color: "text.primary" }}
+              size="small"
+              onClick={() => handleOpenModal(id, title, excerpt, url)}
+            >
+              Share
+            </Button>
+          </StyledCardActions>
+          <Link
+            onClick={() => showBlogpost(id)}
+            sx={{ color: "text.primary", textDecoration: "none" }}
+          >
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                sx={{ lineHeight: 1 }}
+              >
+                {title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {excerpt}...
+              </Typography>
+            </CardContent>
+          </Link>
+        </div>
+      </StyledCard>
+    </div>
   );
 };
 
