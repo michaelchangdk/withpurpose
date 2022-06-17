@@ -3,10 +3,10 @@ import { Typography, Link, Card, CardContent, CardMedia, CardActions, Button } f
 // import {Helmet} from "react-helmet";
 import styled from 'styled-components/macro';
 
-import SharingModal from './SharingModal';
+// import SharingModal from './SharingModal';
 
 
-const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, setOpenModal}) => {
+const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openModal, handleOpenModal}) => {
 
   return (
     <div>
@@ -30,8 +30,7 @@ const PostCardLarge = ({duration, title, url, id, excerpt, showBlogpost, openMod
       <div>
         <StyledCardActions>
           <Duration>{duration}</Duration>
-          <SharingModal openModal={openModal} setOpenModal={setOpenModal} id={id} />
-          <Button sx={{color: "text.primary"}} size="small" onClick={() => setOpenModal(true)}>Share</Button>
+          <Button sx={{color: "text.primary"}} size="small" onClick={() => handleOpenModal(id, title, excerpt, url)}>Share</Button>
         </StyledCardActions>
         <Link onClick={() => showBlogpost(id)} sx={{color: "text.primary", textDecoration: "none"}}>
           <CardContent>

@@ -5,12 +5,14 @@ import { Stack, Link, Container, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 import { client, urlFor } from "../../client";
+import { Helmet } from "react-helmet";
 
 import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/public/PageFooter";
 import ScrollToTop from "../ScrollToTop";
+// import HelmetMetaData from "../../components/public/HelmetMetaData";
 
 import {
   BackgroundBox,
@@ -52,7 +54,42 @@ const BlogPost = () => {
   }, [id]);
 
   return (
-    <ThemeProvider theme={darkMode}>
+    <>
+      {/* <HelmetMetaData 
+        quote={currentPost?.excerpt} 
+        title={currentPost?.title} 
+        image={currentPost ? urlFor(currentPost.image.asset._ref).url() : ""}
+        hashtag={"#WithPurpose"}
+      ></HelmetMetaData> */}
+      <Helmet>
+          <title>{currentPost?.title}</title>
+          <meta charset="utf-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="csrf_token" content="" />
+          <meta property="type" content="website" />
+          <meta property="url" content={`https://withpurpose.netlify.app/blog/${id}`} />
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+          <meta name="msapplication-TileColor" content="#ffffff" />
+          <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+          <meta name="theme-color" content="#ffffff" />
+          <meta name="_token" content="" />
+          <meta name="robots" content="noodp" />
+          <meta property="title" content={currentPost?.title} />
+          <meta property="quote" content={currentPost?.excerpt} />
+          <meta name="description" content={currentPost?.excerpt} />
+          <meta property="image" content={currentPost?.image} />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={currentPost?.title} />
+          <meta property="og:quote" content={currentPost?.excerpt} />
+          <meta property="og:hashtag" content={"#WithPurpose"} />
+          <meta property="og:image" content={currentPost?.image} />
+          <meta content="image/*" property="og:image:type" />
+          <meta property="og:url" content={`https://withpurpose.netlify.app/blog/${currentPost?._id}`} />
+          <meta property="og:site_name" content="With Purpose" />
+          <meta property="og:description" content={currentPost?.excerpt} />    
+        </Helmet>
+      <ThemeProvider theme={darkMode}>
       <BackgroundBox
         sx={{
           bgcolor: "background.default",
@@ -87,12 +124,16 @@ const BlogPost = () => {
                 >
                   <FlexSpaceBetween>
                     <Duration>{currentPost?.duration} read</Duration>
-                    <SharingModal
-                      openModal={openModal}
-                      setOpenModal={setOpenModal}
-                      id={id}
-                      excerpt={currentPost?.excerpt}
-                    />
+                    {openModal && 
+                      <SharingModal
+                        openModal={openModal}
+                        setOpenModal={setOpenModal}
+                        id={id}
+                        title={currentPost?.title}
+                        excerpt={currentPost?.excerpt}
+                        image={currentPost?.image}
+                      />
+                    }
                     <Ellipsis
                       sx={{ color: "text.primary" }}
                       onClick={() => setOpenModal(true)}
@@ -136,6 +177,8 @@ const BlogPost = () => {
         <ScrollToTop />
       </BackgroundBox>
     </ThemeProvider>
+    </>
+    
   );
 };
 

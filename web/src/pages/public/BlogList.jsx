@@ -5,7 +5,8 @@ import { Button, Container, Stack, Input, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import styled from "styled-components/macro";
-import {Helmet} from 'react-helmet';
+import SharingModal from "../../components/public/SharingModal";
+// import {Helmet} from 'react-helmet';
 
 import { client, urlFor } from "../../client";
 
@@ -22,6 +23,7 @@ const BlogList = () => {
   const [openModal, setOpenModal] = useState(false);
   const [blogposts, setBlogposts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [holdArgs, setHoldArgs] = useState({});
   const navigate = useNavigate();
 
   const fetchBlogposts = async () => {
@@ -41,12 +43,24 @@ const BlogList = () => {
     navigate(`/blog/${id}`);
   };
 
+  const Share = () => {
+    const {id, title, excerpt, url} = holdArgs;
+    return(
+      <SharingModal openModal={openModal} setOpenModal={setOpenModal} handleOpenModal={handleOpenModal} id={id} title={title} excerpt={excerpt} image={url}/>
+    )
+  }
+
+  const handleOpenModal = (id, title, excerpt, url) => {
+    setHoldArgs({title: title, id: id, excerpt: excerpt, url: url});
+    setOpenModal(true);
+  };
+
   return (
     <div>
-<Helmet>
-          <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
-          </title>
-        </Helmet>
+    {/* <Helmet>
+              <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
+              </title>
+            </Helmet> */}
         <ThemeProvider theme={darkMode}>
       <BackgroundBox
         sx={{ bgcolor: "background.default", color: "text.primary" }}
@@ -75,7 +89,7 @@ const BlogList = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </FlexSpaceBetween>
-
+              {openModal && Share()}
               <Grid1Col>
                 {blogposts.map((blogpost) => {
                   return (
@@ -88,7 +102,7 @@ const BlogList = () => {
                         excerpt={blogpost.excerpt}
                         showBlogpost={showBlogpost}
                         openModal={openModal}
-                        setOpenModal={setOpenModal}
+                        handleOpenModal={handleOpenModal}
                       />
                     
                   );
