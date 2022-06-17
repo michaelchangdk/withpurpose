@@ -70,8 +70,8 @@ const BookingPage = () => {
 
   // Function for disabling dates
   const disableDates = (date) => {
-    // // Example: Disables weekends and dates before the 15th
-    //   return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
+    // Example: Disables weekends and dates before the 15th
+    // return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
     if (availableDays === null) {
       setError("No available dates.");
       return (
@@ -84,7 +84,7 @@ const BookingPage = () => {
         date.getDay() === 6
       );
     }
-    const weekdayarray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const weekdayarray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const unavailabledays = weekdayarray.filter(
       (item) => !availableDays.includes(item)
     );

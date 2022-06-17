@@ -7,6 +7,7 @@ import { Container, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
@@ -17,12 +18,15 @@ import { PageTitle } from "../../styledcomponents/typography";
 
 const OpenLetter = () => {
   const [openLetter, setOpenLetter] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchOpenLetter = async () => {
+    setLoading(true);
     const letterQuery = `*[_type == "openletter"] {headline, slug, title, body}`;
     const fetch = await client.fetch(letterQuery);
     const response = await fetch;
     setOpenLetter(response[0]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -87,11 +91,14 @@ const OpenLetter = () => {
             Open Letter
           </PageTitle>
           <Container maxWidth="sm">
-            <PortableText
-              sx={{ lineHeight: 2 }}
-              value={openLetter?.body}
-              components={myPortableTextComponents}
-            />
+            {loading && <LoadingIndicator />}
+            {!loading && (
+              <PortableText
+                sx={{ lineHeight: 2 }}
+                value={openLetter?.body}
+                components={myPortableTextComponents}
+              />
+            )}
           </Container>
         </Container>
         <PageFooter />

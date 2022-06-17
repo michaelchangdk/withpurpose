@@ -44,45 +44,47 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
   };
 
   return (
-    <Card
-      sx={{
-        maxWidth: "sm",
-      }}
-    >
+    <>
       <CardActionArea onClick={clickCard}>
-        <CardMedia sx={{ alignSelf: "start" }}>
-          <AspectRatioBox>
-            <AspectRatioChild
-              backgroundimage={urlFor(coverImageURL).url()}
-              xposition={coverImage.crop.top}
-              yposition={coverImage.hotspot.y}
-            ></AspectRatioChild>
-          </AspectRatioBox>
-        </CardMedia>
-        <CardContent sx={{ alignSelf: "start", height: "100%" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            fontWeight={400}
-            component="div"
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            fontWeight={500}
-            mb={0.5}
-          >
-            {headline}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
+        <Card
+          sx={{
+            maxWidth: "sm",
+          }}
+        >
+          <CardMedia>
+            <AspectRatioBox>
+              <AspectRatioChild
+                backgroundimage={urlFor(coverImageURL).url()}
+                xposition={coverImage.crop.top}
+                yposition={coverImage.hotspot.y}
+              ></AspectRatioChild>
+            </AspectRatioBox>
+          </CardMedia>
+          <CardContent sx={{ alignSelf: "start", height: "100%" }}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              fontWeight={400}
+              component="div"
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              fontWeight={500}
+              mb={0.5}
+            >
+              {headline}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {description}
+            </Typography>
+          </CardContent>
+        </Card>
+        <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
       </CardActionArea>
-      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
-    </Card>
+    </>
   );
 };
 
