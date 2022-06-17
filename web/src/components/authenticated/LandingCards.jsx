@@ -45,10 +45,11 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
 
   return (
     <>
-      <CardActionArea onClick={clickCard}>
+      <CardActionArea onClick={clickCard} sx={{ maxWidth: "sm" }}>
         <Card
           sx={{
             maxWidth: "sm",
+            height: "100%",
           }}
         >
           <CardMedia>

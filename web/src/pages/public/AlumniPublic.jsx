@@ -34,9 +34,11 @@ const AlumniPublic = () => {
           <PageTitle variant="h2" component="h1">
             {!loading && response[0].title}
           </PageTitle>
-          <PageSubtitle variant="h3" component="h2">
-            {!loading && !!response[0].subtitle && response[0].subtitle}
-          </PageSubtitle>
+          {!loading && !!response[0].subtitle && (
+            <PageSubtitle variant="h3" component="h2">
+              {response[0].subtitle}
+            </PageSubtitle>
+          )}
           {loading && <LoadingIndicator />}
           <ThreeCardGrid>
             {!loading &&

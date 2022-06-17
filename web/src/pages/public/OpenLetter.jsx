@@ -14,7 +14,7 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 import styled from "styled-components/macro";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
-import { PageTitle } from "../../styledcomponents/typography";
+import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
 
 const OpenLetter = () => {
   const [openLetter, setOpenLetter] = useState(null);
@@ -22,7 +22,7 @@ const OpenLetter = () => {
 
   const fetchOpenLetter = async () => {
     setLoading(true);
-    const letterQuery = `*[_type == "openletter"] {headline, slug, title, body}`;
+    const letterQuery = `*[_type == "openletter"] {title, subtitle, body, _id}`;
     const fetch = await client.fetch(letterQuery);
     const response = await fetch;
     setOpenLetter(response[0]);
@@ -88,8 +88,13 @@ const OpenLetter = () => {
         <PublicHeader />
         <Container maxWidth="lg">
           <PageTitle variant="h2" component="h1">
-            Open Letter
+            {!loading && openLetter.title}
           </PageTitle>
+          {!loading && !!openLetter.title.subtitle && (
+            <PageSubtitle variant="h3" component="h2">
+              {openLetter.subtitle}
+            </PageSubtitle>
+          )}
           <Container maxWidth="sm">
             {loading && <LoadingIndicator />}
             {!loading && (
