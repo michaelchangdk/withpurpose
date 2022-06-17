@@ -1,25 +1,6 @@
 import { useState, useEffect } from "react";
 import { client } from "../client";
 
-// HeroHeader Component - fetching Hero Header
-export const SetHeader = (query) => {
-  const [loading, setLoading] = useState(true);
-  const [heroRef, setHeroRef] = useState("");
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-
-  useEffect(() => {
-    client.fetch(query).then((response) => {
-      setHeroRef(response[0].heroImage.asset._ref);
-      setTitle(response[0].title);
-      setSubtitle(response[0].subtitle);
-      setLoading(false);
-    });
-  }, [query]);
-
-  return [loading, heroRef, title, subtitle];
-};
-
 // LessonItem Component Functions
 export const checkLesson = (userid, lesson) => {
   client
@@ -50,8 +31,8 @@ export const uncheckLesson = (userid, completedLesson) => {
     .then(() => {});
 };
 
-// Card Page Fetch - Alumni Public & Private, Team, Mentors Public & Private, Landing Page Private, WeekOverview
-export const FetchCardPage = (pageQuery) => {
+// Simple Fetch - Alumni Public & Private, Team, Mentors Public & Private, Landing Page Private, WeekOverview, HeroHeader component,
+export const FetchResponse = (pageQuery) => {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState([]);
 

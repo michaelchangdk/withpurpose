@@ -17,13 +17,13 @@ import {
   FourCardGrid,
 } from "../../styledcomponents/containers";
 // Function Imports
-import { FetchCardPage } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery = `*[_type == "mentors"] {description, _id, studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
 
 const MentorsPrivate = () => {
   // const [loading, mentors, description] = FetchMentors();
-  const [loading, response] = FetchCardPage(pageQuery);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -33,10 +33,10 @@ const MentorsPrivate = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
+        query={`*[_type == "mentors"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
-      {response[0].description && (
+      {!loading && response[0].description && (
         <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
             <DescriptionTypography>

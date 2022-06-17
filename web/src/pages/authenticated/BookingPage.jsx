@@ -190,7 +190,7 @@ const BookingPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "booking"] {heroImage, title, subtitle}`}
+        query={`*[_type == "booking"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       {!loading && description && (

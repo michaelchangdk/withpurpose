@@ -21,7 +21,7 @@ const MasterclassPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
+        query={`*[_type == "masterclasses"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       <Container maxWidth="lg">

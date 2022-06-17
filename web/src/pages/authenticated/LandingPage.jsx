@@ -11,13 +11,13 @@ import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { BackgroundBox, TwoCardGrid } from "../../styledcomponents/containers";
 // Functions Import
-import { FetchCardPage } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery =
   '*[_type == "landingpage"] {_id, landingpageelements[]-> {title, headline, description, slug, coverImage, _id}}';
 
 const LandingPage = () => {
-  const [loading, response] = FetchCardPage(pageQuery);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -27,7 +27,7 @@ const LandingPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "landingpage"] {heroImage, title, subtitle}`}
+        query={`*[_type == "landingpage"] {heroImage, title, subtitle, _id}`}
         type={"page"}
         displayName={true}
       />

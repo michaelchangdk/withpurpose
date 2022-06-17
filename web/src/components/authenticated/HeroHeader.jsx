@@ -12,27 +12,31 @@ import styled from "styled-components/macro";
 // Asset Imports
 import down from "../../assets/down.png";
 // Function Imports
-import { SetHeader } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 
 const LandingPageHero = ({ query, type, displayName }) => {
   const firstName = useSelector(
     (store) => store.authenticated.displayName
   ).split(" ")[0];
-  const [loading, heroRef, title, subtitle] = SetHeader(query);
+  const [loading, response] = FetchResponse(query);
 
   return (
     <>
-      <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
+      <Header
+        backgroundimage={
+          loading ? "" : urlFor(response[0].heroImage.asset._ref).url()
+        }
+      >
         <HeaderAuth />
         <Container maxWidth="lg">
           <HeaderTitleWrapper>
             <HeaderTitle variant="h2" component="h1">
-              {title}
+              {!loading && response[0].title}
               {displayName && ` ${firstName}`}
             </HeaderTitle>
-            {!!subtitle && (
+            {!loading && !!response[0].subtitle && (
               <HeaderSubtitle variant="h4" component="h2" fontWeight={500}>
-                {subtitle}
+                {response[0].subtitle}
               </HeaderSubtitle>
             )}
           </HeaderTitleWrapper>

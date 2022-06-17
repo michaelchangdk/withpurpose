@@ -18,10 +18,7 @@ import LessonItem from "./LessonItem";
 // Styling Imports
 import { FrameDiv } from "../../styledcomponents/containers";
 
-const LessonList = ({
-  lessons,
-  // completedLessonRefs
-}) => {
+const LessonList = ({ lessons }) => {
   const [videoUrl, selectVideoUrl] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");

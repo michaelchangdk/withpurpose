@@ -16,12 +16,12 @@ import {
   TwoCardGrid,
 } from "../../styledcomponents/containers";
 // Function Imports
-import { FetchCardPage } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery = `*[_type == "startupschool"] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
 
 const WeekOverview = () => {
-  const [loading, response] = FetchCardPage(pageQuery);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -31,7 +31,7 @@ const WeekOverview = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "startupschool"] {heroImage, title, subtitle}`}
+        query={`*[_type == "startupschool"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       <Container maxWidth="lg" sx={{ marginTop: "32px" }}>

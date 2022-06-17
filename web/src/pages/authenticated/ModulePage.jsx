@@ -52,7 +52,7 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, order, title, type, _id, description}`;
+    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, title, type, _id, description}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);

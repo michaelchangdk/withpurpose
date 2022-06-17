@@ -95,9 +95,8 @@ const WeekPage = () => {
       {!loading && (
         <>
           <HeroHeader
-            query={`*[_type == "week" && name == "${week}"]`}
+            query={`*[_type == "week" && name == "${week}"] {heroImage, title, subtitle, _id}`}
             type={"week"}
-            displaySubtitle={true}
           />
           <DescriptionContainer backgroundcolor="#e93a7d">
             <DescriptionChild>

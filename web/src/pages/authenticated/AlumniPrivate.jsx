@@ -14,12 +14,12 @@ import {
   BackgroundBox,
 } from "../../styledcomponents/containers";
 // Function Import
-import { FetchCardPage } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery = `*[_type == "community"] {_id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPrivate = () => {
-  const [loading, response] = FetchCardPage(pageQuery);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -29,7 +29,7 @@ const AlumniPrivate = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "community"] {heroImage, title, subtitle}`}
+        query={`*[_type == "community"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
 

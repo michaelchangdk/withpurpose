@@ -17,12 +17,12 @@ import {
   BackgroundBox,
 } from "../../styledcomponents/containers";
 // Function Import
-import { FetchCardPage } from "../../services/clientFunctions";
+import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery = `*[_type == "alumnipage"] {title, subtitle, _id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPublic = () => {
-  const [loading, response] = FetchCardPage(pageQuery);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <ThemeProvider theme={darkMode}>
