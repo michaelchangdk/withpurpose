@@ -11,7 +11,7 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { darkMode } from "../../styledcomponents/themeoptions";
-import { PageTitle } from "../../styledcomponents/typography";
+import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
 import {
   ThreeCardGrid,
   BackgroundBox,
@@ -19,7 +19,7 @@ import {
 // Function Import
 import { FetchCardPage } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "teamMembers"] {city, fullName, linkedin, profilePhoto, quote, _id}`;
+const pageQuery = `*[_type == "teampage"] {title, subtitle, _id, team[]->{city, fullName, linkedin, profilePhoto, quote, _id}}`;
 
 const Team = () => {
   const [loading, response] = FetchCardPage(pageQuery);
@@ -35,12 +35,15 @@ const Team = () => {
         <PublicHeader />
         <Container maxWidth="lg">
           <PageTitle variant="h2" component="h1">
-            Meet the Team
+            {!loading && response[0].title}
           </PageTitle>
+          <PageSubtitle variant="h3" component="h2">
+            {!loading && !!response[0].subtitle && response[0].subtitle}
+          </PageSubtitle>
           {loading && <LoadingIndicator />}
           <ThreeCardGrid>
             {!loading &&
-              response.map((member) => {
+              response[0].team.map((member) => {
                 return <TeamCards key={member._id} member={member} />;
               })}
           </ThreeCardGrid>

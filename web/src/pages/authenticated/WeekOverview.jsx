@@ -16,12 +16,12 @@ import {
   TwoCardGrid,
 } from "../../styledcomponents/containers";
 // Function Imports
-import { FetchWeekOverviewPage } from "../../services/clientFunctions";
+import { FetchCardPage } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "startupschool"] {introVideo, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
+const pageQuery = `*[_type == "startupschool"] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
 
 const WeekOverview = () => {
-  const [loading, cards, introURL] = FetchWeekOverviewPage(pageQuery);
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -36,10 +36,10 @@ const WeekOverview = () => {
       />
       <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
-        {introURL.length > 0 && (
+        {!loading && response[0].introVideo.length > 0 && (
           <FrameDiv>
             <ReactPlayer
-              url={introURL}
+              url={response[0].introVideo}
               controls={true}
               width="100%"
               height="100%"
@@ -49,7 +49,7 @@ const WeekOverview = () => {
         )}
         <TwoCardGrid>
           {!loading &&
-            cards.map((week) => (
+            response[0].weeks.map((week) => (
               <WeekCards
                 key={week.title}
                 name={week.name}

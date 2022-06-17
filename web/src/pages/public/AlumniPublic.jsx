@@ -11,7 +11,7 @@ import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 // Styling Imports
 import { darkMode } from "../../styledcomponents/themeoptions";
-import { PageTitle } from "../../styledcomponents/typography";
+import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
 import {
   ThreeCardGrid,
   BackgroundBox,
@@ -19,7 +19,7 @@ import {
 // Function Import
 import { FetchCardPage } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
+const pageQuery = `*[_type == "alumnipage"] {title, subtitle, _id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPublic = () => {
   const [loading, response] = FetchCardPage(pageQuery);
@@ -32,8 +32,11 @@ const AlumniPublic = () => {
         <PublicHeader />
         <Container maxWidth="lg">
           <PageTitle variant="h2" component="h1">
-            Our Alumni
+            {!loading && response[0].title}
           </PageTitle>
+          <PageSubtitle variant="h3" component="h2">
+            {!loading && !!response[0].subtitle && response[0].subtitle}
+          </PageSubtitle>
           {loading && <LoadingIndicator />}
           <ThreeCardGrid>
             {!loading &&

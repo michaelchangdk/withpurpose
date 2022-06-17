@@ -14,7 +14,7 @@ import { BackgroundBox, TwoCardGrid } from "../../styledcomponents/containers";
 import { FetchCardPage } from "../../services/clientFunctions";
 // Query Declaration
 const pageQuery =
-  '*[_type == "landingpage"] {landingpageelements[]-> {title, headline, description, slug, coverImage}}';
+  '*[_type == "landingpage"] {_id, landingpageelements[]-> {title, headline, description, slug, coverImage, _id}}';
 
 const LandingPage = () => {
   const [loading, response] = FetchCardPage(pageQuery);
@@ -37,7 +37,7 @@ const LandingPage = () => {
           {!loading &&
             response[0].landingpageelements.map((card) => (
               <LandingCards
-                key={card.order}
+                key={card._id}
                 title={card.title}
                 headline={card.headline}
                 description={card.description}

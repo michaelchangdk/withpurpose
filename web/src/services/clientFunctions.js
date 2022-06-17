@@ -50,7 +50,7 @@ export const uncheckLesson = (userid, completedLesson) => {
     .then(() => {});
 };
 
-// Card Page Fetch - Alumni Public & Private, Team, Mentors Public, Landing Page Private,
+// Card Page Fetch - Alumni Public & Private, Team, Mentors Public & Private, Landing Page Private, WeekOverview
 export const FetchCardPage = (pageQuery) => {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState([]);
@@ -58,62 +58,13 @@ export const FetchCardPage = (pageQuery) => {
   useEffect(() => {
     setLoading(true);
     client.fetch(pageQuery).then((response) => {
-      setResponse(response);
+      console.log(response);
+      setResponse(response.filter((item) => !item._id.includes("draft")));
       setLoading(false);
     });
   }, [pageQuery]);
 
   return [loading, response];
-};
-
-// Mentors Private Fetch Function
-export const FetchMentors = () => {
-  const [loading, setLoading] = useState(true);
-  const [mentors, setMentors] = useState([]);
-  const [description, setDescription] = useState();
-
-  const fetchPage = async () => {
-    setLoading(true);
-    const pageQuery = `*[_type == "mentors"] {headline, description}`;
-    const fetch = await client.fetch(pageQuery);
-    const response = await fetch;
-    setDescription(response[0].description);
-    setLoading(false);
-  };
-
-  const fetchMentors = async () => {
-    setLoading(true);
-    const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
-    const fetch = await client.fetch(mentorsQuery);
-    const response = await fetch;
-    setMentors(response[0].studentmentors);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchMentors();
-    fetchPage();
-  }, []);
-
-  return [loading, mentors, description];
-};
-
-// Week Overview Fetch
-export const FetchWeekOverviewPage = (pageQuery) => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-  const [introURL, setIntroURL] = useState("");
-
-  useEffect(() => {
-    setLoading(true);
-    client.fetch(pageQuery).then((response) => {
-      setIntroURL(response[0].introVideo);
-      setCards(response[0].weeks.filter((a) => !a._id.includes("draft")));
-      setLoading(false);
-    });
-  }, [pageQuery]);
-
-  return [loading, cards, introURL];
 };
 
 // Profile Page Functions

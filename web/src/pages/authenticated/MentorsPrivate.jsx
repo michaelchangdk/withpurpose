@@ -17,10 +17,13 @@ import {
   FourCardGrid,
 } from "../../styledcomponents/containers";
 // Function Imports
-import { FetchMentors } from "../../services/clientFunctions";
+import { FetchCardPage } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "mentors"] {description, _id, studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
 
 const MentorsPrivate = () => {
-  const [loading, mentors, description] = FetchMentors();
+  // const [loading, mentors, description] = FetchMentors();
+  const [loading, response] = FetchCardPage(pageQuery);
 
   return (
     <BackgroundBox
@@ -33,10 +36,12 @@ const MentorsPrivate = () => {
         query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
         type={"page"}
       />
-      {description && (
+      {response[0].description && (
         <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
-            <DescriptionTypography>{description}</DescriptionTypography>
+            <DescriptionTypography>
+              {response[0].description}
+            </DescriptionTypography>
           </DescriptionChild>
         </DescriptionContainer>
       )}
@@ -44,7 +49,7 @@ const MentorsPrivate = () => {
         {loading && <LoadingIndicator />}
         <FourCardGrid>
           {!loading &&
-            mentors.map((mentor) => {
+            response[0].studentmentors.map((mentor) => {
               return <MentorCards key={mentor.fullName} mentor={mentor} />;
             })}
         </FourCardGrid>
