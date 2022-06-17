@@ -33,7 +33,7 @@ export const uncheckLesson = (userid, completedLesson) => {
     .then(() => {});
 };
 
-// Simple Fetch - Alumni Public & Private, Team, Mentors Public & Private, Landing Page Private, WeekOverview, HeroHeader component,
+// Simple Fetch - Alumni Public & Private, Team, Mentors Public & Private, Landing Page Private, WeekOverview, HeroHeader component, OpenLetter,
 export const FetchResponse = (pageQuery) => {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState([]);

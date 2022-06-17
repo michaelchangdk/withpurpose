@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+import React from "react";
 import { PortableText } from "@portabletext/react";
 
 // MUI Imports
@@ -15,23 +14,13 @@ import styled from "styled-components/macro";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
+// Function Import
+import { FetchResponse } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "openletter"] {title, subtitle, body, _id}`;
 
 const OpenLetter = () => {
-  const [openLetter, setOpenLetter] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchOpenLetter = async () => {
-    setLoading(true);
-    const letterQuery = `*[_type == "openletter"] {title, subtitle, body, _id}`;
-    const fetch = await client.fetch(letterQuery);
-    const response = await fetch;
-    setOpenLetter(response[0]);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchOpenLetter();
-  }, []);
+  const [loading, response] = FetchResponse(pageQuery);
 
   const myPortableTextComponents = {
     types: {
@@ -88,11 +77,11 @@ const OpenLetter = () => {
         <PublicHeader />
         <Container maxWidth="lg">
           <PageTitle variant="h2" component="h1">
-            {!loading && openLetter.title}
+            {!loading && response[0].title}
           </PageTitle>
-          {!loading && !!openLetter.title.subtitle && (
+          {!loading && !!response[0].title.subtitle && (
             <PageSubtitle variant="h3" component="h2">
-              {openLetter.subtitle}
+              {response[0].subtitle}
             </PageSubtitle>
           )}
           <Container maxWidth="sm">
@@ -100,7 +89,7 @@ const OpenLetter = () => {
             {!loading && (
               <PortableText
                 sx={{ lineHeight: 2 }}
-                value={openLetter?.body}
+                value={response[0]?.body}
                 components={myPortableTextComponents}
               />
             )}
