@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from "react";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import React, { useState } from "react";
+import { client } from "../../client";
+import { useDispatch, useSelector } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+
+// Firebase Auth Imports
 import {
   EmailAuthProvider,
   getAuth,
@@ -8,9 +12,8 @@ import {
   sendPasswordResetEmail,
   reauthenticateWithCredential,
 } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { authenticated } from "../../reducers/authenticated";
-// import { urlFor } from "../../client";
+
+// MUI Imports
 import {
   Accordion,
   AccordionDetails,
@@ -19,6 +22,7 @@ import {
   AlertTitle,
   Avatar,
   Button,
+  Box,
   Container,
   Stack,
   TextField,
@@ -28,20 +32,33 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  FormGroup,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-import { client } from "../../client";
-import { Box } from "@mui/material";
-import ScrollToTop from "../ScrollToTop";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ScheduleIcon from "@mui/icons-material/Schedule";
-// import styled from "styled-components";
-// import { useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ErrorOutlineRoundedIcon from "@mui/icons-material/ErrorOutlineRounded";
+// Component Imports
+import HeaderAuth from "../../components/authenticated/HeaderAuth";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import { BackgroundBox } from "../../styledcomponents/containers";
+// Function Imports
+import {
+  toggleDarkMode,
+  FetchBookingRequests,
+} from "../../services/clientFunctions";
+import { stringAvatar } from "../../helpers/functions";
 
 const ProfilePage = () => {
+  const auth = getAuth();
+  const dispatch = useDispatch();
+  const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
+  const userid = useSelector((store) => store.authenticated.uid);
+  const darkMode = useSelector((store) => store.authenticated.darkMode);
+  const displayName = useSelector((store) => store.authenticated.displayName);
+
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -51,43 +68,9 @@ const ProfilePage = () => {
   const [error, setError] = useState("");
   const [successEmail, setSuccessEmail] = useState("");
   const [successPassword, setSuccessPassword] = useState("");
-  const userAvatarURL = useSelector((store) => store.authenticated.photoURL);
-  const [bookingRequests, setBookingRequests] = useState([]);
-
-  const auth = getAuth();
-  const dispatch = useDispatch();
-  const userid = useSelector((store) => store.authenticated.uid);
-  const darkMode = useSelector((store) => store.authenticated.darkMode);
-  const displayName = useSelector((store) => store.authenticated.displayName);
 
   const emailPattern =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-  const toggleDarkMode = () => {
-    if (darkMode) {
-      dispatch(authenticated.actions.toggleDarkMode(false));
-      client
-        .patch(userid)
-        .set({ darkMode: false })
-        .commit()
-        .then((res) => console.log(res));
-    } else if (!darkMode) {
-      dispatch(authenticated.actions.toggleDarkMode(true));
-      client
-        .patch(userid)
-        .set({ darkMode: true })
-        .commit()
-        .then((res) => console.log(res));
-    }
-  };
-
-  const stringAvatar = () => {
-    return {
-      children: `${displayName.split(" ")[0][0]}${
-        displayName.split(" ")[1][0]
-      }`,
-    };
-  };
 
   const updateDisplayName = () => {
     //
@@ -170,13 +153,7 @@ const ProfilePage = () => {
     }
   };
 
-  // Fetch booking requests
-  const bookingQuery = `*[_type == "user" && _id == "${userid}"] {"booking": *[_type == "studentMentors" && references(^._id)]{fullName, bookingrequest}} `;
-  useEffect(() => {
-    client.fetch(bookingQuery).then((res) => {
-      setBookingRequests(res[0].booking);
-    });
-  }, [bookingQuery]);
+  const [bookingRequests] = FetchBookingRequests(userid);
 
   return (
     <BackgroundBox
@@ -186,10 +163,7 @@ const ProfilePage = () => {
       }}
       component="form"
     >
-      {/* remove avatar from header and have it larger size and centered */}
       <HeaderAuth />
-      {/* <PinkSplotch src={splotch} alt="splotch" /> */}
-      {/* Profile Page */}
       <Container maxWidth="xs">
         <Stack spacing={2} mt={12}>
           <Box
@@ -204,14 +178,13 @@ const ProfilePage = () => {
               {userAvatarURL.length > 0 && (
                 <Avatar
                   src={userAvatarURL}
-                  // src={urlFor(userAvatarURL._ref).url()}
                   alt={displayName}
                   sx={{ height: 100, width: 100, margin: "16px auto 0 auto" }}
                 />
               )}
               {userAvatarURL.length === 0 && (
                 <Avatar
-                  {...stringAvatar({ displayName })}
+                  {...stringAvatar(displayName)}
                   alt={displayName}
                   sx={{
                     bgcolor: "primary.main",
@@ -220,6 +193,7 @@ const ProfilePage = () => {
                     width: 100,
                     fontSize: 35,
                     margin: "16px auto 0 auto",
+                    padding: "6px 0 0 0",
                   }}
                 />
               )}
@@ -233,7 +207,17 @@ const ProfilePage = () => {
                 <FormControlLabel
                   sx={{ margin: "12px auto" }}
                   control={
-                    <Switch checked={darkMode} onChange={toggleDarkMode} />
+                    <Switch
+                      checked={darkMode}
+                      onChange={() =>
+                        toggleDarkMode(
+                          userid,
+                          darkMode,
+                          dispatch,
+                          authenticated
+                        )
+                      }
+                    />
                   }
                   label="Dark Mode?"
                 />
@@ -373,7 +357,7 @@ const ProfilePage = () => {
                     ) : (
                       <ListItem>
                         <ListItemAvatar>
-                          <ScheduleIcon sx={{ fontSize: "32px" }} />
+                          <ErrorOutlineRoundedIcon sx={{ fontSize: "32px" }} />
                         </ListItemAvatar>
                         <ListItemText primary="No booking requests" />
                       </ListItem>
@@ -386,7 +370,6 @@ const ProfilePage = () => {
         </Stack>
       </Container>
       <ScrollToTop />
-      {/* Button to log out ?*/}
     </BackgroundBox>
   );
 };

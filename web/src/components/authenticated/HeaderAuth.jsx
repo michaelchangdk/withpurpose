@@ -1,76 +1,45 @@
 import React, { useState } from "react";
-import { Avatar, IconButton, MenuItem, Menu, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
-import logo from "../../assets/BWP_logotype.svg";
-import styled from "styled-components";
+
+// MUI Imports
+import { Avatar, IconButton, MenuItem, Menu, Container } from "@mui/material";
+// Component Imports
 import NoAccessModal from "./NoAccessModal";
+// Styling Imports
+import logo from "../../assets/BWP_logotype.svg";
+// Asset Imports
+import styled from "styled-components/macro";
+// Function Imports
+import { stringAvatar } from "../../helpers/functions";
 
 const HeaderAuth = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorElNav, setAnchorELNav] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // For the menu & navigation
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElNav, setAnchorELNav] = useState(null);
   const openProfile = Boolean(anchorEl);
   const openNav = Boolean(anchorElNav);
+  const [openModal, setOpenModal] = useState(false);
+  const access = useSelector((store) => store.authenticated.access);
+  // For avatar and navigation to user profile
   const userAvatarUrl = useSelector((store) => store.authenticated.photoURL);
   const displayName = useSelector((store) => store.authenticated.displayName);
   const userslug = displayName.split(" ").join("").toLowerCase();
-  const [openModal, setOpenModal] = useState(false);
-  const access = useSelector((store) => store.authenticated.access);
 
-  const stringAvatar = () => {
-    return {
-      children: `${displayName.split(" ")[0][0]}${
-        displayName.split(" ")[1][0]
-      }`,
-    };
+  const openSiteNav = (event) => {
+    setAnchorELNav(event.currentTarget);
   };
 
   const openProfileNav = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const openSiteNav = (event) => {
-    setAnchorELNav(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorELNav(null);
-  };
-
-  const navigateSchool = () => {
-    if (access.approvedSchool) {
-      navigate(`/startup-school-weeks`);
-    } else {
-      setOpenModal(true);
-    }
-  };
-
-  const navigateMasterClass = () => {
-    if (access.approvedMasterClass) {
-      navigate(`/masterclass`);
-    } else {
-      setOpenModal(true);
-    }
-  };
-
-  const navigateMentor = () => {
-    if (access.approvedMentorBooking) {
-      navigate(`/book-a-mentor`);
-    } else {
-      setOpenModal(true);
-    }
-  };
-
-  const navigateCommunity = () => {
-    if (access.approvedCommunity) {
-      navigate(`/community`);
-    } else {
-      setOpenModal(true);
-    }
   };
 
   const logout = () => {
@@ -112,14 +81,46 @@ const HeaderAuth = () => {
           <MenuItem onClick={() => navigate(`/startup-school-elearning`)}>
             Home
           </MenuItem>
-          <MenuItem onClick={navigateSchool}>Startup School</MenuItem>
-          <MenuItem onClick={navigateMasterClass}>Masterclasses</MenuItem>
-          <MenuItem onClick={navigateMentor}>Mentors</MenuItem>
-          <MenuItem onClick={navigateCommunity}>Community</MenuItem>
+          <MenuItem
+            onClick={() => {
+              access.approvedSchool
+                ? navigate(`/startup-school-weeks`)
+                : setOpenModal(true);
+            }}
+          >
+            Startup School
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              access.approvedMasterClass
+                ? navigate(`/masterclass`)
+                : setOpenModal(true);
+            }}
+          >
+            Masterclasses
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              access.approvedMentorBooking
+                ? navigate(`/book-a-mentor`)
+                : setOpenModal(true);
+            }}
+          >
+            Mentors
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              access.approvedCommunity
+                ? navigate(`/community`)
+                : setOpenModal(true);
+            }}
+          >
+            Community
+          </MenuItem>
         </Menu>
         <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
         <IconButton
-          id="basic-button"
+          id="profile-nav-button"
           aria-controls={openProfile ? "basic-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={openProfile ? "true" : undefined}
@@ -134,7 +135,7 @@ const HeaderAuth = () => {
           )}
           {userAvatarUrl.length === 0 && (
             <Avatar
-              {...stringAvatar({ displayName })}
+              {...stringAvatar(displayName)}
               alt={displayName}
               sx={{
                 bgcolor: "primary.main",
@@ -179,17 +180,8 @@ const HeaderNav = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* margin: 5px 20px; */
-  /* width: 92vw; */
-  /* width: calc(100vw - 32px); */
-  margin: 0 auto 2vh auto;
-  padding-top: 3vh;
-  /* z-index: 2; */
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  right: 0; */
-  /* bottom: 0; */
+  margin: 0 auto;
+  padding: 32px 0;
 `;
 
 const Logo = styled.img`

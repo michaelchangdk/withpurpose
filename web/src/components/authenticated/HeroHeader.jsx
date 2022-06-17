@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from "react";
-import HeaderAuth from "../../components/authenticated/HeaderAuth";
-import styled from "styled-components";
-import { client } from "../../client";
+import React from "react";
 import { urlFor } from "../../client";
-import down from "../../assets/down.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-scroll";
+
+// MUI Imports
 import { Container, Typography } from "@mui/material";
+// Component Imports
+import HeaderAuth from "./HeaderAuth";
+// Styling Imports
+import styled from "styled-components/macro";
+// Asset Imports
+import down from "../../assets/down.png";
+// Function Imports
+import { FetchResponse } from "../../services/clientFunctions";
 
 const LandingPageHero = ({ query, type, displayName }) => {
-  const [loading, setLoading] = useState(true);
-  const [heroRef, setHeroRef] = useState("");
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const nameArray = useSelector(
+  const firstName = useSelector(
     (store) => store.authenticated.displayName
-  ).split(" ");
-
-  useEffect(() => {
-    client.fetch(query).then((response) => {
-      setHeroRef(response[0].heroImage.asset._ref);
-      setTitle(response[0].title);
-      setSubtitle(response[0].subtitle);
-      setLoading(false);
-    });
-  }, [query]);
+  ).split(" ")[0];
+  const [loading, response] = FetchResponse(query);
 
   return (
     <>
-      <Header backgroundimage={loading ? "" : urlFor(heroRef).url()}>
+      <Header
+        backgroundimage={
+          loading ? "" : urlFor(response[0].heroImage.asset._ref).url()
+        }
+      >
         <HeaderAuth />
         <Container maxWidth="lg">
           <HeaderTitleWrapper>
             <HeaderTitle variant="h2" component="h1">
-              {title}
-              {displayName && ` ${nameArray[0]}`}
+              {!loading && response[0].title}
+              {displayName && ` ${firstName}`}
             </HeaderTitle>
-            {!!subtitle && (
+            {!loading && !!response[0].subtitle && (
               <HeaderSubtitle variant="h4" component="h2" fontWeight={500}>
-                {subtitle}
+                {response[0].subtitle}
               </HeaderSubtitle>
             )}
           </HeaderTitleWrapper>
@@ -90,12 +88,6 @@ const Header = styled.header`
   }
 `;
 
-const ButtonWrapper = styled.div`
-  @media (min-width: 768px) {
-    display: none;
-  }
-`;
-
 const HeaderTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -122,12 +114,16 @@ const HeaderSubtitle = styled(Typography)`
   }
 `;
 
-// const HeaderSubtitle = styled.h2`
-//   font-family: "Nunito", sans-serif;
-//   color: white;
-//   font-size: 20px;
-//   font-weight: 400;
-// `;
+const HeaderIcon = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+const ButtonWrapper = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
 
 const HeaderInstruction = styled.div`
   display: flex;
@@ -139,9 +135,4 @@ const HeaderInstruction = styled.div`
   bottom: 0;
   margin-bottom: 2vh;
   gap: 1vh;
-`;
-
-const HeaderIcon = styled.img`
-  width: 20px;
-  height: 20px;
 `;

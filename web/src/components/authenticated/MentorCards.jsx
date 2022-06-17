@@ -1,4 +1,8 @@
 import React from "react";
+import { urlFor } from "../../client";
+import { useNavigate } from "react-router-dom";
+
+// MUI Imports
 import {
   Card,
   Stack,
@@ -11,11 +15,11 @@ import {
   AccordionDetails,
   Button,
 } from "@mui/material";
-import { urlFor } from "../../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import styled from "styled-components/macro";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useNavigate } from "react-router-dom";
+
+// Styling Imports
+import styled from "styled-components/macro";
 
 const MentorCards = ({ mentor }) => {
   const openLinkedin = () => {

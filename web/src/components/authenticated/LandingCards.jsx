@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { urlFor } from "../../client";
+
+// MUI Imports
 import {
   CardMedia,
   CardContent,
@@ -6,11 +11,13 @@ import {
   Card,
   CardActionArea,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+// Component Imports
 import NoAccessModal from "./NoAccessModal";
-import { urlFor } from "../../client";
-import styled from "styled-components";
+// Styling Imports
+import {
+  AspectRatioBox,
+  AspectRatioChild,
+} from "../../styledcomponents/containers";
 
 const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
   const access = useSelector((store) => store.authenticated.access);
@@ -18,7 +25,7 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
   const [openModal, setOpenModal] = useState(false);
   const coverImageURL = coverImage.asset._ref;
 
-  // FEEL LIKE THIS IF STATEMENT CAN BE SOLVED IN A BETTER WAY VIA NAMING CONVENTIONS?
+  // Checking access for navigating to the four sections, if not - opening the access modal
   const clickCard = () => {
     if (title.includes("School") && access.approvedSchool) {
       navigate(linkTo);
@@ -37,75 +44,48 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
   };
 
   return (
-    <Card
-      sx={{
-        width: "100%",
-        maxWidth: "sm",
-        // maxWidth: "500px",
-      }}
-    >
+    <>
       <CardActionArea onClick={clickCard}>
-        <CardMedia sx={{ alignSelf: "start" }}>
-          <AspectRatioBox>
-            <AspectRatioChild
-              backgroundimage={urlFor(coverImageURL).url()}
-              xposition={coverImage.crop.top}
-              yposition={coverImage.hotspot.y}
-            ></AspectRatioChild>
-          </AspectRatioBox>
-        </CardMedia>
+        <Card
+          sx={{
+            maxWidth: "sm",
+          }}
+        >
+          <CardMedia>
+            <AspectRatioBox>
+              <AspectRatioChild
+                backgroundimage={urlFor(coverImageURL).url()}
+                xposition={coverImage.crop.top}
+                yposition={coverImage.hotspot.y}
+              ></AspectRatioChild>
+            </AspectRatioBox>
+          </CardMedia>
+          <CardContent sx={{ alignSelf: "start", height: "100%" }}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              fontWeight={400}
+              component="div"
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              fontWeight={500}
+              mb={0.5}
+            >
+              {headline}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {description}
+            </Typography>
+          </CardContent>
+        </Card>
+        <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
       </CardActionArea>
-      <CardActionArea
-        onClick={clickCard}
-        sx={{ height: "100%", display: "grid" }}
-      >
-        <CardContent sx={{ alignSelf: "start", height: "100%" }}>
-          {/* <Stack justifyContent="space-around" sx={{ height: "100%" }}> */}
-          <Typography
-            gutterBottom
-            variant="h5"
-            fontWeight={400}
-            component="div"
-          >
-            {title}
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            fontWeight={500}
-            mb={0.5}
-          >
-            {headline}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {description}
-          </Typography>
-          {/* </Stack> */}
-        </CardContent>
-      </CardActionArea>
-      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
-    </Card>
+    </>
   );
 };
 
 export default LandingCards;
-
-const AspectRatioBox = styled.div`
-  height: 0;
-  overflow: hidden;
-  padding-top: 56.25%;
-  position: relative;
-`;
-
-const AspectRatioChild = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.backgroundimage});
-  background-position-x: ${(props) => props.xposition * 100}%;
-  background-position-y: ${(props) => props.yposition * 100}%;
-  background-repeat: no-repeat;
-  background-size: cover;
-`;

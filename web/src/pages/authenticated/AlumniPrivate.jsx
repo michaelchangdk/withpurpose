@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from "react";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import React from "react";
+
+// MUI Imports
 import { Container } from "@mui/material";
-import { client } from "../../client";
-import styled from "styled-components";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import AlumniCards from "../../components/AlumniCards";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import {
+  ThreeCardGrid,
+  BackgroundBox,
+} from "../../styledcomponents/containers";
+// Function Import
+import { FetchResponse } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "community"] {_id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPrivate = () => {
-  const [loading, setLoading] = useState(true);
-  const [alumni, setAlumni] = useState([]);
-
-  const fetchAlumni = async () => {
-    setLoading(true);
-    const alumniQuery = `*[_type == "community"] {alumni[]->{fullName, city, class, linkedin, profilePhoto}}`;
-    const fetch = await client.fetch(alumniQuery);
-    const response = await fetch;
-    setAlumni(response[0].alumni);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchAlumni();
-  }, []);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -32,20 +28,21 @@ const AlumniPrivate = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
-        query={`*[_type == "community"] {heroImage, title, subtitle}`}
+      <HeroHeader
+        query={`*[_type == "community"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginTop: "32px" }}>
         {loading && <LoadingIndicator />}
 
-        <CardContainer>
+        <ThreeCardGrid>
           {!loading &&
-            alumni.map((student) => {
+            response[0].alumni.map((student) => {
               return <AlumniCards key={student._id} alumni={student} />;
             })}
-        </CardContainer>
+        </ThreeCardGrid>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>
@@ -53,23 +50,3 @@ const AlumniPrivate = () => {
 };
 
 export default AlumniPrivate;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  margin: 0 auto;
-  justify-content: center;
-  padding-top: 32px;
-  padding-bottom: 40px;
-
-  @media (min-width: 768px) {
-    max-width: calc(750px + 3vh);
-    grid-template-columns: 1fr 1fr;
-    padding-bottom: 60px;
-  }
-
-  @media (min-width: 1100px) {
-    max-width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-`;

@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { client } from "../../client";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+
+// MUI Imports
+import { Stack, Typography, Button, Container } from "@mui/material";
+// Component Imports
 import HeaderAuth from "../../components/authenticated/HeaderAuth";
 import LessonList from "../../components/authenticated/LessonList";
-import { Stack, Typography, Button, Container } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
 import ProgressCircle from "../../components/authenticated/ProgressCircle";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { authenticated } from "../../reducers/authenticated";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import ScrollToTop from "../ScrollToTop";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionChild,
+  DescriptionTypography,
+  OneCardGrid,
+} from "../../styledcomponents/containers";
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
@@ -43,7 +52,7 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, order, title, type, _id, description}`;
+    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, title, type, _id, description}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);
@@ -140,7 +149,7 @@ const ModulePage = () => {
     >
       <HeaderAuth />
       {loading && <LoadingIndicator />}
-      <CardContainer>
+      <OneCardGrid>
         {!loading && (
           <>
             <Container maxWidth="lg">
@@ -165,9 +174,11 @@ const ModulePage = () => {
               </Stack>
             </Container>
             {moduleDescription && (
-              <DescriptionContainer>
+              <DescriptionContainer backgroundcolor="#e93a7d">
                 <DescriptionChild maxWidth="lg">
-                  <StyledTypo>{moduleDescription}</StyledTypo>
+                  <DescriptionTypography>
+                    {moduleDescription}
+                  </DescriptionTypography>
                 </DescriptionChild>
               </DescriptionContainer>
             )}
@@ -236,55 +247,11 @@ const ModulePage = () => {
             </Container>
           </>
         )}
-      </CardContainer>
+      </OneCardGrid>
+      <PageFooter />
       <ScrollToTop />
     </BackgroundBox>
   );
 };
 
 export default ModulePage;
-
-const DescriptionContainer = styled.div`
-  background-color: #e93a7d;
-  /* background-color: #6356d7; */
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  padding-top: 16px;
-  padding-bottom: 40px;
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    padding-top: 24px;
-    padding-bottom: 40px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
-`;

@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
+
+// MUI Imports
 import styled from "styled-components";
 import {
   List,
@@ -8,21 +12,19 @@ import {
   Container,
   Paper,
 } from "@mui/material";
-import LessonItem from "./LessonItem";
-import { useSelector } from "react-redux";
-import ReactPlayer from "react-player";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
-// import MouseIcon from "@mui/icons-material/Mouse";
+// Component Imports
+import LessonItem from "./LessonItem";
+// Styling Imports
+import { FrameDiv } from "../../styledcomponents/containers";
 
-const LessonList = ({
-  lessons,
-  // completedLessonRefs
-}) => {
+const LessonList = ({ lessons }) => {
   const [videoUrl, selectVideoUrl] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskLink, setTaskLink] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDuration, setTaskDuration] = useState("");
+
   const userid = useSelector((store) => store.authenticated.uid);
 
   // FOR LOADING LESSON
@@ -42,24 +44,6 @@ const LessonList = ({
 
   return (
     <Container maxWidth="lg">
-      {/* {videoUrl.length > 0 && (
-          <div>
-            <FrameDiv>
-              <IFrame
-                title="video"
-                src={videoUrl}
-                allowFullScreen
-                frameBorder="0"
-              />
-            </FrameDiv>
-            <Typography variant="caption" fontSize={13}>
-              Now playing:
-            </Typography>
-            <Typography fontSize={16}>{taskTitle}</Typography>
-            <Typography variant="caption">{taskDuration}</Typography>
-          </div>
-        )} */}
-
       {/* Using React Player - take note of className below */}
       {/* We can find ref hooks to automatically check it when the video is done playing */}
       {/* https://www.npmjs.com/package/react-player */}
@@ -119,7 +103,7 @@ const LessonList = ({
         }
       >
         {lessons &&
-          lessons.map((lesson, index) => {
+          lessons.map((lesson) => {
             return (
               <LessonItem
                 key={lesson.title}
@@ -135,13 +119,6 @@ const LessonList = ({
 };
 
 export default LessonList;
-
-const FrameDiv = styled.div`
-  position: relative;
-  padding-top: 56.25%;
-  border-radius: 4px;
-  overflow: hidden;
-`;
 
 const StyledPaper = styled(Paper)`
   && {

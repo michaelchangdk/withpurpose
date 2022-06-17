@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Stack, Typography, Button } from "@mui/material";
-import ProgressCircle from "./ProgressCircle";
 import { useSelector } from "react-redux";
+
+// MUI Imports
+import { Card, Stack, Typography, Button } from "@mui/material";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
+// Component Imports
+import ProgressCircle from "./ProgressCircle";
 
 const ModuleCards = ({ duration, name, title, type, module }) => {
   const [progress, setProgress] = useState(0);
@@ -41,9 +44,6 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
   return (
     <Card
       sx={{
-        // maxWidth: 345,
-        // minHeight: 150,
-        // height: 175,
         padding: 2,
         mx: "auto",
         width: "100%",
@@ -51,7 +51,6 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
       }}
     >
       <Stack gap={1}>
-        {/* <Stack sx={{ height: "100%" }} height="100%"> */}
         <Stack
           direction="row"
           alignItems="center"
@@ -87,10 +86,6 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
             {type} | {duration}
           </Typography>
         </Stack>
-        {/* <Typography variant="body2" fontWeight={300} fontSize={12} mt={1}>
-        {duration}
-      </Typography> */}
-        {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
         <Stack direction="column" alignItems="flex-start" mt={1}>
           <Button
             variant="contained"
@@ -99,7 +94,6 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
             size="small"
             color={color}
             sx={{ width: 90 }}
-            // endIcon={<StartRoundedIcon />}
           >
             {buttonText}
           </Button>

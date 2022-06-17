@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from "react";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import { Typography, Container } from "@mui/material";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { client } from "../../client";
+import React from "react";
+
+// MUI Imports
+import { Container } from "@mui/material";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
 import MentorCards from "../../components/authenticated/MentorCards";
-import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionTypography,
+  DescriptionChild,
+  FourCardGrid,
+} from "../../styledcomponents/containers";
+// Function Imports
+import { FetchResponse } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery = `*[_type == "mentors"] {description, _id, studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
 
 const MentorsPrivate = () => {
-  const [loading, setLoading] = useState(true);
-  const [mentors, setMentors] = useState([]);
-  const [description, setDescription] = useState();
-
-  const fetchMentors = async () => {
-    setLoading(true);
-    const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{fullName, bio, linkedin, profilePhoto, topics, _id}}`;
-    const fetch = await client.fetch(mentorsQuery);
-    const response = await fetch;
-    setMentors(response[0].studentmentors);
-    setLoading(false);
-  };
-
-  const fetchPage = async () => {
-    setLoading(true);
-    const pageQuery = `*[_type == "mentors"] {headline, description}`;
-    const fetch = await client.fetch(pageQuery);
-    const response = await fetch;
-    setDescription(response[0].description);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchMentors();
-    fetchPage();
-  }, []);
+  // const [loading, mentors, description] = FetchMentors();
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -43,32 +32,28 @@ const MentorsPrivate = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
-        query={`*[_type == "mentors"] {heroImage, title, subtitle}`}
+      <HeroHeader
+        query={`*[_type == "mentors"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
-      {/* {description && (
-        <DescriptionContainer>
-          <Typography>{description}</Typography>
-        </DescriptionContainer>
-      )} */}
-
-      {description && (
-        <DescriptionContainer>
+      {!loading && response[0].description && (
+        <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
-            <StyledTypo>{description}</StyledTypo>
+            <DescriptionTypography>
+              {response[0].description}
+            </DescriptionTypography>
           </DescriptionChild>
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
-        {" "}
         {loading && <LoadingIndicator />}
-        <CardContainer>
+        <FourCardGrid>
           {!loading &&
-            mentors.map((mentor) => {
+            response[0].studentmentors.map((mentor) => {
               return <MentorCards key={mentor.fullName} mentor={mentor} />;
             })}
-        </CardContainer>
+        </FourCardGrid>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>
@@ -76,53 +61,3 @@ const MentorsPrivate = () => {
 };
 
 export default MentorsPrivate;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  margin: 0 auto;
-  justify-content: center;
-  padding-top: 32px;
-  padding-bottom: 40px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    padding-bottom: 60px;
-  }
-
-  @media (min-width: 1100px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-`;
-
-const DescriptionContainer = styled.div`
-  /* background-color: #e93a7d; */
-  background-color: #6356d7;
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
-`;

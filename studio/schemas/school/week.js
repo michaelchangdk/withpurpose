@@ -70,6 +70,8 @@ export default {
       name: "module",
       title: "Modules",
       type: "array",
+      description:
+        "Please note that the order you place the modules is how they will be displayed to the user.",
       of: [
         {
           type: "reference",

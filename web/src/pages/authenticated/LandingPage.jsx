@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { client } from "../../client";
-import LandingCards from "../../components/authenticated/LandingCards";
+import React from "react";
+
+// MUI Imports
 import { Container } from "@mui/material";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import styled from "styled-components";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
+import LandingCards from "../../components/authenticated/LandingCards";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import { BackgroundBox, TwoCardGrid } from "../../styledcomponents/containers";
+// Functions Import
+import { FetchResponse } from "../../services/clientFunctions";
+// Query Declaration
+const pageQuery =
+  '*[_type == "landingpage"] {_id, landingpageelements[]-> {title, headline, description, slug, coverImage, _id}}';
 
 const LandingPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState(null);
-  const cardsQuery =
-    '*[_type == "landingpageelements"] {order, title, headline, description, slug, coverImage}';
-
-  useEffect(() => {
-    client.fetch(cardsQuery).then((response) => {
-      setCards(response.sort((a, b) => a.order - b.order));
-      setLoading(false);
-    });
-  }, []);
+  const [loading, response] = FetchResponse(pageQuery);
 
   return (
     <BackgroundBox
@@ -28,18 +26,18 @@ const LandingPage = () => {
         color: "text.primary",
       }}
     >
-      <LandingPageHero
-        query={`*[_type == "landingpage"] {heroImage, title, subtitle}`}
+      <HeroHeader
+        query={`*[_type == "landingpage"] {heroImage, title, subtitle, _id}`}
         type={"page"}
         displayName={true}
       />
       <Container maxWidth="lg">
         {loading && <LoadingIndicator />}
-        <CardGrid>
+        <TwoCardGrid>
           {!loading &&
-            cards.map((card) => (
+            response[0].landingpageelements.map((card) => (
               <LandingCards
-                key={card.order}
+                key={card._id}
                 title={card.title}
                 headline={card.headline}
                 description={card.description}
@@ -47,7 +45,8 @@ const LandingPage = () => {
                 coverImage={card.coverImage}
               />
             ))}
-        </CardGrid>
+        </TwoCardGrid>
+        <PageFooter />
       </Container>
       <ScrollToTop />
     </BackgroundBox>
@@ -55,17 +54,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-const CardGrid = styled.div`
-  display: grid;
-  gap: 32px;
-  justify-items: center;
-  padding-top: 16px;
-  padding-bottom: 40px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-    padding-top: 24px;
-    padding-bottom: 40px;
-  }
-`;

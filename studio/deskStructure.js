@@ -38,6 +38,23 @@ export default () =>
                     .documentId("startupschoolinfo")
                 ),
               S.listItem()
+                .title("Meet the Team")
+                .child(
+                  S.editor().schemaType("teampage").documentId("teampage")
+                ),
+              S.listItem()
+                .title("Our Alumni")
+                .child(
+                  S.editor().schemaType("alumnipage").documentId("alumnipage")
+                ),
+              S.listItem()
+                .title("Mentors Page")
+                .child(
+                  S.editor()
+                    .schemaType("mentorspublic")
+                    .documentId("mentorspublic")
+                ),
+              S.listItem()
                 .title("Blog")
                 // .schemaType("blogpost")
                 // .child(S.documentTypeList("blogpost").title("Blog Post")),
@@ -67,18 +84,6 @@ export default () =>
                       //   ),
                     ])
                 ),
-              // S.listItem()
-              //   .title("Company Mentors")
-              //   .schemaType("companyMentors")
-              //   .child(
-              //     S.documentTypeList("companyMentors").title("Company Mentors")
-              //   ),
-              // S.listItem()
-              //   .title("Student Mentors")
-              //   .schemaType("studentMentors")
-              //   .child(
-              //     S.documentTypeList("studentMentors").title("Student Mentors")
-              //   ),
             ])
         ),
 
@@ -260,6 +265,9 @@ export default () =>
             "openletter",
             "startupschoolinfo",
             "booking",
+            "mentorspublic",
+            "teampage",
+            "alumnipage",
           ].includes(listItem.getId())
       ),
     ]);

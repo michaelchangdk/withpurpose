@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { Typography } from "@mui/material";
+import styled from "styled-components";
 
 const PageFooter = () => {
   const year = new Date().getFullYear();
@@ -20,4 +20,9 @@ export default PageFooter;
 const Footer = styled.footer`
   text-align: center;
   padding-bottom: 10px;
+  padding-top: 40px;
+
+  @media (min-width: 768px) {
+    padding-top: 60px;
+  }
 `;

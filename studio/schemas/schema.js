@@ -7,7 +7,7 @@ import user from "./users/user";
 import lesson from "./school/lesson";
 import week from "./school/week";
 import module from "./school/module";
-import teamMembers from "./people/teamMember";
+import teamMembers from "./people/teamMembers";
 import alumni from "./people/alumni";
 import studentMentors from "./people/studentmentors";
 import companyMentors from "./people/companymentors";
@@ -24,6 +24,9 @@ import startupschool from "./pages/members/startupschool";
 import openletter from "./pages/public/openletter";
 import startupschoolinfo from "./pages/public/startupschoolinfo";
 import booking from "./pages/members/booking";
+import alumnipublic from "./pages/public/alumnipublic";
+import mentorspublic from "./pages/public/mentorspublic";
+import team from "./pages/public/team";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -59,6 +62,8 @@ export default createSchema({
     openletter,
     startupschoolinfo,
     booking,
-    /* Your types here! */
+    alumnipublic,
+    mentorspublic,
+    team,
   ]),
 });

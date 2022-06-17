@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { client } from "../../client";
-import ModuleCards from "../../components/authenticated/ModuleCards";
-import styled from "styled-components";
-import { Stack, Button, Container, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ScrollToTop from "../ScrollToTop";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+
+// MUI Imports
+import { Stack, Button, Container } from "@mui/material";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
+import ModuleCards from "../../components/authenticated/ModuleCards";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionChild,
+  DescriptionTypography,
+  OneCardGrid,
+} from "../../styledcomponents/containers";
 
 const WeekPage = () => {
   const [description, setDescription] = useState("");
@@ -85,19 +94,18 @@ const WeekPage = () => {
       {loading && <LoadingIndicator />}
       {!loading && (
         <>
-          <LandingPageHero
-            query={`*[_type == "week" && name == "${week}"]`}
+          <HeroHeader
+            query={`*[_type == "week" && name == "${week}"] {heroImage, title, subtitle, _id}`}
             type={"week"}
-            displaySubtitle={true}
           />
-          <DescriptionContainer>
+          <DescriptionContainer backgroundcolor="#e93a7d">
             <DescriptionChild>
-              <StyledTypo>{description}</StyledTypo>
+              <DescriptionTypography>{description}</DescriptionTypography>
             </DescriptionChild>
           </DescriptionContainer>
           <Container maxWidth="lg">
             {loading && <p>Loading...</p>}
-            <CardContainer>
+            <OneCardGrid>
               {!loading &&
                 modules.map((module) => (
                   <ModuleCards
@@ -140,9 +148,9 @@ const WeekPage = () => {
                   </Button>
                 )}
               </Stack>
-            </CardContainer>
-
+            </OneCardGrid>
             <ScrollToTop />
+            <PageFooter />
           </Container>
         </>
       )}
@@ -151,48 +159,3 @@ const WeekPage = () => {
 };
 
 export default WeekPage;
-
-const DescriptionContainer = styled.div`
-  background-color: #e93a7d;
-  /* background-color: #6356d7; */
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const CardContainer = styled.div`
-  display: grid;
-  gap: 32px;
-  padding-top: 16px;
-  padding-bottom: 40px;
-  margin: 0 auto;
-
-  @media (min-width: 768px) {
-    padding-top: 24px;
-    padding-bottom: 40px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
-`;

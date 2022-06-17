@@ -1,8 +1,13 @@
 import React from "react";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
+
+// MUI Imports
 import { Container } from "@mui/material";
-import ScrollToTop from "../ScrollToTop";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import { BackgroundBox } from "../../styledcomponents/containers";
 
 const MasterclassPage = () => {
   return (
@@ -15,11 +20,13 @@ const MasterclassPage = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero
-        query={`*[_type == "masterclasses"] {heroImage, title, subtitle}`}
+      <HeroHeader
+        query={`*[_type == "masterclasses"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
-      <Container maxWidth="lg"></Container>
+      <Container maxWidth="lg">
+        <PageFooter />
+      </Container>
       <ScrollToTop />
     </BackgroundBox>
   );

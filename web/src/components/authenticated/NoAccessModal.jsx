@@ -1,7 +1,7 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+
+// MUI Imports
+import { Box, Typography, Modal } from "@mui/material";
 
 const style = {
   position: "absolute",

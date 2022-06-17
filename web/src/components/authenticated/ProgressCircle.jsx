@@ -1,11 +1,10 @@
 import React from "react";
+
+// MUI Imports
 import { CircularProgress, Box, Typography } from "@mui/material";
-// import { lightMode } from "../../styledcomponents/themeoptions";
-// import { ThemeProvider } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const ProgressCircle = ({ value, circleSize, iconSize, fontSize }) => {
-  // console.log(props);
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
@@ -47,6 +46,7 @@ const ProgressCircle = ({ value, circleSize, iconSize, fontSize }) => {
 
 export default ProgressCircle;
 
+// NOTES:
 // LARGE SIZE:
 // Circular: 40,
 // Icon: 42,

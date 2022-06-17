@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { client } from "../../client";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import format from "date-fns/format";
+
+// MUI Imports
 import {
-  Stack,
   TextField,
   Container,
   Typography,
@@ -14,32 +19,38 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import AlarmIcon from "@mui/icons-material/Alarm";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// MUI Imports for booking
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import AlarmIcon from "@mui/icons-material/Alarm";
 import InputAdornment from "@mui/material/InputAdornment";
 import EventIcon from "@mui/icons-material/Event";
-import { client } from "../../client";
-import { useParams } from "react-router-dom";
-import LoadingIndicator from "../../components/LoadingIndicator";
-import format from "date-fns/format";
-import { useSelector } from "react-redux";
-import LandingPageHero from "../../components/authenticated/LandingPageHero";
-import styled from "styled-components";
-import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import { useNavigate } from "react-router-dom";
-import ScrollToTop from "../ScrollToTop";
+// Component Imports
+import HeroHeader from "../../components/authenticated/HeroHeader";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
+import PageFooter from "../../components/global/PageFooter";
+import ScrollToTop from "../../components/global/ScrollToTop";
+// Styling Imports
+import styled from "styled-components/macro";
+import {
+  BackgroundBox,
+  DescriptionContainer,
+  DescriptionChild,
+  DescriptionTypography,
+} from "../../styledcomponents/containers";
+// Function Imports
 
 const BookingPage = () => {
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(new Date());
   const [mentors, setMentors] = useState([]);
   const [mentor, setMentor] = useState([]);
+
   const [availableDays, setAvailableDays] = useState([]);
+
   const [availableDateTimes, setAvailableDateTimes] = useState([]);
-  // const id = useParams().mentorid;
   const selectedWeekday = value ? value.toString().substring(0, 3) : null;
   const [weekdayAvailability, setWeekdayAvailability] = useState([]);
   const [selectedTime, setSelectedTime] = useState("");
@@ -57,9 +68,10 @@ const BookingPage = () => {
       .then((res) => setDescription(res[0].description));
   }, []);
 
+  // Function for disabling dates
   const disableDates = (date) => {
-    // // Example: Disables weekends and dates before the 15th
-    //   return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
+    // Example: Disables weekends and dates before the 15th
+    // return date.getDay() === 0 || date.getDay() === 6 || date.getDate() < 15;
     if (availableDays === null) {
       setError("No available dates.");
       return (
@@ -72,7 +84,7 @@ const BookingPage = () => {
         date.getDay() === 6
       );
     }
-    const weekdayarray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const weekdayarray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const unavailabledays = weekdayarray.filter(
       (item) => !availableDays.includes(item)
     );
@@ -99,6 +111,7 @@ const BookingPage = () => {
     return eval(disabledDays);
   };
 
+  // useEffect for setting weekday availability when selecting new mentors
   useEffect(() => {
     setWeekdayAvailability(
       availableDateTimes
@@ -107,8 +120,8 @@ const BookingPage = () => {
     );
   }, [availableDateTimes, selectedWeekday]);
 
-  //   Fetch all mentors
-  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, bio, fullName, profilePhoto, topics, _id, bookingrequest}}`;
+  // Fetch all mentors for dropdown selection
+  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, fullName, _id, bookingrequest}}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorsQuery).then((response) => {
@@ -117,8 +130,8 @@ const BookingPage = () => {
     });
   }, [mentorsQuery]);
 
-  //   Fetch mentor by id
-  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}"] {availability, bio, fullName, profilePhoto, topics, _id}`;
+  // Fetch mentor by id for individual booking
+  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}"] {availability, fullName, _id}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorQuery).then((response) => {
@@ -135,6 +148,7 @@ const BookingPage = () => {
     });
   }, [mentorQuery]);
 
+  // Selecting a new mentor and resetting any errors
   const setNewMentor = (e) => {
     setMentor(mentors.filter((mentor) => mentor._id === e.target.value)[0]);
     setId(e.target.value);
@@ -142,6 +156,7 @@ const BookingPage = () => {
     setAlert("");
   };
 
+  // Formula for confirming a booking and patching to Sanity
   const confirmBooking = () => {
     client
       .patch(mentor._id)
@@ -174,26 +189,28 @@ const BookingPage = () => {
         height: "100%",
       }}
     >
-      <LandingPageHero
-        query={`*[_type == "booking"] {heroImage, title, subtitle}`}
+      <HeroHeader
+        query={`*[_type == "booking"] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       {!loading && description && (
-        <DescriptionContainer>
+        <DescriptionContainer backgroundcolor="#6356d7">
           <DescriptionChild>
-            <StyledTypo>{description}</StyledTypo>
+            <DescriptionTypography>{description}</DescriptionTypography>
           </DescriptionChild>
         </DescriptionContainer>
       )}
       <Container maxWidth="lg">
-        <Button
-          variant="contained"
-          startIcon={<ArrowBackRoundedIcon />}
-          onClick={() => navigate("/book-a-mentor")}
-          sx={{ margin: "20px 0" }}
-        >
-          Back
-        </Button>
+        <div style={{ maxWidth: "1032px", margin: "0 auto" }}>
+          <Button
+            variant="contained"
+            startIcon={<ArrowBackRoundedIcon />}
+            onClick={() => navigate("/book-a-mentor")}
+            sx={{ margin: "32px 0" }}
+          >
+            Back
+          </Button>
+        </div>
         {loading && <LoadingIndicator />}
         <PageGrid>
           <GridChild>
@@ -212,40 +229,38 @@ const BookingPage = () => {
             {!loading && (
               <>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <Stack spacing={3}>
-                    <MobileDatePicker
-                      label="Select date"
-                      inputFormat="dd/MM/yyyy"
-                      value={value}
-                      onChange={(newValue) => setValue(newValue)}
-                      // Adding calendar icon to end of input field
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <EventIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
-                      )}
-                      disablePast={true}
-                      // Below disables dates past the EOY
-                      // maxDate={new Date(new Date().getFullYear(), 11, 31)}
+                  <MobileDatePicker
+                    label="Select date"
+                    inputFormat="dd/MM/yyyy"
+                    value={value}
+                    onChange={(newValue) => setValue(newValue)}
+                    // Adding calendar icon to end of input field
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EventIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    )}
+                    disablePast={true}
+                    // Below disables dates past the EOY
+                    // maxDate={new Date(new Date().getFullYear(), 11, 31)}
 
-                      // Array that disables year and month picking from toolbar
-                      views={["day"]}
-                      shouldDisableDate={disableDates}
-                      // For hiding pen icon for switching to typing mode
-                      sx={{
-                        "& .MuiPickersToolbar-penIconButton": {
-                          display: "none",
-                        },
-                      }}
-                    />
-                  </Stack>
+                    // Array that disables year and month picking from toolbar
+                    views={["day"]}
+                    shouldDisableDate={disableDates}
+                    // For hiding pen icon for switching to typing mode
+                    sx={{
+                      "& .MuiPickersToolbar-penIconButton": {
+                        display: "none",
+                      },
+                    }}
+                  />
                 </LocalizationProvider>
                 <Typography>
                   {value ? format(value, "EEEE, d MMMM yyyy") : ""}
@@ -300,12 +315,15 @@ const BookingPage = () => {
                     <Alert severity="success">
                       <AlertTitle>{alert}</AlertTitle>Remember to keep an eye on
                       your e-mail for a follow-up confirmation with a video
-                      conferencing link.
-                      {/* You can also find your
-                booking request on your profile page. */}
+                      conferencing link. You can also find your booking request
+                      on your profile page.
                     </Alert>
                   )}
-                  <Button variant="contained" onClick={confirmBooking}>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    onClick={confirmBooking}
+                  >
                     Confirm booking request
                   </Button>
                 </>
@@ -314,6 +332,7 @@ const BookingPage = () => {
           )}
         </PageGrid>
       </Container>
+      <PageFooter />
       <ScrollToTop />
     </BackgroundBox>
   );
@@ -321,46 +340,15 @@ const BookingPage = () => {
 
 export default BookingPage;
 
-const DescriptionContainer = styled.div`
-  /* background-color: #e93a7d; */
-  background-color: #6356d7;
-  /* background-color: #5491e3; */
-  color: white;
-  padding: 48px 0;
-  white-space: pre-line;
-  vertical-align: bottom;
-
-  @media (min-width: 768px) {
-    padding: 48px 0;
-  }
-`;
-
-const DescriptionChild = styled(Container)`
-  && {
-    padding: 0 84px;
-  }
-`;
-
-const StyledTypo = styled(Typography)`
-  /* && {
-  } */
-
-  @media (min-width: 768px) {
-    && {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-  }
-`;
-
 const PageGrid = styled.div`
   display: grid;
   gap: 32px;
   margin: 0 auto;
   justify-content: center;
   padding-top: 32px;
-  padding-bottom: 40px;
   grid-template-columns: 1fr;
+  justify-items: center;
+  max-width: 1032px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -370,8 +358,7 @@ const PageGrid = styled.div`
 const GridChild = styled.div`
   max-width: 500px;
   width: 100%;
-  justify-self: center;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 `;

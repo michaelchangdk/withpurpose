@@ -1,4 +1,7 @@
 import React from "react";
+import { urlFor } from "../client";
+
+// MUI Imports
 import {
   Card,
   Stack,
@@ -7,7 +10,6 @@ import {
   CardContent,
   IconButton,
 } from "@mui/material";
-import { urlFor } from "../client";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const AlumniCards = ({ alumni }) => {

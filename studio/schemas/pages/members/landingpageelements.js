@@ -20,12 +20,6 @@ export default {
       type: "string",
     },
     {
-      name: "order",
-      title: "Order",
-      type: "number",
-      description: "Order - 1, 2, 3, 4 from left to right",
-    },
-    {
       name: "coverImage",
       title: "Card Cover image",
       type: "image",

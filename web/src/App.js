@@ -1,5 +1,3 @@
-// INSTEAD OF USECONTEXT, LET'S USE REDUX + REACT ROUTER
-// LOCAL STORAGE FOR SAVING LOGGED IN?
 import React from "react";
 import { Provider } from "react-redux";
 import { compose, createStore, combineReducers } from "@reduxjs/toolkit";
