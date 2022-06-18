@@ -57,35 +57,38 @@ const Contact = () => {
     } else {
       setSuccess("Your message has been sent. Thank you!");
       setAlert("");
-      console.log(
-        "firstname",
-        firstname,
-        "lastname",
-        lastname,
-        "email",
-        email,
-        "startup",
-        startup,
-        "entrepreneur",
-        entrepreneur,
-        "mentor",
-        mentor,
-        "volunteer",
-        volunteer,
-        "investor",
-        investor,
-        "corporatepartner",
-        corporatepartner,
-        "other",
-        other,
-        "startupname",
-        startupname,
-        "message",
-        message,
-        "newsletter",
-        newsletter
-      );
+      pushToMake();
     }
+  };
+
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      startup: startup,
+      startupname: startupname,
+      entrepreneur: entrepreneur,
+      mentor: mentor,
+      volunteer: volunteer,
+      investor: investor,
+      corporatepartner: corporatepartner,
+      other: other,
+      message: message,
+      newsletter: newsletter,
+    }),
+  };
+
+  const pushToMake = () => {
+    fetch(
+      "https://hook.eu1.make.com/6cjixxk5a0dx25p8ig5bd8x6fga8ctsd",
+      options
+    ).then((res) => {
+      console.log(res);
+      setSuccess("Your message has been sent. Thank you!");
+    });
   };
 
   return (
@@ -318,7 +321,6 @@ export default Contact;
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  /* grid-template-rows: auto auto; */
   gap: 32px;
   justify-items: center;
 
@@ -330,20 +332,10 @@ const GridContainer = styled.div`
 
 const TextContainer = styled.div`
   max-width: 500px;
-  /* justify-self: center; */
-
-  @media (min-width: 768px) {
-    /* justify-self: flex-end; */
-  }
 `;
 
 const ContactForm = styled.div`
   max-width: 500px;
-  /* justify-self: center; */
-
-  @media (min-width: 768px) {
-    /* justify-self: flex-start; */
-  }
 `;
 
 const StyledLink = styled.a`

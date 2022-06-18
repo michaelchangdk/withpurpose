@@ -342,7 +342,6 @@ const ProfilePage = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {/* var doubledArray = array.map(nested => nested.map(element => element * 2)); */}
                     {bookingRequests.length > 0 ? (
                       bookingRequests.map((nested) =>
                         nested.bookingrequest.map((booking) => (

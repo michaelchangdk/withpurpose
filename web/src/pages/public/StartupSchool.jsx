@@ -104,7 +104,7 @@ const StartupSchool = () => {
             <ThreeGrid>
               {!loading &&
                 response[0].threeColumns.map((column) => (
-                  <div>
+                  <div key={column.title}>
                     <Typography>{column.title}</Typography>
                     <Typography>{column.description}</Typography>
                   </div>
@@ -114,7 +114,7 @@ const StartupSchool = () => {
               <TwoBlock>
                 {!loading &&
                   response[0].blockOne.map((block) => (
-                    <div>
+                    <div key={block.title}>
                       <Icon
                         src={urlFor(block.image.asset._ref).url()}
                         alt={block.title}
@@ -124,22 +124,26 @@ const StartupSchool = () => {
                     </div>
                   ))}
               </TwoBlock>
-              <PortableText
-                sx={{ lineHeight: 2 }}
-                value={response[0]?.paragraphOne}
-                components={myPortableTextComponents}
-              />
+              <div style={{ listStylePosition: "inside", lineHeight: 2 }}>
+                <PortableText
+                  sx={{ lineHeight: 2 }}
+                  value={response[0]?.paragraphOne}
+                  components={myPortableTextComponents}
+                />
+              </div>
             </TwoGrid>
             <TwoGrid>
-              <PortableText
-                sx={{ lineHeight: 2 }}
-                value={response[0]?.paragraphTwo}
-                components={myPortableTextComponents}
-              />
+              <div>
+                <PortableText
+                  sx={{ lineHeight: 2 }}
+                  value={response[0]?.paragraphTwo}
+                  components={myPortableTextComponents}
+                />
+              </div>
               <TwoBlock>
                 {!loading &&
                   response[0].blockTwo.map((block) => (
-                    <div>
+                    <div key={block.title}>
                       <Icon
                         src={urlFor(block.image.asset._ref).url()}
                         alt={block.title}

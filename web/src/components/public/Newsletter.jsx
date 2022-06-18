@@ -8,6 +8,8 @@ import {
   Button,
   IconButton,
   Container,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -16,9 +18,45 @@ const Newsletter = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  // const emailPattern =
-  //   /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const emailPattern =
+    /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const handleSubmit = () => {
+    if (firstname.length < 2 || lastname.length < 2) {
+      setError("Please fill out your name.");
+    } else if (!email.match(emailPattern)) {
+      setError("Please enter a valid email address.");
+    } else {
+      setSuccess("Thank you for subscribing!");
+      setError("");
+      pushToMake();
+    }
+  };
+
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+    }),
+  };
+
+  const pushToMake = () => {
+    fetch(
+      "https://hook.eu1.make.com/wsf42sgicwtrhmc526tnxux5vku7g5js",
+      options
+    ).then((res) => {
+      console.log(res);
+      setSuccess("Thank you for subscribing!");
+    });
+  };
+
+  console.log(firstname, lastname, email);
 
   return (
     <Container maxWidth="xs" sx={{ margin: "0 auto" }}>
@@ -79,14 +117,19 @@ const Newsletter = () => {
           color="secondary"
           onChange={(e) => setEmail(e.target.value)}
         />
+        {success.length > 0 && <Alert severity="success">{success}</Alert>}
+        {error.length > 0 && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
         <Button
           variant="contained"
           color="primary"
           size="large"
           sx={{ fontSize: "18px", fontWeight: "700" }}
-          onClick={() => {
-            console.log(firstname, lastname, email);
-          }}
+          onClick={handleSubmit}
         >
           Submit
         </Button>
