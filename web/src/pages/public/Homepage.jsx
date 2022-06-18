@@ -301,8 +301,24 @@ const Homepage = () => {
             {/* CTA */}
             <Section>
               <SectionHeader textAlign="center" variant="h2">
-                Sign up <PurpleText>now</PurpleText>
+                Get started - it's <PurpleText>free</PurpleText>
               </SectionHeader>
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                sx={{
+                  width: "220px",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  margin: "0 auto",
+                }}
+                onClick={() =>
+                  window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
+                }
+              >
+                Register
+              </Button>
             </Section>
             {/* NEWSLETTER / REACH OUT */}
             <Section>
@@ -355,6 +371,7 @@ const Section = styled.section`
 const SectionHeader = styled(Typography)`
   && {
     font-size: 36px;
+    padding-bottom: 8px;
   }
 
   @media (min-width: 768px) {
