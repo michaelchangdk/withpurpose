@@ -184,26 +184,31 @@ const StartupSchool = () => {
               </div>
             </TwoGrid>
             <TwoGrid>
-              <div>
+              {!loading && (
+                <GridRight>
+                  <TwoBlock>
+                    {response[0].blockTwo.map((block) => (
+                      <GridChild key={block.title}>
+                        <Icon
+                          src={urlFor(block.image.asset._ref).url()}
+                          alt={block.title}
+                        />
+                        <PinkSubheader variant="h2">
+                          {block.title}
+                        </PinkSubheader>
+                        <Typography>{block.description}</Typography>
+                      </GridChild>
+                    ))}
+                  </TwoBlock>
+                </GridRight>
+              )}
+              <GridLeft>
                 <PortableText
                   sx={{ lineHeight: 2 }}
                   value={response[0]?.paragraphTwo}
                   components={myPortableTextComponents}
                 />
-              </div>
-              <TwoBlock>
-                {!loading &&
-                  response[0].blockTwo.map((block) => (
-                    <GridChild key={block.title}>
-                      <Icon
-                        src={urlFor(block.image.asset._ref).url()}
-                        alt={block.title}
-                      />
-                      <PinkSubheader variant="h2">{block.title}</PinkSubheader>
-                      <Typography>{block.description}</Typography>
-                    </GridChild>
-                  ))}
-              </TwoBlock>
+              </GridLeft>
             </TwoGrid>
           </ContentWrapper>
         </Container>
@@ -281,6 +286,24 @@ const GridChild = styled.div`
   flex-direction: column;
   gap: 8px;
   align-items: center;
+`;
+
+const GridLeft = styled.div`
+  @media (min-width: 768px) {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
+`;
+
+const GridRight = styled.div`
+  @media (min-width: 768px) {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
 `;
 
 const Icon = styled.img`
