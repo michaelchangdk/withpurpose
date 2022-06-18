@@ -312,6 +312,7 @@ const Homepage = () => {
                   fontSize: "18px",
                   fontWeight: "700",
                   margin: "0 auto",
+                  // zIndex: 2,
                 }}
                 onClick={() =>
                   window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
@@ -539,6 +540,16 @@ const CirclePhoto = styled.img`
     max-width: 200px;
   }
 `;
+
+// const Ellipse = styled.img`
+//   /* background-image: url(${ellipse});
+//   background-repeat: no-repeat;
+//   background-size: cover; */
+//   /*z-index: 1;*/
+//   /*max-width: 500px;*/
+//   max-width: 100%;
+//   opacity: 0.6;
+// `;
 
 // FOR STATISTICS SECTION
 const OverlayParent = styled.div`
