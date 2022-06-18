@@ -1,7 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-// import {urlFor} from "../../client";
-// import HelmetMetaData from "./HelmetMetaData";
 
 // React Share imports
 import {
@@ -41,14 +39,6 @@ const SharingModal = ({
   console.log("ID", id, "Title", title, "Excerpt", excerpt, "image", image);
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
-      {/* {openModal && <Helmet>
-        <meta charSet="utf-8" />
-        <title>{id}</title>
-        <meta name="title" description="idk" />
-        <link rel="canonical" href={`https://withpurpose.netlify.app/blog/${id}`} />
-      </Helmet>} */}
-
       {openModal && (
         <Helmet>
           <title>{title}</title>
@@ -96,20 +86,6 @@ const SharingModal = ({
       >
         <Box sx={style}>
           <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
-            {/* <FacebookShareButton 
-                url={`https://withpurpose.netlify.app/blog/${id}`}
-                quote={"With Purpose quote"}
-                hashtag="#WithPurpose"
-                >
-                 <FacebookIcon size={36} />
-              </FacebookShareButton> */}
-            {/* <FacebookShareButton
-                url={`https://withpurpose.netlify.app/blog/${id}`}
-                quote={excerpt}
-                hashtag={"#WithPurpose"}
-              >
-                 <FacebookIcon size={36} />
-              </FacebookShareButton> */}
             <TwitterShareButton
               title={title}
               hashtags={["WithPurpose", "Entrepreneur"]}

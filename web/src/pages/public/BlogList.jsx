@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { client, urlFor } from "../../client";
-// import {Helmet} from 'react-helmet';
 
 // MUI Imports
 import { Button, Container, Stack, Input } from "@mui/material";
@@ -50,7 +49,7 @@ const BlogList = () => {
   };
 
   const Share = () => {
-    const { id, title, excerpt, url } = holdArgs;
+    const { id, title, excerpt, url } = holdArgs
     return (
       <SharingModal
         openModal={openModal}
@@ -62,6 +61,7 @@ const BlogList = () => {
         image={url}
       />
     );
+  
   };
 
   const handleOpenModal = (id, title, excerpt, url) => {
@@ -71,18 +71,10 @@ const BlogList = () => {
 
   return (
     <div>
-      {/* <Helmet>
-              <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
-              </title>
-            </Helmet> */}
       <ThemeProvider theme={darkMode}>
         <BackgroundBox
           sx={{ bgcolor: "background.default", color: "text.primary" }}
         >
-          {/* <Helmet>
-          <title>With Purpose - Accelerating Women Entrepreneurs in the Nordics
-          </title>
-        </Helmet> */}
           <PublicHeader />
           <Container maxWidth="lg">
             <Stack maxWidth="md" sx={{ margin: "0 auto" }}>

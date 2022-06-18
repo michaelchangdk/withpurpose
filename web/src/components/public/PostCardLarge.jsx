@@ -1,7 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import {Helmet} from "react-helmet";
-// import SharingModal from "./SharingModal";
 
 // MUI imports
 import {
@@ -13,14 +11,13 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
+
 // Styling Imports
 import styled from "styled-components/macro";
-import SharingModal from "./SharingModal";
 import {
   AspectRatioBox,
   AspectRatioChild,
 } from "../../styledcomponents/containers";
-// , showBlogpost, openModal, setOpenModal
 
 const PostCardLarge = ({
   duration,
@@ -28,12 +25,9 @@ const PostCardLarge = ({
   url,
   id,
   excerpt,
-  // showBlogpost,
-  openModal,
-  // handleOpenModal,
+  handleOpenModal,
   setOpenModal,
 }) => {
-  // const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const showBlogpost = (id) => {
@@ -60,18 +54,10 @@ const PostCardLarge = ({
       <div style={{ maxWidth: "100%" }}>
         <StyledCardActions>
           <Duration>{duration}</Duration>
-          {/* <SharingModal
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            id={id}
-            title={title}
-            excerpt={excerpt}
-            image={image}
-          /> */}
           <Button
             sx={{ color: "text.primary" }}
             size="small"
-            onClick={() => setOpenModal(true)}
+            onClick={() => handleOpenModal()}
           >
             Share
           </Button>
@@ -95,36 +81,6 @@ const PostCardLarge = ({
           </CardContent>
         </Link>
       </div>
-      {/* <div>
-        <StyledCardActions>
-          <Duration>{duration}</Duration>
-          <Button
-            sx={{ color: "text.primary" }}
-            size="small"
-            onClick={() => handleOpenModal(id, title, excerpt, url)}
-          >
-            Share
-          </Button>
-        </StyledCardActions>
-        <Link
-          onClick={() => showBlogpost(id)}
-          sx={{ color: "text.primary", textDecoration: "none" }}
-        >
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              sx={{ lineHeight: 1 }}
-            >
-              {title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {excerpt}...
-            </Typography>
-          </CardContent>
-        </Link>
-      </div> */}
     </StyledCard>
   );
 };
