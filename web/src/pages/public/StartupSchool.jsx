@@ -3,7 +3,7 @@ import { PortableText } from "@portabletext/react";
 import { urlFor } from "../../client";
 
 // MUI Imports
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
@@ -18,7 +18,7 @@ import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
 // Function import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "startupschoolinfo"] {title, subtitle, _id, intro, expectations, threeColumns, blockOne, paragraphOne, blockTwo, paragraphTwo}`;
+const pageQuery = `*[_type == "startupschoolinfo"] {title, subtitle, _id, intro, cta, expectationsHeader, expectations, threeColumns, blockOne, paragraphOne, blockTwo, paragraphTwo}`;
 
 const StartupSchool = () => {
   const [loading, response] = FetchResponse(pageQuery);
@@ -94,18 +94,61 @@ const StartupSchool = () => {
                 components={myPortableTextComponents}
               />
             </div>
-            <div>
-              <PortableText
-                sx={{ lineHeight: 2 }}
-                value={response[0]?.expectations}
-                components={myPortableTextComponents}
-              />
+            <div
+              style={{
+                margin: "0 auto",
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+              }}
+            >
+              {!loading && (
+                <StyledCTA variant="h2">
+                  {response[0].cta.substring(
+                    0,
+                    response[0].cta.lastIndexOf(" ")
+                  )}
+                  <PurpleSpan>
+                    {" "}
+                    {response[0].cta.split(" ").slice(-1)}
+                  </PurpleSpan>
+                </StyledCTA>
+              )}
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                sx={{
+                  width: "220px",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  margin: "0 auto",
+                }}
+                onClick={() =>
+                  window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
+                }
+              >
+                Register
+              </Button>
             </div>
+            {!loading && (
+              <div>
+                <PurpleSubheader variant="h4">
+                  {response[0].expectationsHeader}
+                </PurpleSubheader>
+                <PortableText
+                  sx={{ lineHeight: 2 }}
+                  value={response[0]?.expectations}
+                  components={myPortableTextComponents}
+                />
+              </div>
+            )}
             <ThreeGrid>
               {!loading &&
                 response[0].threeColumns.map((column) => (
                   <GridChild key={column.title}>
-                    <PurpleSubheader variant="h4" fontWeight={500}>
+                    <PurpleSubheader variant="h4">
                       {column.title}
                     </PurpleSubheader>
                     <Typography>{column.description}</Typography>
@@ -126,7 +169,13 @@ const StartupSchool = () => {
                     </GridChild>
                   ))}
               </TwoBlock>
-              <div style={{ listStylePosition: "inside", lineHeight: 1.5 }}>
+              <div
+                style={{
+                  listStylePosition: "outside",
+                  paddingLeft: "1em",
+                  lineHeight: 1.5,
+                }}
+              >
                 <PortableText
                   sx={{ lineHeight: 2 }}
                   value={response[0]?.paragraphOne}
@@ -170,7 +219,7 @@ export default StartupSchool;
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 60px;
   padding: 0 60px;
 `;
 
@@ -241,10 +290,37 @@ const Icon = styled.img`
 
 // Typography Styling
 const PurpleSubheader = styled(Typography)`
-  color: #6356d7;
+  && {
+    color: #6356d7;
+    font-weight: 600;
+  }
 `;
 
 const PinkSubheader = styled(Typography)`
-  color: #e93a7d;
-  font-size: 16px;
+  && {
+    color: #e93a7d;
+    font-size: 20px;
+  }
+
+  @media (min-width: 1100px) {
+    && {
+      font-size: 24px;
+    }
+  }
+`;
+
+const StyledCTA = styled(Typography)`
+  && {
+    font-size: 40px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 60px;
+    }
+  }
+`;
+
+const PurpleSpan = styled.span`
+  color: #6356d7;
 `;

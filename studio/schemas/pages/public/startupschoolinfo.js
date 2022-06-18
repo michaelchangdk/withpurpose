@@ -19,6 +19,16 @@ export default {
       type: "blockContent",
     },
     {
+      name: "cta",
+      title: "CTA header",
+      type: "string",
+    },
+    {
+      name: "expectationsHeader",
+      title: "Expectations header",
+      type: "string",
+    },
+    {
       name: "expectations",
       title: "What to expect",
       type: "blockContent",

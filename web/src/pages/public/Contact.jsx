@@ -105,7 +105,7 @@ const Contact = () => {
             Contact us
           </PageTitle>
           <GridContainer>
-            <TextContainer>
+            <GridChild>
               <Stack gap={2}>
                 <Typography variant="h5" fontWeight={400} lineHeight={1.2}>
                   Ready to make an impact? Contact us to learn how we can start
@@ -164,8 +164,8 @@ const Contact = () => {
                   </IconButton>
                 </Stack>
               </Stack>
-            </TextContainer>
-            <ContactForm>
+            </GridChild>
+            <GridChild>
               <Stack gap={2}>
                 <TextField
                   label="First Name"
@@ -306,7 +306,7 @@ const Contact = () => {
                   Submit
                 </Button>
               </Stack>
-            </ContactForm>
+            </GridChild>
           </GridContainer>
         </Container>
         <PageFooter />
@@ -323,6 +323,8 @@ const GridContainer = styled.div`
   grid-template-columns: 1fr;
   gap: 32px;
   justify-items: center;
+  max-width: 1032px;
+  margin: 0 auto;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
@@ -330,11 +332,7 @@ const GridContainer = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
-  max-width: 500px;
-`;
-
-const ContactForm = styled.div`
+const GridChild = styled.div`
   max-width: 500px;
 `;
 

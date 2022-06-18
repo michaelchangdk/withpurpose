@@ -23,6 +23,7 @@ import MentorsPrivate from "./authenticated/MentorsPrivate";
 import AlumniPrivate from "./authenticated/AlumniPrivate";
 import ProfilePage from "./authenticated/ProfilePage";
 import BookingPage from "./authenticated/BookingPage";
+import RegistrationPage from "./public/RegistrationPage";
 import NoAccess from "./login/NoAccess";
 // MUI Theme Provider and Theme options Import
 import { ThemeProvider } from "@mui/material/styles";
@@ -62,6 +63,7 @@ const Router = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/register" element={<RegistrationPage />} />
           <Route
             path="/startup-school-elearning"
             element={loggedin ? <LandingPage /> : <NoAccess />}
