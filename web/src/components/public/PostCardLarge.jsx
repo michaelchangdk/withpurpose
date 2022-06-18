@@ -52,11 +52,14 @@ const PostCardLarge = ({
       <div style={{ maxWidth: "50%" }}>
         <StyledCardActions>
           <Duration>{duration}</Duration>
-          <SharingModal
+          {/* <SharingModal
             openModal={openModal}
             setOpenModal={setOpenModal}
             id={id}
-          />
+            title={title}
+            excerpt={excerpt}
+            image={image}
+          /> */}
           <Button
             sx={{ color: "text.primary" }}
             size="small"
