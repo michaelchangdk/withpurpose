@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 // import {Helmet} from "react-helmet";
 // import SharingModal from "./SharingModal";
 
@@ -14,6 +15,8 @@ import {
 } from "@mui/material";
 // Styling Imports
 import styled from "styled-components/macro";
+import SharingModal from "./SharingModal";
+// , showBlogpost, openModal, setOpenModal
 
 const PostCardLarge = ({
   duration,
@@ -21,63 +24,101 @@ const PostCardLarge = ({
   url,
   id,
   excerpt,
-  showBlogpost,
+  // showBlogpost,
   openModal,
-  handleOpenModal,
+  // handleOpenModal,
+  setOpenModal,
 }) => {
-  return (
-    <div>
-      {/* {openModal && <Helmet>
-        <meta charSet="utf-8" />
-        <title>{title}</title>
-        <meta name={title} description="idk" />
-        <link rel="canonical" href={`https://withpurpose.netlify.app/blog/${id}`} />
-      </Helmet>} */}
+  // const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
-      <StyledCard>
-        <Link onClick={() => showBlogpost(id)}>
-          <CardMedia
-            component="img"
-            height="100%"
-            max-height="10px"
-            alt={title}
-            image={url}
+  const showBlogpost = (id) => {
+    navigate(`/blog/${id}`);
+  };
+  return (
+    <StyledCard>
+      <Link
+        sx={{ maxHeight: "300px", maxWidth: "50%" }}
+        onClick={() => showBlogpost(id)}
+      >
+        <CardMedia
+          component="img"
+          width="100%"
+          height="100%"
+          alt={title}
+          image={url}
+        />
+      </Link>
+      <div style={{ maxWidth: "50%" }}>
+        <StyledCardActions>
+          <Duration>{duration}</Duration>
+          <SharingModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            id={id}
           />
-        </Link>
-        <div>
-          <StyledCardActions>
-            <Duration>{duration}</Duration>
-            <Button
-              sx={{ color: "text.primary" }}
-              size="small"
-              onClick={() => handleOpenModal(id, title, excerpt, url)}
-            >
-              Share
-            </Button>
-          </StyledCardActions>
-          <Link
-            onClick={() => showBlogpost(id)}
-            sx={{ color: "text.primary", textDecoration: "none" }}
+          <Button
+            sx={{ color: "text.primary" }}
+            size="small"
+            onClick={() => setOpenModal(true)}
           >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                sx={{ lineHeight: 1 }}
-              >
-                {title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {excerpt}...
-              </Typography>
-            </CardContent>
-          </Link>
-        </div>
-      </StyledCard>
-    </div>
+            Share
+          </Button>
+        </StyledCardActions>
+        <Link
+          onClick={() => showBlogpost(id)}
+          sx={{ color: "text.primary", textDecoration: "none" }}
+        >
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ lineHeight: 1 }}
+            >
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {excerpt}...
+            </Typography>
+          </CardContent>
+        </Link>
+      </div>
+      {/* <div>
+        <StyledCardActions>
+          <Duration>{duration}</Duration>
+          <Button
+            sx={{ color: "text.primary" }}
+            size="small"
+            onClick={() => handleOpenModal(id, title, excerpt, url)}
+          >
+            Share
+          </Button>
+        </StyledCardActions>
+        <Link
+          onClick={() => showBlogpost(id)}
+          sx={{ color: "text.primary", textDecoration: "none" }}
+        >
+          <CardContent>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ lineHeight: 1 }}
+            >
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {excerpt}...
+            </Typography>
+          </CardContent>
+        </Link>
+      </div> */}
+    </StyledCard>
   );
 };
+
+export default PostCardLarge;
 
 const StyledCardActions = styled(CardActions)`
   && {
@@ -89,12 +130,16 @@ const StyledCardActions = styled(CardActions)`
 const StyledCard = styled(Card)`
   && {
     max-width: 345px;
-    display: grid;
+    display: flex;
     margin: 0 auto;
+    flex-direction: column;
+
+    flex-wrap: wrap;
 
     @media (min-width: 768px) {
+      flex-direction: row;
       max-width: 100%;
-      grid-template-columns: 1fr 1fr;
+      flex-wrap: no-wrap;
     }
   }
 `;
@@ -110,5 +155,3 @@ const Duration = styled(Typography)`
     align-items: flex-start;
   }
 `;
-
-export default PostCardLarge;

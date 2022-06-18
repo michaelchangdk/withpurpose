@@ -104,27 +104,29 @@ const StartupSchool = () => {
             <ThreeGrid>
               {!loading &&
                 response[0].threeColumns.map((column) => (
-                  <div key={column.title}>
-                    <Typography>{column.title}</Typography>
+                  <GridChild key={column.title}>
+                    <PurpleSubheader variant="h4" fontWeight={500}>
+                      {column.title}
+                    </PurpleSubheader>
                     <Typography>{column.description}</Typography>
-                  </div>
+                  </GridChild>
                 ))}
             </ThreeGrid>
             <TwoGrid>
               <TwoBlock>
                 {!loading &&
                   response[0].blockOne.map((block) => (
-                    <div key={block.title}>
+                    <GridChild key={block.title}>
                       <Icon
                         src={urlFor(block.image.asset._ref).url()}
                         alt={block.title}
                       />
-                      <Typography>{block.title}</Typography>
+                      <PinkSubheader variant="h2">{block.title}</PinkSubheader>
                       <Typography>{block.description}</Typography>
-                    </div>
+                    </GridChild>
                   ))}
               </TwoBlock>
-              <div style={{ listStylePosition: "inside", lineHeight: 2 }}>
+              <div style={{ listStylePosition: "inside", lineHeight: 1.5 }}>
                 <PortableText
                   sx={{ lineHeight: 2 }}
                   value={response[0]?.paragraphOne}
@@ -143,14 +145,14 @@ const StartupSchool = () => {
               <TwoBlock>
                 {!loading &&
                   response[0].blockTwo.map((block) => (
-                    <div key={block.title}>
+                    <GridChild key={block.title}>
                       <Icon
                         src={urlFor(block.image.asset._ref).url()}
                         alt={block.title}
                       />
-                      <Typography>{block.title}</Typography>
+                      <PinkSubheader variant="h2">{block.title}</PinkSubheader>
                       <Typography>{block.description}</Typography>
-                    </div>
+                    </GridChild>
                   ))}
               </TwoBlock>
             </TwoGrid>
@@ -225,7 +227,24 @@ const TwoGrid = styled.div`
   }
 `;
 
+const GridChild = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+`;
+
 const Icon = styled.img`
   width: 60%;
   max-width: 528px;
+`;
+
+// Typography Styling
+const PurpleSubheader = styled(Typography)`
+  color: #6356d7;
+`;
+
+const PinkSubheader = styled(Typography)`
+  color: #e93a7d;
+  font-size: 16px;
 `;
