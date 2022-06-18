@@ -5,18 +5,18 @@ import { Helmet } from "react-helmet";
 import { PortableText } from "@portabletext/react";
 
 // MUI Imports
-import { Link, Container, Button } from "@mui/material";
+import { Container, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 // Component Imports
 import PublicHeader from "../../components/public/PublicHeader";
-// import PostCardSmall from "../../components/public/PostCardSmall";
+import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 import myPortableTextComponents from "../../services/myPortableTextComponents";
 // import HelmetMetaData from "../../components/public/HelmetMetaData";
-import PostCardLarge from "../../components/public/PostCardLarge";
+// import PostCardLarge from "../../components/public/PostCardLarge";
 
 // Styling Imports
 import { Ellipsis } from "../../styledcomponents/buttons";
@@ -172,37 +172,21 @@ const BlogPost = () => {
                       components={myPortableTextComponents}
                     />
                   </div>
-                  <ThreeGrid>
-                    {recentPosts &&
-                      recentPosts.map((post) => {
-                        return (
-                          <Link
-                            key={post._id}
-                            onClick={() => navigate(`/blog/${post._id}`)}
-                            style={{
-                              margin: 16,
-                              textDecoration: "none",
-                              color: "hsl(0, 0%, 20%)",
-                              display: "flex",
-                              justifyContent: "center",
-                            }}
-                          >
-                            {/* <PostCardSmall
-                            url={urlFor(post.image.asset._ref).url()}
-                            title={post.title}
-                          /> */}
-                            <PostCardLarge
-                              duration={post.duration}
-                              title={post.title}
-                              url={urlFor(post.image.asset._ref).url()}
-                              id={post._id}
-                              excerpt={post.excerpt}
-                            />
-                          </Link>
-                        );
-                      })}
-                  </ThreeGrid>
                 </BackgroundBox>
+                <ThreeGrid style={{ gap: "16px" }}>
+                  {recentPosts &&
+                    recentPosts.map((post) => {
+                      return (
+                        <PostCardSmall
+                          url={urlFor(post.image.asset._ref).url()}
+                          title={post.title}
+                          duration={post.duration}
+                          excerpt={post.excerpt}
+                          link={`/blog/${post._id}`}
+                        />
+                      );
+                    })}
+                </ThreeGrid>
               </ThemeProvider>
             </Container>
             {/* </Stack> */}

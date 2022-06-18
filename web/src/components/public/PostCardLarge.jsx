@@ -16,6 +16,10 @@ import {
 // Styling Imports
 import styled from "styled-components/macro";
 import SharingModal from "./SharingModal";
+import {
+  AspectRatioBox,
+  AspectRatioChild,
+} from "../../styledcomponents/containers";
 // , showBlogpost, openModal, setOpenModal
 
 const PostCardLarge = ({
@@ -38,18 +42,22 @@ const PostCardLarge = ({
   return (
     <StyledCard>
       <Link
-        sx={{ maxHeight: "300px", maxWidth: "50%" }}
+        sx={{ maxHeight: "300px", maxWidth: "100%" }}
         onClick={() => showBlogpost(id)}
       >
-        <CardMedia
-          component="img"
-          width="100%"
-          height="100%"
-          alt={title}
-          image={url}
-        />
+        <AspectRatioBox>
+          <AspectRatioChild>
+            <CardMedia
+              component="img"
+              width="100%"
+              height="100%"
+              alt={title}
+              image={url}
+            />
+          </AspectRatioChild>
+        </AspectRatioBox>
       </Link>
-      <div style={{ maxWidth: "50%" }}>
+      <div style={{ maxWidth: "100%" }}>
         <StyledCardActions>
           <Duration>{duration}</Duration>
           {/* <SharingModal
@@ -132,15 +140,17 @@ const StyledCardActions = styled(CardActions)`
 
 const StyledCard = styled(Card)`
   && {
-    max-width: 345px;
-    display: flex;
-    margin: 0 auto;
-    flex-direction: column;
+    max-width: 500px;
+    display: grid;
 
+    margin: 0 auto;
+
+    flex-direction: column;
     flex-wrap: wrap;
 
     @media (min-width: 768px) {
-      flex-direction: row;
+      grid-template-columns: 1fr 1fr;
+
       max-width: 100%;
       flex-wrap: no-wrap;
     }

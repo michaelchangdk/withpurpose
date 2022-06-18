@@ -1,56 +1,82 @@
 import React from "react";
+import { urlFor } from "../../client";
+import { useNavigate } from "react-router-dom";
 // MUI Imports
-import { Typography, Card, CardActionArea, CardContent } from "@mui/material";
+import {
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  CardActions,
+  CardActionArea,
+} from "@mui/material";
 // Styling Imports
 import styled from "styled-components/macro";
+import {
+  AspectRatioBox,
+  AspectRatioChild,
+} from "../../styledcomponents/containers";
 
-const PostCardSmall = ({ title, url }) => {
+const PostCardSmall = ({ duration, title, url, id, excerpt, link }) => {
+  const navigate = useNavigate();
   return (
-    <Card
-      sx={{
-        width: "100%",
-        maxWidth: "sm",
-      }}
-    >
-      <CardActionArea sx={{ height: "100%", display: "grid" }}>
-        <AspectRatioBox>
-          <AspectRatioChild backgroundimage={url}></AspectRatioChild>
-        </AspectRatioBox>
-        <CardContent sx={{ alignSelf: "start", height: "100%" }}>
-          <Typography
-            gutterBottom
-            variant="h5"
-            fontWeight={400}
-            component="div"
-            lineHeight={1}
-          >
-            {title}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <CardActionArea onClick={() => navigate(link)}>
+      <StyledCard>
+        <CardMedia>
+          <AspectRatioBox>
+            <AspectRatioChild
+              backgroundimage={urlFor(url).url()}
+            ></AspectRatioChild>
+          </AspectRatioBox>
+        </CardMedia>
+        <div style={{ maxWidth: "100%" }}>
+          <CardContent sx={{ alignSelf: "start", height: "100%" }}>
+            <StyledCardActions>
+              <Duration>{duration}</Duration>
+            </StyledCardActions>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{ lineHeight: 1 }}
+            >
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {excerpt}...
+            </Typography>
+          </CardContent>
+        </div>
+      </StyledCard>
+    </CardActionArea>
   );
 };
 
-const AspectRatioBox = styled.div`
-  height: 0;
-  overflow: hidden;
-  padding-top: 56.25%;
-  position: relative;
-  align-self: start;
+const StyledCardActions = styled(CardActions)`
+  && {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
-const AspectRatioChild = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.backgroundimage});
-  background-position-x: ${(props) => props.xposition * 100}%;
-  background-position-y: ${(props) => props.yposition * 100}%;
-  background-repeat: no-repeat;
-  background-size: cover;
+const StyledCard = styled(Card)`
+  && {
+    cursor: pointer;
+    margin: 0 auto;
+    height: 100%;
+  }
+`;
+
+const Duration = styled(Typography)`
+  && {
+    padding: 0 8px;
+    font-size: 0.725rem;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 `;
 
 export default PostCardSmall;

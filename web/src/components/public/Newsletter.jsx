@@ -56,8 +56,6 @@ const Newsletter = () => {
     });
   };
 
-  console.log(firstname, lastname, email);
-
   return (
     <Container maxWidth="xs" sx={{ margin: "0 auto" }}>
       <Stack spacing={2}>

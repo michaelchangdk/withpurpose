@@ -64,6 +64,16 @@ const StartupSchool = () => {
           </a>
         );
       },
+      purpletext: ({ children }) => {
+        return (
+          <span style={{ color: "#6356d7", fontWeight: 500 }}>{children}</span>
+        );
+      },
+      pinktext: ({ children }) => {
+        return (
+          <span style={{ color: "#e93a7d", fontWeight: 500 }}>{children}</span>
+        );
+      },
     },
   };
 
@@ -334,12 +344,12 @@ const PinkSubheader = styled(Typography)`
 
 const StyledCTA = styled(Typography)`
   && {
-    font-size: 40px;
+    font-size: 36px;
   }
 
   @media (min-width: 768px) {
     && {
-      font-size: 60px;
+      font-size: 52px;
     }
   }
 `;
