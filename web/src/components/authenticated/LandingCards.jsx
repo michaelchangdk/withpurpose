@@ -86,8 +86,8 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
             </Typography>
           </CardContent>
         </Card>
-        <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
       </CardActionArea>
+      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
     </>
   );
 };
