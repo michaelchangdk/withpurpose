@@ -83,7 +83,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
             fontWeight={400}
             fontSize={14}
           >
-            {type} | {duration}
+            {type} {duration ? `| ${duration}` : ""}
           </Typography>
         </Stack>
         <Stack direction="column" alignItems="flex-start" mt={1}>

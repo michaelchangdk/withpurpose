@@ -91,7 +91,6 @@ const ModulePage = () => {
   const fetchAll = async () => {
     await fetchModule();
     await fetchModules();
-    // await fetchCompletedLessons();
   };
 
   // UseEffect for fetchAll
