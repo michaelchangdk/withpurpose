@@ -1,4 +1,5 @@
 import S from "@sanity/desk-tool/structure-builder";
+import DocumentsPane from "sanity-plugin-documents-pane";
 import schoolIcon from "./components/schoolIcon";
 import peopleIcon from "./components/peopleIcon";
 import publicIcon from "./components/publicIcon";
@@ -218,3 +219,12 @@ export default () =>
           ].includes(listItem.getId())
       ),
     ]);
+S.view
+  .component(DocumentsPane)
+  .options({
+    query: `*[!(_id in path("user.**")) && references($id)]`,
+    params: { id: `_id` },
+    useDraft: false,
+    debug: true,
+  })
+  .title("Incoming References");
