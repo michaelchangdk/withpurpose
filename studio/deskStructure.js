@@ -1,9 +1,21 @@
 import S from "@sanity/desk-tool/structure-builder";
-import schoolIcon from "./components/schoolIcon";
-import peopleIcon from "./components/peopleIcon";
-import publicIcon from "./components/publicIcon";
-import privateIcon from "./components/privateIcon";
-import userIcon from "./components/userIcon";
+import { FaUsers } from "react-icons/fa";
+import { FaSchool } from "react-icons/fa";
+import { FaLockOpen } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
+import { FaPenFancy } from "react-icons/fa";
+import { FaNewspaper } from "react-icons/fa";
+import { FaUserAstronaut } from "react-icons/fa";
+import { FaUserGraduate } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
+import { FaUserNinja } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
+import { FaRocket } from "react-icons/fa";
+import { FaDiceD20 } from "react-icons/fa";
+
+// Icon for a potential settings page
+// import {FaCogs} from "react-icons/fa";
 
 export default () =>
   S.list()
@@ -12,7 +24,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("Public Pages")
-        .icon(publicIcon)
+        .icon(FaLockOpen)
         .child(
           S.list()
             .title("Public Pages")
@@ -22,11 +34,13 @@ export default () =>
               //   .child(S.editor().schemaType("homepage").documentId("Home")),
               S.listItem()
                 .title("Open Letter")
+                .icon(FaPenFancy)
                 .child(
                   S.editor().schemaType("openletter").documentId("openletter")
                 ),
               S.listItem()
                 .title("Startup School Info Page")
+                .icon(FaInfoCircle)
                 .child(
                   S.editor()
                     .schemaType("startupschoolinfo")
@@ -34,16 +48,19 @@ export default () =>
                 ),
               S.listItem()
                 .title("Meet the Team")
+                .icon(FaUserAstronaut)
                 .child(
                   S.editor().schemaType("teampage").documentId("teampage")
                 ),
               S.listItem()
                 .title("Our Alumni")
+                .icon(FaUserGraduate)
                 .child(
                   S.editor().schemaType("alumnipage").documentId("alumnipage")
                 ),
               S.listItem()
                 .title("Mentors Page")
+                .icon(FaUserTie)
                 .child(
                   S.editor()
                     .schemaType("mentorspublic")
@@ -51,6 +68,7 @@ export default () =>
                 ),
               S.listItem()
                 .title("Blog")
+                .icon(FaNewspaper)
                 // .schemaType("blogpost")
                 // .child(S.documentTypeList("blogpost").title("Blog Post")),
                 .child(
@@ -78,7 +96,7 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("People")
-        .icon(peopleIcon)
+        .icon(FaUsers)
         .child(
           // Make a list in the second pane called Portfolio
           S.list()
@@ -111,14 +129,15 @@ export default () =>
       S.listItem()
         // Give it a title
         .title("Private Pages")
-        .icon(privateIcon)
+        .icon(FaLock)
         .child(
           S.list()
             .title("Private Pages")
             .items([
               // For making singleton documents
               S.listItem()
-                .title("Landing page")
+                .title("Landing Page")
+                .icon(FaRocket)
                 .child(
                   S.editor()
                     .schemaType("landingpage")
@@ -126,6 +145,7 @@ export default () =>
                 ),
               S.listItem()
                 .title("Startup School")
+                .icon(FaSchool)
                 .child(
                   S.editor()
                     .schemaType("startupschool")
@@ -133,6 +153,7 @@ export default () =>
                 ),
               S.listItem()
                 .title("Masterclasses")
+                .icon(FaDiceD20)
                 .child(
                   S.editor()
                     .schemaType("masterclasses")
@@ -140,14 +161,17 @@ export default () =>
                 ),
               S.listItem()
                 .title("Mentors")
+                .icon(FaUserNinja)
                 .child(S.editor().schemaType("mentors").documentId("mentors")),
               S.listItem()
                 .title("Community")
+                .icon(FaUserGraduate)
                 .child(
                   S.editor().schemaType("community").documentId("community")
                 ),
               S.listItem()
                 .title("Booking")
+                .icon(FaClock)
                 .child(S.editor().schemaType("booking").documentId("booking")),
             ])
         ),
@@ -155,7 +179,7 @@ export default () =>
       // Make a new list item
       S.listItem()
         .title("School")
-        .icon(schoolIcon)
+        .icon(FaSchool)
         .child(
           S.list()
             .title("School")
@@ -180,7 +204,6 @@ export default () =>
 
       S.listItem()
         .title("User Management")
-        .icon(userIcon)
         .schemaType("user")
         .child(S.documentTypeList("user").title("Users")),
 
