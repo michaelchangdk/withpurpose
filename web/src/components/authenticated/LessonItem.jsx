@@ -26,7 +26,7 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
   const labelId = `checkbox-list-secondary-label-${lesson.title}`;
   const completedLesson = useSelector((store) =>
     store.authenticated.completedLessons.filter(
-      (a) => a.lessonRef === lesson._id
+      (a) => a.lessonReference === lesson._id
     )
   );
 
@@ -43,7 +43,7 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
       dispatch(
         authenticated.actions.addCompletedLesson({
           _key: lesson._id,
-          lessonRef: lesson._id,
+          lessonReference: lesson._id,
           lessonTitle: lesson.title,
           userId: userid,
           completed: true,

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { client } from "../../client";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { authenticated } from "../../reducers/authenticated";
+import { useSelector } from "react-redux";
 
 // MUI Imports
 import { Stack, Typography, Button, Container } from "@mui/material";
@@ -24,7 +23,6 @@ import {
 
 const ModulePage = () => {
   // For setting the page and beginning the queries
-  const dispatch = useDispatch();
   const { module } = useParams();
   const [moduleName, setModuleName] = useState("");
   const [moduleDescription, setModuleDescription] = useState("");
@@ -35,13 +33,11 @@ const ModulePage = () => {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  const userid = useSelector((store) => store.authenticated.uid);
-
   // For tracking completed lessons
   const lessonIds = lessons.map((a) => a._id);
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
-  ).filter((lesson) => lessonIds.includes(lesson.lessonRef));
+  ).filter((lesson) => lessonIds.includes(lesson.lessonReference));
 
   // For Navigation
   const navigate = useNavigate();
@@ -52,23 +48,15 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, title, type, _id, description}`;
+    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->, name, title, type, _id, description, "week": *[_type=='week' && references(^._id)]{name, title}}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);
     setModuleType(response[0].type);
     setModuleDescription(response[0].description);
     setLessons(response[0].lesson);
-    setLoading(false);
-  };
-
-  // For Navigation
-  const fetchWeek = async () => {
-    setLoading(true);
-    const weekQuery = `*[_type == "module" && title == "${module}"] {"week": *[_type=='week' && references(^._id)]{name, title}}`;
-    const fetch = await client.fetch(weekQuery);
-    const response = await fetch;
     setWeek(response[0].week[0].name);
+    setLoading(false);
   };
 
   const fetchModules = async () => {
@@ -88,23 +76,6 @@ const ModulePage = () => {
     setModuleIndex(moduleArray.indexOf(module));
   }, [moduleArray, module, moduleIndex]);
 
-  // For fetching completed lessons by user
-  const fetchCompletedLessons = async () => {
-    setLoading(true);
-    const completedLessonQuery = `*[_type == "user" && _id == "${userid}"] {completed}`;
-    const fetch = await client.fetch(completedLessonQuery);
-    const response = await fetch;
-
-    if (response[0].completed === null || response[0].completed.length === 0) {
-      // For progress tracker
-    } else {
-      response[0].completed.forEach((lesson) =>
-        dispatch(authenticated.actions.addCompletedLesson(lesson))
-      );
-    }
-    setLoading(false);
-  };
-
   // useEffect for progress tracker
   useEffect(() => {
     const progress = (completedLessons.length / lessons.length) * 100;
@@ -119,8 +90,7 @@ const ModulePage = () => {
   const fetchAll = async () => {
     await fetchModule();
     await fetchModules();
-    await fetchWeek();
-    await fetchCompletedLessons();
+    // await fetchCompletedLessons();
   };
 
   // UseEffect for fetchAll
@@ -170,6 +140,7 @@ const ModulePage = () => {
                   circleSize={40}
                   iconSize={42}
                   fontSize={14}
+                  key={lessons}
                 />
               </Stack>
             </Container>

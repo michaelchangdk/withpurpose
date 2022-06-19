@@ -19,7 +19,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
   const lessonRefs = module.lesson.map((a) => a._ref);
   const completedLessonsLength = useSelector(
     (store) => store.authenticated.completedLessons
-  ).filter((lesson) => lessonRefs.includes(lesson.lessonRef)).length;
+  ).filter((lesson) => lessonRefs.includes(lesson.lessonReference)).length;
 
   // useEffect for progress tracker
   useEffect(() => {

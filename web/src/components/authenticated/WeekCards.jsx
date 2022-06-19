@@ -37,7 +37,7 @@ const WeekCards = ({
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
   )
-    .map((lesson) => lesson.lessonRef)
+    .map((lesson) => lesson.lessonReference)
     .filter((lesson) => lessonRefArray.includes(lesson));
 
   useEffect(() => {
