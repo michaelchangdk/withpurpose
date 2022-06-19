@@ -42,6 +42,7 @@ const BlogPost = () => {
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
+    console.log(urlFor(currentPost?.image.asset._ref).url())
   };
 
   const fetchBlogposts = async () => {
@@ -82,12 +83,16 @@ const BlogPost = () => {
         <meta property="quote" content={currentPost?.excerpt} />
         <meta name="description" content={currentPost?.excerpt} />
         <meta property="image" content={currentPost?.image} />
-        <meta property="og:locale" content="en_US" />
+        {/* <meta name="twitter:card" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/>
+        <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true">
+        <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true">
+        <meta name="twitter:image" content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" data-react-helmet="true"/> */}
+        <meta property="og:locale" content="da_DK" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={currentPost?.title} />
         <meta property="og:quote" content={currentPost?.excerpt} />
         <meta property="og:hashtag" content={"#WithPurpose"} />
-        <meta property="og:image" content={currentPost?.image} />
+        <meta property="og:image" content={currentPost ? urlFor(currentPost?.image).url() : ""} />
         <meta content="image/*" property="og:image:type" />
         <meta
           property="og:url"
@@ -140,7 +145,7 @@ const BlogPost = () => {
                           id={id}
                           title={currentPost?.title}
                           excerpt={currentPost?.excerpt}
-                          image={currentPost?.image}
+                          image={currentPost.image ? urlFor(currentPost.image.asset._ref).url() : ""}
                         />
                       )}
                       <Ellipsis
