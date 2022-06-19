@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { client } from "../../client";
+// import { client } from "../../client";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -16,7 +16,7 @@ const WeekCards = ({
   shortDescription,
   liveSessionTitle,
   liveSessionDate,
-  module,
+  modulelessons,
 }) => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
@@ -24,36 +24,21 @@ const WeekCards = ({
   const [disabled, setDisabled] = useState(false);
   const [color, setColor] = useState("primary");
   const [buttonText, setButtonText] = useState("Start");
-  const [lessonRefArray, setLessonRefArray] = useState([]);
   const access = Object.entries(
     useSelector((store) => store.authenticated.access)
   ).filter(([key, val]) => key.includes(name) && val === true);
-  const moduleQueries = module.map(
-    (module) => `*[_type == "module" && _id == "${module._ref}"] {lesson}`
+
+  // FOR PROGRESS BAR
+  const lessonArray = modulelessons.map((nested) =>
+    nested.lesson.map((lesson) => lesson._ref)
   );
+  const lessonRefArray = [].concat.apply([], lessonArray);
+
   const completedLessons = useSelector(
     (store) => store.authenticated.completedLessons
   )
     .map((lesson) => lesson.lessonRef)
     .filter((lesson) => lessonRefArray.includes(lesson));
-
-  // THIS IS FOR THE PROGRESS BARS //
-  const fetchLessonRefs = async () => {
-    moduleQueries.map((query) => {
-      client.fetch(query).then((response) => {
-        const lessonRefs = response[0].lesson.map((lesson) => lesson._ref);
-        lessonRefs.forEach((ref) =>
-          setLessonRefArray((prev) => [...prev, ref])
-        );
-      });
-      return null;
-    });
-  };
-
-  useEffect(() => {
-    fetchLessonRefs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     const progress = (completedLessons.length / lessonRefArray.length) * 100;
@@ -73,9 +58,8 @@ const WeekCards = ({
       setProgress(0);
     }
   }, [completedLessons.length, lessonRefArray.length]);
-  // PROGRESS BAR SECTION OVER //
 
-  // NAVIGATION AND ACCESS //
+  // NAVIGATION AND ACCESS PERMISSIONS //
   const navigateToWeek = () => {
     if (access.length === 1) {
       navigate(`/week/${name}`);
@@ -83,20 +67,15 @@ const WeekCards = ({
       setOpenModal(true);
     }
   };
-
   useEffect(() => {
     if (access.length !== 1) {
       setDisabled(true);
     }
   }, [access.length]);
-  // NAVIGATION AND ACCESS //
 
   return (
     <Card
       sx={{
-        // maxWidth: 345,
-        // minHeight: 150,
-        // height: 175,
         padding: 2,
         mx: "auto",
         width: "100%",
@@ -150,7 +129,6 @@ const WeekCards = ({
             {liveSessionDate}
           </Typography>
         </div>
-        {/* ADD PROPS FOR STYLING BUTTON & TEXT - START, CONTINUE, ALL DONE, COMING SOON for DISABLED */}
         <Stack direction="column" alignItems="flex-start">
           <Button
             variant="contained"
@@ -160,7 +138,6 @@ const WeekCards = ({
             size="small"
             color={color}
             sx={{ width: 120 }}
-            // endIcon={<StartRoundedIcon />}
           >
             {disabled ? "Coming soon" : buttonText}
           </Button>
