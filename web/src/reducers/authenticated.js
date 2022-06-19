@@ -77,7 +77,19 @@ export const authenticated = createSlice({
       state.darkMode = !state.darkMode;
     },
     changeDisplayname: (state, action) => {
-      state.displayName = action.payload
-    }
+      state.displayName = action.payload;
+    },
+    updateAccess: (state, action) => {
+      state.access.approvedSchool = action.payload.approvedSchool;
+      state.access.approvedWeek0 = action.payload.approvedWeek0;
+      state.access.approvedWeek1 = action.payload.approvedWeek1;
+      state.access.approvedWeek23 = action.payload.approvedWeek23;
+      state.access.approvedWeek4 = action.payload.approvedWeek4;
+      state.access.approvedWeek5 = action.payload.approvedWeek5;
+      state.access.approvedWeek6 = action.payload.approvedWeek6;
+      state.access.approvedMasterClass = action.payload.approvedMasterClass;
+      state.access.approvedMentorBooking = action.payload.approvedMentorBooking;
+      state.access.approvedCommunity = action.payload.approvedCommunity;
+    },
   },
 });
