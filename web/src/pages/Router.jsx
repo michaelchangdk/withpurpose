@@ -65,6 +65,7 @@ const Router = () => {
     });
   }
 
+  // const access = useSelector((store) => store.authenticated.access);
   // List of approved weeks - how to implement week access using params? Perhaps better to implement using useEffect on week and module pages
   // const approvedWeekArr = Object.entries(access)
   //   .filter(([key, val]) => key.includes("Week") && val === true)
