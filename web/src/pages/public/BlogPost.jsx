@@ -178,6 +178,7 @@ const BlogPost = () => {
                     recentPosts.map((post) => {
                       return (
                         <PostCardSmall
+                          key={post._id}
                           url={urlFor(post.image.asset._ref).url()}
                           title={post.title}
                           duration={post.duration}
