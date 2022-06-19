@@ -59,12 +59,6 @@ const BlogPost = () => {
 
   return (
     <>
-      {/* <HelmetMetaData 
-        quote={currentPost?.excerpt} 
-        title={currentPost?.title} 
-        image={currentPost ? urlFor(currentPost.image.asset._ref).url() : ""}
-        hashtag={"#WithPurpose"}
-      ></HelmetMetaData> */}
       <Helmet>
         <title>{currentPost?.title}</title>
         <meta charset="utf-8" />
@@ -149,17 +143,6 @@ const BlogPost = () => {
                           image={currentPost?.image}
                         />
                       )}
-                      {/* <Ellipsis
-                        sx={{ color: "text.primary" }}
-                        onClick={() => setOpenModal(true)}
-                      >
-                        ⋮
-                      </Ellipsis>
-                    </FlexSpaceBetween>
-                    <PortableText
-                      value={currentPost?.body}
-                      components={myPortableTextComponents}
-                    /> */}
                       <Ellipsis
                         sx={{ color: "text.primary" }}
                         onClick={() => setOpenModal(true)}
@@ -190,8 +173,6 @@ const BlogPost = () => {
                 </ThreeGrid>
               </ThemeProvider>
             </Container>
-            {/* </Stack> */}
-            {/* </BlogPostContainer> */}
             <PageFooter />
             <ScrollToTop />
           </Container>
