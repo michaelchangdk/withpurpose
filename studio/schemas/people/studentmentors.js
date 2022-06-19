@@ -1,7 +1,10 @@
+import { FaUserNinja } from "react-icons/fa";
+
 export default {
   name: "studentMentors",
   title: "Student Mentors",
   type: "document",
+  icon: FaUserNinja,
   fields: [
     {
       name: "fullName",

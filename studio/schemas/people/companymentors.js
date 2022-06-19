@@ -1,7 +1,10 @@
+import { FaUserTie } from "react-icons/fa";
+
 export default {
   name: "companyMentors",
   title: "Company Mentors",
   type: "document",
+  icon: FaUserTie,
   fields: [
     {
       name: "fullName",
@@ -27,4 +30,11 @@ export default {
       },
     },
   ],
+  preview: {
+    select: {
+      media: "profilePhoto",
+      title: "fullName",
+      subtitle: "company",
+    },
+  },
 };

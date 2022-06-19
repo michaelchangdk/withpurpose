@@ -1,7 +1,10 @@
+import { FaCalendarDay } from "react-icons/fa";
+
 export default {
   name: "lesson",
   title: "Lesson",
   type: "document",
+  icon: FaCalendarDay,
   fields: [
     {
       name: "title",
@@ -67,4 +70,10 @@ export default {
       type: "file",
     },
   ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "name",
+    },
+  },
 };

@@ -18,7 +18,7 @@ import {
 // Function Imports
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "startupschool"] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module}}`;
+const pageQuery = `*[_type == "startupschool"] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module[]->{lesson[]}}}`;
 
 const WeekOverview = () => {
   const [loading, response] = FetchResponse(pageQuery);
@@ -58,7 +58,7 @@ const WeekOverview = () => {
                 shortDescription={week.shortDescription}
                 liveSessionTitle={week.liveSessionTitle}
                 liveSessionDate={week.liveSessionDate}
-                module={week.module}
+                modulelessons={week.module}
               />
             ))}
         </TwoCardGrid>

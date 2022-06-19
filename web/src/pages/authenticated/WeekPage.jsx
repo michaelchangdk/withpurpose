@@ -19,20 +19,28 @@ import {
   DescriptionTypography,
   OneCardGrid,
 } from "../../styledcomponents/containers";
+// Functions Import
+import { FetchResponse } from "../../services/clientFunctions";
 
 const WeekPage = () => {
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [weekOrder, setWeekOrder] = useState();
   const [allWeeks, setAllWeeks] = useState([]);
   const { week } = useParams();
-  const [modules, setModules] = useState([]);
   const navigate = useNavigate();
   const weekAccess = Object.entries(
     useSelector((store) => store.authenticated.access)
   ).filter(([key, val]) => key.includes("Week"));
 
-  // USE THESE TO DETERMINE ACCESS AND SET NAVIGATION BUTTON COLORS
+  // Fetching the page
+  const pageQuery = `*[_type == "week" && name == "${week}"] {description, module[]->, order, _id}`;
+  const [loading, response] = FetchResponse(pageQuery);
+
+  useEffect(() => {
+    if (!loading) {
+      setAccess(response[0].order);
+    }
+  });
+
+  // For disabling next week access
   const [disabled, setDisabled] = useState();
   const setAccess = (order) => {
     if (weekAccess[order]) {
@@ -43,44 +51,20 @@ const WeekPage = () => {
     }
   };
 
-  const fetchPage = async () => {
-    setLoading(true);
-    const weekQuery = `*[_type == "week" && name == "${week}"] {description, module[]->, order}`;
-    const fetch = await client.fetch(weekQuery);
-    const response = await fetch;
-    setDescription(response[0].description);
-    setWeekOrder(response[0].order);
-    setAccess(response[0].order);
-    setModules(response[0].module);
-    setLoading(false);
-  };
-
-  const fetchNavigation = async () => {
-    setLoading(true);
-    const weeksQuery = `*[_type == "week"] {name, order}`;
-    const fetch = await client.fetch(weeksQuery);
-    const response = await fetch;
-    setAllWeeks(response.sort((a, b) => a.order - b.order));
-    setLoading(false);
-  };
-
-  const fetchAll = async () => {
-    await fetchPage();
-    await fetchNavigation();
-  };
-
+  // For navigating between weeks
   useEffect(() => {
-    fetchAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const weeksQuery = `*[_type == "week"] {name, order}`;
+    client.fetch(weeksQuery).then((res) => {
+      setAllWeeks(res.sort((a, b) => a.order - b.order));
+    });
   }, []);
 
   const previousWeek = () => {
-    navigate(`/week/${allWeeks[weekOrder - 2].name}`);
+    navigate(`/week/${allWeeks[response[0].order - 2].name}`);
     window.location.reload();
   };
-
   const nextWeek = () => {
-    navigate(`/week/${allWeeks[weekOrder].name}`);
+    navigate(`/week/${allWeeks[response[0].order].name}`);
     window.location.reload();
   };
 
@@ -100,14 +84,16 @@ const WeekPage = () => {
           />
           <DescriptionContainer backgroundcolor="#e93a7d">
             <DescriptionChild>
-              <DescriptionTypography>{description}</DescriptionTypography>
+              <DescriptionTypography>
+                {response[0].description}
+              </DescriptionTypography>
             </DescriptionChild>
           </DescriptionContainer>
           <Container maxWidth="lg">
             {loading && <p>Loading...</p>}
             <OneCardGrid>
               {!loading &&
-                modules.map((module) => (
+                response[0].module.map((module) => (
                   <ModuleCards
                     key={module.title}
                     duration={module.duration}
@@ -119,9 +105,11 @@ const WeekPage = () => {
                 ))}
               <Stack
                 direction="row"
-                justifyContent={weekOrder === 1 ? "flex-end" : "space-between"}
+                justifyContent={
+                  response[0].order === 1 ? "flex-end" : "space-between"
+                }
               >
-                {weekOrder !== 1 && (
+                {response[0].order !== 1 && (
                   <Button
                     variant="contained"
                     sx={{ width: 140, height: 36 }}
@@ -134,7 +122,7 @@ const WeekPage = () => {
                   </Button>
                 )}
 
-                {weekOrder !== 6 && (
+                {response[0].order !== 6 && (
                   <Button
                     variant="contained"
                     sx={{ width: 140, height: 36 }}

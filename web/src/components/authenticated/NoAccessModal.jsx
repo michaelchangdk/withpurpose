@@ -21,7 +21,7 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
   const handleClose = () => setOpenModal(false);
 
   return (
-    <div>
+    <>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={openModal}
@@ -44,7 +44,7 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
           <Typography>Nermeen, Ana & Ella</Typography>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 
