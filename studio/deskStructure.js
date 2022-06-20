@@ -16,9 +16,8 @@ import { FaDiceD20 } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
-
-// Icon for a potential settings page
-// import {FaCogs} from "react-icons/fa";
+import { FaCogs } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 
 export default () =>
   S.list()
@@ -32,9 +31,10 @@ export default () =>
           S.list()
             .title("Public Pages")
             .items([
-              // S.listItem()
-              //   .title("Public Home Page")
-              //   .child(S.editor().schemaType("homepage").documentId("Home")),
+              S.listItem()
+                .title("Home Page")
+                .icon(FaHome)
+                .child(S.editor().schemaType("homepage").documentId("Home")),
               S.listItem()
                 .title("Open Letter")
                 .icon(FaPenFancy)
@@ -212,6 +212,10 @@ export default () =>
         .title("User Management")
         .schemaType("user")
         .child(S.documentTypeList("user").title("Users")),
+      S.listItem()
+        .title("Site settings")
+        .icon(FaCogs)
+        .child(S.editor().schemaType("settings").documentId("settings")),
 
       ...S.documentTypeListItems().filter(
         (listItem) =>
@@ -244,6 +248,7 @@ export default () =>
             "mentorspublic",
             "teampage",
             "alumnipage",
+            "settings",
           ].includes(listItem.getId())
       ),
     ]);
