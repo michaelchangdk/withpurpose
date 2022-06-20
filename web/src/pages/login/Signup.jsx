@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
+import { client } from "../../client";
 import { auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,7 +10,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { client } from "../../client";
+// MUI Imports
 import {
   Alert,
   AlertTitle,
@@ -21,9 +22,10 @@ import {
   Divider,
   IconButton,
 } from "@mui/material";
-import styled from "styled-components";
-import logo from "../../assets/BWP_logotype.svg";
 import GoogleIcon from "@mui/icons-material/Google";
+// Styling Imports
+import styled from "styled-components/macro";
+import logo from "../../assets/BWP_logotype.svg";
 
 const Signup = () => {
   const navigate = useNavigate();

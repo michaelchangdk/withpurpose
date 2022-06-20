@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticated } from "../../reducers/authenticated";
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 
 // MUI Imports
 import { Avatar, IconButton, MenuItem, Menu, Container } from "@mui/material";
@@ -42,7 +44,15 @@ const HeaderAuth = () => {
     setAnchorELNav(null);
   };
 
+  console.log(auth);
+
   const logout = () => {
+    signOut(auth)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+
     dispatch(authenticated.actions.logout());
     setAnchorEl(null);
     navigate("/");
