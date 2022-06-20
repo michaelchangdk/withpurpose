@@ -235,7 +235,10 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
-  padding: 0 60px;
+
+  @media (min-width: 768px) {
+    padding: 0 60px;
+  }
 `;
 
 const StyledAsideTypography = styled(Typography)`

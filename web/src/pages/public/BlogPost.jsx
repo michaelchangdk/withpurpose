@@ -156,7 +156,7 @@ const BlogPost = () => {
                     />
                   </div>
                 </BackgroundBox>
-                <ThreeGrid style={{ gap: "16px" }}>
+                <ThreeGrid style={{ gap: "16px", marginTop: "16px" }}>
                   {recentPosts &&
                     recentPosts.map((post) => {
                       return (
