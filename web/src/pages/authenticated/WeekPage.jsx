@@ -95,7 +95,7 @@ const WeekPage = () => {
               {!loading &&
                 response[0].module.map((module) => (
                   <ModuleCards
-                    key={module.title}
+                    key={module._id}
                     duration={module.duration}
                     name={module.name}
                     slug={module.slug}
