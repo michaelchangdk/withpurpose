@@ -191,7 +191,7 @@ const Login = () => {
 
   return (
     <Container maxWidth="xs">
-      <Stack spacing={2} mt={12} component="form">
+      <Stack spacing={2} mt={12} mb={12} component="form">
         <IconButton
           onClick={() => navigate("/")}
           sx={{ width: "90px", margin: "0 auto" }}
