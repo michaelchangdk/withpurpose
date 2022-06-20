@@ -9,6 +9,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  maxWidth: "80%",
   bgcolor: "background.default",
   color: "text.primary",
   border: "1px solid #000",

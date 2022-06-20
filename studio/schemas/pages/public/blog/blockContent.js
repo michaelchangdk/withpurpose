@@ -5,7 +5,7 @@ const pinktextIcon = () => (
 );
 
 const pinktextRender = (props) => (
-  <span style={{ color: "#e93a7d" }}>{props.children}</span>
+  <span style={{ color: "#e93a7d", fontWeight: 500 }}>{props.children}</span>
 );
 
 const purpletextIcon = () => (
@@ -13,7 +13,21 @@ const purpletextIcon = () => (
 );
 
 const purpletextRender = (props) => (
-  <span style={{ color: "#6356d7" }}>{props.children}</span>
+  <span style={{ color: "#6356d7", fontWeight: 500 }}>{props.children}</span>
+);
+
+const bluetextIcon = () => (
+  <span style={{ fontWeight: "bold", color: "#5491e3" }}>P</span>
+);
+
+const bluetextRender = (props) => (
+  <span style={{ color: "#5491e3", fontWeight: 500 }}>{props.children}</span>
+);
+
+const centerblockRender = (props) => (
+  <div style={{ textAlign: "center", width: "80%", margin: "0 auto" }}>
+    {props.children}
+  </div>
 );
 
 export default {
@@ -35,7 +49,11 @@ export default {
         { title: "H3", value: "h3" },
         { title: "H4", value: "h4" },
         { title: "Quote", value: "blockquote" },
-        { title: "SideBlock", value: "sideblock" },
+        {
+          title: "Center Block",
+          value: "centerblock",
+          blockEditor: { render: centerblockRender },
+        },
       ],
       lists: [{ title: "Bullet", value: "bullet" }],
       // Marks let you mark up inline text in the block editor.
@@ -47,7 +65,7 @@ export default {
           { title: "Emphasis", value: "em" },
           { title: "Underline", value: "underline" },
           {
-            title: "PurpleText",
+            title: "Purple Text",
             value: "purpletext",
             blockEditor: {
               icon: purpletextIcon,
@@ -55,11 +73,19 @@ export default {
             },
           },
           {
-            title: "PinkText",
+            title: "Pink Text",
             value: "pinktext",
             blockEditor: {
               icon: pinktextIcon,
               render: pinktextRender,
+            },
+          },
+          {
+            title: "Blue Text",
+            value: "bluetext",
+            blockEditor: {
+              icon: bluetextIcon,
+              render: bluetextRender,
             },
           },
         ],

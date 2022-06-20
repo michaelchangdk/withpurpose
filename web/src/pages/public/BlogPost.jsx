@@ -14,7 +14,7 @@ import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
-import myPortableTextComponents from "../../services/myPortableTextComponents";
+import myPortableTextComponents from "../../styledcomponents/myPortableTextComponents";
 // import HelmetMetaData from "../../components/public/HelmetMetaData";
 // import PostCardLarge from "../../components/public/PostCardLarge";
 
