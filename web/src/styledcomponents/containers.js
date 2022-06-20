@@ -88,6 +88,22 @@ export const AspectRatioBoxBlog = styled.div`
   }
 `;
 
+// Square Aspect Ratio - used for MentorCards - (Student Mentors)
+export const AspectRatioBoxSquare = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 100%;
+  position: relative;
+`;
+
+// 4 / 3 Aspect Ratio - used for TeamCards
+export const AspectRatioBoxFourThree = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 75%;
+  position: relative;
+`;
+
 export const AspectRatioChild = styled.div`
   position: absolute;
   top: 0;
