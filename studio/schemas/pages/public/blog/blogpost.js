@@ -1,7 +1,10 @@
+import { FaFileAlt } from "react-icons/fa";
+
 export default {
   name: "blogpost",
   title: "Blogpost",
   type: "document",
+  icon: FaFileAlt,
   fields: [
     {
       name: "title",
