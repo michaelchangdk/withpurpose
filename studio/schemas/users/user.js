@@ -5,6 +5,7 @@ export default {
   title: "User",
   type: "document",
   icon: FaUserEdit,
+  __experimental_actions: [/*"create",*/ "update", "delete", "publish"],
   fields: [
     {
       name: "displayName",

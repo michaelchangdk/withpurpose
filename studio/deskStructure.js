@@ -13,6 +13,9 @@ import { FaUserNinja } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
 import { FaRocket } from "react-icons/fa";
 import { FaDiceD20 } from "react-icons/fa";
+import { FaFileAlt } from "react-icons/fa";
+import { FaUserTag } from "react-icons/fa";
+import { FaTags } from "react-icons/fa";
 
 // Icon for a potential settings page
 // import {FaCogs} from "react-icons/fa";
@@ -77,14 +80,17 @@ export default () =>
                     .items([
                       S.listItem()
                         .title("Post")
+                        .icon(FaFileAlt)
                         .child(
                           S.documentTypeList("blogpost").title("Blog Post")
                         ),
                       S.listItem()
                         .title("Author")
+                        .icon(FaUserTag)
                         .child(S.documentTypeList("author").title("Author")),
                       S.listItem()
                         .title("Category")
+                        .icon(FaTags)
                         .child(
                           S.documentTypeList("category").title("Category")
                         ),

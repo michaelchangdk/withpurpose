@@ -13,21 +13,24 @@ export default {
       title: "Slug",
       type: "slug",
       options: {
-          source: "title",
-          maxLength: 96
-      }
+        source: "title",
+        maxLength: 96,
+      },
     },
     {
       name: "excerpt",
       title: "Excerpt",
       type: "string",
-      validation: Rule => Rule.max(100).warning(`An excerpt shouldn't be more than 100 characters.`)
+      validation: (Rule) =>
+        Rule.max(100).warning(
+          `An excerpt shouldn't be more than 100 characters.`
+        ),
     },
     {
       name: "author",
       title: "Author",
       type: "reference",
-      to: {type: "author"}
+      to: { type: "author" },
     },
     {
       name: "duration",
@@ -44,20 +47,20 @@ export default {
       },
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}]
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "reference", to: { type: "category" } }],
     },
     {
       name: "publishedAt",
       title: "Published at",
-      type: "datetime"
+      type: "datetime",
     },
     {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent'
-    }
+      name: "body",
+      title: "Body",
+      type: "blockContent",
+    },
   ],
 };
