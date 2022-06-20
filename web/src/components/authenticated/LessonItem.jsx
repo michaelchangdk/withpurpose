@@ -30,6 +30,8 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
     )
   );
 
+  console.log(lesson);
+
   useEffect(() => {
     if (completedLesson.length > 0) {
       setChecked(true);
