@@ -57,7 +57,7 @@ const PostCardLarge = ({
           <Button
             sx={{ color: "text.primary" }}
             size="small"
-            onClick={() => handleOpenModal()}
+            onClick={() => handleOpenModal(id, title, excerpt, url)}
           >
             Share
           </Button>

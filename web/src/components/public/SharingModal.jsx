@@ -1,5 +1,6 @@
 import React from "react";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
+import HelmetMetaData from "./HelmetMetaData";
 
 // React Share imports
 import {
@@ -36,47 +37,17 @@ const SharingModal = ({
   image,
 }) => {
   const handleClose = () => setOpenModal(false);
-  console.log("ID", id, "Title", title, "Excerpt", excerpt, "image", image);
+  // console.log("ID", id, "Title", title, "Excerpt", excerpt, "image", image);
   return (
     <div>
       {openModal && (
-        <Helmet>
-          <title>{title}</title>
-          <meta charset="utf-8" />
-          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="csrf_token" content="" />
-          <meta property="type" content="website" />
-          <meta
-            property="url"
-            content={`https://withpurpose.netlify.app/blog/${id}`}
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          />
-          <meta name="msapplication-TileColor" content="#ffffff" />
-          <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-          <meta name="theme-color" content="#ffffff" />
-          <meta name="_token" content="" />
-          <meta name="robots" content="noodp" />
-          <meta property="title" content={title} />
-          <meta property="quote" content={excerpt} />
-          <meta name="description" content={excerpt} />
-          <meta property="image" content={image} />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content={title} />
-          <meta property="og:quote" content={excerpt} />
-          <meta property="og:hashtag" content={"#WithPurpose"} />
-          <meta property="og:image" content={image} />
-          <meta content="image/*" property="og:image:type" />
-          <meta
-            property="og:url"
-            content={`https://withpurpose.netlify.app/blog/${id}`}
-          />
-          <meta property="og:site_name" content="With Purpose" />
-          <meta property="og:description" content={excerpt} />
-        </Helmet>
+        <HelmetMetaData 
+          url={`https://withpurpose.netlify.app/blog/${id}`}
+          image={image}
+          title={title}
+          excerpt={excerpt}
+          hashtag={"#WithPurpose"}
+        />
       )}
       <Modal
         open={openModal}
@@ -87,18 +58,17 @@ const SharingModal = ({
         <Box sx={style}>
           <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
             <TwitterShareButton
-              title={title}
-              hashtags={["WithPurpose", "Entrepreneur"]}
+              // title={title}
+              // hashtags={["WithPurpose", "Entrepreneur"]}
               url={`https://withpurpose.netlify.app/blog/${id}`}
             >
               <TwitterIcon size={32} round />
             </TwitterShareButton>
 
             <FacebookShareButton
-              title={title}
-              hashtag={"#WithPurpose"}
+              // title={title}
+              // hashtag={"#WithPurpose"}
               url={`https://withpurpose.netlify.app/blog/${id}`}
-              image={image}
             >
               <FacebookIcon size={32} round />
             </FacebookShareButton>

@@ -36,7 +36,7 @@ const BlogList = () => {
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
-    console.log(response);
+    // console.log(response);
     setLoading(false);
   };
 
@@ -49,7 +49,7 @@ const BlogList = () => {
   };
 
   const Share = () => {
-    const { id, title, excerpt, url } = holdArgs
+    const { id, title, excerpt, url } = holdArgs;
     return (
       <SharingModal
         openModal={openModal}

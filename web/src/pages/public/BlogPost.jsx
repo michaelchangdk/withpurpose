@@ -55,7 +55,7 @@ const BlogPost = () => {
 
   useEffect(() => {
     fetchPost(id);
-    fetchBlogposts();
+    fetchBlogposts(); // eslint-disable-next-line
   }, [id]);
 
   return (
@@ -83,10 +83,19 @@ const BlogPost = () => {
         <meta property="quote" content={currentPost?.excerpt} />
         <meta name="description" content={currentPost?.excerpt} />
         <meta property="image" content={currentPost?.image} />
-        {/* <meta name="twitter:card" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/>
-        <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true">
-        <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true">
-        <meta name="twitter:image" content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" data-react-helmet="true"/> */}
+        <meta name="twitter:card" content="summary_large_image" data-react-helmet="true"/>
+        <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true"/>
+        <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/>
+        <meta name="twitter:image" content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" data-react-helmet="true"></meta>
+
+        {/* <meta name="twitter:card" content="summary"></meta> */}
+        {/* <meta name="twitter:card" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/> */}
+        {/* <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true"> */}
+        {/* <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"> */}
+        <meta 
+          name="twitter:image" 
+          content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" 
+          data-react-helmet="true"/>
         <meta property="og:locale" content="da_DK" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={currentPost?.title} />
