@@ -44,8 +44,6 @@ const HeaderAuth = () => {
     setAnchorELNav(null);
   };
 
-  console.log(auth);
-
   const logout = () => {
     signOut(auth)
       .then(() => {})
