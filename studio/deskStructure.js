@@ -16,25 +16,24 @@ import { FaDiceD20 } from "react-icons/fa";
 import { FaFileAlt } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
-import { FaCogs } from "react-icons/fa";
-import { FaHome } from "react-icons/fa";
+// import { FaCogs } from "react-icons/fa";
+// import { FaHome } from "react-icons/fa";
 
 export default () =>
   S.list()
     .title("With Purpose")
     .items([
       S.listItem()
-        // Give it a title
         .title("Public Pages")
         .icon(FaLockOpen)
         .child(
           S.list()
             .title("Public Pages")
             .items([
-              S.listItem()
-                .title("Home Page")
-                .icon(FaHome)
-                .child(S.editor().schemaType("homepage").documentId("Home")),
+              // S.listItem()
+              //   .title("Home Page")
+              //   .icon(FaHome)
+              //   .child(S.editor().schemaType("homepage").documentId("Home")),
               S.listItem()
                 .title("Open Letter")
                 .icon(FaPenFancy)
@@ -72,8 +71,6 @@ export default () =>
               S.listItem()
                 .title("Blog")
                 .icon(FaNewspaper)
-                // .schemaType("blogpost")
-                // .child(S.documentTypeList("blogpost").title("Blog Post")),
                 .child(
                   S.list()
                     .title("Blog")
@@ -100,15 +97,12 @@ export default () =>
         ),
 
       S.listItem()
-        // Give it a title
         .title("People")
         .icon(FaUsers)
         .child(
-          // Make a list in the second pane called Portfolio
           S.list()
             .title("People")
             .items([
-              // Add the first list item
               S.listItem()
                 .title("Alumni")
                 .schemaType("alumni")
@@ -133,7 +127,6 @@ export default () =>
         ),
 
       S.listItem()
-        // Give it a title
         .title("Private Pages")
         .icon(FaLock)
         .child(
@@ -205,17 +198,17 @@ export default () =>
             ])
         ),
 
-      // Add a visual divider (optional)
+      // Add a visual divider
       S.divider(),
 
       S.listItem()
         .title("User Management")
         .schemaType("user")
         .child(S.documentTypeList("user").title("Users")),
-      S.listItem()
-        .title("Site settings")
-        .icon(FaCogs)
-        .child(S.editor().schemaType("settings").documentId("settings")),
+      // S.listItem()
+      //   .title("Site settings")
+      //   .icon(FaCogs)
+      //   .child(S.editor().schemaType("settings").documentId("settings")),
 
       ...S.documentTypeListItems().filter(
         (listItem) =>
