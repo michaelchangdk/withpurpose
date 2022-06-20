@@ -7,8 +7,8 @@ export default {
   icon: FaCalendarWeek,
   fields: [
     {
-      name: "title",
-      title: "Module Title",
+      name: "slug",
+      title: "Module Title / Slug",
       type: "string",
       description:
         "Name the week after these conventions: W#M#, e.g. W0M1 for Week 0 Module 1. Modules for masterclasses should follow the M#M# convention, e.g. M1M2 for Masterclass Module 1. These names should be unique since they are used as the URL for the module.",
@@ -63,7 +63,7 @@ export default {
   ],
   preview: {
     select: {
-      title: "title",
+      title: "slug",
       subtitle: "name",
     },
   },

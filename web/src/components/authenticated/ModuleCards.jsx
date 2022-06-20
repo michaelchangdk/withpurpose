@@ -10,7 +10,7 @@ import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 // Component Imports
 import ProgressCircle from "./ProgressCircle";
 
-const ModuleCards = ({ duration, name, title, type, module }) => {
+const ModuleCards = ({ duration, name, slug, type, module }) => {
   const [progress, setProgress] = useState(0);
   const [color, setColor] = useState("primary");
   const [buttonText, setButtonText] = useState("Start");
@@ -90,7 +90,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
           <Button
             variant="contained"
             disableElevation
-            onClick={() => navigate(`/module/${title}`)}
+            onClick={() => navigate(`/module/${slug}`)}
             size="small"
             color={color}
             sx={{ width: 90 }}

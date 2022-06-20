@@ -48,7 +48,7 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && title == "${module}"] {duration, lesson[]->{title, taskDescription, _id, name, isPDF, isLink, isVideo, duration, file, "pdfUrl":file.asset->url, otherUrl, videoUrl}, name, title, type, _id, description, "week": *[_type=='week' && references(^._id)]{name, title}}`;
+    const moduleQuery = `*[_type == "module" && slug == "${module}"] {duration, lesson[]->{title, taskDescription, _id, name, isPDF, isLink, isVideo, duration, file, "pdfUrl":file.asset->url, otherUrl, videoUrl}, name, slug, type, _id, description, "week": *[_type=='week' && references(^._id)]{name, title}}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);
@@ -61,12 +61,12 @@ const ModulePage = () => {
 
   const fetchModules = async () => {
     setLoading(true);
-    const allModulesQuery = `*[_type == "module"] {title}`;
+    const allModulesQuery = `*[_type == "module"] {slug}`;
     const fetch = await client.fetch(allModulesQuery);
     const response = await fetch;
     console.log(response);
     const filteredSortedModules = response
-      .map((modules) => modules.title)
+      .map((modules) => modules.slug)
       .filter((modules) => modules.includes(module.split("M")[0]))
       .sort((a, b) => a[3] - b[3]);
     setModuleArray(filteredSortedModules);

@@ -98,7 +98,7 @@ const WeekPage = () => {
                     key={module.title}
                     duration={module.duration}
                     name={module.name}
-                    title={module.title}
+                    slug={module.slug}
                     type={module.type}
                     module={module}
                   />
