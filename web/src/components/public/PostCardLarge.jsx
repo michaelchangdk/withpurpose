@@ -15,8 +15,8 @@ import {
 // Styling Imports
 import styled from "styled-components/macro";
 import {
-  AspectRatioBox,
   AspectRatioChild,
+  AspectRatioBoxBlog,
 } from "../../styledcomponents/containers";
 
 const PostCardLarge = ({
@@ -38,7 +38,7 @@ const PostCardLarge = ({
         sx={{ maxWidth: "100%", cursor: "pointer" }}
         onClick={() => showBlogpost(id)}
       >
-        <AspectRatioBox>
+        <AspectRatioBoxBlog>
           <AspectRatioChild>
             <CardMedia
               component="img"
@@ -48,7 +48,7 @@ const PostCardLarge = ({
               image={url}
             />
           </AspectRatioChild>
-        </AspectRatioBox>
+        </AspectRatioBoxBlog>
       </Link>
       <CardContent>
         <Stack
@@ -64,12 +64,14 @@ const PostCardLarge = ({
               Share
             </Button>
           </StyledCardActions>
-          <Typography variant="h5" component="div" sx={{ lineHeight: 1 }}>
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {excerpt}...
-          </Typography>
+          <TextWrapper>
+            <Typography variant="h5" component="div" sx={{ lineHeight: 1 }}>
+              {title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {excerpt}...
+            </Typography>
+          </TextWrapper>
           <ButtonWrapper>
             <Button color="secondary" onClick={() => showBlogpost(id)}>
               Read more
@@ -97,7 +99,7 @@ const StyledCard = styled(Card)`
     flex-wrap: wrap;
 
     @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 0.8fr 1fr;
       max-width: 100%;
       flex-wrap: no-wrap;
     }
@@ -112,6 +114,16 @@ const Duration = styled(Typography)`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @media (min-width: 768px) {
+    gap: 16px;
   }
 `;
 

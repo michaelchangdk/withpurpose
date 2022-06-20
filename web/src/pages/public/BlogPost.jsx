@@ -156,7 +156,9 @@ const BlogPost = () => {
                   <Typography variant="h4" sx={{ fontSize: "18px" }}>
                     Recent posts
                   </Typography>
-                  <Button>See all</Button>
+                  <Button variant="outlined" onClick={() => navigate("/blog")}>
+                    See all
+                  </Button>
                 </PostDivider>
 
                 <ThreeGrid style={{ gap: "16px" }}>
