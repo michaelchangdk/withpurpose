@@ -43,12 +43,12 @@ const BlogPost = () => {
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
-    console.log(urlFor(currentPost?.image.asset._ref).url())
+    console.log("currentpost Image url", urlFor(currentPost?.image.asset._ref).url())
   };
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt}`;
+    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));
@@ -88,15 +88,6 @@ const BlogPost = () => {
         <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true"/>
         <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/>
         <meta name="twitter:image" content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" data-react-helmet="true"></meta>
-
-        {/* <meta name="twitter:card" content="summary"></meta> */}
-        {/* <meta name="twitter:card" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/> */}
-        {/* <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true"> */}
-        {/* <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"> */}
-        <meta 
-          name="twitter:image" 
-          content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" 
-          data-react-helmet="true"/>
         <meta property="og:locale" content="da_DK" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={currentPost?.title} />
@@ -151,6 +142,7 @@ const BlogPost = () => {
                           title={currentPost?.title}
                           excerpt={currentPost?.excerpt}
                           image={currentPost.image ? urlFor(currentPost.image.asset._ref).url() : ""}
+                          hashtags={currentPost.hashtags}
                         />
                       )}
                       <Ellipsis

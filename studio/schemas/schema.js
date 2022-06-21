@@ -15,7 +15,7 @@ import homepage from "./pages/public/homepage";
 import blogpost from "./pages/public/blog/blogpost";
 import author from "./pages/public/blog/author";
 import blockContent from "./pages/public/blog/blockContent";
-import category from "./pages/public/blog/category";
+import hashtags from "./pages/public/blog/hashtags";
 import completed from "./school/completed";
 import community from "./pages/members/community";
 import masterclasses from "./pages/members/masterclasses";
@@ -53,7 +53,7 @@ export default createSchema({
     blogpost,
     author,
     blockContent,
-    category,
+    hashtags,
     completed,
     landingpageelements,
     community,
