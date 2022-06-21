@@ -121,7 +121,7 @@ const BookingPage = () => {
   }, [availableDateTimes, selectedWeekday]);
 
   // Fetch all mentors for dropdown selection
-  const mentorsQuery = `*[_type == "mentors"] {studentmentors[]->{availability, fullName, _id, bookingrequest}}`;
+  const mentorsQuery = `*[_type == "mentors" && !(_id in path('drafts.**'))] {studentmentors[]->{availability, fullName, _id, bookingrequest}}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorsQuery).then((response) => {
@@ -131,7 +131,7 @@ const BookingPage = () => {
   }, [mentorsQuery]);
 
   // Fetch mentor by id for individual booking
-  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}"] {availability, fullName, _id}`;
+  const mentorQuery = `*[_type == "studentMentors" && _id == "${id}" && !(_id in path('drafts.**'))] {availability, fullName, _id}`;
   useEffect(() => {
     setLoading(true);
     client.fetch(mentorQuery).then((response) => {
@@ -190,7 +190,7 @@ const BookingPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "booking"] {heroImage, title, subtitle, _id}`}
+        query={`*[_type == "booking" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       {!loading && description && (

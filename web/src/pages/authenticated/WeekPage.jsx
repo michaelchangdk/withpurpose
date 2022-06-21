@@ -31,7 +31,7 @@ const WeekPage = () => {
   ).filter(([key, val]) => key.includes("Week"));
 
   // Fetching the page
-  const pageQuery = `*[_type == "week" && name == "${week}"] {description, module[]->, order, _id}`;
+  const pageQuery = `*[_type == "week" && name == "${week}" && !(_id in path('drafts.**'))] {description, module[]->, order, _id}`;
   const [loading, response] = FetchResponse(pageQuery);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const WeekPage = () => {
 
   // For navigating between weeks
   useEffect(() => {
-    const weeksQuery = `*[_type == "week"] {name, order}`;
+    const weeksQuery = `*[_type == "week" && !(_id in path('drafts.**'))] {name, order}`;
     client.fetch(weeksQuery).then((res) => {
       setAllWeeks(res.sort((a, b) => a.order - b.order));
     });
@@ -79,7 +79,7 @@ const WeekPage = () => {
       {!loading && (
         <>
           <HeroHeader
-            query={`*[_type == "week" && name == "${week}"] {heroImage, title, subtitle, _id}`}
+            query={`*[_type == "week" && name == "${week}" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
             type={"week"}
           />
           <DescriptionContainer backgroundcolor="#e93a7d">

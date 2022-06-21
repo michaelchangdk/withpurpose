@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { client } from "../../client";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 

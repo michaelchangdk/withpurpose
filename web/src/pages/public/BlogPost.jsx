@@ -39,7 +39,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
+    const postQuery = `*[_type == "blogpost" && _id == '${postId}' && !(_id in path('drafts.**'))]`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
     setCurrentPost(response[0]);
@@ -47,7 +47,7 @@ const BlogPost = () => {
 
   const fetchBlogposts = async () => {
     // setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt}`;
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, image, duration, excerpt}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));

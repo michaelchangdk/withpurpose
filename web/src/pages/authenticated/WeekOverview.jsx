@@ -18,7 +18,7 @@ import {
 // Function Imports
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "startupschool"] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module[]->{lesson[]}}}`;
+const pageQuery = `*[_type == "startupschool" && !(_id in path('drafts.**'))] {introVideo, _id, weeks[]-> {order, name, keyword, shortDescription, title, subtitle, liveSessionTitle, liveSessionDate, _id, module[]->{lesson[]}}}`;
 
 const WeekOverview = () => {
   const [loading, response] = FetchResponse(pageQuery);
@@ -31,7 +31,7 @@ const WeekOverview = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "startupschool"] {heroImage, title, subtitle, _id}`}
+        query={`*[_type == "startupschool" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       <Container maxWidth="lg" sx={{ marginTop: "32px" }}>

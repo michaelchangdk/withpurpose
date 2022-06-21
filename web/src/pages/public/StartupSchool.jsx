@@ -19,7 +19,7 @@ import myPortableTextComponents from "../../styledcomponents/myPortableTextCompo
 // Function import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "startupschoolinfo"] {title, subtitle, _id, intro, cta, expectationsHeader, expectations, threeColumns, blockOne, paragraphOne, blockTwo, paragraphTwo}`;
+const pageQuery = `*[_type == "startupschoolinfo" && !(_id in path('drafts.**'))] {title, subtitle, _id, intro, cta, expectationsHeader, expectations, threeColumns, blockOne, paragraphOne, blockTwo, paragraphTwo}`;
 
 const StartupSchool = () => {
   const [loading, response] = FetchResponse(pageQuery);

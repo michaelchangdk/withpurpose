@@ -20,10 +20,10 @@ import { FetchResponse } from "../../services/clientFunctions";
 const LandingPage = () => {
   const dispatch = useDispatch();
   const userid = useSelector((store) => store.authenticated.uid);
-  const pageQuery = `*[_type == "landingpage"] {_id, landingpageelements[]-> {title, headline, description, slug, coverImage, _id}}`;
+  const pageQuery = `*[_type == "landingpage" && !(_id in path('drafts.**'))] {_id, landingpageelements[]-> {title, headline, description, slug, coverImage, _id}}`;
   const [loading, response] = FetchResponse(pageQuery);
 
-  const accessQuery = `*[_type == "user" && _id == "${userid}"] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6}`;
+  const accessQuery = `*[_type == "user" && _id == "${userid}" && !(_id in path('drafts.**'))] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6}`;
   useEffect(() => {
     client.fetch(accessQuery).then((response) => {
       dispatch(
@@ -52,7 +52,7 @@ const LandingPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "landingpage"] {heroImage, title, subtitle, _id}`}
+        query={`*[_type == "landingpage" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
         type={"page"}
         displayName={true}
       />

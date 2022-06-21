@@ -16,7 +16,7 @@ import {
 // Function Import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "community"] {_id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
+const pageQuery = `*[_type == "community" && !(_id in path('drafts.**'))] {_id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPrivate = () => {
   const [loading, response] = FetchResponse(pageQuery);
@@ -29,7 +29,7 @@ const AlumniPrivate = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "community"] {heroImage, title, subtitle, _id}`}
+        query={`*[_type == "community" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
 

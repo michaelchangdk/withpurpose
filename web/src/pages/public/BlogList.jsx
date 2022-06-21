@@ -33,7 +33,7 @@ const BlogList = () => {
 
   const fetchBlogposts = async () => {
     setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, excerpt, image, duration}`;
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, excerpt, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);

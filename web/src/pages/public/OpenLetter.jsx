@@ -18,7 +18,7 @@ import myPortableTextComponents from "../../styledcomponents/myPortableTextCompo
 // Function Import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "openletter"] {title, subtitle, body, _id}`;
+const pageQuery = `*[_type == "openletter" && !(_id in path('drafts.**'))] {title, subtitle, body, _id}`;
 
 const OpenLetter = () => {
   const navigate = useNavigate();

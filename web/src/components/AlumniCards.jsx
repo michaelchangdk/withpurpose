@@ -28,12 +28,6 @@ const AlumniCards = ({ alumni }) => {
         height: "100%",
       }}
     >
-      {/* <CardMedia
-        component="img"
-        width="100%"
-        image={urlFor(alumni.profilePhoto.asset._ref).url()}
-        alt={alumni.fullName}
-      /> */}
       <AspectRatioBoxSquare>
         <AspectRatioChild
           backgroundimage={urlFor(alumni.profilePhoto.asset._ref).url()}
@@ -42,12 +36,7 @@ const AlumniCards = ({ alumni }) => {
         ></AspectRatioChild>
       </AspectRatioBoxSquare>
       <CardContent>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          // alignItems="center"
-          bottom={0}
-        >
+        <Stack direction="row" justifyContent="space-between" bottom={0}>
           <div>
             <Typography variant="h5" component="div" fontWeight={400}>
               {alumni.fullName}

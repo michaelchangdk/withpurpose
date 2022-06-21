@@ -48,7 +48,7 @@ const ModulePage = () => {
   // For fetching module - Step 1
   const fetchModule = async () => {
     setLoading(true);
-    const moduleQuery = `*[_type == "module" && slug == "${module}"] {duration, lesson[]->{title, taskDescription, _id, name, isPDF, isLink, isVideo, duration, file, "pdfUrl":file.asset->url, otherUrl, videoUrl}, name, slug, type, _id, description, "week": *[_type=='week' && references(^._id)]{name, title}}`;
+    const moduleQuery = `*[_type == "module" && slug == "${module}" && !(_id in path('drafts.**'))] {duration, lesson[]->{title, taskDescription, _id, name, isPDF, isLink, isVideo, duration, file, "pdfUrl":file.asset->url, otherUrl, videoUrl}, name, slug, type, _id, description, "week": *[_type=='week' && references(^._id)]{name, title}}`;
     const fetch = await client.fetch(moduleQuery);
     const response = await fetch;
     setModuleName(response[0].name);
@@ -61,7 +61,7 @@ const ModulePage = () => {
 
   const fetchModules = async () => {
     setLoading(true);
-    const allModulesQuery = `*[_type == "module"] {slug}`;
+    const allModulesQuery = `*[_type == "module" && !(_id in path('drafts.**'))] {slug}`;
     const fetch = await client.fetch(allModulesQuery);
     const response = await fetch;
     const filteredSortedModules = response
@@ -155,11 +155,7 @@ const ModulePage = () => {
 
             <LessonList key={lessons} lessons={lessons} />
             <Container maxWidth="lg">
-              <Stack
-                direction="row"
-                // justifyContent={moduleIndex === 0 ? "flex-end" : "space-between"}
-                justifyContent="space-between"
-              >
+              <Stack direction="row" justifyContent="space-between">
                 {moduleIndex !== 0 && (
                   <Button
                     variant="contained"
@@ -194,12 +190,10 @@ const ModulePage = () => {
                     color="primary"
                     onClick={() => navNextModule()}
                     disableElevation
-                    // disabled={disabled}
                   >
                     Next module
                   </Button>
                 )}
-                {/* SET PROPER WEEK */}
                 {moduleIndex === moduleArray.length - 1 && (
                   <Button
                     variant="contained"
@@ -208,7 +202,6 @@ const ModulePage = () => {
                     color="success"
                     onClick={() => navigate(`/week/${week}`)}
                     disableElevation
-                    // disabled={disabled}
                   >
                     All done!
                   </Button>

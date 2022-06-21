@@ -18,7 +18,7 @@ import {
 // Function Imports
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "masterclasses"] {description, _id, masterclassModules[]}`;
+const pageQuery = `*[_type == "masterclasses" && !(_id in path('drafts.**'))] {description, _id, masterclassModules[]}`;
 
 const MasterclassPage = () => {
   const [loading, response] = FetchResponse(pageQuery);
@@ -34,7 +34,7 @@ const MasterclassPage = () => {
       }}
     >
       <HeroHeader
-        query={`*[_type == "masterclasses"] {heroImage, title, subtitle, _id}`}
+        query={`*[_type == "masterclasses" && !(_id in path('drafts.**'))] {heroImage, title, subtitle, _id}`}
         type={"page"}
       />
       {!loading && response[0].description && (

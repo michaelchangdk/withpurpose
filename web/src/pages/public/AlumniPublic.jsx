@@ -19,7 +19,7 @@ import {
 // Function Import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
-const pageQuery = `*[_type == "alumnipage"] {title, subtitle, _id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
+const pageQuery = `*[_type == "alumnipage" && !(_id in path('drafts.**'))] {title, subtitle, _id, alumni[]->{fullName, city, class, linkedin, profilePhoto, _id}}`;
 
 const AlumniPublic = () => {
   const [loading, response] = FetchResponse(pageQuery);
