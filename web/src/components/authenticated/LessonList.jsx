@@ -13,6 +13,7 @@ import {
   Paper,
 } from "@mui/material";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
+import SentimentVerySatisfiedRoundedIcon from "@mui/icons-material/SentimentVerySatisfiedRounded";
 // Component Imports
 import LessonItem from "./LessonItem";
 // Styling Imports
@@ -36,9 +37,12 @@ const LessonList = ({ lessons }) => {
     } else if (lesson.isLink === true) {
       setTaskDescription(lesson.taskDescription);
       setTaskLink(lesson.otherUrl);
-    } else {
+    } else if (lesson.isPDF === true) {
       setTaskDescription(lesson.taskDescription);
       setTaskLink(`${lesson.pdfUrl}?dl=`);
+    } else {
+      setTaskDescription(lesson.name);
+      setTaskLink("");
     }
   };
 
@@ -48,7 +52,7 @@ const LessonList = ({ lessons }) => {
       {/* We can find ref hooks to automatically check it when the video is done playing */}
       {/* https://www.npmjs.com/package/react-player */}
       {/* https://github.com/cookpete/react-player/blob/master/src/demo/App.js */}
-      {videoUrl.length > 0 && (
+      {!!videoUrl && (
         <div style={{ marginBottom: "32px" }}>
           <FrameDiv>
             <ReactPlayer
@@ -66,7 +70,7 @@ const LessonList = ({ lessons }) => {
           <Typography variant="caption">{taskDuration}</Typography>
         </div>
       )}
-      {taskDescription.length > 0 && (
+      {!!taskDescription && (
         <StyledPaper elevation={4} sx={{ maxWidth: "lg" }}>
           <TaskItem>
             <Fab
@@ -74,10 +78,12 @@ const LessonList = ({ lessons }) => {
               size="large"
               target="_blank"
               rel="noreferrer"
-              href={taskLink}
+              href={!!taskLink ? taskLink : ""}
             >
-              <ModeOutlinedIcon sx={{ fontSize: 30 }} />
-              {/* <MouseIcon sx={{ fontSize: 30 }} /> */}
+              {!!taskLink && <ModeOutlinedIcon sx={{ fontSize: 30 }} />}
+              {!taskLink && (
+                <SentimentVerySatisfiedRoundedIcon sx={{ fontSize: 30 }} />
+              )}
             </Fab>
             <p>{taskDescription}</p>
           </TaskItem>

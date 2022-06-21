@@ -17,6 +17,7 @@ import DownloadForOfflineRoundedIcon from "@mui/icons-material/DownloadForOfflin
 import CloudCircleIcon from "@mui/icons-material/CloudCircle";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import LightbulbCircleRoundedIcon from "@mui/icons-material/LightbulbCircleRounded";
 // Function Imports
 import { checkLesson, uncheckLesson } from "../../services/clientFunctions";
 
@@ -29,8 +30,6 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
       (a) => a.lessonReference === lesson._id
     )
   );
-
-  console.log(lesson);
 
   useEffect(() => {
     if (completedLesson.length > 0) {
@@ -97,11 +96,14 @@ const LessonItem = ({ lesson, clickTask, userid }) => {
           {lesson.isVideo && <PlayCircleIcon color="secondary" />}
           {lesson.isLink && <CloudCircleIcon color="secondary" />}
           {lesson.isPDF && <DownloadForOfflineRoundedIcon color="secondary" />}
+          {!lesson.isVideo && !lesson.isLink && !lesson.isPDF && (
+            <LightbulbCircleRoundedIcon color="secondary" />
+          )}
         </ListItemIcon>
         <ListItemText
           id={labelId}
           primary={`${lesson.name}`}
-          secondary={`${lesson.duration}`}
+          secondary={!!lesson.duration ? `${lesson.duration}` : "Duration N/A"}
         />
       </ListItemButton>
     </ListItem>
