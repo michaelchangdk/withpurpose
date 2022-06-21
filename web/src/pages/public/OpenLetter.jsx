@@ -56,7 +56,7 @@ const OpenLetter = () => {
                 >
                   <Button
                     variant="contained"
-                    color="secondary"
+                    color="info"
                     size="large"
                     sx={{
                       width: "180px",
