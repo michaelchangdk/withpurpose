@@ -174,8 +174,7 @@ const BookingPage = () => {
         },
       ])
       .commit({ autoGenerateArrayKeys: true })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         setAlert("Booking request sent!");
       });
   };
