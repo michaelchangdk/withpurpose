@@ -12,15 +12,19 @@ import PublicHeader from "../../components/public/PublicHeader";
 import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/global/PageFooter";
+import LoadingIndicator from "../../components/global/LoadingIndicator";
 import ScrollToTop from "../../components/global/ScrollToTop";
 import myPortableTextComponents from "../../styledcomponents/myPortableTextComponents";
 import HelmetMetaData from "../../components/public/HelmetMetaData";
-// import PostCardLarge from "../../components/public/PostCardLarge";
 
 // Styling Imports
 import styled from "styled-components/macro";
 import { Ellipsis } from "../../styledcomponents/buttons";
-import { Duration } from "../../styledcomponents/typography";
+import {
+  Duration,
+  BlogTitle,
+  BlogAuthor,
+} from "../../styledcomponents/typography";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
 
 import {
@@ -29,13 +33,11 @@ import {
   FlexSpaceBetween,
 } from "../../styledcomponents/globalstyles";
 
-const {format} = require('date-fns');
-//today's date
-const today =format(new Date(),'dd MM');
-console.log(today);
+const { format } = require("date-fns");
 
 const BlogPost = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const [recentPosts, setRecentPosts] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [body, setBody] = useState(null);
@@ -50,10 +52,10 @@ const BlogPost = () => {
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
+    setLoading(true);
     const postQuery = `*[_type == "blogpost" && _id == '${postId}'] {body, image, title, excerpt, duration, publishedAt, hashtags->[], author->{image, name}}`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
-    
     setBody(response[0].body);
     setImageUrl(urlFor(response?.[0].image.asset._ref).url());
     setTitle(response[0].title);
@@ -61,17 +63,20 @@ const BlogPost = () => {
     setDuration(response[0].duration);
     setHashtags(response[0].hashtags);
     setAuthorName(response[0].author?.name);
-    setAuthorImageUrl(urlFor(response[0].author?.image?.asset._ref).width(100).height(100).url());
+    setAuthorImageUrl(
+      urlFor(response[0].author?.image?.asset._ref).width(100).height(100).url()
+    );
     setPublishedAt(format(new Date(response[0].publishedAt), "MMM d"));
-    // console.log(response[0])
+    setLoading(false);
   };
 
   const fetchBlogposts = async () => {
-    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, image, duration, excerpt, hashtags}`;
+    setLoading(true);
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] | order(publishedAt desc) {_id, title, image, duration, excerpt, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));
-
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -81,7 +86,7 @@ const BlogPost = () => {
 
   return (
     <>
-      <HelmetMetaData 
+      <HelmetMetaData
         url={`https://withpurpose.netlify.app/blog/${id}`}
         image={imageUrl}
         title={title}
@@ -97,104 +102,133 @@ const BlogPost = () => {
         >
           <Container maxWidth="lg">
             <PublicHeader />
-            <Container maxWidth="md" sx={{ margin: "0 auto" }}>
-              <Button
-                variant="contained"
-                startIcon={<ArrowBackRoundedIcon />}
-                onClick={() => navigate("/blog")}
-                sx={{ marginBottom: "20px" }}
-              >
-                Back
-              </Button>
-            </Container>
-            <Container maxWidth="md" sx={{ margin: "0 auto" }}>
-              <ThemeProvider theme={lightMode}>
-                <BackgroundBox
-                  sx={{
-                    bgcolor: "background.default",
-                    color: "text.primary",
-                    lineHeight: "25px",
-                    borderRadius: "4px",
-                  }}
-                >
-                  <BlogPostContainer>
-                    <FlexSpaceBetween>
-                      <div style={{display: "flex"}}>
-                        {authorImageUrl && 
-                          <img style={{borderRadius: "50%", height: "75px", maxWidth: "75px"}} alt={authorName} src={authorImageUrl}/>
-                        }
-                        {authorName && 
-                          <Stack sx={{ display: "flex", justifyContent: "space-between"}}>
-                            <Typography component="h2" variant="h5">{authorName}</Typography>
-                            <div style={{display: "flex"}}>
-                              <Duration>{duration} read</Duration>
-                              <Typography component="h3" varient="h6">{publishedAt}</Typography>
-    
-                            </div>  
-                          </Stack>  
-                        }
-                        
-                      </div>
-
-  
-                      {openModal && (
-                        <SharingModal
-                          openModal={openModal}
-                          setOpenModal={setOpenModal}
-                          id={id}
-                          title={title}
-                          excerpt={excerpt}
-                          image={imageUrl}
-                          hashtags={hashtags ? hashtags : ["WithPurpose"]}
-                        />
-                      )}
-                      
-                      <Ellipsis
-                        sx={{ color: "text.primary" }}
-                        onClick={() => setOpenModal(true)}
-                      >
-                        ⋮
-                      </Ellipsis>
-             
-                    </FlexSpaceBetween>
-                    {/* <PortableText
-                      value={body?.[0]}
-                      components={myPortableTextComponents}
-                    /> */}
-                    <Typography component="h1" variant="h3" sx={{lineHeight: .9}}>{title}</Typography>
-                    <PortableText
-                      value={body}
-                      components={myPortableTextComponents}
-                    />
-                  </BlogPostContainer>
-                </BackgroundBox>
-                <PostDivider>
-                  <Typography variant="h4" sx={{ fontSize: "18px" }}>
-                    Recent posts
-                  </Typography>
-                  <Button variant="outlined" onClick={() => navigate("/blog")}>
-                    See all
+            {loading && <LoadingIndicator />}
+            {!loading && (
+              <>
+                <Container maxWidth="md" sx={{ margin: "0 auto" }}>
+                  <Button
+                    variant="contained"
+                    startIcon={<ArrowBackRoundedIcon />}
+                    onClick={() => navigate("/blog")}
+                    sx={{ marginBottom: "20px" }}
+                  >
+                    Back
                   </Button>
-                </PostDivider>
-
-                <ThreeGrid style={{ gap: "16px" }}>
-                  {recentPosts &&
-                    recentPosts.map((post) => {
-                      return (
-                        <PostCardSmall
-                          key={post._id}
-                          url={urlFor(post.image.asset._ref).url()}
-                          title={post.title}
-                          duration={post.duration}
-                          excerpt={post.excerpt}
-                          link={`/blog/${post._id}`}
+                </Container>
+                <Container maxWidth="md" sx={{ margin: "0 auto" }}>
+                  <ThemeProvider theme={lightMode}>
+                    <BackgroundBox
+                      sx={{
+                        bgcolor: "background.default",
+                        color: "text.primary",
+                        lineHeight: "25px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      <BlogPostContainer>
+                        <FlexSpaceBetween>
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            {authorImageUrl && (
+                              <AuthorImage
+                                alt={authorName}
+                                src={authorImageUrl}
+                              />
+                            )}
+                            <Stack
+                              sx={{
+                                display: "flex",
+                                marginLeft: "8px",
+                              }}
+                            >
+                              <BlogAuthor
+                                component="h2"
+                                variant="h5"
+                                fontWeight={500}
+                              >
+                                {authorName}
+                              </BlogAuthor>
+                              <div style={{ display: "flex" }}>
+                                <Typography component="h3">
+                                  {publishedAt}
+                                  {"  ·  "}
+                                </Typography>
+                                <Duration>{duration} read</Duration>
+                              </div>
+                            </Stack>
+                          </div>
+                          {openModal && (
+                            <SharingModal
+                              openModal={openModal}
+                              setOpenModal={setOpenModal}
+                              id={id}
+                              title={title}
+                              excerpt={excerpt}
+                              image={imageUrl}
+                              hashtags={hashtags ? hashtags : ["WithPurpose"]}
+                            />
+                          )}
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Ellipsis
+                              sx={{ color: "text.primary" }}
+                              onClick={() => setOpenModal(true)}
+                            >
+                              ⋮
+                            </Ellipsis>
+                          </div>
+                        </FlexSpaceBetween>
+                        <BlogTitle
+                          variant="h2"
+                          component="h1"
+                          sx={{ marginBottom: "32px" }}
+                        >
+                          {title}
+                        </BlogTitle>
+                        <PortableText
+                          value={body}
+                          components={myPortableTextComponents}
                         />
-                      );
-                    })}
-                </ThreeGrid>
-              </ThemeProvider>
-            </Container>
+                      </BlogPostContainer>
+                    </BackgroundBox>
+                    <PostDivider>
+                      <Typography variant="h4" sx={{ fontSize: "18px" }}>
+                        Recent posts
+                      </Typography>
+                      <Button
+                        variant="outlined"
+                        onClick={() => navigate("/blog")}
+                      >
+                        See all
+                      </Button>
+                    </PostDivider>
+
+                    <ThreeGrid style={{ gap: "16px" }}>
+                      {recentPosts &&
+                        recentPosts.map((post) => {
+                          return (
+                            <PostCardSmall
+                              key={post._id}
+                              url={urlFor(post.image.asset._ref).url()}
+                              title={post.title}
+                              duration={post.duration}
+                              excerpt={post.excerpt}
+                              link={`/blog/${post._id}`}
+                            />
+                          );
+                        })}
+                    </ThreeGrid>
+                  </ThemeProvider>
+                </Container>
+              </>
+            )}
             <PageFooter />
+
             <ScrollToTop />
           </Container>
         </BackgroundBox>
@@ -204,6 +238,17 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
+const AuthorImage = styled.img`
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+
+  @media (min-width: 768px) {
+    height: 64px;
+    width: 64px;
+  }
+`;
 
 const BlogPostContainer = styled.div`
   padding: 16px;

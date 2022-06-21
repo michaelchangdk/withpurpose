@@ -33,7 +33,7 @@ const BlogList = () => {
 
   const fetchBlogposts = async () => {
     setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, excerpt, image, duration, hashtags}`;
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] | order(publishedAt desc) {_id, title, excerpt, image, duration, hashtags, publishedAt}`;
     // const blogpostQuery = `*[_type == "blogpost"] {_id, title, excerpt, image, duration, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
@@ -75,7 +75,13 @@ const BlogList = () => {
   };
 
   const handleOpenModal = (id, title, excerpt, url, hashtags) => {
-    setHoldArgs({ title: title, id: id, excerpt: excerpt, url: url, hashtags: hashtags });
+    setHoldArgs({
+      title: title,
+      id: id,
+      excerpt: excerpt,
+      url: url,
+      hashtags: hashtags,
+    });
     setOpenModal(true);
   };
 

@@ -14,6 +14,30 @@ export const Duration = styled(Typography)`
   }
 `;
 
+export const BlogTitle = styled(Typography)`
+  && {
+    font-size: 28px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 40px;
+    }
+  }
+`;
+
+export const BlogAuthor = styled(Typography)`
+  && {
+    font-size: 16px;
+  }
+
+  @media (min-width: 768px) {
+    && {
+      font-size: 20px;
+    }
+  }
+`;
+
 export const PageHeader = styled(Typography)`
   && {
     font-size: 32px;
