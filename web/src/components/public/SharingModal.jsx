@@ -37,7 +37,6 @@ const SharingModal = ({
   image,
 }) => {
   const handleClose = () => setOpenModal(false);
-  // console.log("ID", id, "Title", title, "Excerpt", excerpt, "image", image);
   return (
     <div>
       {openModal && (

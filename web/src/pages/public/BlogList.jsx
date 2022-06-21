@@ -29,7 +29,6 @@ const BlogList = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [holdArgs, setHoldArgs] = useState({});
-  // let filteredPosts = blogposts;
   const navigate = useNavigate();
 
   const fetchBlogposts = async () => {
