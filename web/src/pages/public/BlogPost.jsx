@@ -45,7 +45,7 @@ const BlogPost = () => {
   const [duration, setDuration] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [authorName, setAuthorName] = useState("");
-  // const [authorImageUrl, setAuthorImageUrl] = useState("");
+  const [authorImageUrl, setAuthorImageUrl] = useState("");
   const [publishedAt, setPublishedAt] = useState("");
   const navigate = useNavigate();
 
@@ -61,13 +61,13 @@ const BlogPost = () => {
     setDuration(response[0].duration);
     setHashtags(response[0].hashtags);
     setAuthorName(response[0].author?.name);
-    // setAuthorImageUrl(urlFor(response[0].author?.image?.asset._ref).url());
+    setAuthorImageUrl(urlFor(response[0].author?.image?.asset._ref).width(100).height(100).url());
     setPublishedAt(format(new Date(response[0].publishedAt), "MMM d"));
     // console.log(response[0])
   };
 
   const fetchBlogposts = async () => {
-    const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt, hashtags}`;
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, image, duration, excerpt, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));
@@ -119,23 +119,24 @@ const BlogPost = () => {
                 >
                   <BlogPostContainer>
                     <FlexSpaceBetween>
-                    <div style={{display: "flex", alignItems: "flex-end", justifyContent: "space-between"}}>
-                      {authorName && 
-                        <Stack sx={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                          {/* {authorImageUrl &&  */}
-                          {/* <img style={{borderRadius: "50%", height: "100px", maxWidth: "100px"}} src={authorImageUrl}/>*/}
-                          <Typography component="h2" variant="h5">{authorName}</Typography>
-                          <div style={{display: "flex"}} >
-                            <Duration>{duration} read</Duration>
-                            <Typography component="h3" varient="h6">{publishedAt}</Typography>
-                            
-                          </div>  
-                        </Stack>
-                      }
-                      
-                    </div>
+                      <div style={{display: "flex"}}>
+                        {authorImageUrl && 
+                          <img style={{borderRadius: "50%", height: "75px", maxWidth: "75px"}} alt={authorName} src={authorImageUrl}/>
+                        }
+                        {authorName && 
+                          <Stack sx={{ display: "flex", justifyContent: "space-between"}}>
+                            <Typography component="h2" variant="h5">{authorName}</Typography>
+                            <div style={{display: "flex"}}>
+                              <Duration>{duration} read</Duration>
+                              <Typography component="h3" varient="h6">{publishedAt}</Typography>
+    
+                            </div>  
+                          </Stack>  
+                        }
+                        
+                      </div>
 
-                     
+  
                       {openModal && (
                         <SharingModal
                           openModal={openModal}
@@ -147,12 +148,14 @@ const BlogPost = () => {
                           hashtags={hashtags ? hashtags : ["WithPurpose"]}
                         />
                       )}
+                      
                       <Ellipsis
                         sx={{ color: "text.primary" }}
                         onClick={() => setOpenModal(true)}
                       >
                         ⋮
                       </Ellipsis>
+             
                     </FlexSpaceBetween>
                     {/* <PortableText
                       value={body?.[0]}
