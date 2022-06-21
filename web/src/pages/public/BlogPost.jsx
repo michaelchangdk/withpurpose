@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { PortableText } from "@portabletext/react";
 
 // MUI Imports
-import { Container, Button, Typography } from "@mui/material";
+import { Container, Button, Typography, Stack } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 // Component Imports
@@ -15,7 +15,7 @@ import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
 import myPortableTextComponents from "../../styledcomponents/myPortableTextComponents";
-// import HelmetMetaData from "../../components/public/HelmetMetaData";
+import HelmetMetaData from "../../components/public/HelmetMetaData";
 // import PostCardLarge from "../../components/public/PostCardLarge";
 
 // Styling Imports
@@ -23,7 +23,6 @@ import styled from "styled-components/macro";
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
-// import styled from "styled-components/macro";
 
 import {
   BackgroundBox,
@@ -33,25 +32,42 @@ import {
 
 const BlogPost = () => {
   const { id } = useParams();
-  const [currentPost, setCurrentPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [body, setBody] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [excerpt, setExcerpt] = useState("");
+  const [duration, setDuration] = useState("");
+  const [hashtags, setHashtags] = useState([]);
+  const [authorName, setAuthorName] = useState("");
+  const [authorImageUrl, setAuthorImageUrl] = useState("");
+  const [publishedAt, setPublishedAt] = useState("");
   const navigate = useNavigate();
 
   const fetchPost = async (postId) => {
-    const postQuery = `*[_type == "blogpost" && _id == '${postId}']`;
+    const postQuery = `*[_type == "blogpost" && _id == '${postId}'] {body, image, title, excerpt, duration, publishedAt, hashtags->[], author->{image, name}}`;
     const fetch = await client.fetch(postQuery);
     const response = await fetch;
-    setCurrentPost(response[0]);
-    console.log("currentpost Image url", urlFor(currentPost?.image.asset._ref).url())
+    
+    setBody(response[0].body);
+    setImageUrl(urlFor(response?.[0].image.asset._ref).url());
+    setTitle(response[0].title);
+    setExcerpt(response[0].excerpt);
+    setDuration(response[0].duration);
+    setHashtags(response[0].hashtags);
+    setAuthorName(response[0].author?.name);
+    setAuthorImageUrl(urlFor(response[0].author?.image?.asset._ref).url());
+    setPublishedAt(new Date(response[0].publishedAt).toDateString());
+    console.log(response[0])
   };
 
   const fetchBlogposts = async () => {
-    // setLoading(true);
     const blogpostQuery = `*[_type == "blogpost"] {_id, title, image, duration, excerpt, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setRecentPosts(response.slice(0, 3));
+
   };
 
   useEffect(() => {
@@ -61,47 +77,13 @@ const BlogPost = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{currentPost?.title}</title>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="csrf_token" content="" />
-        <meta property="type" content="website" />
-        <meta
-          property="url"
-          content={`https://withpurpose.netlify.app/blog/${id}`}
-        />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-        <meta name="theme-color" content="#ffffff" />
-        <meta name="_token" content="" />
-        <meta name="robots" content="noodp" />
-        <meta property="title" content={currentPost?.title} />
-        <meta property="quote" content={currentPost?.excerpt} />
-        <meta name="description" content={currentPost?.excerpt} />
-        <meta property="image" content={currentPost?.image} />
-        <meta name="twitter:card" content="summary_large_image" data-react-helmet="true"/>
-        <meta name="twitter:title" content="With Purpose - Accelerating Women Entrepreneurs in the Nordics" data-react-helmet="true"/>
-        <meta name="twitter:description" content="We help women founders in the Nordics to build, run, and grow their startups." data-react-helmet="true"/>
-        <meta name="twitter:image" content="https://cdn.sanity.io/images/yehevb38/production/ce95af966ba934c265c9bb744cff34229f69224c-3578x2013.jpg" data-react-helmet="true"></meta>
-        <meta property="og:locale" content="da_DK" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={currentPost?.title} />
-        <meta property="og:quote" content={currentPost?.excerpt} />
-        <meta property="og:hashtag" content={"#WithPurpose"} />
-        <meta property="og:image" content={currentPost ? urlFor(currentPost?.image).url() : ""} />
-        <meta content="image/*" property="og:image:type" />
-        <meta
-          property="og:url"
-          content={`https://withpurpose.netlify.app/blog/${currentPost?._id}`}
-        />
-        <meta property="og:site_name" content="With Purpose" />
-        <meta property="og:description" content={currentPost?.excerpt} />
-      </Helmet>
+      <HelmetMetaData 
+        url={`https://withpurpose.netlify.app/blog/${id}`}
+        image={imageUrl}
+        title={title}
+        excerpt={excerpt}
+        hashtags={hashtags ? hashtags : ["WithPurpose"]}
+      />
       <ThemeProvider theme={darkMode}>
         <BackgroundBox
           sx={{
@@ -133,16 +115,16 @@ const BlogPost = () => {
                 >
                   <BlogPostContainer>
                     <FlexSpaceBetween>
-                      <Duration>{currentPost?.duration} read</Duration>
+                      <Duration>{duration} read</Duration>
                       {openModal && (
                         <SharingModal
                           openModal={openModal}
                           setOpenModal={setOpenModal}
                           id={id}
-                          title={currentPost?.title}
-                          excerpt={currentPost?.excerpt}
-                          image={currentPost.image ? urlFor(currentPost.image.asset._ref).url() : ""}
-                          hashtags={currentPost.hashtags}
+                          title={title}
+                          excerpt={excerpt}
+                          image={imageUrl}
+                          hashtags={hashtags ? hashtags : ["WithPurpose"]}
                         />
                       )}
                       <Ellipsis
@@ -152,8 +134,26 @@ const BlogPost = () => {
                         ⋮
                       </Ellipsis>
                     </FlexSpaceBetween>
+                    {/* <PortableText
+                      value={body?.[0]}
+                      components={myPortableTextComponents}
+                    /> */}
+                    <Typography component="h1" variant="h3" sx={{lineHeight: .9}}>{title}</Typography>
+                    <Container sx={{display: "flex", alignItems: "flex-end", justifyContent: "space-between"}}>
+                      {authorName && 
+                        <Stack sx={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                          {authorImageUrl && 
+                            <img style={{borderRadius: "50%", height: "100px", maxWidth: "100px"}} src={authorImageUrl}/>}
+                          <Typography component="h2" variant="h5">{authorName}</Typography>
+                        </Stack>
+                      }
+                      {publishedAt &&
+                        <Typography component="h3" varient="h6">{publishedAt}</Typography>
+                      }
+                    </Container>
+
                     <PortableText
-                      value={currentPost?.body}
+                      value={body}
                       components={myPortableTextComponents}
                     />
                   </BlogPostContainer>

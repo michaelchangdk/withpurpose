@@ -39,7 +39,6 @@ const BlogList = () => {
     const response = await fetch;
     setBlogposts(response);
     setFilteredPosts(response);
-    console.log(response);
     setLoading(false);
   };
 
@@ -70,7 +69,7 @@ const BlogList = () => {
         title={title}
         excerpt={excerpt}
         image={url}
-        hashtags={hashtags}
+        hashtags={hashtags === null ? ["WithPurpose"] : hashtags}
       />
     );
   };
