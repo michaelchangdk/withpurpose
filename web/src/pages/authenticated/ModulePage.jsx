@@ -64,7 +64,6 @@ const ModulePage = () => {
     const allModulesQuery = `*[_type == "module"] {slug}`;
     const fetch = await client.fetch(allModulesQuery);
     const response = await fetch;
-    console.log(response);
     const filteredSortedModules = response
       .map((modules) => modules.slug)
       .filter((modules) => modules.includes(module.split("M")[0]))

@@ -55,18 +55,12 @@ export const FetchResponse = (pageQuery) => {
 export const toggleDarkMode = (userid, darkMode, dispatch, authenticated) => {
   if (darkMode) {
     dispatch(authenticated.actions.toggleDarkMode(false));
-    client
-      .patch(userid)
-      .set({ darkMode: false })
-      .commit()
-      .then((res) => console.log(res));
+    client.patch(userid).set({ darkMode: false }).commit();
+    // .then((res) => console.log(res));
   } else if (!darkMode) {
     dispatch(authenticated.actions.toggleDarkMode(true));
-    client
-      .patch(userid)
-      .set({ darkMode: true })
-      .commit()
-      .then((res) => console.log(res));
+    client.patch(userid).set({ darkMode: true }).commit();
+    // .then((res) => console.log(res));
   }
 };
 // Fetch Booking Requests

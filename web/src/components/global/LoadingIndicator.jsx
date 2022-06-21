@@ -1,17 +1,15 @@
 import React from "react";
-import CircularProgress from "@mui/material/CircularProgress";
+
+// MUI Imports
 import { Typography, Stack } from "@mui/material";
-import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
+// Styling Imports
+import styled from "styled-components/macro";
 
 const LoadingIndicator = () => {
   return (
     <Wrapper>
-      <Stack
-        justifyContent="center"
-        alignItems="center"
-        // sx={{ margin: "0 auto" }}
-        gap={2}
-      >
+      <Stack justifyContent="center" alignItems="center" gap={2}>
         <CircularProgress color="primary" />
         <Typography variant="h5" sx={{ textAlign: "center" }}>
           Loading...

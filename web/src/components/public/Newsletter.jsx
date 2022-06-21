@@ -50,8 +50,7 @@ const Newsletter = () => {
     fetch(
       "https://hook.eu1.make.com/wsf42sgicwtrhmc526tnxux5vku7g5js",
       options
-    ).then((res) => {
-      console.log(res);
+    ).then(() => {
       setSuccess("Thank you for subscribing!");
     });
   };

@@ -47,13 +47,11 @@ const Signup = () => {
   const googleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
         client
           .fetch(
             `*[_type == "user" && _id == "${result.user.uid}"] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6, completed, darkMode, displayName, photoURL}`
           )
           .then((res) => {
-            console.log(res);
             if (res === [] || res.length === 0) {
               const doc = {
                 _id: result.user.uid,
@@ -76,7 +74,6 @@ const Signup = () => {
               };
 
               client.createIfNotExists(doc).then((response) => {
-                console.log(response);
                 dispatch(
                   authenticated.actions.login({
                     uid: result.user.uid,
@@ -98,7 +95,6 @@ const Signup = () => {
               });
               navigate("/");
             } else if (res.length > 0) {
-              console.log(res);
               if (!!res[0].completed) {
                 res[0].completed.forEach((lesson) =>
                   dispatch(authenticated.actions.addCompletedLesson(lesson))
@@ -127,7 +123,6 @@ const Signup = () => {
           });
       })
       .catch((error) => {
-        console.log(error);
         setError(error.message);
       });
   };
@@ -151,7 +146,6 @@ const Signup = () => {
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          console.log(userCredential);
           const user = userCredential.user;
           updateProfile(user, {
             displayName: `${firstname} ${lastname}`,
@@ -177,7 +171,6 @@ const Signup = () => {
           };
 
           client.createIfNotExists(doc).then((response) => {
-            console.log(response);
             dispatch(
               authenticated.actions.login({
                 uid: userCredential.user.uid,
@@ -201,7 +194,6 @@ const Signup = () => {
           });
         })
         .catch((error) => {
-          console.log(error.message);
           if (error.message === "Firebase: Error (auth/invalid-email).") {
             setError("Please enter a valid email address.");
           } else if (

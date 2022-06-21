@@ -1,6 +1,8 @@
 import React from "react";
+// MUI Imports
 import { Typography } from "@mui/material";
-import styled from "styled-components";
+// Styling Imports
+import styled from "styled-components/macro";
 
 const PageFooter = () => {
   const year = new Date().getFullYear();

@@ -85,8 +85,7 @@ const Contact = () => {
     fetch(
       "https://hook.eu1.make.com/6cjixxk5a0dx25p8ig5bd8x6fga8ctsd",
       options
-    ).then((res) => {
-      console.log(res);
+    ).then(() => {
       setSuccess("Your message has been sent. Thank you!");
     });
   };

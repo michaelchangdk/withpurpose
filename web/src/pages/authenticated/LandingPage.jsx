@@ -26,7 +26,6 @@ const LandingPage = () => {
   const accessQuery = `*[_type == "user" && _id == "${userid}"] {approvedCommunity, approvedMasterClass, approvedMentorBooking, approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6}`;
   useEffect(() => {
     client.fetch(accessQuery).then((response) => {
-      console.log("access response", response);
       dispatch(
         authenticated.actions.updateAccess({
           approvedSchool: response[0].approvedSchool,

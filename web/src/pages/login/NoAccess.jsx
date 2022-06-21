@@ -1,9 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+// MUI Imports
 import { Button, Box, Stack, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkMode } from "../../styledcomponents/themeoptions";
+// Styling Imports
 import styled from "styled-components";
+import { darkMode } from "../../styledcomponents/themeoptions";
+// Asset Imports
 import logo from "../../assets/BWP_logotype.svg";
 
 const NoAccess = () => {
