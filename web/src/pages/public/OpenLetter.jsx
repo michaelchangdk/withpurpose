@@ -45,27 +45,31 @@ const OpenLetter = () => {
           <Container maxWidth="sm">
             {loading && <LoadingIndicator />}
             {!loading && (
-              <PortableText
-                sx={{ lineHeight: 2 }}
-                value={response[0]?.body}
-                components={myPortableTextComponents}
-              />
+              <>
+                <PortableText
+                  sx={{ lineHeight: 2 }}
+                  value={response[0]?.body}
+                  components={myPortableTextComponents}
+                />
+                <Flexbox
+                  style={{ justifyContent: "center", marginTop: "32px" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    sx={{
+                      width: "180px",
+                      fontSize: "18px",
+                      fontWeight: "700",
+                    }}
+                    onClick={() => navigate("/contact")}
+                  >
+                    Join us
+                  </Button>
+                </Flexbox>
+              </>
             )}
-            <Flexbox style={{ justifyContent: "center", marginTop: "32px" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                sx={{
-                  width: "180px",
-                  fontSize: "18px",
-                  fontWeight: "700",
-                }}
-                onClick={() => navigate("/contact")}
-              >
-                Join us
-              </Button>
-            </Flexbox>
           </Container>
         </Container>
         <PageFooter />
