@@ -43,24 +43,24 @@ const StartupSchool = () => {
               {response[0].subtitle}
             </PageSubtitle>
           )}
-          <ContentWrapper>
-            <div>
-              <PortableText
-                sx={{ lineHeight: 2 }}
-                value={response[0]?.intro}
-                components={myPortableTextComponents}
-              />
-            </div>
-            <div
-              style={{
-                margin: "0 auto",
-                textAlign: "center",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-              }}
-            >
-              {!loading && (
+          {!loading && (
+            <ContentWrapper>
+              <div>
+                <PortableText
+                  sx={{ lineHeight: 2 }}
+                  value={response[0]?.intro}
+                  components={myPortableTextComponents}
+                />
+              </div>
+              <div
+                style={{
+                  margin: "0 auto",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
                 <StyledCTA variant="h2">
                   {response[0].cta.substring(
                     0,
@@ -71,25 +71,25 @@ const StartupSchool = () => {
                     {response[0].cta.split(" ").slice(-1)}
                   </PurpleSpan>
                 </StyledCTA>
-              )}
-              <Button
-                size="large"
-                variant="contained"
-                color="secondary"
-                sx={{
-                  width: "220px",
-                  fontSize: "18px",
-                  fontWeight: "700",
-                  margin: "0 auto",
-                }}
-                onClick={() =>
-                  window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
-                }
-              >
-                Register
-              </Button>
-            </div>
-            {!loading && (
+
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    width: "220px",
+                    fontSize: "18px",
+                    fontWeight: "700",
+                    margin: "0 auto",
+                  }}
+                  onClick={() =>
+                    window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
+                  }
+                >
+                  Register
+                </Button>
+              </div>
+
               <div>
                 <PurpleSubheader variant="h4">
                   {response[0].expectationsHeader}
@@ -100,10 +100,9 @@ const StartupSchool = () => {
                   components={myPortableTextComponents}
                 />
               </div>
-            )}
-            <ThreeGrid>
-              {!loading &&
-                response[0].threeColumns.map((column) => (
+
+              <ThreeGrid>
+                {response[0].threeColumns.map((column) => (
                   <GridChild key={column.title}>
                     <PurpleSubheader variant="h4">
                       {column.title}
@@ -111,11 +110,10 @@ const StartupSchool = () => {
                     <Typography>{column.description}</Typography>
                   </GridChild>
                 ))}
-            </ThreeGrid>
-            <TwoGrid>
-              <TwoBlock>
-                {!loading &&
-                  response[0].blockOne.map((block) => (
+              </ThreeGrid>
+              <TwoGrid>
+                <TwoBlock>
+                  {response[0].blockOne.map((block) => (
                     <GridChild key={block.title}>
                       <Icon
                         src={urlFor(block.image.asset._ref).url()}
@@ -131,71 +129,72 @@ const StartupSchool = () => {
                       </Typography>
                     </GridChild>
                   ))}
-              </TwoBlock>
-              <div
-                style={{
-                  listStylePosition: "outside",
-                  paddingLeft: "1em",
-                  lineHeight: 1.5,
+                </TwoBlock>
+                <div
+                  style={{
+                    listStylePosition: "outside",
+                    paddingLeft: "1em",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <PortableText
+                    sx={{ lineHeight: 2 }}
+                    value={response[0]?.paragraphOne}
+                    components={myPortableTextComponents}
+                  />
+                </div>
+              </TwoGrid>
+              <TwoGrid>
+                {!loading && (
+                  <GridRight>
+                    <TwoBlock>
+                      {response[0].blockTwo.map((block) => (
+                        <GridChild key={block.title}>
+                          <Icon
+                            src={urlFor(block.image.asset._ref).url()}
+                            alt={block.title}
+                          />
+                          <PinkSubheader variant="h2">
+                            {block.title}
+                          </PinkSubheader>
+                          <Typography
+                            variant="h5"
+                            fontWeight={500}
+                            sx={{ fontSize: "16px" }}
+                          >
+                            {block.description}
+                          </Typography>
+                        </GridChild>
+                      ))}
+                    </TwoBlock>
+                  </GridRight>
+                )}
+                <GridLeft>
+                  <PortableText
+                    sx={{ lineHeight: 2 }}
+                    value={response[0]?.paragraphTwo}
+                    components={myPortableTextComponents}
+                  />
+                </GridLeft>
+              </TwoGrid>
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                sx={{
+                  width: "220px",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  margin: "-16px auto 0 auto",
                 }}
+                onClick={() =>
+                  window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
+                }
               >
-                <PortableText
-                  sx={{ lineHeight: 2 }}
-                  value={response[0]?.paragraphOne}
-                  components={myPortableTextComponents}
-                />
-              </div>
-            </TwoGrid>
-            <TwoGrid>
-              {!loading && (
-                <GridRight>
-                  <TwoBlock>
-                    {response[0].blockTwo.map((block) => (
-                      <GridChild key={block.title}>
-                        <Icon
-                          src={urlFor(block.image.asset._ref).url()}
-                          alt={block.title}
-                        />
-                        <PinkSubheader variant="h2">
-                          {block.title}
-                        </PinkSubheader>
-                        <Typography
-                          variant="h5"
-                          fontWeight={500}
-                          sx={{ fontSize: "16px" }}
-                        >
-                          {block.description}
-                        </Typography>
-                      </GridChild>
-                    ))}
-                  </TwoBlock>
-                </GridRight>
-              )}
-              <GridLeft>
-                <PortableText
-                  sx={{ lineHeight: 2 }}
-                  value={response[0]?.paragraphTwo}
-                  components={myPortableTextComponents}
-                />
-              </GridLeft>
-            </TwoGrid>
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              sx={{
-                width: "220px",
-                fontSize: "18px",
-                fontWeight: "700",
-                margin: "-16px auto 0 auto",
-              }}
-              onClick={() =>
-                window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
-              }
-            >
-              APPLY NOW
-            </Button>
-          </ContentWrapper>
+                APPLY NOW
+              </Button>
+            </ContentWrapper>
+          )}
         </Container>
         <PageFooter />
       </BackgroundBox>
