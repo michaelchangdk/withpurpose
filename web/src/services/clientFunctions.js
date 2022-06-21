@@ -41,8 +41,7 @@ export const FetchResponse = (pageQuery) => {
   useEffect(() => {
     setLoading(true);
     client.fetch(pageQuery).then((response) => {
-      console.log(response);
-      setResponse(response.filter((item) => !item._id.includes("draft")));
+      setResponse(response);
       setLoading(false);
     });
   }, [pageQuery]);
