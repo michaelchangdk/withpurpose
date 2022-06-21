@@ -58,16 +58,16 @@ const SharingModal = ({
         <Box sx={style}>
           <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
             <TwitterShareButton
-              // title={title}
-              // hashtags={["WithPurpose", "Entrepreneur"]}
+              title={title}
+              hashtags={["WithPurpose", "Entrepreneur"]}
               url={`https://withpurpose.netlify.app/blog/${id}`}
             >
               <TwitterIcon size={32} round />
             </TwitterShareButton>
 
             <FacebookShareButton
-              // title={title}
-              // hashtag={"#WithPurpose"}
+              title={title}
+              hashtag={"#WithPurpose"}
               url={`https://withpurpose.netlify.app/blog/${id}`}
             >
               <FacebookIcon size={32} round />
