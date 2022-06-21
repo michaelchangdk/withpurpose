@@ -101,7 +101,8 @@ export default {
       name: "bookingrequest",
       title: "Booking Request",
       type: "array",
-      description: "This field is automatically filled in by the system.",
+      description:
+        "This field is automatically filled in by the system. The list is ordered by when the request was made.",
       of: [
         {
           type: "object",
@@ -121,6 +122,7 @@ export default {
           ],
         },
       ],
+      options: { sortable: false },
     },
     {
       name: "completed",
@@ -128,7 +130,11 @@ export default {
       type: "array",
       of: [{ type: "completed" }],
       description:
-        "Do not edit! This is the array of lessons users have marked as completed.",
+        "This is the array of lessons users have marked as completed. The list is ordered by when the lesson was marked as complete.",
+      options: {
+        sortable: false,
+      },
+      readOnly: true,
     },
   ],
   preview: {
