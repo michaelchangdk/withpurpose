@@ -64,7 +64,9 @@ const BookingPage = () => {
   // Fetch page
   useEffect(() => {
     client
-      .fetch(`*[_type == "booking"] {description}`)
+      .fetch(
+        `*[_type == "booking" && !(_id in path('drafts.**'))] {description}`
+      )
       .then((res) => setDescription(res[0].description));
   }, []);
 
@@ -157,17 +159,40 @@ const BookingPage = () => {
   };
 
   // Formula for confirming a booking and patching to Sanity
+  // First formula is setting the booking to the mentor - commented out to test on user instead below
+  // const confirmBooking = () => {
+  //   client
+  //     .patch(mentor._id)
+  //     .setIfMissing({
+  //       bookingrequest: [],
+  //     })
+  //     .insert("after", "bookingrequest[-1]", [
+  //       {
+  //         student: {
+  //           _type: "reference",
+  //           _ref: userid,
+  //         },
+  //         mentor: mentor.fullName,
+  //         datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
+  //       },
+  //     ])
+  //     .commit({ autoGenerateArrayKeys: true })
+  //     .then(() => {
+  //       setAlert("Booking request sent!");
+  //     });
+  // };
+
   const confirmBooking = () => {
     client
-      .patch(mentor._id)
+      .patch(userid)
       .setIfMissing({
         bookingrequest: [],
       })
       .insert("after", "bookingrequest[-1]", [
         {
-          student: {
+          studentMentors: {
             _type: "reference",
-            _ref: userid,
+            _ref: mentor._id,
           },
           mentor: mentor.fullName,
           datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,

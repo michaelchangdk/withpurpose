@@ -63,48 +63,30 @@ export default {
         },
       ],
     },
-    {
-      name: "bookingrequest",
-      title: "Booking Request",
-      type: "array",
-      description: "This field is automatically filled in by the system.",
-      of: [
-        {
-          type: "object",
-          fields: [
-            {
-              name: "student",
-              title: "Student",
-              type: "reference",
-              to: [{ type: "user" }],
-            },
-            {
-              name: "mentor",
-              title: "Mentor",
-              type: "string",
-            },
-            { name: "datetime", title: "Datetime", type: "string" },
-          ],
-        },
-      ],
-    },
+    // {
+    //   name: "bookingrequest",
+    //   title: "Booking Request",
+    //   type: "array",
+    //   description: "This field is automatically filled in by the system.",
+    //   of: [
+    //     {
+    //       type: "object",
+    //       fields: [
+    //         {
+    //           name: "student",
+    //           title: "Student",
+    //           type: "reference",
+    //           to: [{ type: "user" }],
+    //         },
+    //         {
+    //           name: "mentor",
+    //           title: "Mentor",
+    //           type: "string",
+    //         },
+    //         { name: "datetime", title: "Datetime", type: "string" },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
 };
-
-// How to add validation to a field
-// validation: (Rule) =>
-// Rule.custom((name) => {
-//   if (
-//     name === "Monday" ||
-//     name === "Tuesday" ||
-//     name === "Wednesday" ||
-//     name === "Thursday" ||
-//     name === "Friday" ||
-//     name === "Saturday" ||
-//     name === "Sunday"
-//   ) {
-//     return true;
-//   }
-// })
-//   .error("Fill in the weekday precisely ("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday"))
-//   .warning("Fill in the weekday precisely ("Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday"))

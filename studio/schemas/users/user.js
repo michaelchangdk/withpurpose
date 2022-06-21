@@ -94,8 +94,33 @@ export default {
     },
     {
       name: "approvedMasterClass",
-      title: "Approved Master Class?",
+      title: "Approved Masterclasses?",
       type: "boolean",
+    },
+    {
+      name: "bookingrequest",
+      title: "Booking Request",
+      type: "array",
+      description: "This field is automatically filled in by the system.",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "studentMentors",
+              title: "Mentor",
+              type: "reference",
+              to: [{ type: "studentMentors" }],
+            },
+            {
+              name: "mentor",
+              title: "Mentor",
+              type: "string",
+            },
+            { name: "datetime", title: "Datetime", type: "string" },
+          ],
+        },
+      ],
     },
     {
       name: "completed",

@@ -342,20 +342,18 @@ const ProfilePage = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <List>
-                    {bookingRequests.length > 0 ? (
-                      bookingRequests.map((nested) =>
-                        nested.bookingrequest.map((booking) => (
-                          <ListItem key={booking._key}>
-                            <ListItemAvatar>
-                              <ScheduleIcon sx={{ fontSize: "32px" }} />
-                            </ListItemAvatar>
-                            <ListItemText
-                              primary={booking.mentor}
-                              secondary={booking.datetime}
-                            />
-                          </ListItem>
-                        ))
-                      )
+                    {!!bookingRequests ? (
+                      bookingRequests.map((booking) => (
+                        <ListItem key={booking._key}>
+                          <ListItemAvatar>
+                            <ScheduleIcon sx={{ fontSize: "32px" }} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={booking.mentor}
+                            secondary={booking.datetime}
+                          />
+                        </ListItem>
+                      ))
                     ) : (
                       <ListItem>
                         <ListItemAvatar>
@@ -377,3 +375,18 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+// Booking requests when they were added to mentor and not user - code below
+// bookingRequests.map((nested) =>
+//   nested.bookingrequest.map((booking) => (
+//     <ListItem key={booking._key}>
+//       <ListItemAvatar>
+//         <ScheduleIcon sx={{ fontSize: "32px" }} />
+//       </ListItemAvatar>
+//       <ListItemText
+//         primary={booking.mentor}
+//         secondary={booking.datetime}
+//       />
+//     </ListItem>
+//   ))
+// )

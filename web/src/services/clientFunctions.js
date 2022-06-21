@@ -62,13 +62,26 @@ export const toggleDarkMode = (userid, darkMode, dispatch, authenticated) => {
     // .then((res) => console.log(res));
   }
 };
-// Fetch Booking Requests
+// Fetch Booking Requests // Old function when setting booking request to mentor, see below - setting to user instead
+// export const FetchBookingRequests = (userid) => {
+//   const [bookingRequests, setBookingRequests] = useState([]);
+//   const bookingQuery = `*[_type == "user" && _id == "${userid}"] {"booking": *[_type == "studentMentors" && references(^._id)]{fullName, bookingrequest}} `;
+//   useEffect(() => {
+//     client.fetch(bookingQuery).then((res) => {
+//       console.log(res);
+//       setBookingRequests(res[0].booking);
+//     });
+//   }, [bookingQuery]);
+
+//   return [bookingRequests];
+// };
+
 export const FetchBookingRequests = (userid) => {
   const [bookingRequests, setBookingRequests] = useState([]);
-  const bookingQuery = `*[_type == "user" && _id == "${userid}"] {"booking": *[_type == "studentMentors" && references(^._id)]{fullName, bookingrequest}} `;
+  const bookingQuery = `*[_type == "user" && _id == "${userid}"] {bookingrequest} `;
   useEffect(() => {
     client.fetch(bookingQuery).then((res) => {
-      setBookingRequests(res[0].booking);
+      setBookingRequests(res[0].bookingrequest);
     });
   }, [bookingQuery]);
 
