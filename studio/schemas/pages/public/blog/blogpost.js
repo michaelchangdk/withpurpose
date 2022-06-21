@@ -50,10 +50,10 @@ export default {
       },
     },
     {
-      name: "categories",
-      title: "Categories",
+      name: "hashtags",
+      title: "Hashtags",
       type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
+      of: [{ type: "string" }],
     },
     {
       name: "publishedAt",

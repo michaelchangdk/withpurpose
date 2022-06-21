@@ -2,7 +2,8 @@ import React from "react";
 import { Helmet } from "react-helmet";
 // import { useLocation } from "react-router-dom";
 
-const HelmetMetaData = ({url, image, title, excerpt, hashtag}) => {
+const HelmetMetaData = ({url, image, title, excerpt, hashtags}) => {
+    // console.log("HELMETMETADATA", "url", url, "title", title, "image", image, "hashtags", hashtags)
     return (
         <Helmet>
             <title>{title}</title>
@@ -37,7 +38,7 @@ const HelmetMetaData = ({url, image, title, excerpt, hashtag}) => {
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             <meta property="og:quote" content={excerpt} />
-            <meta property="og:hashtag" content={hashtag} />
+            <meta property="og:hashtag" content={hashtags} />
             <meta property="og:image" content={image} />
             <meta content="image/*" property="og:image:type" />
             <meta

@@ -33,7 +33,8 @@ const BlogList = () => {
 
   const fetchBlogposts = async () => {
     setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, excerpt, image, duration}`;
+    const blogpostQuery = `*[_type == "blogpost" && !(_id in path('drafts.**'))] {_id, title, excerpt, image, duration, hashtags}`;
+    // const blogpostQuery = `*[_type == "blogpost"] {_id, title, excerpt, image, duration, hashtags}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
@@ -58,7 +59,7 @@ const BlogList = () => {
   };
 
   const Share = () => {
-    const { id, title, excerpt, url } = holdArgs;
+    const { id, title, excerpt, url, hashtags } = holdArgs;
     return (
       <SharingModal
         openModal={openModal}
@@ -68,12 +69,13 @@ const BlogList = () => {
         title={title}
         excerpt={excerpt}
         image={url}
+        hashtags={hashtags === null ? ["WithPurpose"] : hashtags}
       />
     );
   };
 
-  const handleOpenModal = (id, title, excerpt, url) => {
-    setHoldArgs({ title: title, id: id, excerpt: excerpt, url: url });
+  const handleOpenModal = (id, title, excerpt, url, hashtags) => {
+    setHoldArgs({ title: title, id: id, excerpt: excerpt, url: url, hashtags: hashtags });
     setOpenModal(true);
   };
 
@@ -120,6 +122,7 @@ const BlogList = () => {
                           title={blogpost.title}
                           id={blogpost._id}
                           excerpt={blogpost.excerpt}
+                          hashtags={blogpost.hashtags}
                           showBlogpost={showBlogpost}
                           openModal={openModal}
                           handleOpenModal={handleOpenModal}

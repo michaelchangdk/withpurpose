@@ -35,6 +35,7 @@ const SharingModal = ({
   title,
   excerpt,
   image,
+  hashtags
 }) => {
   const handleClose = () => setOpenModal(false);
   return (
@@ -45,7 +46,7 @@ const SharingModal = ({
           image={image}
           title={title}
           excerpt={excerpt}
-          hashtag={"#WithPurpose"}
+          hashtags={hashtags}
         />
       )}
       <Modal
@@ -58,7 +59,7 @@ const SharingModal = ({
           <Container sx={{ display: "flex", justifyContent: "space-evenly" }}>
             <TwitterShareButton
               title={title}
-              hashtags={["WithPurpose", "Entrepreneur"]}
+              hashtags={hashtags}
               url={`https://withpurpose.netlify.app/blog/${id}`}
             >
               <TwitterIcon size={32} round />
@@ -66,7 +67,7 @@ const SharingModal = ({
 
             <FacebookShareButton
               title={title}
-              hashtag={"#WithPurpose"}
+              hashtag={`#${hashtags[0]}`}
               url={`https://withpurpose.netlify.app/blog/${id}`}
             >
               <FacebookIcon size={32} round />

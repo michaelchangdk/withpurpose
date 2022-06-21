@@ -86,10 +86,10 @@ export default () =>
                         .icon(FaUserTag)
                         .child(S.documentTypeList("author").title("Author")),
                       S.listItem()
-                        .title("Category")
+                        .title("Hashtags")
                         .icon(FaTags)
                         .child(
-                          S.documentTypeList("category").title("Category")
+                          S.documentTypeList("hashtags").title("Hashtags")
                         ),
                     ])
                 ),
