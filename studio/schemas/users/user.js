@@ -1,7 +1,11 @@
+import { FaUserEdit } from "react-icons/fa";
+
 export default {
   name: "user",
   title: "User",
   type: "document",
+  icon: FaUserEdit,
+  __experimental_actions: [/*"create",*/ "update", "delete", "publish"],
   fields: [
     {
       name: "displayName",
@@ -102,4 +106,10 @@ export default {
         "Do not edit! This is the array of lessons users have marked as completed.",
     },
   ],
+  preview: {
+    select: {
+      title: "displayName",
+      subtitle: "email",
+    },
+  },
 };

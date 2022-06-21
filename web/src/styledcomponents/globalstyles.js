@@ -42,7 +42,7 @@ export const ThreeGridCentered = styled(ThreeGrid)`
   }
 `;
 
-const Flexbox = styled.div`
+export const Flexbox = styled.div`
   display: flex;
 `;
 

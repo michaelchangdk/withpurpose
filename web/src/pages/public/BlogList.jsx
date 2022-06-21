@@ -26,22 +26,33 @@ const BlogList = () => {
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [blogposts, setBlogposts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [holdArgs, setHoldArgs] = useState({});
+  // let filteredPosts = blogposts;
   const navigate = useNavigate();
 
   const fetchBlogposts = async () => {
     setLoading(true);
-    const blogpostQuery = `*[_type == "blogpost" && title match "*${searchTerm}*"] {_id, title, excerpt, image, duration}`;
+    const blogpostQuery = `*[_type == "blogpost"] {_id, title, excerpt, image, duration}`;
     const fetch = await client.fetch(blogpostQuery);
     const response = await fetch;
     setBlogposts(response);
-    // console.log(response);
+    setFilteredPosts(response);
+    console.log(response);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchBlogposts(); // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setFilteredPosts(
+      blogposts.filter((post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    ); // eslint-disable-next-line
   }, [searchTerm]);
 
   const showBlogpost = (id) => {
@@ -61,7 +72,6 @@ const BlogList = () => {
         image={url}
       />
     );
-  
   };
 
   const handleOpenModal = (id, title, excerpt, url) => {
@@ -84,12 +94,12 @@ const BlogList = () => {
               <PageSubtitle variant="h2" component="h2">
                 What we've been up to lately
               </PageSubtitle>
-              {loading && <LoadingIndicator />}
               <PostListContainer>
                 <FlexSpaceBetween>
                   <Button
                     sx={{ color: "#fff" }}
                     onClick={() => setSearchTerm("")}
+                    variant="outlined"
                   >
                     all posts
                   </Button>
@@ -99,10 +109,11 @@ const BlogList = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </FlexSpaceBetween>
+                {loading && <LoadingIndicator />}
                 {openModal && Share()}
                 <Grid1Col>
                   {!loading &&
-                    blogposts.map((blogpost) => {
+                    filteredPosts.map((blogpost) => {
                       return (
                         <PostCardLarge
                           key={blogpost._id}

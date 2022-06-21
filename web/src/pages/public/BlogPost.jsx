@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { PortableText } from "@portabletext/react";
 
 // MUI Imports
-import { Container, Button } from "@mui/material";
+import { Container, Button, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 // Component Imports
@@ -14,11 +14,12 @@ import PostCardSmall from "../../components/public/PostCardSmall";
 import SharingModal from "../../components/public/SharingModal";
 import PageFooter from "../../components/global/PageFooter";
 import ScrollToTop from "../../components/global/ScrollToTop";
-import myPortableTextComponents from "../../services/myPortableTextComponents";
+import myPortableTextComponents from "../../styledcomponents/myPortableTextComponents";
 // import HelmetMetaData from "../../components/public/HelmetMetaData";
 // import PostCardLarge from "../../components/public/PostCardLarge";
 
 // Styling Imports
+import styled from "styled-components/macro";
 import { Ellipsis } from "../../styledcomponents/buttons";
 import { Duration } from "../../styledcomponents/typography";
 import { darkMode, lightMode } from "../../styledcomponents/themeoptions";
@@ -139,12 +140,7 @@ const BlogPost = () => {
                     borderRadius: "4px",
                   }}
                 >
-                  <div
-                    style={{
-                      margin: "20px",
-                      padding: "min(10%, 50px)",
-                    }}
-                  >
+                  <BlogPostContainer>
                     <FlexSpaceBetween>
                       <Duration>{currentPost?.duration} read</Duration>
                       {openModal && (
@@ -168,8 +164,17 @@ const BlogPost = () => {
                       value={currentPost?.body}
                       components={myPortableTextComponents}
                     />
-                  </div>
+                  </BlogPostContainer>
                 </BackgroundBox>
+                <PostDivider>
+                  <Typography variant="h4" sx={{ fontSize: "18px" }}>
+                    Recent posts
+                  </Typography>
+                  <Button variant="outlined" onClick={() => navigate("/blog")}>
+                    See all
+                  </Button>
+                </PostDivider>
+
                 <ThreeGrid style={{ gap: "16px" }}>
                   {recentPosts &&
                     recentPosts.map((post) => {
@@ -197,3 +202,23 @@ const BlogPost = () => {
 };
 
 export default BlogPost;
+
+const BlogPostContainer = styled.div`
+  padding: 16px;
+
+  @media (min-width: 768px) {
+    padding: 32px;
+  }
+
+  @media (min-width: 1100px) {
+    padding: 48px;
+  }
+`;
+
+const PostDivider = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+`;

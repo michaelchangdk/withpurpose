@@ -1,6 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { client } from "../client";
+import { authenticated } from "../reducers/authenticated";
 
 // Page Imports
 import Homepage from "./public/Homepage";
@@ -29,6 +31,7 @@ import NoAccess from "./login/NoAccess";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightMode, darkMode } from "../styledcomponents/themeoptions";
 import { Helmet } from "react-helmet";
+
 const Router = () => {
   console.log(useSelector((store) => store.authenticated));
 
@@ -36,7 +39,33 @@ const Router = () => {
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   const access = useSelector((store) => store.authenticated.access);
   const darkModeTrue = useSelector((store) => store.authenticated.darkMode);
+  const userid = useSelector((store) => store.authenticated.uid);
+  const dispatch = useDispatch();
+  const accessQuery = `*[_type == "user" && _id == "${userid}"]`;
+  const accessParams = `{approvedSchool, approvedWeek0, approvedWeek1, approvedWeek23, approvedWeek4, approvedWeek5, approvedWeek6, approvedMasterClass, approvedMentorBooking, approvedCommunity}`;
 
+  // If user is logged in, turns on listener for changes to access permissions.
+  if (loggedin) {
+    client.listen(accessQuery, accessParams).subscribe((update) => {
+      const result = update.result;
+      dispatch(
+        authenticated.actions.updateAccess({
+          approvedSchool: result.approvedSchool,
+          approvedWeek0: result.approvedWeek0,
+          approvedWeek1: result.approvedWeek1,
+          approvedWeek23: result.approvedWeek23,
+          approvedWeek4: result.approvedWeek4,
+          approvedWeek5: result.approvedWeek5,
+          approvedWeek6: result.approvedWeek6,
+          approvedMasterClass: result.approvedMasterClass,
+          approvedMentorBooking: result.approvedMentorBooking,
+          approvedCommunity: result.approvedCommunity,
+        })
+      );
+    });
+  }
+
+  // const access = useSelector((store) => store.authenticated.access);
   // List of approved weeks - how to implement week access using params? Perhaps better to implement using useEffect on week and module pages
   // const approvedWeekArr = Object.entries(access)
   //   .filter(([key, val]) => key.includes("Week") && val === true)

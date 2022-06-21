@@ -101,9 +101,15 @@ const HeaderTitleWrapper = styled.div`
 const HeaderTitle = styled(Typography)`
   && {
     color: white;
-    font-size: 64px;
+    font-size: 48px;
     padding-bottom: 12px;
     line-height: 1.2;
+  }
+
+  && {
+    @media (min-width: 768px) {
+      font-size: 64px;
+    }
   }
 `;
 
@@ -111,6 +117,12 @@ const HeaderSubtitle = styled(Typography)`
   && {
     color: white;
     font-size: 24px;
+  }
+
+  && {
+    @media (min-width: 768px) {
+      font-size: 20px;
+    }
   }
 `;
 

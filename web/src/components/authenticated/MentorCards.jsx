@@ -7,7 +7,6 @@ import {
   Card,
   Stack,
   Typography,
-  CardMedia,
   CardContent,
   IconButton,
   Accordion,
@@ -20,6 +19,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 // Styling Imports
 import styled from "styled-components/macro";
+import {
+  AspectRatioBoxSquare,
+  AspectRatioChild,
+} from "../../styledcomponents/containers";
 
 const MentorCards = ({ mentor }) => {
   const openLinkedin = () => {
@@ -35,12 +38,13 @@ const MentorCards = ({ mentor }) => {
         height: "100%",
       }}
     >
-      <CardMedia
-        component="img"
-        width="100%"
-        image={urlFor(mentor.profilePhoto.asset._ref).url()}
-        alt={mentor.fullName}
-      />
+      <AspectRatioBoxSquare>
+        <AspectRatioChild
+          backgroundimage={urlFor(mentor.profilePhoto.asset._ref).url()}
+          // xposition={coverImage.crop.top}
+          // yposition={coverImage.hotspot.y}
+        ></AspectRatioChild>
+      </AspectRatioBoxSquare>
       <CardContent>
         <Stack direction="column" gap={2}>
           <Stack

@@ -10,7 +10,7 @@ import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 // Component Imports
 import ProgressCircle from "./ProgressCircle";
 
-const ModuleCards = ({ duration, name, title, type, module }) => {
+const ModuleCards = ({ duration, name, slug, type, module }) => {
   const [progress, setProgress] = useState(0);
   const [color, setColor] = useState("primary");
   const [buttonText, setButtonText] = useState("Start");
@@ -19,7 +19,7 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
   const lessonRefs = module.lesson.map((a) => a._ref);
   const completedLessonsLength = useSelector(
     (store) => store.authenticated.completedLessons
-  ).filter((lesson) => lessonRefs.includes(lesson.lessonRef)).length;
+  ).filter((lesson) => lessonRefs.includes(lesson.lessonReference)).length;
 
   // useEffect for progress tracker
   useEffect(() => {
@@ -83,14 +83,14 @@ const ModuleCards = ({ duration, name, title, type, module }) => {
             fontWeight={400}
             fontSize={14}
           >
-            {type} | {duration}
+            {type} {duration ? `| ${duration}` : ""}
           </Typography>
         </Stack>
         <Stack direction="column" alignItems="flex-start" mt={1}>
           <Button
             variant="contained"
             disableElevation
-            onClick={() => navigate(`/module/${title}`)}
+            onClick={() => navigate(`/module/${slug}`)}
             size="small"
             color={color}
             sx={{ width: 90 }}

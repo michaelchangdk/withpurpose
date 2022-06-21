@@ -45,7 +45,10 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
 
   return (
     <>
-      <CardActionArea onClick={clickCard} sx={{ maxWidth: "sm" }}>
+      <CardActionArea
+        onClick={clickCard}
+        sx={{ maxWidth: "sm", borderRadius: "4px" }}
+      >
         <Card
           sx={{
             maxWidth: "sm",
@@ -83,8 +86,8 @@ const LandingCards = ({ title, headline, description, linkTo, coverImage }) => {
             </Typography>
           </CardContent>
         </Card>
-        <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
       </CardActionArea>
+      <NoAccessModal openModal={openModal} setOpenModal={setOpenModal} />
     </>
   );
 };

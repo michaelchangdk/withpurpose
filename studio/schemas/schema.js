@@ -27,6 +27,7 @@ import booking from "./pages/members/booking";
 import alumnipublic from "./pages/public/alumnipublic";
 import mentorspublic from "./pages/public/mentorspublic";
 import team from "./pages/public/team";
+import settings from "./settings";
 
 // Import Pages
 import landingpage from "./pages/members/landingpage";
@@ -65,5 +66,6 @@ export default createSchema({
     alumnipublic,
     mentorspublic,
     team,
+    settings,
   ]),
 });

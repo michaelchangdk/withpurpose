@@ -24,7 +24,7 @@ export const checkLesson = (userid, lesson) => {
 
 export const uncheckLesson = (userid, completedLesson) => {
   const deleteQuery = [
-    `completed[lessonReference=="${completedLesson[0].lessonRef}"]`,
+    `completed[lessonReference=="${completedLesson[0].lessonReference}"]`,
   ];
   client
     .patch(userid)

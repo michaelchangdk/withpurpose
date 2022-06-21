@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardMedia,
-  CardActions,
   CardActionArea,
 } from "@mui/material";
 // Styling Imports
@@ -31,9 +30,7 @@ const PostCardSmall = ({ duration, title, url, id, excerpt, link }) => {
         </CardMedia>
         <div style={{ maxWidth: "100%" }}>
           <CardContent sx={{ alignSelf: "start", height: "100%" }}>
-            <StyledCardActions>
-              <Duration>{duration}</Duration>
-            </StyledCardActions>
+            <Duration>{duration}</Duration>
             <Typography
               gutterBottom
               variant="h5"
@@ -52,13 +49,6 @@ const PostCardSmall = ({ duration, title, url, id, excerpt, link }) => {
   );
 };
 
-const StyledCardActions = styled(CardActions)`
-  && {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
-
 const StyledCard = styled(Card)`
   && {
     cursor: pointer;
@@ -69,13 +59,13 @@ const StyledCard = styled(Card)`
 
 const Duration = styled(Typography)`
   && {
-    padding: 0 8px;
-    font-size: 0.725rem;
+    margin-bottom: 8px;
+    font-size: 12px;
     font-weight: 300;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 `;
 

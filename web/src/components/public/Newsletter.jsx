@@ -94,7 +94,7 @@ const Newsletter = () => {
           required={true}
           autoComplete="First name"
           fullWidth
-          color="secondary"
+          color="primary"
           onChange={(e) => setFirstname(e.target.value)}
         />
         <TextField
@@ -103,7 +103,7 @@ const Newsletter = () => {
           required={true}
           autoComplete="Last name"
           fullWidth
-          color="secondary"
+          color="primary"
           onChange={(e) => setLastname(e.target.value)}
         />
         <TextField
@@ -112,7 +112,7 @@ const Newsletter = () => {
           required={true}
           autoComplete="Email"
           fullWidth
-          color="secondary"
+          color="primary"
           onChange={(e) => setEmail(e.target.value)}
         />
         {success.length > 0 && <Alert severity="success">{success}</Alert>}

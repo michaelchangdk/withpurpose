@@ -68,10 +68,39 @@ export const FourCardGrid = styled.div`
 `;
 
 // Aspect Ratio Containers - used for landingpagecard images
+// 16 / 9 Aspect Ratio
 export const AspectRatioBox = styled.div`
   height: 0;
   overflow: hidden;
   padding-top: 56.25%;
+  position: relative;
+`;
+
+// 4 / 3 Aspect Ratio - used for PostCardLarge
+export const AspectRatioBoxBlog = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+
+  @media (min-width: 768px) {
+    padding-top: 75%;
+  }
+`;
+
+// Square Aspect Ratio - used for MentorCards - (Student Mentors)
+export const AspectRatioBoxSquare = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 100%;
+  position: relative;
+`;
+
+// 4 / 3 Aspect Ratio - used for TeamCards
+export const AspectRatioBoxFourThree = styled.div`
+  height: 0;
+  overflow: hidden;
+  padding-top: 75%;
   position: relative;
 `;
 

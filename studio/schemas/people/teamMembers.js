@@ -1,7 +1,10 @@
+import { FaUserAstronaut } from "react-icons/fa";
+
 export default {
   name: "teamMembers",
   title: "Team Member",
   type: "document",
+  icon: FaUserAstronaut,
   fields: [
     {
       name: "fullName",

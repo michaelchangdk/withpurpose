@@ -9,6 +9,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  maxWidth: "80%",
   bgcolor: "background.default",
   color: "text.primary",
   border: "1px solid #000",
@@ -21,7 +22,7 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
   const handleClose = () => setOpenModal(false);
 
   return (
-    <div>
+    <>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={openModal}
@@ -44,7 +45,7 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
           <Typography>Nermeen, Ana & Ella</Typography>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 

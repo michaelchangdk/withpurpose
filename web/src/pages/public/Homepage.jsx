@@ -318,7 +318,7 @@ const Homepage = () => {
                   window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
                 }
               >
-                Register
+                APPLY NOW
               </Button>
             </Section>
             {/* NEWSLETTER / REACH OUT */}

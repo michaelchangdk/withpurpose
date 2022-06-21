@@ -1,7 +1,10 @@
+import { FaCalendar } from "react-icons/fa";
+
 export default {
   name: "week",
   title: "Week",
   type: "document",
+  icon: FaCalendar,
   fields: [
     {
       name: "name",
@@ -80,4 +83,11 @@ export default {
       ],
     },
   ],
+  preview: {
+    select: {
+      media: "heroImage",
+      title: "title",
+      subtitle: "keyword",
+    },
+  },
 };

@@ -15,6 +15,7 @@ import styled from "styled-components/macro";
 import { darkMode } from "../../styledcomponents/themeoptions";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import { PageTitle, PageSubtitle } from "../../styledcomponents/typography";
+import myPortableTextComponents from "../../styledcomponents/myPortableTextComponents";
 // Function import
 import { FetchResponse } from "../../services/clientFunctions";
 // Query Declaration
@@ -22,60 +23,6 @@ const pageQuery = `*[_type == "startupschoolinfo"] {title, subtitle, _id, intro,
 
 const StartupSchool = () => {
   const [loading, response] = FetchResponse(pageQuery);
-
-  const myPortableTextComponents = {
-    types: {
-      // image: ({value}) => <InlineImg src={urlFor(value.asset._ref).url()} alt={value.asset._ref}/>,
-      callToAction: ({ value, isInline }) =>
-        isInline ? (
-          <a href={value.url}>{value.text}</a>
-        ) : (
-          <div className="callToAction">{value.text}</div>
-        ),
-    },
-    block: {
-      normal: ({ children }) => (
-        <Typography sx={{ lineHeight: "1.6" }}>{children}</Typography>
-      ),
-      blockquote: ({ children }) => (
-        <blockquote style={{ fontSize: "18px" }}>{children}</blockquote>
-      ),
-      sideblock: ({ children }) => {
-        return (
-          <StyledAside>
-            <StyledAsideTypography>{children}</StyledAsideTypography>
-          </StyledAside>
-        );
-      },
-    },
-
-    marks: {
-      link: ({ children, value }) => {
-        const rel = !value.href.startsWith("/")
-          ? "noreferrer noopener"
-          : undefined;
-        return (
-          <a
-            href={value.href}
-            rel={rel}
-            style={{ color: "#fff", textDecoration: "underline" }}
-          >
-            {children}
-          </a>
-        );
-      },
-      purpletext: ({ children }) => {
-        return (
-          <span style={{ color: "#6356d7", fontWeight: 500 }}>{children}</span>
-        );
-      },
-      pinktext: ({ children }) => {
-        return (
-          <span style={{ color: "#e93a7d", fontWeight: 500 }}>{children}</span>
-        );
-      },
-    },
-  };
 
   return (
     <ThemeProvider theme={darkMode}>
@@ -175,7 +122,13 @@ const StartupSchool = () => {
                         alt={block.title}
                       />
                       <PinkSubheader variant="h2">{block.title}</PinkSubheader>
-                      <Typography>{block.description}</Typography>
+                      <Typography
+                        variant="h5"
+                        fontWeight={500}
+                        sx={{ fontSize: "16px" }}
+                      >
+                        {block.description}
+                      </Typography>
                     </GridChild>
                   ))}
               </TwoBlock>
@@ -206,7 +159,13 @@ const StartupSchool = () => {
                         <PinkSubheader variant="h2">
                           {block.title}
                         </PinkSubheader>
-                        <Typography>{block.description}</Typography>
+                        <Typography
+                          variant="h5"
+                          fontWeight={500}
+                          sx={{ fontSize: "16px" }}
+                        >
+                          {block.description}
+                        </Typography>
                       </GridChild>
                     ))}
                   </TwoBlock>
@@ -220,6 +179,22 @@ const StartupSchool = () => {
                 />
               </GridLeft>
             </TwoGrid>
+            <Button
+              size="large"
+              variant="contained"
+              color="secondary"
+              sx={{
+                width: "220px",
+                fontSize: "18px",
+                fontWeight: "700",
+                margin: "-16px auto 0 auto",
+              }}
+              onClick={() =>
+                window.open("https://forms.gle/ecz32R1vEStjzbWT9", "_blank")
+              }
+            >
+              APPLY NOW
+            </Button>
           </ContentWrapper>
         </Container>
         <PageFooter />
@@ -235,24 +210,10 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 60px;
-  padding: 0 60px;
-`;
 
-const StyledAsideTypography = styled(Typography)`
-  && {
-    color: hotpink;
-    width: 80%;
-    left: 100px;
-    font-size: 24px;
-    line-height: 1.1;
+  @media (min-width: 768px) {
+    padding: 0 60px;
   }
-`;
-
-const StyledAside = styled.aside`
-  display: flex;
-  justify-content: center;
-  position: relative;
-  margin: 32px auto;
 `;
 
 const ThreeGrid = styled.div`

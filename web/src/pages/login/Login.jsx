@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { authenticated } from "../../reducers/authenticated";
+import { client } from "../../client";
 import { auth } from "../../firebase";
 import {
   signInWithEmailAndPassword,
@@ -8,8 +10,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { client } from "../../client";
-import { authenticated } from "../../reducers/authenticated";
+// MUI Imports
 import {
   Alert,
   AlertTitle,
@@ -21,9 +22,10 @@ import {
   Divider,
   IconButton,
 } from "@mui/material";
-import styled from "styled-components";
-import logo from "../../assets/BWP_logotype.svg";
 import GoogleIcon from "@mui/icons-material/Google";
+// Styling Imports
+import styled from "styled-components/macro";
+import logo from "../../assets/BWP_logotype.svg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -191,7 +193,7 @@ const Login = () => {
 
   return (
     <Container maxWidth="xs">
-      <Stack spacing={2} mt={12} component="form">
+      <Stack spacing={2} mt={12} mb={12} component="form">
         <IconButton
           onClick={() => navigate("/")}
           sx={{ width: "90px", margin: "0 auto" }}
