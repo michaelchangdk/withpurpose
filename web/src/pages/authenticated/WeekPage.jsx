@@ -31,7 +31,7 @@ const WeekPage = () => {
   ).filter(([key, val]) => key.includes("Week"));
 
   // Fetching the page
-  const pageQuery = `*[_type == "week" && name == "${week}" && !(_id in path('drafts.**'))] {description, module[]->, order, _id}`;
+  const pageQuery = `*[_type == "week" && name == "${week}" && !(_id in path('drafts.**'))] {description, module[]->{duration, lesson, name, slug, type, _id}, order, _id}`;
   const [loading, response] = FetchResponse(pageQuery);
 
   useEffect(() => {
