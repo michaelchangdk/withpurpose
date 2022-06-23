@@ -158,30 +158,6 @@ const BookingPage = () => {
     setAlert("");
   };
 
-  // Formula for confirming a booking and patching to Sanity
-  // First formula is setting the booking to the mentor - commented out to test on user instead below
-  // const confirmBooking = () => {
-  //   client
-  //     .patch(mentor._id)
-  //     .setIfMissing({
-  //       bookingrequest: [],
-  //     })
-  //     .insert("after", "bookingrequest[-1]", [
-  //       {
-  //         student: {
-  //           _type: "reference",
-  //           _ref: userid,
-  //         },
-  //         mentor: mentor.fullName,
-  //         datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
-  //       },
-  //     ])
-  //     .commit({ autoGenerateArrayKeys: true })
-  //     .then(() => {
-  //       setAlert("Booking request sent!");
-  //     });
-  // };
-
   const confirmBooking = () => {
     client
       .patch(userid)
@@ -387,3 +363,30 @@ const GridChild = styled.div`
   flex-direction: column;
   gap: 16px;
 `;
+
+
+
+// Line 160
+// Formula for confirming a booking and patching to Sanity
+// First formula is setting the booking to the mentor - commented out to test on user instead below
+// const confirmBooking = () => {
+//   client
+//     .patch(mentor._id)
+//     .setIfMissing({
+//       bookingrequest: [],
+//     })
+//     .insert("after", "bookingrequest[-1]", [
+//       {
+//         student: {
+//           _type: "reference",
+//           _ref: userid,
+//         },
+//         mentor: mentor.fullName,
+//         datetime: `${selectedTime} on ${format(value, "d MMMM yyyy")}`,
+//       },
+//     ])
+//     .commit({ autoGenerateArrayKeys: true })
+//     .then(() => {
+//       setAlert("Booking request sent!");
+//     });
+// };

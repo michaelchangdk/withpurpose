@@ -82,14 +82,6 @@ const ProfilePage = () => {
         ...auth.currentUser,
         displayName: `${firstname} ${lastname}`,
       })
-        .then(() => {
-          // Profile updated!
-          // ...
-        })
-        .catch((error) => {
-          // An error occurred
-          // ...
-        });
 
       client
         .patch(userid)
@@ -111,11 +103,9 @@ const ProfilePage = () => {
         setSuccessPassword(
           "An email will be sent within 24 hours to you to reset your password. Don't forget to check the spamfolder."
         );
-        // give user confirmation that the email was sent, and suggest looking in spam too
       })
       .catch((error) => {
         setError(error.message);
-        // ..
       });
   };
 
@@ -126,7 +116,6 @@ const ProfilePage = () => {
       setError("Please enter a valid email address.");
     } else {
       setError("");
-      //
       let credential = EmailAuthProvider.credential(
         auth.currentUser.email,
         password
@@ -141,12 +130,9 @@ const ProfilePage = () => {
                 email: newEmail,
               })
               .commit()
-              .then((data) => {
+              .then(() => {
                 setSuccessEmail("Your email was successfully changed.");
               })
-              .catch((error) => {
-                // save error somewhere?
-              });
           });
         }
       );
@@ -375,6 +361,9 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+
+
 
 // Booking requests when they were added to mentor and not user - code below
 // bookingRequests.map((nested) =>

@@ -1,9 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-// import { useLocation } from "react-router-dom";
 
 const HelmetMetaData = ({url, image, title, excerpt, hashtags}) => {
-    // console.log("HELMETMETADATA", "url", url, "title", title, "image", image, "hashtags", hashtags)
     return (
         <Helmet>
             <title>{title}</title>

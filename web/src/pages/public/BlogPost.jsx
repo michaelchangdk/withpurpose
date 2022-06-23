@@ -228,7 +228,6 @@ const BlogPost = () => {
               </>
             )}
             <PageFooter />
-
             <ScrollToTop />
           </Container>
         </BackgroundBox>
