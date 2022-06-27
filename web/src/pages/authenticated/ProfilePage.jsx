@@ -120,22 +120,30 @@ const ProfilePage = () => {
         auth.currentUser.email,
         password
       );
-
-      reauthenticateWithCredential(auth.currentUser, credential).then(
-        (result) => {
-          updateEmail(auth.currentUser, newEmail).then(() => {
-            client
-              .patch(userid)
-              .set({
-                email: newEmail,
+   
+      reauthenticateWithCredential(auth.currentUser, credential)
+        .then(() => {
+          updateEmail(auth.currentUser, newEmail)
+            .then(() => {
+              client
+                .patch(userid)
+                .set({
+                  email: newEmail,
+                })
+                .commit()
+                .then(() => {
+                  setSuccessEmail("Your email was successfully changed.");
+                })
               })
-              .commit()
-              .then(() => {
-                setSuccessEmail("Your email was successfully changed.");
-              })
-          });
-        }
-      );
+        })
+        .catch((error) => {
+          if (error.message === "Firebase: Error (auth/wrong-password).") {
+            setError("Incorrect password.")
+          } else {
+            setError(error.message);
+          }
+        });
+      
     }
   };
 
@@ -239,14 +247,14 @@ const ProfilePage = () => {
                   <Typography>Change email</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ display: "grid", gap: 1 }}>
-                  <TextField
+                  {/* <TextField
                     label="Current email address"
                     variant="outlined"
                     autoComplete="Current email address"
                     fullWidth
                     required={true}
                     onChange={(e) => setCurrentEmail(e.target.value)}
-                  />
+                  /> */}
                   <TextField
                     label="Password"
                     autoComplete="current-password"
