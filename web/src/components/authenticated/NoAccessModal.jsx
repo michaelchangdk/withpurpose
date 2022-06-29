@@ -23,7 +23,6 @@ const NoAccessModal = ({ openModal, setOpenModal }) => {
 
   return (
     <>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={openModal}
         onClose={handleClose}

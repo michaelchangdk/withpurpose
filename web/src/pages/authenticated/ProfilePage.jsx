@@ -81,7 +81,7 @@ const ProfilePage = () => {
       updateProfile(auth.currentUser, {
         ...auth.currentUser,
         displayName: `${firstname} ${lastname}`,
-      })
+      });
 
       client
         .patch(userid)
@@ -120,30 +120,28 @@ const ProfilePage = () => {
         auth.currentUser.email,
         password
       );
-   
+
       reauthenticateWithCredential(auth.currentUser, credential)
         .then(() => {
-          updateEmail(auth.currentUser, newEmail)
-            .then(() => {
-              client
-                .patch(userid)
-                .set({
-                  email: newEmail,
-                })
-                .commit()
-                .then(() => {
-                  setSuccessEmail("Your email was successfully changed.");
-                })
+          updateEmail(auth.currentUser, newEmail).then(() => {
+            client
+              .patch(userid)
+              .set({
+                email: newEmail,
               })
+              .commit()
+              .then(() => {
+                setSuccessEmail("Your email was successfully changed.");
+              });
+          });
         })
         .catch((error) => {
           if (error.message === "Firebase: Error (auth/wrong-password).") {
-            setError("Incorrect password.")
+            setError("Incorrect password.");
           } else {
             setError(error.message);
           }
         });
-      
     }
   };
 
@@ -369,21 +367,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-
-
-
-// Booking requests when they were added to mentor and not user - code below
-// bookingRequests.map((nested) =>
-//   nested.bookingrequest.map((booking) => (
-//     <ListItem key={booking._key}>
-//       <ListItemAvatar>
-//         <ScheduleIcon sx={{ fontSize: "32px" }} />
-//       </ListItemAvatar>
-//       <ListItemText
-//         primary={booking.mentor}
-//         secondary={booking.datetime}
-//       />
-//     </ListItem>
-//   ))
-// )

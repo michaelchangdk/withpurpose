@@ -31,8 +31,6 @@ const AlumniCards = ({ alumni }) => {
       <AspectRatioBoxSquare>
         <AspectRatioChild
           backgroundimage={urlFor(alumni.profilePhoto.asset._ref).url()}
-          // xposition={coverImage.crop.top}
-          // yposition={coverImage.hotspot.y}
         ></AspectRatioChild>
       </AspectRatioBoxSquare>
       <CardContent>

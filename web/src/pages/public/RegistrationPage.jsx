@@ -14,6 +14,7 @@ import { darkMode } from "../../styledcomponents/themeoptions";
 import { BackgroundBox } from "../../styledcomponents/globalstyles";
 import { PageTitle } from "../../styledcomponents/typography";
 
+// Comment for code coaches: This page is a feature that is not developed yet - not part of our MVP but part of the final product launch in August.
 const RegistrationPage = () => {
   return (
     <ThemeProvider theme={darkMode}>

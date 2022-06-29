@@ -48,6 +48,7 @@ const LessonList = ({ lessons }) => {
 
   return (
     <Container maxWidth="lg">
+      {/* CODE COACHES! This code is for a future feature (not part of our MVP but for product launch in August) */}
       {/* Using React Player - take note of className below */}
       {/* We can find ref hooks to automatically check it when the video is done playing */}
       {/* https://www.npmjs.com/package/react-player */}

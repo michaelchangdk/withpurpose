@@ -33,8 +33,6 @@ import { lightMode, darkMode } from "../styledcomponents/themeoptions";
 import { Helmet } from "react-helmet";
 
 const Router = () => {
-  console.log(useSelector((store) => store.authenticated));
-
   // Checks if user is logged in, has access to pages, and if they have set darkmode as their theme
   const loggedin = useSelector((store) => store.authenticated.loggedin);
   const access = useSelector((store) => store.authenticated.access);
@@ -154,17 +152,3 @@ const Router = () => {
 };
 
 export default Router;
-
-
-
-
-
-
-
-// Line 66 
-// const access = useSelector((store) => store.authenticated.access);
-// List of approved weeks - how to implement week access using params? Perhaps better to implement using useEffect on week and module pages
-// const approvedWeekArr = Object.entries(access)
-//   .filter(([key, val]) => key.includes("Week") && val === true)
-//   .map((week) => week[0]);
-// console.log(approvedWeekArr);
