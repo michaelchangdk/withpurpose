@@ -46,11 +46,6 @@ const HeaderAuth = () => {
 
   const logout = () => {
     signOut(auth);
-    // .then(() => {})
-    // .catch((error) => {
-    //   console.log(error);
-    // }
-    // );
     dispatch(authenticated.actions.logout());
     setAnchorEl(null);
     navigate("/");

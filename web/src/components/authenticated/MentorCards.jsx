@@ -41,8 +41,6 @@ const MentorCards = ({ mentor }) => {
       <AspectRatioBoxSquare>
         <AspectRatioChild
           backgroundimage={urlFor(mentor.profilePhoto.asset._ref).url()}
-          // xposition={coverImage.crop.top}
-          // yposition={coverImage.hotspot.y}
         ></AspectRatioChild>
       </AspectRatioBoxSquare>
       <CardContent>
@@ -94,9 +92,6 @@ const MentorCards = ({ mentor }) => {
         elevation={1}
         sx={{
           boxShadow: "none",
-          //   borderTop: "none",
-          //   border: 0,
-          //   borderColor: "secondary.main",
         }}
       >
         <AccordionSummary
